@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="The-tD-sTa">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="DbM-zJ-ZaU">
+            <objects>
+                <viewController id="The-tD-sTa" customClass="ViewController" customModule="Agora_Video_With_ARKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZSi-a1-F93">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBh-3r-iCa">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="H9e-OZ-IBP" appends="YES" id="Hfk-fn-B3V"/>
+                                </connections>
+                            </arscnView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="GBh-3r-iCa" firstAttribute="top" secondItem="ZSi-a1-F93" secondAttribute="top" id="NxA-zf-gvc"/>
+                            <constraint firstAttribute="trailing" secondItem="GBh-3r-iCa" secondAttribute="trailing" id="T5Q-q6-BUK"/>
+                            <constraint firstAttribute="bottom" secondItem="GBh-3r-iCa" secondAttribute="bottom" id="VnT-tR-sD9"/>
+                            <constraint firstItem="GBh-3r-iCa" firstAttribute="leading" secondItem="ZSi-a1-F93" secondAttribute="leading" id="aeB-8q-wU9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vUb-3j-IKK"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="GBh-3r-iCa" id="U8w-TN-TLt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yMd-zn-4H5" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="H9e-OZ-IBP">
+                    <connections>
+                        <action selector="doSceneViewTapped:" destination="The-tD-sTa" id="cQa-h7-xRT"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="138" y="-277"/>
+        </scene>
+    </scenes>
+</document>

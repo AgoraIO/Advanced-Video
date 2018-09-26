@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mXg-Cv-qkX">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Broadcast View Controller-->
+        <scene sceneID="W0v-mn-N7c">
+            <objects>
+                <viewController id="mXg-Cv-qkX" customClass="BroadcastViewController" customModule="Agora_Screen_Sharing_iOS_BroadcastUI" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="85Q-lu-C0Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="bwf-bx-78p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VzB-Lt-PXm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSb-lG-dka">
+                                <rect key="frame" x="16" y="0.0" width="48" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="BzY-Hp-C1j"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="doCancelPressed:" destination="mXg-Cv-qkX" eventType="touchUpInside" id="mVo-Cu-RwC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agora Screen Sharing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ta-r8-1dU">
+                                <rect key="frame" x="76.5" y="52" width="167" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1M-0u-6ZB">
+                                <rect key="frame" x="95.5" y="149" width="129" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="FVp-aG-Ml5"/>
+                                </constraints>
+                                <state key="normal" title="Start Broadcasting"/>
+                                <connections>
+                                    <action selector="doStartPressed:" destination="mXg-Cv-qkX" eventType="touchUpInside" id="8VE-aD-Vxb"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Channel Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JAF-Hz-cp6">
+                                <rect key="frame" x="16" y="89" width="288" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="S89-Z8-KCX"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="mXg-Cv-qkX" id="6do-Az-hQH"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SSb-lG-dka" firstAttribute="top" secondItem="85Q-lu-C0Z" secondAttribute="bottom" id="97R-Sx-ROk"/>
+                            <constraint firstItem="b1M-0u-6ZB" firstAttribute="top" secondItem="JAF-Hz-cp6" secondAttribute="bottom" constant="16" id="BM3-AL-CGi"/>
+                            <constraint firstItem="9Ta-r8-1dU" firstAttribute="top" secondItem="SSb-lG-dka" secondAttribute="bottom" constant="8" id="QM8-lN-HbI"/>
+                            <constraint firstItem="JAF-Hz-cp6" firstAttribute="leading" secondItem="VzB-Lt-PXm" secondAttribute="leading" constant="16" id="YAP-Fu-bm0"/>
+                            <constraint firstItem="JAF-Hz-cp6" firstAttribute="top" secondItem="9Ta-r8-1dU" secondAttribute="bottom" constant="16" id="bXS-xy-KBZ"/>
+                            <constraint firstItem="9Ta-r8-1dU" firstAttribute="centerX" secondItem="VzB-Lt-PXm" secondAttribute="centerX" id="dNf-D3-GuU"/>
+                            <constraint firstItem="b1M-0u-6ZB" firstAttribute="centerX" secondItem="VzB-Lt-PXm" secondAttribute="centerX" id="i7L-Xq-fzh"/>
+                            <constraint firstAttribute="trailing" secondItem="JAF-Hz-cp6" secondAttribute="trailing" constant="16" id="mKr-Rs-lXk"/>
+                            <constraint firstItem="SSb-lG-dka" firstAttribute="leading" secondItem="VzB-Lt-PXm" secondAttribute="leading" constant="16" id="xMo-iG-RLZ"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="320"/>
+                    <connections>
+                        <outlet property="channelNameTextField" destination="JAF-Hz-cp6" id="ro1-X5-NQu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0TZ-4i-5h8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="106" y="148"/>
+        </scene>
+    </scenes>
+</document>

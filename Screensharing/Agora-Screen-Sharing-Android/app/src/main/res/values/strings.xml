@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Agora Screen Sharing</string>
+
+    <!-- PLEASE KEEP THIS App ID IN SAFE PLACE -->
+    <!-- Get your own App ID at https://dashboard.agora.io/ -->
+    <!-- After you entered the App ID, remove <##> outside of Your App ID -->
+    <!-- For formal released project, please use Dynamic Key
+        http://docs.agora.io/en/user_guide/Component_and_Others/Dynamic_Key_User_Guide.html -->
+    <!-- Tutorial Step 1 -->
+    <string name="agora_app_id"><#YOUR APP ID#></string>
+
+    <string name="label_hello_agora">Hello, welcome</string>
+    <string name="label_start_sharing_your_screen">Start Sharing your screen</string>
+    <string name="label_stop_sharing_your_screen">Stop Sharing your screen</string>
+
+    <string name="label_channel_info">Channel: %s</string>
+</resources>

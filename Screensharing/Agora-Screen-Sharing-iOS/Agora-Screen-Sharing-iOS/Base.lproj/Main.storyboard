@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Agora_Screen_Sharing_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fX6-5T-gYX" customClass="SKView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5w-47-Fh1">
+                                <rect key="frame" x="327" y="619" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="mjs-7a-aI8"/>
+                                    <constraint firstAttribute="height" constant="40" id="rCi-gC-Pjd"/>
+                                </constraints>
+                                <state key="normal" image="btn_join"/>
+                                <connections>
+                                    <action selector="doBroadcastPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="agk-XU-B6y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="q5w-47-Fh1" secondAttribute="trailing" constant="8" id="1dJ-v1-QJc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="q5w-47-Fh1" secondAttribute="bottom" constant="8" id="2WQ-Sa-0Pe"/>
+                            <constraint firstAttribute="trailing" secondItem="fX6-5T-gYX" secondAttribute="trailing" id="Dhi-hd-Fv2"/>
+                            <constraint firstItem="fX6-5T-gYX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="UGR-Um-Qme"/>
+                            <constraint firstAttribute="bottom" secondItem="fX6-5T-gYX" secondAttribute="bottom" id="l63-Di-Xgd"/>
+                            <constraint firstItem="fX6-5T-gYX" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="wP0-3S-ERB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="broadcastButton" destination="q5w-47-Fh1" id="coj-ty-Nak"/>
+                        <outlet property="sceneView" destination="fX6-5T-gYX" id="BTe-Lb-ih1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="594" y="33"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="btn_join" width="40" height="40"/>
+    </resources>
+</document>
