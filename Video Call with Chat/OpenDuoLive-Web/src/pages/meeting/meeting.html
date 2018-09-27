@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Agora Broadcast & Chat</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+    <div id="media-container" class="d-flex justify-content-center">
+        <div class="container-fluid" style="height: 100%">
+            <div class="row" style="height: 75%">
+                <div class="col video-container" dual="main"></div>
+            </div>
+            <div class="row" style="height: 25%">
+                <div class="col video-container" dual="sub"></div>
+                <div class="col video-container" dual="sub"></div>
+                <div class="col video-container" dual="sub"></div>
+                <div class="col video-container" dual="sub"></div>
+            </div>
+        </div>
+    </div>
+    <div id="chat-container" class="d-flex justify-content-center">
+        <ul class="list-group chat-list">
+        </ul>
+        <div class="input-group input-area">
+            <input id="chat-input" type="text" class="form-control" aria-label="Text input with dropdown button">
+            <div class="input-group-append">
+                <button id="send_btn" class="btn btn-primary" type="button">Send</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

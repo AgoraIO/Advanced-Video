@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Agora Broadcast & Chat</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body class="d-flex align-items-center">
+    <div class="container text-center middle-box login card">
+        <div>
+            <img id="logo" class="mb-3" src="../../assets/images/logo.png" alt="Logo">
+        </div>
+        <h3>Agora Live Broadcast <span class="version">v1.0.0</span></h3>
+        <p>Powering Real-Time Communications</p>
+
+        <form action="meeting.html" method="GET">
+            <div class="container-fluid">
+                <div class="form-group row center">
+                    <div class="col">
+                        <input id="account-name" type="text" class="form-control" placeholder="Enter your account here">
+                        <div class="invalid-feedback">
+                            Valid account should be a non-empty string value.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row center">
+                    <div class="col">
+                        <input id="channel-name" type="text" class="form-control" placeholder="Enter your channel here">
+                        <div class="invalid-feedback">
+                            Valid channel should be a non-empty string value.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row center">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="inlineRadio2" value="audience">
+                        <label class="form-check-label" for="inlineRadio2">Audience</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="broadcaster">
+                        <label class="form-check-label" for="inlineRadio1">Broadcaster</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <button class="btn btn-warning join-button btn-block btn-raised" id="join-meeting">
+                        <span class="fa fa-sign-in">Join</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Footer -->
+        <footer id="footer" class="mb-3">
+            <small>
+                <p>© Copyright Agora.io ICP证xxx号</p>
+            </small>
+        </footer>
+    </div>
+
+</body>
+
+</html>

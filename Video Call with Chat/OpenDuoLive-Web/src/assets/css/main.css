@@ -1,0 +1,123 @@
+html,
+body{
+    height:100%;
+}
+
+
+body{
+    font-family: Verdana, Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    background-image: url("../images/overlay.png"), -moz-linear-gradient(0deg, rgba(118, 224, 200, 0.5) 5%, rgba(0, 158, 235, 0.35)), url("../images/bg.jpg");
+    background-image: url("../images/overlay.png"), -webkit-linear-gradient(0deg, rgba(118, 224, 200, 0.5) 5%, rgba(0, 158, 235, 0.35)), url("../images/bg.jpg");
+    background-image: url("../images/overlay.png"), -ms-linear-gradient(0deg, rgba(118, 224, 200, 0.5) 5%, rgba(0, 158, 235, 0.35)), url("../images/bg.jpg");
+    background-image: url("../images/overlay.png"), linear-gradient(0deg, rgba(118, 224, 200, 0.5) 5%, rgba(0, 158, 235, 0.35)), url("../images/bg.jpg");
+    background-repeat: repeat, no-repeat, no-repeat;
+    background-size: 100px 100px, cover, cover;
+    background-position: top left, center center, bottom center;
+    background-attachment: fixed, fixed, fixed;
+}
+
+.row.center {
+  justify-content: center;
+}
+
+body>#snackbar-container{
+  align-items: flex-start;
+  bottom: 10px;
+}
+
+.middle-box{
+    max-width: 400px;
+    z-index: 100;
+    margin: 0 auto;
+    /* padding-top: 40px; */
+    margin-bottom: 100px;
+}
+
+.login{
+    padding: 4.5em 3em 3em 3em ;
+    background: #ffffff;
+    border-radius: 4px;
+    cursor: default;
+    opacity: 0.95;
+    text-align: center;
+    -moz-transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -moz-transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -moz-transition: opacity 1s ease, -moz-transform 1s ease;
+    -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+    -ms-transition: opacity 1s ease, -ms-transform 1s ease;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.callingModal .modal-dialog{
+  width: 200px;
+}
+
+.calledModal .modal-dialog{
+  width: 250px;
+}
+
+
+.modal-dialog .modal-content .modal-footer{
+  padding: 8px;
+}
+
+.side-stream {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  border: 1px solid white;
+  z-index: 1;
+}
+
+.toolbar{
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+p {
+    margin: 0 0 10px;
+    font-size: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 100;
+}
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 16px;
+}
+h4 {
+  font-size: 14px;
+}
+h5 {
+  font-size: 12px;
+}
+h6 {
+  font-size: 10px;
+}
+h3,
+h4,
+h5 {
+  margin-top: 5px;
+  font-weight: 600;
+}

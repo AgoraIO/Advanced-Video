@@ -1,0 +1,26 @@
+#media-container{
+  position:relative;
+  padding: 40px 0 0 0;
+  max-width: 640px;
+  margin: 0 auto;
+  height: 50%;
+}
+
+#chat-container{
+  position:relative;
+  padding: 40px 0 0 0;
+  max-width: 640px;
+  margin: 0 auto;
+  height: 50%;
+  background: white;
+}
+
+.video-container{
+  overflow: hidden;
+}
+
+.input-area{
+  position: absolute;
+  padding: 5px 10px;
+  bottom: 0;
+}
