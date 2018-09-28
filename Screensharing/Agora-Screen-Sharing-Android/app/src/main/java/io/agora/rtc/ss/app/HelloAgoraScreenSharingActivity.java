@@ -217,7 +217,8 @@ public class HelloAgoraScreenSharingActivity extends Activity {
             tv.setText(getString(R.string.label_channel_info, channel));
 
             button.setText(R.string.label_stop_sharing_your_screen);
-
+            mRtcEngine.muteAllRemoteAudioStreams(true);
+            mRtcEngine.muteAllRemoteVideoStreams(true);
             mRtcEngine.joinChannel(null, channel, "", 0);
         } else {
             TextView tv = (TextView) findViewById(R.id.channel_name_info);

@@ -3,7 +3,15 @@
 
 *Read this in other languages: [English](README.md)*
 
-这个开源示例项目演示了如何用 Agora 视频 SDK 实现屏幕共享。
+这个开源示例项目演示了如何用 Agora 视频 SDK 实现屏幕共享,默认我们 SDK 是会订阅远端流，只是不显示，但这样就会产生额外的计费
+考虑到屏幕共享的引用场景大多数并不需要观看远端的音视频流，因此在本例中joinchannel前加入如下代码
+
+```
+mRtcEngine.muteAllRemoteAudioStreams(true);
+mRtcEngine.muteAllRemoteVideoStreams(true);
+```
+避免接收远端的音视频流数据。
+
 
 在这个示例项目中包含了以下功能：
 
