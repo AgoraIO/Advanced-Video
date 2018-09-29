@@ -13,7 +13,6 @@ import ReplayKit
 class MainViewController: UIViewController {
 
     @IBOutlet weak var sceneView: SKView!
-    @IBOutlet weak var broadcastButton: UIButton!
     
     fileprivate weak var broadcastActivityVC: RPBroadcastActivityViewController?
     fileprivate weak var broadcastController: RPBroadcastController?
@@ -21,8 +20,33 @@ class MainViewController: UIViewController {
     
     private var isBroadcasting = false {
         didSet {
-            broadcastButton?.setImage(isBroadcasting ? #imageLiteral(resourceName: "btn_broadcasting") : #imageLiteral(resourceName: "btn_join"), for: .normal)
+            if let button = broadcastButton as? UIButton {
+                button.setImage(isBroadcasting ? #imageLiteral(resourceName: "btn_broadcasting") : #imageLiteral(resourceName: "btn_join"), for: .normal)
+            }
         }
+    }
+    
+    private lazy var broadcastButton: UIView! = {
+        if #available(iOS 12.0, *) {
+            let frame = CGRect(x: 0, y:view.frame.size.height - 60, width: 60, height: 60)
+            let systemBroadcastPicker = RPSystemBroadcastPickerView(frame: frame)
+            systemBroadcastPicker.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
+            systemBroadcastPicker.preferredExtension = Bundle.main.bundleIdentifier! + ".Broadcast"
+            return systemBroadcastPicker
+        }
+        else {
+            let appBroadcastButton = UIButton(type: .custom)
+            appBroadcastButton.frame = CGRect(x: 10, y:view.frame.size.height - 50, width: 40, height: 40)
+            appBroadcastButton.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
+            appBroadcastButton.setImage(#imageLiteral(resourceName: "btn_join"), for: .normal)
+            appBroadcastButton.addTarget(self, action: #selector(doBroadcastPressed), for: .touchUpInside)
+            return appBroadcastButton
+        }
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(broadcastButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +67,7 @@ class MainViewController: UIViewController {
         sceneView.presentScene(scene)
     }
     
-    @IBAction func doBroadcastPressed(_ sender: UIButton) {
+    @objc func doBroadcastPressed(_ sender: UIButton) {
         isBroadcasting = !isBroadcasting
         
         if isBroadcasting {
