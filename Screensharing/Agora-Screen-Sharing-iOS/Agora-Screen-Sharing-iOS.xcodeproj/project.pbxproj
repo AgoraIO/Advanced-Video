@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		074843A21F976DC300AA7804 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074843A11F976DC200AA7804 /* AgoraRtcEngineKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		07A67F331F306F6C0051AD0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A67F321F306F6C0051AD0D /* AppDelegate.swift */; };
-		07A67F351F306F6C0051AD0D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A67F341F306F6C0051AD0D /* MainViewController.swift */; };
+		07A67F351F306F6C0051AD0D /* BroadcastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A67F341F306F6C0051AD0D /* BroadcastViewController.swift */; };
 		07A67F381F306F6C0051AD0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07A67F361F306F6C0051AD0D /* Main.storyboard */; };
 		07A67F3A1F306F6C0051AD0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07A67F391F306F6C0051AD0D /* Assets.xcassets */; };
 		07A67F3D1F306F6C0051AD0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07A67F3B1F306F6C0051AD0D /* LaunchScreen.storyboard */; };
@@ -35,6 +34,22 @@
 		701EA75C2153BE3F00644CAA /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701EA75B2153BE3F00644CAA /* Accelerate.framework */; };
 		702385401F974CD400AC60AA /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A67FDD1F3073CD0051AD0D /* KeyCenter.swift */; };
 		70AE340D1FDFBCC000B05F34 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */; };
+		70DC1D4D215F34DF000CAD6B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D4C215F34DF000CAD6B /* MainViewController.swift */; };
+		70DC1D4F215F34FC000CAD6B /* AudienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D4E215F34FC000CAD6B /* AudienceViewController.swift */; };
+		70DC1D51215F3515000CAD6B /* ChannelNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D50215F3515000CAD6B /* ChannelNameViewController.swift */; };
+		70DC1D54215F5019000CAD6B /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D52215F5019000CAD6B /* VideoSession.swift */; };
+		70DC1D55215F5019000CAD6B /* VideoViewLayouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D53215F5019000CAD6B /* VideoViewLayouter.swift */; };
+		70DC1D57215F557B000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */; };
+		70DC1D58215F5592000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */; };
+		70DC1D59215F55A7000CAD6B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */; };
+		70DC1D5A215F55AB000CAD6B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701EA75B2153BE3F00644CAA /* Accelerate.framework */; };
+		70DC1D5B215F55B1000CAD6B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91AC1F308E8E006AF490 /* libc++.tbd */; };
+		70DC1D5C215F55B8000CAD6B /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A67FED1F3078AA0051AD0D /* libresolv.tbd */; };
+		70DC1D5D215F55C7000CAD6B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91A81F308E78006AF490 /* AVFoundation.framework */; };
+		70DC1D5E215F55CE000CAD6B /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A67FE71F30783F0051AD0D /* VideoToolbox.framework */; };
+		70DC1D5F215F55E9000CAD6B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A67FEB1F3078570051AD0D /* CoreTelephony.framework */; };
+		70DC1D60215F562F000CAD6B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91AA1F308E85006AF490 /* CoreMedia.framework */; };
+		70DC1D61215F5646000CAD6B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A67FE91F3078430051AD0D /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,11 +85,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		074843971F97672900AA7804 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
-		074843A11F976DC200AA7804 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		07A67F2F1F306F6C0051AD0D /* Agora-Screen-Sharing-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agora-Screen-Sharing-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07A67F321F306F6C0051AD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07A67F341F306F6C0051AD0D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		07A67F341F306F6C0051AD0D /* BroadcastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastViewController.swift; sourceTree = "<group>"; };
 		07A67F371F306F6C0051AD0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07A67F391F306F6C0051AD0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07A67F3C1F306F6C0051AD0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -104,6 +117,12 @@
 		07AA91AC1F308E8E006AF490 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		701EA75B2153BE3F00644CAA /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		70DC1D4C215F34DF000CAD6B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		70DC1D4E215F34FC000CAD6B /* AudienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudienceViewController.swift; sourceTree = "<group>"; };
+		70DC1D50215F3515000CAD6B /* ChannelNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelNameViewController.swift; sourceTree = "<group>"; };
+		70DC1D52215F5019000CAD6B /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
+		70DC1D53215F5019000CAD6B /* VideoViewLayouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewLayouter.swift; sourceTree = "<group>"; };
+		70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +130,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70DC1D57215F557B000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */,
+				70DC1D5A215F55AB000CAD6B /* Accelerate.framework in Frameworks */,
+				70DC1D61215F5646000CAD6B /* AudioToolbox.framework in Frameworks */,
+				70DC1D5D215F55C7000CAD6B /* AVFoundation.framework in Frameworks */,
+				70DC1D60215F562F000CAD6B /* CoreMedia.framework in Frameworks */,
+				70DC1D5F215F55E9000CAD6B /* CoreTelephony.framework in Frameworks */,
+				70DC1D59215F55A7000CAD6B /* SystemConfiguration.framework in Frameworks */,
+				70DC1D5E215F55CE000CAD6B /* VideoToolbox.framework in Frameworks */,
+				70DC1D5C215F55B8000CAD6B /* libresolv.tbd in Frameworks */,
+				70DC1D5B215F55B1000CAD6B /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				074843A21F976DC300AA7804 /* AgoraRtcEngineKit.framework in Frameworks */,
+				70DC1D58215F5592000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */,
 				701EA75C2153BE3F00644CAA /* Accelerate.framework in Frameworks */,
 				70AE340D1FDFBCC000B05F34 /* SystemConfiguration.framework in Frameworks */,
 				07AA91AD1F308E8E006AF490 /* libc++.tbd in Frameworks */,
@@ -168,7 +197,12 @@
 		07A67F311F306F6C0051AD0D /* Agora-Screen-Sharing-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				07A67F341F306F6C0051AD0D /* MainViewController.swift */,
+				70DC1D4C215F34DF000CAD6B /* MainViewController.swift */,
+				07A67F341F306F6C0051AD0D /* BroadcastViewController.swift */,
+				70DC1D50215F3515000CAD6B /* ChannelNameViewController.swift */,
+				70DC1D4E215F34FC000CAD6B /* AudienceViewController.swift */,
+				70DC1D52215F5019000CAD6B /* VideoSession.swift */,
+				70DC1D53215F5019000CAD6B /* VideoViewLayouter.swift */,
 				07A67FDF1F3075420051AD0D /* GameScene.swift */,
 				07A67F361F306F6C0051AD0D /* Main.storyboard */,
 				07A67F391F306F6C0051AD0D /* Assets.xcassets */,
@@ -182,8 +216,8 @@
 		07A67F4F1F3070A20051AD0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */,
 				701EA75B2153BE3F00644CAA /* Accelerate.framework */,
-				074843971F97672900AA7804 /* libstdc++.tbd */,
 				70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */,
 				07AA91AC1F308E8E006AF490 /* libc++.tbd */,
 				07AA91AA1F308E85006AF490 /* CoreMedia.framework */,
@@ -206,7 +240,6 @@
 				07A67FD81F3073170051AD0D /* AgoraAudioProcessing.h */,
 				07A67FD91F3073170051AD0D /* AgoraAudioProcessing.mm */,
 				07A67FDD1F3073CD0051AD0D /* KeyCenter.swift */,
-				074843A11F976DC200AA7804 /* AgoraRtcEngineKit.framework */,
 				07A67FDA1F3073170051AD0D /* AgoraAudioCriticalSection.h */,
 				07A67FB91F3071420051AD0D /* Info.plist */,
 				07A67FD61F3073160051AD0D /* Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h */,
@@ -374,10 +407,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70DC1D55215F5019000CAD6B /* VideoViewLayouter.swift in Sources */,
+				70DC1D54215F5019000CAD6B /* VideoSession.swift in Sources */,
 				702385401F974CD400AC60AA /* KeyCenter.swift in Sources */,
 				07A67FE01F3075420051AD0D /* GameScene.swift in Sources */,
-				07A67F351F306F6C0051AD0D /* MainViewController.swift in Sources */,
+				70DC1D4F215F34FC000CAD6B /* AudienceViewController.swift in Sources */,
+				07A67F351F306F6C0051AD0D /* BroadcastViewController.swift in Sources */,
+				70DC1D51215F3515000CAD6B /* ChannelNameViewController.swift in Sources */,
 				07A67F331F306F6C0051AD0D /* AppDelegate.swift in Sources */,
+				70DC1D4D215F34DF000CAD6B /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,7 +604,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -574,7 +612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ca519d31-ffd6-4297-8f8e-65cff14bed4e";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2017;
+				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -592,7 +630,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -620,7 +658,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.BroadcastUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "dc253ab3-71e4-40a3-a57c-a3a763407202";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2017;
+				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -659,7 +697,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-Broadcast/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -667,7 +705,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.Broadcast";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ca519d31-ffd6-4297-8f8e-65cff14bed4e";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2017;
+				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Screen-Sharing-iOS-Broadcast/Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -687,7 +725,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-Broadcast/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

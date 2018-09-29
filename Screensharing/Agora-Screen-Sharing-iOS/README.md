@@ -37,7 +37,7 @@ To build and run the sample application, you must obtain an app ID:
     static let AppId: String = <#Your App Id#>
 	```
 
-2. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the `libs/AograRtcEngineKit.framework` file from the SDK folder into the sample application's `Agora-Screen-Sharing-iOS-Broadcast` folder.
+2. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the `libs/AograRtcEngineKit.framework` file from the SDK folder into the sample project folder.
 			
 3. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied, or your project will not run.
 
