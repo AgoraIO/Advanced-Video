@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Agora-Plugin-Raw-Data-API-Android-Java</string>
+
+    <string name="agora_app_id"><#YOUR APP ID#></string>
+</resources>

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Ctrl">
+      <UniqueIdentifier>{f4eb5963-fdaf-41b8-bded-82a1d38b9b48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilc">
+      <UniqueIdentifier>{d0b9c329-0d2a-4570-8299-7d9798a7f4f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AgoraMediaSDK">
+      <UniqueIdentifier>{257f8764-3fdd-4eaa-9995-338e8db8df5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AgoraHook">
+      <UniqueIdentifier>{409902fd-d8e8-4ed9-ba1a-8dffab76bf7f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AgoraHooking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraHookingDlg.h">
+      <Filter>Ctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="AssistantBox.h">
+      <Filter>Ctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="AGButton.h">
+      <Filter>Ctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="commonFun.h">
+      <Filter>Utilc</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Utilc</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraObject.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="AGEngineEventHandler.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraCameraManager.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="AGEventDef.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="AGResourceVisitor.h">
+      <Filter>Utilc</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicKey5.h">
+      <Filter>Utilc</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraAudInputManager.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraPlayoutManager.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendAudioFrameObserver.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="CHookPlayerInstance.h">
+      <Filter>AgoraHook</Filter>
+    </ClInclude>
+    <ClInclude Include="CicleBuffer.h">
+      <Filter>Utilc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AgoraHooking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AGButton.cpp">
+      <Filter>Ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraHookingDlg.cpp">
+      <Filter>Ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="AssistantBox.cpp">
+      <Filter>Ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="commonFun.cpp">
+      <Filter>Utilc</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Utilc</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraObject.cpp">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="AGEngineEventHandler.cpp">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraCameraManager.cpp">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="AGResourceVisitor.cpp">
+      <Filter>Utilc</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraAudInputManager.cpp">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraPlayoutManager.cpp">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendAudioFrameObserver.cpp">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="CHookPlayerInstance.cpp">
+      <Filter>AgoraHook</Filter>
+    </ClCompile>
+    <ClCompile Include="CicleBuffer.cpp">
+      <Filter>Utilc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AgoraHooking.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\AgoraHooking.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\AgoraHooking.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\IDB_BTNCLOSE.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\IDB_BTNMAX.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\IDB_BTNMIN.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\IDB_DLG_LOGO.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\IDB_DLG_MAIN.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
