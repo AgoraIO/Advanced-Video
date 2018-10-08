@@ -4,6 +4,8 @@ import { EventEmitter } from 'events';
 class SignalingClient {
     constructor(appid) {
         this.signal = Signal(appid);
+        //turn on logs
+        this.signal.setDoLog(true);
         this.call_holding = null;
         this.call_active = null;
         this.channel = null;
@@ -16,7 +18,8 @@ class SignalingClient {
         return new Promise((resolve, reject) => {
             Logger.log('Logging in ' + account);
             //starts login
-            let session = this.signal.login(account, "_no_need_token");
+            // set reconnect attempt to 10 times, reconnect time to 5 seconds
+            let session = this.signal.login(account, "_no_need_token", 10, 5);
 
             //if success
             session.onLoginSuccess = uid => {
