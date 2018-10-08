@@ -147,7 +147,7 @@ public class HelloAgoraScreenSharingActivity extends Activity {
 
             mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, true);
 
-            mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER, null);
+            mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
         }
     }
 
