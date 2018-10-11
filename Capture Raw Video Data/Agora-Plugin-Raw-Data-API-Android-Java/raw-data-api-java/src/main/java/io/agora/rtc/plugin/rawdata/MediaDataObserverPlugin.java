@@ -150,30 +150,46 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     @Override
-    public void onRecordAudioFrame(int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onRecordAudioFrame(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+        byte[] buf = new byte[bufferLength];
+        byteBufferAudioRecord.get(buf);
+        byteBufferAudioRecord.flip();
+
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onRecordAudioFrame(byteBufferAudioRecord.array(), videoType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onRecordAudioFrame(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
     }
 
     @Override
-    public void onPlaybackAudioFrame(int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onPlaybackAudioFrame(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+        byte[] buf = new byte[bufferLength];
+        byteBufferAudioPlay.get(buf);
+        byteBufferAudioPlay.flip();
+
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onPlaybackAudioFrame(byteBufferAudioPlay.array(), videoType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onPlaybackAudioFrame(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
     }
 
     @Override
-    public void onPlaybackAudioFrameBeforeMixing(int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onPlaybackAudioFrameBeforeMixing(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+        byte[] buf = new byte[bufferLength];
+        byteBufferBeforeAudioMix.get(buf);
+        byteBufferBeforeAudioMix.flip();
+
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onPlaybackAudioFrameBeforeMixing(byteBufferBeforeAudioMix.array(), videoType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onPlaybackAudioFrameBeforeMixing(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
     }
 
     @Override
-    public void onMixedAudioFrame(int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onMixedAudioFrame(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+        byte[] buf = new byte[bufferLength];
+        byteBufferAudioMix.get(buf);
+        byteBufferAudioMix.flip();
+
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onMixedAudioFrame(byteBufferAudioMix.array(), videoType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onMixedAudioFrame(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
     }
 

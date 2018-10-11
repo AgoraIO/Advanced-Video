@@ -300,24 +300,24 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
     }
 
     @Override
-    public void onRecordAudioFrame(byte[] data, int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onRecordAudioFrame(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         Log.i(LOG_TAG, "onRecordAudioFrame samples :" + samples + " bytesPerSample:" + bytesPerSample + " channels:" + channels + " samplesPerSec:" + samplesPerSec);
 
     }
 
     @Override
-    public void onPlaybackAudioFrame(byte[] data, int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onPlaybackAudioFrame(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         Log.i(LOG_TAG, "onPlaybackAudioFrame samples :" + samples + " bytesPerSample:" + bytesPerSample + " channels:" + channels + " samplesPerSec:" + samplesPerSec + " bufferLength: " + bufferLength);
 
     }
 
     @Override
-    public void onPlaybackAudioFrameBeforeMixing(byte[] data, int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onPlaybackAudioFrameBeforeMixing(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
 
     }
 
     @Override
-    public void onMixedAudioFrame(byte[] data, int videoType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onMixedAudioFrame(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         Log.i(LOG_TAG, "onMixedAudioFrame samples :" + samples + " bytesPerSample:" + bytesPerSample + " channels:" + channels + " samplesPerSec:" + samplesPerSec + " bufferLength: " + bufferLength);
     }
 
