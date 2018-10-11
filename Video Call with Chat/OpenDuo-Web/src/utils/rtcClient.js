@@ -9,7 +9,7 @@ class RtcClient {
         this.localStream = null;
         this.uid = null;
         this.remoteStreams = [];
-        this.videoProfile = "720p_6";
+        this.videoProfile = "720p_1";
         this.dynamicKey = null;
         this.published = false;
         this.muted = false;
@@ -44,6 +44,8 @@ class RtcClient {
                                 client.publish(localStream);
                             }
                             resolve(localStream);
+                        }, err => {
+                            reject(err)
                         });
                     }, err => {
                         reject(err);
