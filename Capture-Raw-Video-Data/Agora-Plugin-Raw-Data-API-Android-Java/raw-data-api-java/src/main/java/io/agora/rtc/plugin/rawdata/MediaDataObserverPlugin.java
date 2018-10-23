@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -131,17 +132,18 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     public void onRenderVideoFrame(int uid, int frameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
 
         for (MediaDataVideoObserver observer : videoObserverList) {
-            for (int i = 0; i < decodeBufferList.size(); i++) {
-                if (decodeBufferList.get(i).getUid() == uid) {
-
+            Iterator<DecodeDataBuffer> it = decodeBufferList.iterator();
+            while (it.hasNext()) {
+                DecodeDataBuffer tmp = it.next();
+                if (tmp.getUid() == uid) {
                     byte[] buf = new byte[bufferLength];
-                    decodeBufferList.get(i).getByteBuffer().get(buf);
-                    decodeBufferList.get(i).getByteBuffer().flip();
+                    tmp.getByteBuffer().get(buf);
+                    tmp.getByteBuffer().flip();
 
                     observer.onRenderVideoFrame(uid, buf, frameType, width, height, bufferLength, yStride, uStride, vStride, rotation, renderTimeMs);
 
-                    decodeBufferList.get(i).getByteBuffer().put(buf);
-                    decodeBufferList.get(i).getByteBuffer().flip();
+                    tmp.getByteBuffer().put(buf);
+                    tmp.getByteBuffer().flip();
 
                     if (beRenderVideoShot) {
                         if (uid == renderVideoShotUid) {
@@ -151,7 +153,6 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                         }
                     }
                 }
-
             }
         }
     }
