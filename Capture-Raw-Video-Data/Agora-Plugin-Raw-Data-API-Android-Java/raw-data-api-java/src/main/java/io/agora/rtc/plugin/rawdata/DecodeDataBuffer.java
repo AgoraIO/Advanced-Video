@@ -7,12 +7,10 @@ import java.nio.ByteBuffer;
  */
 
 public class DecodeDataBuffer {
-
     private int uid;
     private ByteBuffer byteBuffer;
 
     public DecodeDataBuffer(int uid, ByteBuffer byteBuffer) {
-
         this.uid = uid;
         this.byteBuffer = byteBuffer;
     }

@@ -13,24 +13,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 /**
  * Created by yt on 2018/2/1/001.
  */
-
 public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallback {
 
-    private List<MediaDataVideoObserver> videoObserverList = new ArrayList<>();
-    private List<MediaDataAudioObserver> audioObserverList = new ArrayList<>();
-    public ByteBuffer byteBufferCapture = ByteBuffer.allocateDirect(1382400);//720P
-    public ByteBuffer byteBufferRender = ByteBuffer.allocateDirect(1382400);
-    public ByteBuffer byteBufferAudioRecord = ByteBuffer.allocateDirect(2048);
-    public ByteBuffer byteBufferAudioPlay = ByteBuffer.allocateDirect(2048);
-    public ByteBuffer byteBufferBeforeAudioMix = ByteBuffer.allocateDirect(2048);
-    public ByteBuffer byteBufferAudioMix = ByteBuffer.allocateDirect(2048);
-    private List<DecodeDataBuffer> decodeBufferList = new ArrayList<>();
+    private final List<MediaDataVideoObserver> videoObserverList = new ArrayList<>();
+    private final List<MediaDataAudioObserver> audioObserverList = new ArrayList<>();
+
+    private static final int VIDEO_DEFAULT_BUFFER_SIZE = 1920 * 720; // 720P
+    private static final int AUDIO_DEFAULT_BUFFER_SIZE = 2048;
+
+    public ByteBuffer byteBufferCapture = ByteBuffer.allocateDirect(VIDEO_DEFAULT_BUFFER_SIZE);
+    public ByteBuffer byteBufferRender = ByteBuffer.allocateDirect(VIDEO_DEFAULT_BUFFER_SIZE);
+    public ByteBuffer byteBufferAudioRecord = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
+    public ByteBuffer byteBufferAudioPlay = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
+    public ByteBuffer byteBufferBeforeAudioMix = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
+    public ByteBuffer byteBufferAudioMix = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
+
+    private final List<DecodeDataBuffer> decodeBufferList = new ArrayList<>();
 
     private static MediaDataObserverPlugin myAgent = null;
+
     private boolean beCaptureVideoShot = false;
     private boolean beRenderVideoShot = false;
     private String captureFilePath = null;
@@ -43,7 +47,6 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                 if (myAgent == null)
                     myAgent = new MediaDataObserverPlugin();
             }
-
         }
         return myAgent;
     }
@@ -55,6 +58,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     public void removeVideoObserver(MediaDataVideoObserver observer) {
         videoObserverList.remove(observer);
     }
+
     public void addAudioObserver(MediaDataAudioObserver observer) {
         audioObserverList.add(observer);
     }
@@ -63,21 +67,21 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         audioObserverList.remove(observer);
     }
 
-    public void saveCaptureVideoShot(String filePath) {
+    public void saveCaptureVideoSnapshot(String filePath) {
         beCaptureVideoShot = true;
         captureFilePath = filePath;
     }
 
-    public void saveRenderVideoShot(String filePath, int uid) {
+    public void saveRenderVideoSnapshot(String filePath, int uid) {
         beRenderVideoShot = true;
         renderFilePath = filePath;
         renderVideoShotUid = uid;
     }
 
     public void addDecodeBuffer(int uid, int bufferLength) {
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(bufferLength);//720P
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(bufferLength); // 720P
         decodeBufferList.add(new DecodeDataBuffer(uid, byteBuffer));
-        MediaPreProcessing.setVideoDecodeByteBUffer(uid, byteBuffer);
+        MediaPreProcessing.setVideoDecodeByteBuffer(uid, byteBuffer);
     }
 
     public void removeDecodeBuffer(int uid) {
@@ -86,7 +90,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
             decodeBufferList.remove(index);
         }
 
-        MediaPreProcessing.setVideoDecodeByteBUffer(uid, null);
+        MediaPreProcessing.setVideoDecodeByteBuffer(uid, null);
     }
 
     private int getDecodeIndex(int uid) {
@@ -99,22 +103,19 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     public void removeAllBuffer() {
-
         decodeBufferList.removeAll(decodeBufferList);
         releaseBuffer();
-
     }
 
-
     @Override
-    public void onCaptureVideoFrame(int uid, int frameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
+    public void onCaptureVideoFrame(int videoFrameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
 
         byte[] buf = new byte[bufferLength];
         byteBufferCapture.get(buf);
         byteBufferCapture.flip();
 
         for (MediaDataVideoObserver observer : videoObserverList) {
-            observer.onCaptureVideoFrame(buf, frameType, width, height, bufferLength, yStride, uStride, vStride, rotation, renderTimeMs);
+            observer.onCaptureVideoFrame(buf, videoFrameType, width, height, bufferLength, yStride, uStride, vStride, rotation, renderTimeMs);
         }
 
         byteBufferCapture.put(buf);
@@ -123,13 +124,12 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         if (beCaptureVideoShot) {
             beCaptureVideoShot = false;
 
-            getVideoShot(width, height, bufferLength, buf, captureFilePath);
-
+            getVideoSnapshot(width, height, bufferLength, buf, captureFilePath);
         }
     }
 
     @Override
-    public void onRenderVideoFrame(int uid, int frameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
+    public void onRenderVideoFrame(int uid, int videoFrameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
 
         for (MediaDataVideoObserver observer : videoObserverList) {
             Iterator<DecodeDataBuffer> it = decodeBufferList.iterator();
@@ -140,7 +140,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                     tmp.getByteBuffer().get(buf);
                     tmp.getByteBuffer().flip();
 
-                    observer.onRenderVideoFrame(uid, buf, frameType, width, height, bufferLength, yStride, uStride, vStride, rotation, renderTimeMs);
+                    observer.onRenderVideoFrame(uid, buf, videoFrameType, width, height, bufferLength, yStride, uStride, vStride, rotation, renderTimeMs);
 
                     tmp.getByteBuffer().put(buf);
                     tmp.getByteBuffer().flip();
@@ -149,7 +149,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                         if (uid == renderVideoShotUid) {
                             beRenderVideoShot = false;
 
-                            getVideoShot(width, height, bufferLength, buf, renderFilePath);
+                            getVideoSnapshot(width, height, bufferLength, buf, renderFilePath);
                         }
                     }
                 }
@@ -158,13 +158,13 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     @Override
-    public void onRecordAudioFrame(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onRecordAudioFrame(int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
         byteBufferAudioRecord.get(buf);
         byteBufferAudioRecord.flip();
 
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onRecordAudioFrame(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onRecordAudioFrame(buf, audioFrameType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
 
         byteBufferAudioRecord.put(buf);
@@ -172,13 +172,13 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     @Override
-    public void onPlaybackAudioFrame(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onPlaybackAudioFrame(int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
         byteBufferAudioPlay.get(buf);
         byteBufferAudioPlay.flip();
 
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onPlaybackAudioFrame(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onPlaybackAudioFrame(buf, audioFrameType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
 
         byteBufferAudioPlay.put(buf);
@@ -186,13 +186,13 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     @Override
-    public void onPlaybackAudioFrameBeforeMixing(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onPlaybackAudioFrameBeforeMixing(int uid, int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
         byteBufferBeforeAudioMix.get(buf);
         byteBufferBeforeAudioMix.flip();
 
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onPlaybackAudioFrameBeforeMixing(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onPlaybackAudioFrameBeforeMixing(uid, buf, audioFrameType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
 
         byteBufferBeforeAudioMix.put(buf);
@@ -200,20 +200,20 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     @Override
-    public void onMixedAudioFrame(int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+    public void onMixedAudioFrame(int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
         byteBufferAudioMix.get(buf);
         byteBufferAudioMix.flip();
 
         for (MediaDataAudioObserver observer : audioObserverList) {
-            observer.onMixedAudioFrame(buf, audioType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
+            observer.onMixedAudioFrame(buf, audioFrameType, samples, bytesPerSample, channels, samplesPerSec, renderTimeMs, bufferLength);
         }
 
         byteBufferAudioMix.put(buf);
         byteBufferAudioMix.flip();
     }
 
-    private void getVideoShot(int width, int height, int bufferLength, byte[] buffer, String filePath) {
+    private void getVideoSnapshot(int width, int height, int bufferLength, byte[] buffer, String filePath) {
         File file = new File(filePath);
 
         byte[] NV21 = new byte[bufferLength];
@@ -246,7 +246,6 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                 new Rect(0, 0, image.getWidth(), image.getHeight()),
                 70, fos);
     }
-
 
     private void swapYV12toYUV420SemiPlanar(byte[] yv12bytes, byte[] i420bytes, int width, int height) {
         System.arraycopy(yv12bytes, 0, i420bytes, 0, width * height);
