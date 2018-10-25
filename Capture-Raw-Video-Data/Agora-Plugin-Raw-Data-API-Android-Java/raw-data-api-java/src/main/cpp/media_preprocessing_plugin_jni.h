@@ -7,37 +7,38 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /*
  * Class:     Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing
  * Method:    setCallback
  */
 JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setCallback
-  (JNIEnv *, jobject, jobject);
-
-JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setVideoCaptureByteBUffer
         (JNIEnv *, jobject, jobject);
 
-
-JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setAudioRecordByteBUffer
+JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setVideoCaptureByteBuffer
         (JNIEnv *, jobject, jobject);
 
-JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setAudioPlayByteBUffer
+JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setAudioRecordByteBuffer
         (JNIEnv *, jobject, jobject);
 
-JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setBeforeAudioMixByteBUffer
+JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setAudioPlayByteBuffer
         (JNIEnv *, jobject, jobject);
 
-JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setAudioMixByteBUffer
+JNIEXPORT void JNICALL
+Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setBeforeAudioMixByteBuffer
+        (JNIEnv *, jobject, jobject);
+
+JNIEXPORT void JNICALL Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setAudioMixByteBuffer
         (JNIEnv *, jobject, jobject);
 
 JNIEXPORT void JNICALL
 Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setVideoDecodeByteBUffer(JNIEnv *,
-                                                                             jobject ,
+                                                                             jobject,
                                                                              jint,
-                                                                             jobject );
+                                                                             jobject);
 
 JNIEXPORT void JNICALL
-Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_releasePoint(JNIEnv *, jobject );
+Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_releasePoint(JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

@@ -2,14 +2,12 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
 
         externalNativeBuild {
             cmake {
@@ -42,7 +40,5 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.0'
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

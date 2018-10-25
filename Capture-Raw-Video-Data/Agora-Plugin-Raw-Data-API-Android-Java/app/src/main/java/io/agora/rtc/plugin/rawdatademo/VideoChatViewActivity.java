@@ -38,7 +38,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
 
     private int mRemoteUid = 0;
 
-    private RtcEngine mRtcEngine;// Tutorial Step 1
+    private RtcEngine mRtcEngine; // Tutorial Step 1
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() { // Tutorial Step 1
         @Override
         public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
@@ -48,7 +48,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
         @Override
         public void onUserJoined(final int uid, int elapsed) {
             super.onUserJoined(uid, elapsed);
-            Log.i(LOG_TAG, "onUserJoined " + uid);
+            Log.i(LOG_TAG, "onUserJoined " + (uid & 0xFFFFFFFFL));
 
             mRemoteUid = uid;
 
@@ -89,7 +89,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat_view);
 
-        System.out.println("sdk version:" + RtcEngine.getSdkVersion());
+        Log.i(LOG_TAG, "agora sdk version: " + RtcEngine.getSdkVersion());
 
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)
                 && checkSelfPermission(Manifest.permission.CAMERA, PERMISSION_REQ_ID_CAMERA)
@@ -179,13 +179,12 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
             mediaDataObserverPlugin.removeAllBuffer();
         }
         MediaPreProcessing.releasePoint();
-
     }
 
     public void onLocalCaptureClicked(View view) {
         if (mediaDataObserverPlugin != null) {
-            mediaDataObserverPlugin.saveCaptureVideoShot("/sdcard/test/capture" + count + ".jpg");
-            Toast.makeText(this, "Picture saved success /sdcard/test/capture" + count + ".jpg", Toast.LENGTH_SHORT).show();
+            mediaDataObserverPlugin.saveCaptureVideoSnapshot("/sdcard/raw-data-test/capture" + count + ".jpg");
+            Toast.makeText(this, "Picture saved success /sdcard/raw-data-test/capture" + count + ".jpg", Toast.LENGTH_SHORT).show();
             count++;
         }
     }
@@ -196,16 +195,14 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
         }
 
         if (mediaDataObserverPlugin != null) {
-            mediaDataObserverPlugin.saveRenderVideoShot("/sdcard/test/render" + count + ".jpg", mRemoteUid);
-            Toast.makeText(this, "Picture saved success /sdcard/test/render" + count + ".jpg", Toast.LENGTH_SHORT).show();
+            mediaDataObserverPlugin.saveRenderVideoSnapshot("/sdcard/raw-data-test/render" + count + ".jpg", mRemoteUid);
+            Toast.makeText(this, "Picture saved success /sdcard/raw-data-test/render" + count + ".jpg", Toast.LENGTH_SHORT).show();
             count++;
         }
     }
 
     // Tutorial Step 9
     public void onLocalAudioMuteClicked(View view) {
-
-
         ImageView iv = (ImageView) view;
         if (iv.isSelected()) {
             iv.setSelected(false);
@@ -237,27 +234,26 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
 
             throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));
         }
-        mRtcEngine.setLogFile("/sdcard/agora-rtc-plugin.log");
-
+        mRtcEngine.setLogFile("/sdcard/agora-rtc-raw-data-plugin.log");
 
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
 
         mediaDataObserverPlugin = MediaDataObserverPlugin.the();
         MediaPreProcessing.setCallback(mediaDataObserverPlugin);
-        MediaPreProcessing.setVideoCaptureByteBUffer(mediaDataObserverPlugin.byteBufferCapture);
-        MediaPreProcessing.setAudioRecordByteBUffer(mediaDataObserverPlugin.byteBufferAudioRecord);
-        MediaPreProcessing.setAudioPlayByteBUffer(mediaDataObserverPlugin.byteBufferAudioPlay);
-        MediaPreProcessing.setBeforeAudioMixByteBUffer(mediaDataObserverPlugin.byteBufferBeforeAudioMix);
-        MediaPreProcessing.setAudioMixByteBUffer(mediaDataObserverPlugin.byteBufferAudioMix);
+        MediaPreProcessing.setVideoCaptureByteBuffer(mediaDataObserverPlugin.byteBufferCapture);
+        MediaPreProcessing.setAudioRecordByteBuffer(mediaDataObserverPlugin.byteBufferAudioRecord);
+        MediaPreProcessing.setAudioPlayByteBuffer(mediaDataObserverPlugin.byteBufferAudioPlay);
+        MediaPreProcessing.setBeforeAudioMixByteBuffer(mediaDataObserverPlugin.byteBufferBeforeAudioMix);
+        MediaPreProcessing.setAudioMixByteBuffer(mediaDataObserverPlugin.byteBufferAudioMix);
+
         mediaDataObserverPlugin.addVideoObserver(this);
         mediaDataObserverPlugin.addAudioObserver(this);
-
     }
 
     // Tutorial Step 2
     private void setupVideoProfile() {
         mRtcEngine.enableVideo();
-        //mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_240P, false);
+        // mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_240P, false); // SDK version
 
         VideoEncoderConfiguration.VideoDimensions dimensions = VideoEncoderConfiguration.VD_320x240;
         VideoEncoderConfiguration configuration = new VideoEncoderConfiguration(dimensions,
@@ -273,7 +269,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
         SurfaceView surfaceView = RtcEngine.CreateRendererView(getBaseContext());
         surfaceView.setZOrderMediaOverlay(true);
         container.addView(surfaceView);
-        mRtcEngine.setupLocalVideo(new VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_ADAPTIVE, 0));
+        mRtcEngine.setupLocalVideo(new VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_FIT, 0));
     }
 
     // Tutorial Step 4
@@ -291,35 +287,32 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
 
     @Override
     public void onCaptureVideoFrame(byte[] data, int frameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
-        Log.i(LOG_TAG, "onCaptureVideoFrame width :" + width + " height:" + height);
+        Log.i(LOG_TAG, "onCaptureVideoFrame width: " + width + " height: " + height);
     }
 
     @Override
     public void onRenderVideoFrame(int uid, byte[] data, int frameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
-        Log.i(LOG_TAG, "onRenderVideoFrame width :" + width + " height:" + height + " uid:" + uid);
+        Log.i(LOG_TAG, "onRenderVideoFrame width: " + width + " height: " + height + " uid: " + (uid & 0xFFFFFFFFL));
     }
 
     @Override
     public void onRecordAudioFrame(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
-        Log.i(LOG_TAG, "onRecordAudioFrame samples :" + samples + " bytesPerSample:" + bytesPerSample + " channels:" + channels + " samplesPerSec:" + samplesPerSec);
-
+        Log.i(LOG_TAG, "onRecordAudioFrame samples: " + samples + " bytesPerSample: " + bytesPerSample + " channels: " + channels + " samplesPerSec: " + samplesPerSec);
     }
 
     @Override
     public void onPlaybackAudioFrame(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
-        Log.i(LOG_TAG, "onPlaybackAudioFrame samples :" + samples + " bytesPerSample:" + bytesPerSample + " channels:" + channels + " samplesPerSec:" + samplesPerSec + " bufferLength: " + bufferLength);
-
+        Log.i(LOG_TAG, "onPlaybackAudioFrame samples: " + samples + " bytesPerSample: " + bytesPerSample + " channels: " + channels + " samplesPerSec: " + samplesPerSec + " bufferLength: " + bufferLength);
     }
 
     @Override
-    public void onPlaybackAudioFrameBeforeMixing(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
-
+    public void onPlaybackAudioFrameBeforeMixing(int uid, byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
+        Log.i(LOG_TAG, "onPlaybackAudioFrameBeforeMixing samples: " + samples + " bytesPerSample: " + bytesPerSample + " channels: " + channels + " samplesPerSec: " + samplesPerSec + " bufferLength: " + bufferLength + " uid: " + (uid & 0xFFFFFFFFL));
     }
 
     @Override
     public void onMixedAudioFrame(byte[] data, int audioType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
-        Log.i(LOG_TAG, "onMixedAudioFrame samples :" + samples + " bytesPerSample:" + bytesPerSample + " channels:" + channels + " samplesPerSec:" + samplesPerSec + " bufferLength: " + bufferLength);
+        Log.i(LOG_TAG, "onMixedAudioFrame samples: " + samples + " bytesPerSample: " + bytesPerSample + " channels: " + channels + " samplesPerSec: " + samplesPerSec + " bufferLength: " + bufferLength);
     }
-
 
 }

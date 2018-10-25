@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "io.agora.rtc.plugin.rawdatademo"
@@ -18,7 +17,6 @@ android {
 
     }
 
-
     buildTypes {
         release {
             minifyEnabled false
@@ -29,11 +27,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':raw-data-api-java')
+
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    testCompile 'junit:junit:4.12'
-    compile project(path: ':raw-data-api-java')
+    testImplementation 'junit:junit:4.12'
 }
