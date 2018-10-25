@@ -1,4 +1,4 @@
-# Video17Ways for Android
+# Large Video Group Chat for Android
 
 *Read this in other languages: [English](README.en.md)*
 

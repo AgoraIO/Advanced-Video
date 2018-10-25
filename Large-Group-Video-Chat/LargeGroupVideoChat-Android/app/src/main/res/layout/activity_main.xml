@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="Welcome to 17 Way Demo!"
+            android:text="Welcome to Large Video Group Chat Demo!"
             android:textSize="20sp" />
 
         <EditText
