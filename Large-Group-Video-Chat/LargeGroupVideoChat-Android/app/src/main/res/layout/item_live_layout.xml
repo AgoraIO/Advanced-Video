@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="120dp">
+
+    <RelativeLayout
+        android:id="@+id/item_live_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/item_live_text_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@drawable/text_layout_bg"
+      >
+        <ImageView
+            android:id="@+id/item_live_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/item_live_textview"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_play"
+
+            android:text="play"
+            />
+        <TextView
+            android:id="@+id/item_live_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"/>
+
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/item_live_mute"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/icon_mute_video"
+        android:text="mute"
+        android:visibility="invisible"
+        />
+
+
+</RelativeLayout>

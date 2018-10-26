@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+    <string name="app_name">LargeVideoGroupChat</string>
+
+    <string name="label_settings">Settings</string>
+
+    <string name="msg_choose_role">Would you like to be the broadcaster or an audience?</string>
+
+    <string name="label_audience">Audience</string>
+
+    <string name="label_broadcaster">Broadcaster</string>
+
+    <string name="label_confirm">Confirm</string>
+
+    <string-array
+        name="string_array_resolutions">
+        <item>640x480</item> // 480P
+        <item>640x360</item> // 360P
+        <item>640x360</item> // 360P
+    </string-array>
+
+    <string-array
+        name="string_array_frame_rate">
+
+        <item>15</item> // 480P
+        <item>15</item> // 360P
+        <item>24</item> // 360P
+    </string-array>
+
+    <string-array
+        name="string_array_bit_rate">
+        <item>500</item> // 480P
+        <item>400</item> // 360P
+        <item>800</item> // 360P
+    </string-array>
+</resources>
