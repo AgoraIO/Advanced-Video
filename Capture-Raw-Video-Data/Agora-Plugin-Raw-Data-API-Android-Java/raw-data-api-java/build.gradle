@@ -22,7 +22,7 @@ android {
         }
 
         ndk {
-            abiFilters "armeabi-v7a" , "arm64-v8a" // DO NOT MODIFY THIS LINE, IT'S UPDATED BY BUILD MACHINE AUTOMATICALLY.
+            abiFilters "armeabi-v7a" // DO NOT MODIFY THIS LINE, IT'S UPDATED BY BUILD MACHINE AUTOMATICALLY.
         }
 
     }

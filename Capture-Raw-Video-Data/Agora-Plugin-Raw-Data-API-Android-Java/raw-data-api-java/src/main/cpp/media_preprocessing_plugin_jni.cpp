@@ -25,7 +25,7 @@ void *_javaDirectPlayBufferRecordAudio = nullptr;
 void *_javaDirectPlayBufferPlayAudio = nullptr;
 void *_javaDirectPlayBufferBeforeMixAudio = nullptr;
 void *_javaDirectPlayBufferMixAudio = nullptr;
-map<int, void *> decodeByfferMap;
+map<int, void *> decodeBufferMap;
 
 static JavaVM *gJVM = nullptr;
 
@@ -98,9 +98,9 @@ public:
 
     virtual bool onRenderVideoFrame(unsigned int uid, VideoFrame &videoFrame) override {
         map<int, void *>::iterator it_find;
-        it_find = decodeByfferMap.find(uid);
+        it_find = decodeBufferMap.find(uid);
 
-        if (it_find != decodeByfferMap.end()) {
+        if (it_find != decodeBufferMap.end()) {
             if (it_find->second != nullptr) {
                 getVideoFrame(videoFrame, renderVideoMethodId, it_find->second, uid);
                 writebackVideoFrame(videoFrame, it_find->second);
@@ -275,12 +275,12 @@ Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_setVideoDecodeByteBuffer(JNI
                                                                              jint uid,
                                                                              jobject byteBuffer) {
     if (byteBuffer == nullptr) {
-        decodeByfferMap.erase(uid);
+        decodeBufferMap.erase(uid);
     } else {
         void *_javaDirectDecodeBuffer = env->GetDirectBufferAddress(byteBuffer);
-        decodeByfferMap.insert(make_pair(uid, _javaDirectDecodeBuffer));
+        decodeBufferMap.insert(make_pair(uid, _javaDirectDecodeBuffer));
         __android_log_print(ANDROID_LOG_DEBUG, "agora-raw-data-plugin",
-                            "setVideoDecodeByteBuffer uid: %d, _javaDirectDecodeBuffer: %p",
+                            "setVideoDecodeByteBuffer uid: %u, _javaDirectDecodeBuffer: %p",
                             uid, _javaDirectDecodeBuffer);
     }
 }
@@ -314,7 +314,7 @@ Java_io_agora_rtc_plugin_rawdata_MediaPreProcessing_releasePoint(JNIEnv *env, jo
     _javaDirectPlayBufferBeforeMixAudio = nullptr;
     _javaDirectPlayBufferMixAudio = nullptr;
 
-    decodeByfferMap.clear();
+    decodeBufferMap.clear();
 }
 
 

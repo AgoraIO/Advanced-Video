@@ -57,7 +57,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
                 public void run() {
 
                     if (mediaDataObserverPlugin != null) {
-                        mediaDataObserverPlugin.addDecodeBuffer(uid, 1382400);//720P
+                        mediaDataObserverPlugin.addDecodeBuffer(uid, 1382400); // 720P
                     }
                 }
             });
@@ -76,7 +76,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
                 public void run() {
 
                     if (mediaDataObserverPlugin != null) {
-                        mediaDataObserverPlugin.removeDecodeBuffer(uid);//720P
+                        mediaDataObserverPlugin.removeDecodeBuffer(uid); // 720P
                     }
                 }
             });
@@ -275,7 +275,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
     // Tutorial Step 4
     private void joinChannel() {
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
-        mRtcEngine.joinChannel(null, "demoChannel1", "Extra Optional Data", 0); // if you do not specify the uid, we will generate the uid for you
+        mRtcEngine.joinChannel(null, "rawdatademo1", "Extra Optional Data", 0); // if you do not specify the uid, we will generate the uid for you
     }
 
 

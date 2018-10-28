@@ -76,7 +76,7 @@
 }
 
 - (void)joinChannel {
-    [self.agoraKit joinChannelByToken:nil channelId:@"cavan123" info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
+    [self.agoraKit joinChannelByToken:nil channelId:@"rawdatademo1" info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
         [self.agoraKit setEnableSpeakerphone:YES];
         [UIApplication sharedApplication].idleTimerDisabled = YES;
     }];
