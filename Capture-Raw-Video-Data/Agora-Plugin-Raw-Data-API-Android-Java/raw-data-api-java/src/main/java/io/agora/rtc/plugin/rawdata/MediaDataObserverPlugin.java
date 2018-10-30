@@ -111,6 +111,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     public void onCaptureVideoFrame(int videoFrameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
 
         byte[] buf = new byte[bufferLength];
+        byteBufferCapture.limit(bufferLength);
         byteBufferCapture.get(buf);
         byteBufferCapture.flip();
 
@@ -137,6 +138,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                 DecodeDataBuffer tmp = it.next();
                 if (tmp.getUid() == uid) {
                     byte[] buf = new byte[bufferLength];
+                    tmp.getByteBuffer().limit(bufferLength);
                     tmp.getByteBuffer().get(buf);
                     tmp.getByteBuffer().flip();
 
@@ -160,6 +162,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     @Override
     public void onRecordAudioFrame(int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
+        byteBufferAudioRecord.limit(bufferLength);
         byteBufferAudioRecord.get(buf);
         byteBufferAudioRecord.flip();
 
@@ -174,6 +177,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     @Override
     public void onPlaybackAudioFrame(int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
+        byteBufferAudioPlay.limit(bufferLength);
         byteBufferAudioPlay.get(buf);
         byteBufferAudioPlay.flip();
 
@@ -188,6 +192,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     @Override
     public void onPlaybackAudioFrameBeforeMixing(int uid, int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
+        byteBufferBeforeAudioMix.limit(bufferLength);
         byteBufferBeforeAudioMix.get(buf);
         byteBufferBeforeAudioMix.flip();
 
@@ -202,6 +207,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     @Override
     public void onMixedAudioFrame(int audioFrameType, int samples, int bytesPerSample, int channels, int samplesPerSec, long renderTimeMs, int bufferLength) {
         byte[] buf = new byte[bufferLength];
+        byteBufferAudioMix.limit(bufferLength);
         byteBufferAudioMix.get(buf);
         byteBufferAudioMix.flip();
 
