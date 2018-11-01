@@ -27,8 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AudienceActivity"
-            android:label="@string/title_activity_audience"></activity>
+            android:name=".AudienceActivity"></activity>
     </application>
 
 </manifest>
