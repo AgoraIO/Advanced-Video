@@ -1447,7 +1447,7 @@ The following methods are used to retrieve settings applied to the app:
 
 ## Resources
 * Find full [API documentation at the Document Center](https://docs.agora.io/en/).
-* [File bugs about this sample](https://github.com/AgoraIO/Agora-Video-With-ARCore/issues).
+* [File bugs about this sample](https://github.com/AgoraIO/Advanced-Video/issues).
 
 
 ## License
