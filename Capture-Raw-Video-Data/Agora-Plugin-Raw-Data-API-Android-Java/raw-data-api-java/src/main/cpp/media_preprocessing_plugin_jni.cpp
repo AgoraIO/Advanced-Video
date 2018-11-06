@@ -149,6 +149,10 @@ public:
     }
 
     void writebackAudioFrame(AudioFrame &audioFrame, void *byteBuffer) {
+        if (byteBuffer == nullptr) {
+            return;
+        }
+
         int len = audioFrame.samples * audioFrame.bytesPerSample;
         memcpy(audioFrame.buffer, byteBuffer, (size_t) len);
     }
