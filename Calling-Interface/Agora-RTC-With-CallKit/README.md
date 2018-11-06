@@ -31,7 +31,7 @@ Finally, Open AgoraRTCWithCallKit.xcodeproj, connect your iPhone／iPad device, 
 ## Connect Us
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Agora-RTC-With-CallKit/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 
