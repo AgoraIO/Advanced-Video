@@ -2,11 +2,6 @@
 
 *其他语言版本： [简体中文](README.zh.md)*
 
-The Agora OpenDuo sample app supports the following platforms:
-* [iOS](https://github.com/AgoraIO/OpenDuo-iOS-Objective-C)
-* [Android](https://github.com/AgoraIO/OpenDuo-Android)
-* [Web](https://github.com/AgoraIO/OpenDuo-Web)
-
 This readme describes the steps and considerations for demonstrating the Agora OpenDuo iOS sample app.
 
 ## Introduction
@@ -50,7 +45,7 @@ For information on AccessToken, see [AccessToken](https://docs.agora.io/en/2.2/p
 ## Contact Us
 
 - You can find the API documentation at [Developer Center](https://docs.agora.io/en/).
-- You can report issues about this demo at [issue](https://github.com/AgoraIO/OpenDuo-iOS-Objective-C/issues).
+- You can report issues about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues).
 
 ## License
 
