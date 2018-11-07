@@ -33,7 +33,7 @@ With this Sample App, you can:
 ## Connect Us
 
 * You can find full API documents at [Document Center](https://docs.agora.io/en/)
-* You can file bugs about this demo at [issue](https://github.com/AgoraIO/Agora-Custom-Media-Device-iOS/issues)
+* You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 
