@@ -1063,7 +1063,7 @@ private extension GameScene {
 
 ## Resources
 - Find full API documentation in the [Document Center](https://docs.agora.io/en/)
-- [File bugs about this sample](https://github.com/AgoraIO-Community/Agora-Screen-Sharing-iOS/issues)
+- [File bugs about this sample](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 This software is licensed under the MIT License (MIT). [View the license](LICENSE.md).
