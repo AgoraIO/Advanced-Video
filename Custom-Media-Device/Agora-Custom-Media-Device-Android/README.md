@@ -10,11 +10,9 @@ In this sample project, the following features are implemented using the new Med
 
 2, Use both local video and Camera as the data source, source can be local played and sent to the remote, and the source can be switched.
 
-A tutorial demo for Agora Video SDK can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Agora-Android-Tutorial-1to1)
+A tutorial demo for Agora Video SDK can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
 
-You can find share screen demo for Android with old APIs here: [Agora-Screen-Sharing-Android](https://github.com/AgoraIO/Agora-Screen-Sharing-Android)
-
-You can find demo for iOS here: [Agora-Custom-Media-Device-iOS](https://github.com/AgoraIO/Agora-Custom-Media-Device-iOS)
+You can find share screen demo for Android with old APIs here: [Agora-Screen-Sharing-Android](https://github.com/AgoraIO/Advanced-Video/tree/master/Screensharing/Agora-Screen-Sharing-Android)
 
 ### Create an Account and Obtain an App ID
 In order to build and run the sample application you must obtain an App ID: 
@@ -66,7 +64,7 @@ Or use `Gradle` to build and run.
 ## Connect Us
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Agora-Custom-Media-Device-Android/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 
