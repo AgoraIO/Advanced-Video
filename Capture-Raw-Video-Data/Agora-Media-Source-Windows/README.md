@@ -18,12 +18,7 @@ With this sample app, you can:
 
 This demo is written in **C++**
 
-A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Agora-Windows-Tutorial-1to1)
-
-Agora Video SDK supports iOS / Android / Windows / macOS etc. You can find demos of these platform here:
-
-- [AgoraVideoSource-Android](https://github.com/AgoraIO/Agora-Video-Source-Android)
-- [AgoraVideoSource-iOS](https://github.com/AgoraIO/Agora-Video-Source-iOS)
+A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
 
 
 ## Running the App
@@ -44,7 +39,7 @@ Finally, Open AgoraMediaSource.sln, build the solution and run.
 ## Connect Us
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can fire bugs about this demo at [issue](https://github.com/AgoraIO/Agora-Media-Source-Windows/issues)
+- You can fire bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 
