@@ -9,9 +9,7 @@ With this sample app, you can:
 - Join / leave channel
 - Encrypt/Decrypt data packet for RTC SDK
 
-A tutorial demo for Agora Video SDK can be found here: [Agora-iOS-Tutorial-Swift-1to1](https://github.com/AgoraIO/Agora-iOS-Tutorial-Swift-1to1)
-
-You can find demo for Android here: [Agora-Customized-Encryption-Android](https://github.com/AgoraIO-Community/Agora-Customized-Encryption-Android)
+A tutorial demo for Agora Video SDK can be found here: [Agora-iOS-Tutorial-Swift-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-iOS-Tutorial-Swift-1to1)
 
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. Update "AppID.swift" with your App ID.
@@ -32,7 +30,7 @@ Finally, Open AgoraRtcCustomizedEncryptionTutorial.xcodeproj, connect your iPhon
 ## Connect Us
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Agora-iOS-Tutorial-Swift-1to1/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 
