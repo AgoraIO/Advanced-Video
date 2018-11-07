@@ -51,7 +51,7 @@ Or use `Gradle` to build and run.
 
 ## Connect Us
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Agora-Picture-in-Picture/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 The MIT License (MIT).
