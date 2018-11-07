@@ -8,9 +8,7 @@ With this sample app, you can:
 
 - Start/Stop sharing screen
 
-A tutorial demo for Agora Video SDK can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Agora-Android-Tutorial-1to1)
-
-You can find demo for iOS here: [Agora-Screen-Sharing-iOS](https://github.com/AgoraIO/Agora-Screen-Sharing-iOS)
+A tutorial demo for Agora Video SDK can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
 
 ## Running the App
 **First**, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. Update "app/src/main/res/values/strings.xml" with your App ID.
@@ -51,7 +49,7 @@ Or use `Gradle` to build and run.
 ## Connect Us
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Agora-Screen-Sharing-Android/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 
