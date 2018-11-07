@@ -12,11 +12,6 @@
 - 静音和解除静音；
 - 切换前置摄像头和后置摄像头；
 
-Agora 视频/信令 SDK 支持 iOS / Android / Web 等多个平台，你可以查看对应各平台的示例项目：
-
-- [OpenDuo-iOS-Objective-C](https://github.com/AgoraIO/OpenDuo-iOS-Objective-C)
-- [OpenDuo-Web](https://github.com/AgoraIO/OpenDuo-Web)
-
 ## 运行示例程序
 **首先** 在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。
 将 AppID 填写进 "app/src/main/res/values/strings.xml"
@@ -50,7 +45,7 @@ compile fileTree(dir: 'libs', include: ['*.jar'])
 - 如果在集成中遇到问题, 你可以到 [开发者社区](https://dev.agora.io/cn/) 提问
 - 如果有售前咨询问题, 可以拨打 400 632 6626，或加入官方Q群 12742516 提问
 - 如果需要售后技术支持, 你可以在 [Agora Dashboard](https://dashboard.agora.io) 提交工单
-- 如果发现了示例代码的 bug, 欢迎提交 [issue](https://github.com/AgoraIO/OpenDuo-Android/issues)
+- 如果发现了示例代码的 bug, 欢迎提交 [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## 代码许可
 The MIT License (MIT).
