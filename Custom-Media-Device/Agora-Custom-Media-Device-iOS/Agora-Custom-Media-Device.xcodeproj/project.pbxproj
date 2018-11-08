@@ -27,6 +27,7 @@
 		07D8BA111FE91A1600E8B4E2 /* AgoraMetalShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 07D8BA0F1FE91A1600E8B4E2 /* AgoraMetalShader.metal */; };
 		07D8BA121FE91A1600E8B4E2 /* AgoraRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D8BA101FE91A1600E8B4E2 /* AgoraRenderView.swift */; };
 		07D8BA141FE91A2500E8B4E2 /* AgoraCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D8BA131FE91A2500E8B4E2 /* AgoraCamera.swift */; };
+		7047EFCC2194193B00FAA24C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7047EFCB2194193B00FAA24C /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		07D8BA0F1FE91A1600E8B4E2 /* AgoraMetalShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = AgoraMetalShader.metal; sourceTree = "<group>"; };
 		07D8BA101FE91A1600E8B4E2 /* AgoraRenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraRenderView.swift; sourceTree = "<group>"; };
 		07D8BA131FE91A2500E8B4E2 /* AgoraCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraCamera.swift; sourceTree = "<group>"; };
+		7047EFCB2194193B00FAA24C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7047EFCC2194193B00FAA24C /* Accelerate.framework in Frameworks */,
 				07D8B9FB1FE908C500E8B4E2 /* AgoraRtcEngineKit.framework in Frameworks */,
 				07D8BA0A1FE90C3C00E8B4E2 /* libresolv.tbd in Frameworks */,
 				07D8BA081FE90C3700E8B4E2 /* CoreTelephony.framework in Frameworks */,
@@ -112,6 +115,7 @@
 		07D8B9FC1FE90C1900E8B4E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7047EFCB2194193B00FAA24C /* Accelerate.framework */,
 				07D8BA091FE90C3C00E8B4E2 /* libresolv.tbd */,
 				07D8BA071FE90C3700E8B4E2 /* CoreTelephony.framework */,
 				07D8BA051FE90C2F00E8B4E2 /* SystemConfiguration.framework */,
