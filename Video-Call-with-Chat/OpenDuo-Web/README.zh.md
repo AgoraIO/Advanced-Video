@@ -31,6 +31,8 @@ npm run build
 ```
 根目录下会生成build目录，注意**请勿直接使用浏览器将html当作静态文件使用文件协议打开，必须使用http／https协议**，也就是说请部署服务器或使用 Python simpleHTTPServer 模块。
 
+将static目录copy到build目录即可开始使用。
+
 ### 关于Token
 在登录信令服务器时可提供一个参数token，一般由服务器计算提供作为身份凭证，默认不使用，如需使用，请重写signalingClient.js中的login函数  
 
