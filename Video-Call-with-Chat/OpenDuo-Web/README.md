@@ -46,6 +46,8 @@ This sample app allows you to:
 5. Use gulp to build the project.
 
          npm run build
+         
+6. Copy static folder content and paste into build folder
    
 *A “build” directory is generated under **/root** of your project.*
 
