@@ -1,5 +1,6 @@
 import { Logger } from './utils'
 import { EventEmitter } from 'events';
+import * as Signal from 'agora-signaling-sdk';
 
 class SignalingClient {
     constructor(appid) {

@@ -39,6 +39,7 @@ class RtcClient {
                         this.localStream = localStream;
     
                         localStream.init(() => {
+                            console.log('[init]#rearrangeStreams: localStream: %d, removeRemoteStream: %d', this.localStream.length, this.remoteStreams.length);
                             this.rearrangeStreams();
                             if (autoPublish) {
                                 client.publish(localStream);
@@ -130,6 +131,7 @@ class RtcClient {
             Logger.log(evt);
 
             this.removeRemoteStream(evt.uid);
+            console.log('[peer-leave]#rearrangeStreams: localStream: %d, removeRemoteStream: %d', this.localStream.length, this.remoteStreams.length, this.remoteStreams);
             this.rearrangeStreams();
         });
 
@@ -140,6 +142,7 @@ class RtcClient {
             Logger.log("Subscribe remote stream successfully: " + stream.getId());
             Logger.log(evt);
             this.addRemoteStream(stream);
+            console.log('[stream-subscribed]#rearrangeStreams: localStream: %d, removeRemoteStream: %d', this.localStream.length, this.remoteStreams.length, this.remoteStreams);
             this.rearrangeStreams();
         });
 
@@ -149,6 +152,7 @@ class RtcClient {
             Logger.log("Timestamp: " + Date.now());
             Logger.log(evt);
             this.removeRemoteStream(stream.getId());
+            console.log('[stream-removed]#rearrangeStreams: localStream: %d, removeRemoteStream: %d, ', this.localStream.length, this.remoteStreams.length, this.remoteStreams);
             this.rearrangeStreams();
         });
 
@@ -167,7 +171,6 @@ class RtcClient {
         }
 
         Logger.log(`Rearranging streams, local:${localStream.getId()}, remote: ${remoteStreams.length === 0 ? "NONE" : remoteStreams[0].id}`);
-
         if (remoteStreams.length === 0) {
             this.displayStream($("#media-container"), localStream, "fullscreen");
         } else if (remoteStreams.length === 1) {
@@ -184,13 +187,14 @@ class RtcClient {
     addRemoteStream(stream) {
         this.remoteStreams.push({
             stream: stream,
-            id: stream.getId()
+            id: stream.getId(),
+            used: false
         });
     }
 
     removeRemoteStream(streamId) {
         this.remoteStreams = this.remoteStreams.filter(item => {
-            return item.id !== streamId;
+            return item.id != streamId;
         });
     }
 
@@ -223,7 +227,14 @@ class RtcClient {
                 height: `120px`
             });
         }
-        stream.play(stream.getId());
+        if (!stream.used) {
+            window.streams = window.streams || [];
+            window.streams.push(stream.getId());
+            console.log('remoteStreams', this.remoteStreams);
+            console.log('[playing]: ', window.streams)
+            stream.play(stream.getId());
+            stream.used = true;
+        }
     }
 
     getDynamicKey(channelName) {
