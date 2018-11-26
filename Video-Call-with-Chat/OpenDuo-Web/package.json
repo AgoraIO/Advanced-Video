@@ -9,7 +9,7 @@
     "test": "jest ./test",
     "lint": "eslint .",
     "format": "eslint . --fix",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --host 0.0.0.0",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open",
     "start": "npm run dev",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },

@@ -8,7 +8,7 @@ class RtcClient {
         this.rtc = AgoraRTC.createClient({ mode: 'interop' });
         this.localStream = null;
         this.uid = null;
-        this.remoteStreams = [];
+        window.remoteStreams = this.remoteStreams = [];
         this.videoProfile = "720p_1";
         this.dynamicKey = null;
         this.published = false;
@@ -37,6 +37,7 @@ class RtcClient {
                         localStream.setVideoProfile(this.videoProfile);
     
                         this.localStream = localStream;
+                        window.localStream = this.localStream;
     
                         localStream.init(() => {
                             console.log('[init]#rearrangeStreams: localStream: %d, removeRemoteStream: %d', this.localStream.length, this.remoteStreams.length);
@@ -175,7 +176,11 @@ class RtcClient {
             this.displayStream($("#media-container"), localStream, "fullscreen");
         } else if (remoteStreams.length === 1) {
             this.displayStream($("#media-container"), remoteStreams[0].stream, "fullscreen");
-            // this.displayStream($("#media-container"), localStream, "side");
+            this.displayStream($("#media-container"), localStream, "side");
+            if (!localStream.used) {
+                localStream.play(localStream.getId());
+                localStream.used = true;
+            }
         }
     }
 
@@ -227,7 +232,7 @@ class RtcClient {
                 height: `120px`
             });
         }
-        if (!stream.used) {
+        if (!stream.used && stream !== this.localStream) {
             window.streams = window.streams || [];
             window.streams.push(stream.getId());
             console.log('remoteStreams', this.remoteStreams);
