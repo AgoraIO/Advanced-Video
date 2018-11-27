@@ -8,7 +8,7 @@ class RtcClient {
         this.rtc = AgoraRTC.createClient({ mode: 'interop' });
         this.localStream = null;
         this.uid = null;
-        window.remoteStreams = this.remoteStreams = [];
+        this.remoteStreams = [];
         this.videoProfile = "720p_1";
         this.dynamicKey = null;
         this.published = false;
@@ -37,10 +37,8 @@ class RtcClient {
                         localStream.setVideoProfile(this.videoProfile);
     
                         this.localStream = localStream;
-                        window.localStream = this.localStream;
     
                         localStream.init(() => {
-                            console.log('[init]#rearrangeStreams: localStream: %d, removeRemoteStream: %d', this.localStream.length, this.remoteStreams.length);
                             this.rearrangeStreams();
                             if (autoPublish) {
                                 client.publish(localStream);
@@ -132,7 +130,6 @@ class RtcClient {
             Logger.log(evt);
 
             this.removeRemoteStream(evt.uid);
-            console.log('[peer-leave]#rearrangeStreams: localStream: %d, removeRemoteStream: %d', this.localStream.length, this.remoteStreams.length, this.remoteStreams);
             this.rearrangeStreams();
         });
 
@@ -143,7 +140,6 @@ class RtcClient {
             Logger.log("Subscribe remote stream successfully: " + stream.getId());
             Logger.log(evt);
             this.addRemoteStream(stream);
-            console.log('[stream-subscribed]#rearrangeStreams: localStream: %d, removeRemoteStream: %d', this.localStream.length, this.remoteStreams.length, this.remoteStreams);
             this.rearrangeStreams();
         });
 
@@ -153,7 +149,6 @@ class RtcClient {
             Logger.log("Timestamp: " + Date.now());
             Logger.log(evt);
             this.removeRemoteStream(stream.getId());
-            console.log('[stream-removed]#rearrangeStreams: localStream: %d, removeRemoteStream: %d, ', this.localStream.length, this.remoteStreams.length, this.remoteStreams);
             this.rearrangeStreams();
         });
 
@@ -233,10 +228,6 @@ class RtcClient {
             });
         }
         if (!stream.used && stream !== this.localStream) {
-            window.streams = window.streams || [];
-            window.streams.push(stream.getId());
-            console.log('remoteStreams', this.remoteStreams);
-            console.log('[playing]: ', window.streams)
             stream.play(stream.getId());
             stream.used = true;
         }
