@@ -20,9 +20,9 @@
   ],
   "devDependencies": {
     "autoprefixer": "^7.2.6",
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
     "clean-webpack-plugin": "^0.1.18",
     "copy-webpack-plugin": "^4.4.1",
@@ -54,6 +54,7 @@
   },
   "description": "Agora Signaling Tutorial (WEB)",
   "dependencies": {
+    "agora-signaling-sdk": "^1.4.0",
     "agora-rtc-sdk": "^2.4.1",
     "bootstrap-material-design": "4.1.1",
     "bootstrap-material-design-icons": "^2.2.0",

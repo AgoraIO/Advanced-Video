@@ -167,12 +167,19 @@ class RtcClient {
         }
 
         Logger.log(`Rearranging streams, local:${localStream.getId()}, remote: ${remoteStreams.length === 0 ? "NONE" : remoteStreams[0].id}`);
-
         if (remoteStreams.length === 0) {
             this.displayStream($("#media-container"), localStream, "fullscreen");
         } else if (remoteStreams.length === 1) {
             this.displayStream($("#media-container"), remoteStreams[0].stream, "fullscreen");
-            // this.displayStream($("#media-container"), localStream, "side");
+            this.displayStream($("#media-container"), localStream, "side");
+            var id = localStream.getId();
+            if (!localStream.used) {
+                localStream.play(id);
+                localStream.used = true;
+            } else {
+                localStream.stop(id);
+                localStream.play(id);
+            }
         }
     }
 
@@ -184,7 +191,8 @@ class RtcClient {
     addRemoteStream(stream) {
         this.remoteStreams.push({
             stream: stream,
-            id: stream.getId()
+            id: stream.getId(),
+            used: false
         });
     }
 
@@ -223,7 +231,16 @@ class RtcClient {
                 height: `120px`
             });
         }
-        stream.play(stream.getId());
+        if (stream !== this.localStream) {
+            var id = stream.getId();
+            if (!stream.used) {
+                stream.play(id);
+                stream.used = true;
+            } else {
+                stream.stop(id);
+                stream.play(id);
+            }
+        }
     }
 
     getDynamicKey(channelName) {
