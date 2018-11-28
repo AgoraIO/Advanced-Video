@@ -172,9 +172,13 @@ class RtcClient {
         } else if (remoteStreams.length === 1) {
             this.displayStream($("#media-container"), remoteStreams[0].stream, "fullscreen");
             this.displayStream($("#media-container"), localStream, "side");
+            var id = localStream.getId();
             if (!localStream.used) {
-                localStream.play(localStream.getId());
+                localStream.play(id);
                 localStream.used = true;
+            } else {
+                localStream.stop(id);
+                localStream.play(id);
             }
         }
     }
@@ -194,7 +198,7 @@ class RtcClient {
 
     removeRemoteStream(streamId) {
         this.remoteStreams = this.remoteStreams.filter(item => {
-            return item.id != streamId;
+            return item.id !== streamId;
         });
     }
 
@@ -227,9 +231,15 @@ class RtcClient {
                 height: `120px`
             });
         }
-        if (!stream.used && stream !== this.localStream) {
-            stream.play(stream.getId());
-            stream.used = true;
+        if (stream !== this.localStream) {
+            var id = stream.getId();
+            if (!stream.used) {
+                stream.play(id);
+                stream.used = true;
+            } else {
+                stream.stop(id);
+                stream.play(id);
+            }
         }
     }
 
