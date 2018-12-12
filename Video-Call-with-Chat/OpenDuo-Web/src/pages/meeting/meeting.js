@@ -16,5 +16,8 @@ $(() => {
     client.init(localAccount).then(() => {
         //once logged in, enable the call btn
         $(".startCallBtn").prop("disabled", false);
+        $("#logout").off("click").on("click", function (event) {
+            client.signal.session.logout();
+        })
     });
 });
