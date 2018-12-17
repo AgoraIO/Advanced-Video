@@ -117,6 +117,7 @@
     <ClInclude Include="commonFun.h" />
     <ClInclude Include="DynamicKey5.h" />
     <ClInclude Include="ExtendAudioFrameObserver.h" />
+    <ClInclude Include="ExtendVideoFrameObserver.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -137,6 +138,7 @@
     <ClCompile Include="CicleBuffer.cpp" />
     <ClCompile Include="commonFun.cpp" />
     <ClCompile Include="ExtendAudioFrameObserver.cpp" />
+    <ClCompile Include="ExtendVideoFrameObserver.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

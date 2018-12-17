@@ -8,6 +8,7 @@
 #include "afxdialogex.h"
 #include "AssistantBox.h"
 #include "ExtendAudioFrameObserver.h"
+#include "ExtendVideoFrameObserver.h"
 #include "CHookPlayerInstance.h"
 
 #ifdef _DEBUG
@@ -263,7 +264,6 @@ inline void CAgoraHookingDlg::initResource()
 	m_lpAgoraObject->EnableAudio(TRUE);
 
 	m_lpAgoraObject->SetVideoRenderType(1);//DISPLAY_GDI
-	m_lpAgoraObject->SetVideoProfileEx(800, 600, 15, 900);
 	m_lpAgoraObject->SetAudioProfile(AUDIO_PROFILE_MUSIC_HIGH_QUALITY_STEREO, AUDIO_SCENARIO_SHOWROOM);
 
 	m_lpAgoraObject->EnableLastmileTest(FALSE);
@@ -358,6 +358,15 @@ LRESULT CAgoraHookingDlg::OnInviterJoinChannel(WPARAM wParam, LPARAM lParam)
 		m_lpExtendAudioFrame = new CExtendAudioFrameObserver;
 		if (m_lpExtendAudioFrame)
 			m_lpAgoraObject->EnableExtendAudioCapture(TRUE, m_lpExtendAudioFrame);
+		
+		m_IpExtendVideoFrame = new CExtendVideoFrameObserver;
+		if (m_IpExtendVideoFrame)
+			m_lpAgoraObject->EnableExtendVideoCapture(TRUE, m_IpExtendVideoFrame);
+
+		//SetVideoParameter.
+		m_lpAgoraObject->SetVideoProfileEx(800, 600, 15, 900);
+
+		//SetAudioParameter.
 		m_lpAgoraObject->SetAudioRecordParam(KNSampelRate, KNChannel, KNSampelPerCall);
 
 		m_uInviter = lpData->uInviterId;
