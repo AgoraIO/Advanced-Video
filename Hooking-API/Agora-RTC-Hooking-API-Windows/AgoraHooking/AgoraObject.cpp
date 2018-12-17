@@ -363,29 +363,28 @@ BOOL CAgoraObject::IsVideoEnabled()
 }
 
 
-BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable)
+BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable, int nBitrate)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
 	int ret = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
 
 	Rect rcCap;
 
 	if (bEnable) {
 		if (lpCapRect == NULL)
-			ret = rep.startScreenCapture(hWnd, nCapFPS, NULL);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, NULL,nBitrate);
 		else {
 			rcCap.left = lpCapRect->left;
 			rcCap.right = lpCapRect->right;
 			rcCap.top = lpCapRect->top;
 			rcCap.bottom = lpCapRect->bottom;
 
-			ret = rep.startScreenCapture(hWnd, nCapFPS, &rcCap);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap,nBitrate);
 		}
 	}
 	else
-		ret = rep.stopScreenCapture();
+		ret = m_lpAgoraEngine->stopScreenCapture();
 
 	if (ret == 0)
 		m_bScreenCapture = bEnable;
@@ -519,7 +518,7 @@ void CAgoraObject::SetWantedRole(CLIENT_ROLE_TYPE role)
 
 BOOL CAgoraObject::SetClientRole(CLIENT_ROLE_TYPE role, LPCSTR lpPermissionKey)
 {
-	int nRet = m_lpAgoraEngine->setClientRole(role, lpPermissionKey);
+	int nRet = m_lpAgoraEngine->setClientRole(role);
 
 	m_nRoleType = role;
 
@@ -530,7 +529,7 @@ BOOL CAgoraObject::SetClientRole(CLIENT_ROLE_TYPE role, LPCSTR lpPermissionKey)
 BOOL CAgoraObject::EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* lpAudioFrameObserver)
 {
 	agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-	mediaEngine.queryInterface(m_lpAgoraEngine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
+	mediaEngine.queryInterface(m_lpAgoraEngine, agora::AGORA_IID_MEDIA_ENGINE);
 
 	int nRet = 0;
 
@@ -548,7 +547,7 @@ BOOL CAgoraObject::EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* l
 BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* lpVideoFrameObserver)
 {
 	agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-	mediaEngine.queryInterface(m_lpAgoraEngine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
+	mediaEngine.queryInterface(m_lpAgoraEngine, agora::AGORA_IID_MEDIA_ENGINE);
 
 	int nRet = 0;
 	AParameter apm(*m_lpAgoraEngine);
