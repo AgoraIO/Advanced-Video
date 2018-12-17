@@ -139,7 +139,7 @@ void CAgoraHookingDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	m_bIsCapture = TRUE;
 	OutputDebugStringA(__FUNCTION__);
 	OutputDebugStringA("\n");
-	PostMessage(WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(point.x, point.y));
+	PostMessage(WM_NCLBUTTONDOWN, HTCAPTION,MAKELPARAM(point.x,point.y));
 
 	CDialogEx::OnLButtonDown(nFlags, point);
 }
@@ -300,6 +300,11 @@ inline void CAgoraHookingDlg::initResource()
 
 inline void CAgoraHookingDlg::uninitResource()
 {
+	if (m_IpExtendVideoFrame)
+		delete m_IpExtendVideoFrame;
+	if (m_lpExtendAudioFrame)
+		delete m_lpExtendAudioFrame;
+
 	if (nullptr == m_lpAgoraObject){
 		return;
 	}
