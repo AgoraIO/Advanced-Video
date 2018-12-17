@@ -446,7 +446,7 @@ LRESULT CAgoraHookingDlg::OnLeaveChannel(WPARAM wParam, LPARAM lParam)
 	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
 	if (lpData) {
 
-		CAgoraFormatStr::AgoraWriteLog("LeaveChannel uid: %u", lpData->rtcStat.users);
+		CAgoraFormatStr::AgoraWriteLog("LeaveChannel uid: %u", m_uLoginUid);
 		delete lpData; lpData = nullptr;
 	}
 	return TRUE;

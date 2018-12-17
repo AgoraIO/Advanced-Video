@@ -35,8 +35,10 @@
 
 #include "../AgoraSDK/include/IAgoraRtcEngine.h"
 #include "../AgoraSDK/include/IAgoraRtcEngine2.h"
+#include "../AgoraSDK/include/AgoraBase.h"
 using namespace  agora::util;
 using namespace agora::rtc;
+using namespace agora;
 
 #pragma comment(lib,"../AgoraSDK/lib/agora_rtc_sdk.lib")
 
