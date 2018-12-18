@@ -369,6 +369,7 @@ LRESULT CAgoraHookingDlg::OnInviterJoinChannel(WPARAM wParam, LPARAM lParam)
 			m_lpAgoraObject->EnableExtendVideoCapture(TRUE, m_IpExtendVideoFrame);
 
 		//SetVideoParameter.
+		m_lpAgoraObject->SetVideoPreRotation(TRUE);
 		m_lpAgoraObject->SetVideoProfileEx(800, 600, 15, 900);
 
 		//SetAudioParameter.
