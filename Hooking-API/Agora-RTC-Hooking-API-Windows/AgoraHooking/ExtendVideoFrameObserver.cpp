@@ -13,7 +13,6 @@ CExtendVideoFrameObserver::CExtendVideoFrameObserver()
 	ZeroMemory(m_lpImageBufferRemoteTemp, 0x800000);
 }
 
-
 CExtendVideoFrameObserver::~CExtendVideoFrameObserver()
 {
 	delete[] m_lpImageBuffer;

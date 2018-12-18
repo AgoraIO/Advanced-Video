@@ -267,19 +267,6 @@ BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, in
 	return nRet == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::SetVideoPreRotation(BOOL bEnable)
-{
-	int nRet = 0;
-	AParameter ap(m_lpAgoraEngine);
-
-	if (bEnable)
-		nRet = ap->setParameters("{\"che.video.keep_prerotation\":true");
-	else 
-		nRet = ap->setParameters("{\"che.video.keep_prerotation\":false");
-
-	return nRet == 0 ? TRUE : FALSE;
-}
-
 BOOL CAgoraObject::SetAudioProfile(AUDIO_PROFILE_TYPE audioProfile, AUDIO_SCENARIO_TYPE scenario)
 {
 	ASSERT(NULL != m_lpAgoraEngine);

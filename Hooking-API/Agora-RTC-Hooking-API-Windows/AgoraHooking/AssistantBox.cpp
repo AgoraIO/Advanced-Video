@@ -118,20 +118,19 @@ void CAssistantBox::OnShowWindow(BOOL bShow, UINT nStatus)
 	
 	m_lpAgoraObject = CAgoraObject::GetAgoraObject();
 	m_lpRtcEngine = CAgoraObject::GetEngine();
-	if (m_lpAgoraObject && m_lpRtcEngine) {
+	if (m_lpAgoraObject && m_lpRtcEngine && false) {
 
 		m_AgoraCameraManager.Close();
 		m_AgoraAudioInputManager.Close();
 		m_AgoraPlayoutManager.Close();
 
-		m_AgoraCameraManager.Create(m_lpRtcEngine);
+//		m_AgoraCameraManager.Create(m_lpRtcEngine);
 		m_AgoraAudioInputManager.Create(m_lpRtcEngine);
 		m_AgoraPlayoutManager.Create(m_lpRtcEngine);
 		
 		m_ComCameraList.ResetContent();
 		int nDeviceCount = m_AgoraCameraManager.GetDeviceCount();
 		CString strDeviceName; CString strDeviceID;
-
 #if 0
 		for (int nIndex = 0; nDeviceCount > nIndex; nIndex++) {
 
