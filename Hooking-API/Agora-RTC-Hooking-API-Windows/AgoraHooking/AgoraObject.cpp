@@ -555,6 +555,9 @@ BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* l
 	if (mediaEngine.get() == NULL)
 		return FALSE;
 
+	int result;
+	int r = apm->getInt("rtc.addref_media_engine", result);
+
 	if (bEnable && lpVideoFrameObserver != NULL) {
 		apm->setParameters("{\"che.video.local.camera_index\":1024}");
 		nRet = mediaEngine->registerVideoFrameObserver(lpVideoFrameObserver);
