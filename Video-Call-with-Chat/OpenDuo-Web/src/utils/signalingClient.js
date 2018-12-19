@@ -37,6 +37,13 @@ class SignalingClient {
             };
 
             session.onInviteReceived = (...args) => {this._onInviteReceived(...args)};
+
+            session.onLogout = function (...args) {
+                Logger.log('logout ' + args);
+                this.session = null;
+                window.location.href = '/';
+            }
+            
             this.session = session;
         });
     }
