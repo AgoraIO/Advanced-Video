@@ -335,6 +335,7 @@ inline void CAgoraHookingDlg::getRectClientRight(RECT &rt)
 
 void CAgoraHookingDlg::onButtonCloseClicked()
 {
+	bCallBack = false;
 	if (m_lpHookPlayerInstance) 
 		m_lpHookPlayerInstance->stopHook();
 

@@ -17,5 +17,8 @@ private:
 	LPBYTE				m_lpY;
 	LPBYTE				m_lpU;
 	LPBYTE				m_lpV;
+
+	FILE* m_pFileYUVLocal;
+	//CMutex m_LocalMutex;
 };
 

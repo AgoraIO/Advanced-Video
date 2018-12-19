@@ -124,7 +124,7 @@ void CAssistantBox::OnShowWindow(BOOL bShow, UINT nStatus)
 		m_AgoraAudioInputManager.Close();
 		m_AgoraPlayoutManager.Close();
 
-//		m_AgoraCameraManager.Create(m_lpRtcEngine);
+		m_AgoraCameraManager.Create(m_lpRtcEngine);
 		m_AgoraAudioInputManager.Create(m_lpRtcEngine);
 		m_AgoraPlayoutManager.Create(m_lpRtcEngine);
 		
