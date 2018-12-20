@@ -34,7 +34,7 @@ NOTE: Agora recommends using a real device instead of an emulator.
 
         <string name="agora_app_id"><#YOUR APP ID#></string>
 
-3. Download the Agora Video SDK and the Agora Signaling SDK from [Agora.io SDK](https://www.agora.io/en/download/).
+3. Download the Agora Video SDK and the Agora Signaling SDK from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads).
 
    NOTE: This project is built upon the **Agora Video SDK 2.1.0** and the **Agora Signaling SDK 1.2.1**.
 

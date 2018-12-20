@@ -17,7 +17,7 @@ First, create a developer account at [Agora.io](https://dashboard.agora.io/signi
 NSString *const appID = @"YOUR APPID"; 
 ```
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the **AgoraRtcEngineKit.framework** of "libs" folder to "Agora-Plugin-Raw-Data-API-iOS-Objective-C/Agora-Plugin-Raw-Data-API-iOS-Objective-C" folder.
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **AgoraRtcEngineKit.framework** of "libs" folder to "Agora-Plugin-Raw-Data-API-iOS-Objective-C/Agora-Plugin-Raw-Data-API-iOS-Objective-C" folder.
 
 Finally, Open Agora-Plugin-Raw-Data-API-iOS-Objective-C.xcodeproj, connect your iPhone／iPad device, setup your development signing and run.
 

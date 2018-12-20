@@ -1,4 +1,4 @@
-﻿# Customized encryption for Agora RTC SDK on Android
+# Customized encryption for Agora RTC SDK on Android
 
 *Other languages: [简体中文](README.zh.md)*
 
@@ -28,11 +28,11 @@ compile 'io.agora.rtc:full-sdk:2.2.3'
 ```
 (Adding the link address is the most important step if you want to integrate the Agora Video SDK in your own application.)
 
-Then, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy ***.h** under **libs/include** to **app/src/main/cpp/include/agora**.
+Then, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy ***.h** under **libs/include** to **app/src/main/cpp/include/agora**.
 
 - Alternative way to integrate:
 
-First, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy ***.jar** under **libs** to **app/libs**, **arm64-v8a**/**x86**/**armeabi-v7a** under **libs** to **app/src/main/jniLibs**, ***.h** under **libs/include** to **app/src/main/cpp/include/agora**.
+First, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy ***.jar** under **libs** to **app/libs**, **arm64-v8a**/**x86**/**armeabi-v7a** under **libs** to **app/src/main/jniLibs**, ***.h** under **libs/include** to **app/src/main/cpp/include/agora**.
 
 Then, add the following code in the property of the dependence of the "app/build.gradle":
 

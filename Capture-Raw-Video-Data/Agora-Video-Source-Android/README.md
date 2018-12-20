@@ -21,7 +21,7 @@ A tutorial demo can be found here: [Agora-Android-Tutorial-1to1](https://github.
 
 **Next**, integrate the Agora Video SDK:
 
-Download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy ***.jar** under **libs** to **app/libs**, **arm64-v8a**/**x86**/**armeabi-v7a** under **libs** to **app/src/main/jniLibs**.
+Download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy ***.jar** under **libs** to **app/libs**, **arm64-v8a**/**x86**/**armeabi-v7a** under **libs** to **app/src/main/jniLibs**.
 
 **Finally**, open project with Android Studio, connect your Android device, build and run.
 

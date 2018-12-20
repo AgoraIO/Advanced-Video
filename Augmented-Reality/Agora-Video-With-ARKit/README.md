@@ -31,7 +31,7 @@ To build and run the sample application, first obtain an app ID:
    agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: <#Your App Id#>, delegate: self)
    ```
 
-2. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the `libs/AograRtcEngineKit.framework` file into the `Agora-Video-With-ARKit` folder.
+2. Download the [Agora Video SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the `libs/AograRtcEngineKit.framework` file into the `Agora-Video-With-ARKit` folder.
 
 	**Note:** Custom media device protocols are available in the Agora SDK 2.1.0.
 		

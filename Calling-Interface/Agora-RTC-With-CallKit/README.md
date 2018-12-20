@@ -13,7 +13,7 @@ With this sample app, you can:
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. Update "ViewController.swift" with your App ID.
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/blog/download/). Unzip the downloaded SDK package and copy the **libs/AgoraRtcEngineKit.framework** to the "AgoraRTCWithCallKit" folder in project.
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **libs/AgoraRtcEngineKit.framework** to the "AgoraRTCWithCallKit" folder in project.
 
 Finally, Open AgoraRTCWithCallKit.xcodeproj, connect your iPhone／iPad device, setup your development signing and run.
 

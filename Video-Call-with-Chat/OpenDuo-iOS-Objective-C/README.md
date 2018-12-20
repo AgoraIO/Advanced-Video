@@ -29,7 +29,7 @@ NOTE: The iOS emulator is NOT supported.
 
         static NSString * const kAppID = @"Your App ID";
 
-3. Download the **Agora Video SDK** and the **Agora Signaling SDK** from [Agora.io](https://www.agora.io/en/download/).
+3. Download the **Agora Video SDK** and the **Agora Signaling SDK** from [Agora.io](https://docs.agora.io/en/Agora%20Platform/downloads).
 4. Unzip the downloaded **Agora Video SDK** and copy **libs/AgoraRtcEngineKit.framework** to the *OpenDuo* folder of your project.
 5. Unzip the downloaded **Agora Signaling SDK** and copy **libs/AgoraSigKit.framework** to the *OpenDuo* folder of your project.
 6. Open OpenDuo.xcodeproj, connect your iPhone／iPad device, set up your code signature, and run the sample app.

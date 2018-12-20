@@ -23,7 +23,7 @@
 
 `本项目代码当前适配了视频 SDK 2.1.1 版本以及信令 SDK 1.2.1 版本，如果使用不同版本的 SDK 可能会需要稍微调整代码里的调用代码`
 
-**其次** 在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载视频通话 SDK 和信令 SDK，解压后将其中的 **libs** 文件夹下的 ***.jar** 复制到本项目的 **app/libs** 下，其中的 **libs** 文件夹下的 **arm64-v8a**/**x86**/**armeabi-v7a** 复制到本项目的 **app/src/main/jniLibs** 下。
+**其次** 在 [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads) 下载视频通话 SDK 和信令 SDK，解压后将其中的 **libs** 文件夹下的 ***.jar** 复制到本项目的 **app/libs** 下，其中的 **libs** 文件夹下的 **arm64-v8a**/**x86**/**armeabi-v7a** 复制到本项目的 **app/src/main/jniLibs** 下。
 
 在本项目的 "app/build.gradle" 文件依赖属性中添加如下依赖关系（此处代码中已添加示例）：
 

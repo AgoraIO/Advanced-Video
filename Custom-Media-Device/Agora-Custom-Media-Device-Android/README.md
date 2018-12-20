@@ -45,7 +45,7 @@ dependencies {
 #### Method 2 - Manually copy the SDK files
 
 1. Clone this repository.
-2. Download the Agora Video SDK from [Agora.io SDK](https://www.agora.io/en/download/).
+2. Download the Agora Video SDK from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads).
 3. Unzip the downloaded SDK package.
 4. Copy the .jar file from the **libs** folder of the downloaded SDK package to the **/apps/libs** folder of the sample application.
 5. Copy the .so files from the **armeabi-v7a** folder of the downloaded SDK package to the **/app/src/main/jniLibs/armeabi-v7a** folder of the sample application.

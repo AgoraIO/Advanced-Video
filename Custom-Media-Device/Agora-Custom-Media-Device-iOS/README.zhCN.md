@@ -27,7 +27,7 @@
    static let AppId: String = <#Your App Id#>
    ```
 
-4. 点击 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，然后解压。
+4. 点击 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，然后解压。
    > 自定义采集和自定义渲染协议从 2.1.0 版本开始提供，因此请下载 v2.1.0 及之后版本的 SDK。
 5. 将 SDK 中 **libs** 文件夹下的 **AgoraRtcEngineKit.framework** 复制到本示例项目的 **Agora-Custom-Media-Device** 文件夹下。
 6. 使用 Xcode 打开 **Agora-Custom-Media-Device.xcodeproj**，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。

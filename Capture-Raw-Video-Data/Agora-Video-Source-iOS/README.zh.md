@@ -21,7 +21,7 @@
 let AppID: String = "Your App ID"
 ```
 
-然后在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs** 文件夹复制到本项目，和 “Agora Video Source” 文件夹同级。
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs** 文件夹复制到本项目，和 “Agora Video Source” 文件夹同级。
 
 最后使用 XCode 打开 Agora Video Source.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 

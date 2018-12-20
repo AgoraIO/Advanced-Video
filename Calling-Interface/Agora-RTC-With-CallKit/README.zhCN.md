@@ -13,7 +13,7 @@
 ## 运行示例程序
 首先在 [Agora.io](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 ViewController.swift 对应位置。
 
-然后在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs/AgoraRtcEngineKit.framework** 复制到本项目的 "AgoraRTCWithCallKit" 文件夹下。
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs/AgoraRtcEngineKit.framework** 复制到本项目的 "AgoraRTCWithCallKit" 文件夹下。
 
 最后使用 Xcode 打开 AgoraRTCWithCallKit.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 

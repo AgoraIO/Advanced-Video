@@ -25,7 +25,7 @@ With this Sample App, you can:
    ```
    static let AppId: String = <#Your App Id#>
    ```
-4. Download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/blog/download/). Unzip the downloaded SDK package.
+4. Download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package.
    > Custom media device protocols are provided from 2.1.0.
 5. Copy the **AgoraRtcEngineKit.framework** file under the **libs** folder of the SDK to the **Agora-Custom-Media-Device** folder in project.
 6. Open **Agora-Custom-Media-Device.xcodeproj**, connect your iPhone／iPad device, set up your development signing and run.

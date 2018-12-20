@@ -12,7 +12,7 @@
 ## 运行示例程序
 首先在 [Agora.io](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 ViewController.swift 对应位置。
 
-然后在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs/AgoraRtcEngineKit.framework** 复制到本项目的 "Agora-Video-With-ARKit" 文件夹下。
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs/AgoraRtcEngineKit.framework** 复制到本项目的 "Agora-Video-With-ARKit" 文件夹下。
 
 > 自定义采集和自定义渲染协议从 2.1.0 版本开始提供
 

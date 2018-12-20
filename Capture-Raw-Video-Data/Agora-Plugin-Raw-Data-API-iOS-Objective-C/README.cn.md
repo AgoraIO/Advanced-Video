@@ -17,7 +17,7 @@
 NSString *const appID = @"YOUR APPID"; 
 ```
 
-然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs** 文件夹中的 **AgoraRtcEngineKit.framework** 复制到本项目的 "Agora-Plugin-Raw-Data-API-iOS-Objective-C/Agora-Plugin-Raw-Data-API-iOS-Objective-C" 文件夹下。
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs** 文件夹中的 **AgoraRtcEngineKit.framework** 复制到本项目的 "Agora-Plugin-Raw-Data-API-iOS-Objective-C/Agora-Plugin-Raw-Data-API-iOS-Objective-C" 文件夹下。
 
 最后使用 XCode 打开 Agora-Plugin-Raw-Data-API-iOS-Objective-C.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 

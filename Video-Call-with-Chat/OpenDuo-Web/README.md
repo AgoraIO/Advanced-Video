@@ -37,7 +37,7 @@ This sample app allows you to:
 
           const appid = "YOUR_SIGNALING_APPID";
       
-3. Download the Signaling SDK from [Agora.io](https://www.agora.io/en/download/). 
+3. Download the Signaling SDK from [Agora.io](https://docs.agora.io/en/Agora%20Platform/downloads). 
 4. Unzip the downloaded SDKs to /static folder, rename Signaling SDK to 'AgoraSig.js'
 4. Run npm in the root directory of your project to install the dependency. 
    

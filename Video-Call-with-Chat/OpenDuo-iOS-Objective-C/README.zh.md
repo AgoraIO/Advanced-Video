@@ -21,7 +21,7 @@
 static NSString * const kAppID = @"Your App ID";
 ```
 
-然后在 [Agora.io SDK](https://www.agora.io/cn/download/)
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads)
 - 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs/AgoraRtcEngineKit.framework** 复制到本项目的 “OpenDuo” 文件夹下。
 - 下载 **信令SDK**，解压后将其中的 **libs/AgoraSigKit.framework** 复制到本项目的 “OpenDuo” 文件夹下。
 
