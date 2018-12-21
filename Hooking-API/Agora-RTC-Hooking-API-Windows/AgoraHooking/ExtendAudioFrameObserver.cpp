@@ -19,7 +19,6 @@ CExtendAudioFrameObserver::~CExtendAudioFrameObserver()
 bool CExtendAudioFrameObserver::onRecordAudioFrame(AudioFrame& audioFrame)
 {
 	SIZE_T nSize = audioFrame.channels*audioFrame.samples * 2;
-
 	if (gIsDebugMode) {
 
 		static int nCountAudioCallBack = 0;
@@ -103,6 +102,7 @@ bool CExtendAudioFrameObserver::onPlaybackAudioFrame(AudioFrame& audioFrame)
 		}
 	}
 #endif
+
 	
 	return true;
 }

@@ -17,7 +17,8 @@ CExtendVideoFrameObserver::CExtendVideoFrameObserver()
 
 CExtendVideoFrameObserver::~CExtendVideoFrameObserver()
 {
-	fclose(m_pFileYUVLocal);
+	if (m_pFileYUVLocal)
+		fclose(m_pFileYUVLocal);
 	m_pFileYUVLocal = NULL;
 	delete[] m_lpImageBuffer;
 	delete[] m_lpImageBufferRemote;
