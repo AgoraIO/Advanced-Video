@@ -6,16 +6,16 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++11"
-                arguments "-DANDROID_STL=gnustl_static",
+                arguments "-DANDROID_STL=c++_static",
                         "-DANDROID_PLATFORM=android-19",
                         "-DCMAKE_BUILD_TYPE=Debug",
-                        "-DANDROID_TOOLCHAIN=gcc",
+                        "-DANDROID_TOOLCHAIN=clang",
                         "-DANDROID_STL_FORCE_FEATURES=OFF",
                         "-DANDROID_ARM_NEON=TRUE"
             }
