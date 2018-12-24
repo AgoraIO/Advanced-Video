@@ -18,14 +18,15 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 
+import javax.microedition.khronos.egl.EGLContext;
+
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.AgoraVideoFrame;
 import io.agora.rtc.video.VideoCanvas;
+import io.agora.rtc.video.VideoEncoderConfiguration; // 2.3.0 and later
 import io.agora.tutorials.helper.CustomizedCameraRenderer;
-
-import javax.microedition.khronos.egl.EGLContext;
 
 public class VideoChatViewActivity extends AppCompatActivity {
 
@@ -183,7 +184,11 @@ public class VideoChatViewActivity extends AppCompatActivity {
         } else {
             throw new RuntimeException("Can not work on device do not supporting texture" + mRtcEngine.isTextureEncodeSupported());
         }
-        mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, true);
+
+//      mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, true); // Earlier than 2.3.0
+        mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x360, VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
+                VideoEncoderConfiguration.STANDARD_BITRATE,
+                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
     }
 
     private volatile boolean mJoined = false;
@@ -268,7 +273,6 @@ public class VideoChatViewActivity extends AppCompatActivity {
         View tipMsg = findViewById(R.id.quick_tips_when_use_agora_sdk); // optional UI
         tipMsg.setVisibility(View.VISIBLE);
     }
-
 
     public void onLocalViewHidden(View view) {
         ImageView iv = (ImageView) view;
