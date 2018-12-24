@@ -1,4 +1,4 @@
-package io.agora.openlive.ui;
+package io.agora.largegroupcall.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import io.agora.openlive.R;
-import io.agora.openlive.model.AGEventHandler;
-import io.agora.openlive.model.ConstantApp;
-import io.agora.openlive.model.UserItem;
+import io.agora.largegroupcall.R;
+import io.agora.largegroupcall.model.AGEventHandler;
+import io.agora.largegroupcall.model.ConstantApp;
+import io.agora.largegroupcall.model.UserItem;
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;

@@ -1,4 +1,4 @@
-package io.agora.openlive.ui;
+package io.agora.largegroupcall.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -17,12 +17,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 import io.agora.common.Constant;
-import io.agora.openlive.AGApplication;
-import io.agora.openlive.BuildConfig;
-import io.agora.openlive.model.ConstantApp;
-import io.agora.openlive.model.EngineConfig;
-import io.agora.openlive.model.MyEngineEventHandler;
-import io.agora.openlive.model.WorkerThread;
+import io.agora.largegroupcall.AGApplication;
+import io.agora.largegroupcall.BuildConfig;
+import io.agora.largegroupcall.model.ConstantApp;
+import io.agora.largegroupcall.model.EngineConfig;
+import io.agora.largegroupcall.model.MyEngineEventHandler;
+import io.agora.largegroupcall.model.WorkerThread;
 import io.agora.rtc.RtcEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

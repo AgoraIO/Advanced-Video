@@ -1,4 +1,4 @@
-package io.agora.openlive.model;
+package io.agora.largegroupcall.model;
 
 public interface AGEventHandler {
     void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed);

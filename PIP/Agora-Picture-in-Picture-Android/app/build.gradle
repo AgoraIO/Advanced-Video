@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "io.agora.tutorials.pip"
@@ -21,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile 'io.agora.rtc:full-sdk:2.0.0'
-    compile 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'io.agora.rtc:full-sdk:2.3.+'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
 }

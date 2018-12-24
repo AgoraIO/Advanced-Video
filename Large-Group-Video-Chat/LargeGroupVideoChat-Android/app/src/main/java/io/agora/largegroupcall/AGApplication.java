@@ -1,7 +1,7 @@
-package io.agora.openlive;
+package io.agora.largegroupcall;
 
 import android.app.Application;
-import io.agora.openlive.model.WorkerThread;
+import io.agora.largegroupcall.model.WorkerThread;
 
 public class AGApplication extends Application {
 

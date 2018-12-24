@@ -1,4 +1,4 @@
-package io.agora.activity;
+package io.agora.openduo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,6 @@ import java.util.Locale;
 import io.agora.AgoraAPI;
 import io.agora.AgoraAPIOnlySignal;
 import io.agora.IAgoraAPI;
-import io.agora.openduo.AGApplication;
-import io.agora.openduo.R;
-import io.agora.utils.Constant;
 
 /**
  * "*" and "#" is useless

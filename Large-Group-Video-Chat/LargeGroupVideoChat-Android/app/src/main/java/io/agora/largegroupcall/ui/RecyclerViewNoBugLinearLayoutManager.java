@@ -1,4 +1,4 @@
-package io.agora.openlive.ui;
+package io.agora.largegroupcall.ui;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

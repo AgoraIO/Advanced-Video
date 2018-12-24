@@ -1,4 +1,4 @@
-package io.agora.openlive.model;
+package io.agora.largegroupcall.model;
 
 import io.agora.rtc.Constants;
 

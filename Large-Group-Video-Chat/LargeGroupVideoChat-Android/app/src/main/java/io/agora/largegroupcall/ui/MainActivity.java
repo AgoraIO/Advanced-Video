@@ -1,4 +1,4 @@
-package io.agora.openlive.ui;
+package io.agora.largegroupcall.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import io.agora.common.Constant;
-import io.agora.openlive.R;
-import io.agora.openlive.model.ConstantApp;
+import io.agora.largegroupcall.R;
+import io.agora.largegroupcall.model.ConstantApp;
 import io.agora.rtc.Constants;
 
 public class MainActivity extends BaseActivity {

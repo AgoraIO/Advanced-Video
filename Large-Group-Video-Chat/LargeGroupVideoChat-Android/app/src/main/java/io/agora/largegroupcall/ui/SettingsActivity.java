@@ -1,4 +1,4 @@
-package io.agora.openlive.ui;
+package io.agora.largegroupcall.ui;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import io.agora.openlive.R;
-import io.agora.openlive.model.ConstantApp;
+import io.agora.largegroupcall.R;
+import io.agora.largegroupcall.model.ConstantApp;
 
 public class SettingsActivity extends AppCompatActivity {
     private VideoProfileAdapter mVideoProfileAdapter;

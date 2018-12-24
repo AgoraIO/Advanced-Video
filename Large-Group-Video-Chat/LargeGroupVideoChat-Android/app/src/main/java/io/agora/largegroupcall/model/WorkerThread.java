@@ -1,4 +1,4 @@
-package io.agora.openlive.model;
+package io.agora.largegroupcall.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.text.TextUtils;
 import io.agora.common.Constant;
-import io.agora.openlive.R;
+import io.agora.largegroupcall.R;
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;

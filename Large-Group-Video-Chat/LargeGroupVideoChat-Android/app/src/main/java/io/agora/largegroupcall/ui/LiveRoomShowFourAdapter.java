@@ -1,18 +1,17 @@
-package io.agora.openlive.ui;
+package io.agora.largegroupcall.ui;
 
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.util.List;
 
-import io.agora.openlive.R;
-import io.agora.openlive.model.UserItem;
+import io.agora.largegroupcall.R;
+import io.agora.largegroupcall.model.UserItem;
 
 /**
  * Created by beryl on 2017/10/20.

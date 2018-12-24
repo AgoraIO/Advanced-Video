@@ -7,7 +7,6 @@ import io.agora.AgoraAPIOnlySignal;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 
-
 public class AGApplication extends Application {
     private final String TAG = AGApplication.class.getSimpleName();
 

@@ -1,4 +1,4 @@
-package io.agora.activity;
+package io.agora.openduo;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,12 +19,10 @@ import java.util.Locale;
 import io.agora.AgoraAPI;
 import io.agora.AgoraAPIOnlySignal;
 import io.agora.IAgoraAPI;
-import io.agora.openduo.AGApplication;
-import io.agora.openduo.R;
-import io.agora.rtc.Constants;
+
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
-import io.agora.utils.Constant;
+import io.agora.rtc.video.VideoEncoderConfiguration;
 
 /**
  * Created by beryl on 2017/11/6.
@@ -438,7 +436,11 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
     // Tutorial Step 2
     private void setupVideoProfile() {
         mRtcEngine.enableVideo();
-        mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, false);
+//      mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, false); // Earlier than 2.3.0
+
+        mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x360, VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
+                VideoEncoderConfiguration.STANDARD_BITRATE,
+                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
     }
 
     // Tutorial Step 3

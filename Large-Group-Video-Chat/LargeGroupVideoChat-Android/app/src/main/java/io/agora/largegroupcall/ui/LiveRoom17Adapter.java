@@ -1,4 +1,4 @@
-package io.agora.openlive.ui;
+package io.agora.largegroupcall.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
-import io.agora.openlive.R;
-import io.agora.openlive.model.UserItem;
+import io.agora.largegroupcall.R;
+import io.agora.largegroupcall.model.UserItem;
 
 /**
  * Created by beryl on 2017/10/20.
