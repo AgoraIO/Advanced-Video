@@ -36,7 +36,9 @@ class VideoChatViewController: UIViewController {
     func setupVideo() {
         agoraKit.setExternalVideoSource(true, useTexture: true, pushMode: true)
         agoraKit.enableVideo()
-        agoraKit.setVideoProfile(.landscape360P, swapWidthAndHeight: false)
+
+        let videoConfig = AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360, frameRate: .fps15, bitrate: AgoraVideoBitrateStandard, orientationMode: .adaptative)
+        agoraKit.setVideoEncoderConfiguration(videoConfig)
     }
     
     func startVideoCapture() {

@@ -24,6 +24,7 @@
 		074527151E9CB2FE0054D2D4 /* MyVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074527141E9CB2FE0054D2D4 /* MyVideoView.swift */; };
 		074527171E9CB43D0054D2D4 /* MyVideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074527161E9CB43D0054D2D4 /* MyVideoCapture.swift */; };
 		0F2747CC1FB45944005D3DBA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2747CB1FB4593C005D3DBA /* SystemConfiguration.framework */; };
+		7021FD7D21E62CFD00938D67 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7021FD7C21E62CFD00938D67 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		074527141E9CB2FE0054D2D4 /* MyVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyVideoView.swift; sourceTree = "<group>"; };
 		074527161E9CB43D0054D2D4 /* MyVideoCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyVideoCapture.swift; sourceTree = "<group>"; };
 		0F2747CB1FB4593C005D3DBA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7021FD7C21E62CFD00938D67 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7021FD7D21E62CFD00938D67 /* Accelerate.framework in Frameworks */,
 				0F2747CC1FB45944005D3DBA /* SystemConfiguration.framework in Frameworks */,
 				074527121E9CAEB10054D2D4 /* libc++.tbd in Frameworks */,
 				074527101E9CAEA90054D2D4 /* CoreMedia.framework in Frameworks */,
@@ -114,6 +117,7 @@
 		074527041E9CAE8E0054D2D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7021FD7C21E62CFD00938D67 /* Accelerate.framework */,
 				0F2747CB1FB4593C005D3DBA /* SystemConfiguration.framework */,
 				074527111E9CAEB10054D2D4 /* libc++.tbd */,
 				0745270F1E9CAEA90054D2D4 /* CoreMedia.framework */,
