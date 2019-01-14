@@ -611,7 +611,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ca519d31-ffd6-4297-8f8e-65cff14bed4e";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -637,7 +636,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -657,7 +655,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.BroadcastUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dc253ab3-71e4-40a3-a57c-a3a763407202";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -678,7 +675,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.BroadcastUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dc253ab3-71e4-40a3-a57c-a3a763407202";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2017;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -704,7 +700,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.Broadcast";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ca519d31-ffd6-4297-8f8e-65cff14bed4e";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Screen-Sharing-iOS-Broadcast/Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h";
@@ -732,7 +727,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.Broadcast";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Screen-Sharing-iOS-Broadcast/Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h";
