@@ -12,7 +12,7 @@ CExtendVideoFrameObserver::CExtendVideoFrameObserver()
 	m_lpImageBufferRemoteTemp = new BYTE[0x800000];
 	ZeroMemory(m_lpImageBufferRemoteTemp, 0x800000);
 	m_pFileYUVLocal = NULL;
-	m_pFileYUVLocal = fopen("Extendvideo.yuv", "rb+");
+	m_pFileYUVLocal = fopen("../Extendvideo.yuv", "rb+");
 }
 
 CExtendVideoFrameObserver::~CExtendVideoFrameObserver()

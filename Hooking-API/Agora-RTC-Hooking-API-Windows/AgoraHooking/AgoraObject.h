@@ -70,6 +70,7 @@ public:
 	
 	BOOL SetVideoProfile(VIDEO_PROFILE_TYPE nVideoProfileIndex, BOOL bSwitchWidhtHeight = FALSE);
 	BOOL SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate);
+	BOOL SetVideoKeepPro(BOOL bEnable = FALSE);
 
 	BOOL SetAudioProfile(AUDIO_PROFILE_TYPE audioProfile, AUDIO_SCENARIO_TYPE scenario);
 	BOOL SetAudioRecordParam(int nSampleRate,int nChannel,int nSamplePerCall);

@@ -372,6 +372,7 @@ LRESULT CAgoraHookingDlg::OnInviterJoinChannel(WPARAM wParam, LPARAM lParam)
 
 		//SetVideoParameter.
 		m_lpAgoraObject->SetVideoProfileEx(640, 720, 15, 900);
+		m_lpAgoraObject->SetVideoKeepPro();
 
 		//SetAudioParameter.
 		m_lpAgoraObject->SetAudioRecordParam(KNSampelRate, KNChannel, KNSampelPerCall);
