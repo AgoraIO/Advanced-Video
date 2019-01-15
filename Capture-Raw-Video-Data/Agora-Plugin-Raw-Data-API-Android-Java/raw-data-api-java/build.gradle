@@ -13,8 +13,7 @@ android {
             cmake {
                 cppFlags "-std=c++11"
                 arguments "-DANDROID_STL=c++_static",
-                        "-DANDROID_PLATFORM=android-19",
-                        "-DCMAKE_BUILD_TYPE=Debug",
+                        "-DANDROID_PLATFORM=android-15",
                         "-DANDROID_TOOLCHAIN=clang",
                         "-DANDROID_STL_FORCE_FEATURES=OFF",
                         "-DANDROID_ARM_NEON=TRUE"

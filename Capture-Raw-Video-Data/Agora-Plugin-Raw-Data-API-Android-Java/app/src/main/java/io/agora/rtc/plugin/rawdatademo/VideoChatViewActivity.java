@@ -23,7 +23,8 @@ import io.agora.rtc.plugin.rawdata.MediaDataObserverPlugin;
 import io.agora.rtc.plugin.rawdata.MediaDataVideoObserver;
 import io.agora.rtc.plugin.rawdata.MediaPreProcessing;
 import io.agora.rtc.video.VideoCanvas;
-import io.agora.rtc.video.VideoEncoderConfiguration;
+
+import io.agora.rtc.video.VideoEncoderConfiguration; // 2.3.0 and later
 
 public class VideoChatViewActivity extends AppCompatActivity implements MediaDataAudioObserver, MediaDataVideoObserver {
 
@@ -57,7 +58,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
                 public void run() {
 
                     if (mediaDataObserverPlugin != null) {
-                        mediaDataObserverPlugin.addDecodeBuffer(uid, 1382400); // 720P
+                        mediaDataObserverPlugin.addDecodeBuffer(uid);
                     }
                 }
             });
@@ -76,7 +77,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
                 public void run() {
 
                     if (mediaDataObserverPlugin != null) {
-                        mediaDataObserverPlugin.removeDecodeBuffer(uid); // 720P
+                        mediaDataObserverPlugin.removeDecodeBuffer(uid);
                     }
                 }
             });
@@ -89,7 +90,7 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat_view);
 
-        Log.i(LOG_TAG, "agora sdk version: " + RtcEngine.getSdkVersion());
+        Log.i(LOG_TAG, "Agora RTC SDK Version: " + RtcEngine.getSdkVersion());
 
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO)
                 && checkSelfPermission(Manifest.permission.CAMERA, PERMISSION_REQ_ID_CAMERA)
@@ -253,8 +254,8 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
     // Tutorial Step 2
     private void setupVideoProfile() {
         mRtcEngine.enableVideo();
-        // mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_240P, false); // SDK version
 
+//      mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, false); // Earlier than 2.3.0
         VideoEncoderConfiguration.VideoDimensions dimensions = VideoEncoderConfiguration.VD_320x240;
         VideoEncoderConfiguration configuration = new VideoEncoderConfiguration(dimensions,
                 VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
