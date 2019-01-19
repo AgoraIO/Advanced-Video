@@ -1,4 +1,4 @@
-package io.agora.rtc.plugin.rawdatademo;
+package io.agora.rtc.plugin.rawdata.sample;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

@@ -1,4 +1,4 @@
-# AgoraPluginRawDataAPI for Android
+# AgoraPluginRawDataAPI for Android(Java)
 
 *其他语言：[English](README.md)*
 
@@ -17,38 +17,60 @@
 <string name="agora_app_id"><#YOUR APP ID#></string>
 ```
 
-**然后**是集成 Agora SDK：
- 第一步: 在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs** 文件夹下的 ***.jar** 复制到本项目的 **app/libs** 下，其中的 **libs** 文件夹下的 **arm64-v8a**/**x86**/**armeabi-v7a** 复制到本项目的 **app/src/main/jniLibs** 下，其中的**include**文件夹下的所有文件复制到本项目的
+**然后**是集成 Agora SDK，在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs** 文件夹下的 ***.jar** 复制到本项目的 **app/libs** 下，其中的 **libs** 文件夹下的 **arm64-v8a**/**x86**/**armeabi-v7a** 复制到本项目的 **app/src/main/jniLibs** 下，其中的**include**文件夹下的所有文件复制到本项目的
 **raw-data-api-java/src/main/cpp/include**下。
-
- 第二步: 在本项目的 "app/build.gradle" 文件依赖属性中添加如下依赖关系：
-
-```
-compile fileTree(dir: 'libs', include: ['*.jar'])
-```
 
 **最后**用 Android Studio 打开该项目，连上设备，编译并运行。
 
 
 ## 单独编译 aar 包
-- 本程序作为一个 Module 程序，需要添加到主项目中作为依赖项目运行
-- setting.gradle 中添加  include ':raw-data-api-java'
-- 主项目 build.gradle 下添加 
+- raw-data-api-java 作为一个模块程序，需要添加到主项目中作为依赖项目运行
+- setting.gradle 中添加 `include ':raw-data-api-java'`
+- 主项目 build.gradle 下添加
+```
 	dependencies {
 	    implementation project(path: ':raw-data-api-java')
 	}
+```
 - 项目需要配置 Android NDK 路径，同 Android SDK 路径配置
 
 ## 代码示例
-- 在需要接收回调的类，实现回调方法       class implements MediaDataAudioObserver, MediaDataVideoObserver
-- 初始化 MediaDataObserverPlugin 对象  MediaDataObserverPlugin mediaDataObserverPlugin = MediaDataObserverPlugin.the();
-- 设置数据回调                         MediaPreProcessing.setCallback(mediaDataObserverPlugin);
-- 添加视频数据回调监听                  mediaDataObserverPlugin.addVideoObserver(this);
-- 添加音频数据回调监听                  mediaDataObserverPlugin.addAudioObserver(this);
-- 移除视频回调监听                      mediaDataCallbackUtil.removeVideoObserver(this);
-- 移除音频回调监听                      mediaDataCallbackUtil.removeAudioObserver(this);
-- 本地视频截图                         mediaDataCallbackUtil.saveCaptureVideoSnapshot(path);
-- 远端视频截图                         mediaDataCallbackUtil.saveRenderVideoSnapshot(path);
+- 在需要接收回调的类，实现回调方法
+```
+class implements MediaDataAudioObserver, MediaDataVideoObserver
+```
+- 初始化 MediaDataObserverPlugin 对象
+```
+MediaDataObserverPlugin mediaDataObserverPlugin = MediaDataObserverPlugin.the();
+```
+- 设置数据回调            
+```
+MediaPreProcessing.setCallback(mediaDataObserverPlugin);
+```
+- 添加视频数据回调监听                  
+```
+mediaDataObserverPlugin.addVideoObserver(this);
+```
+- 添加音频数据回调监听                  
+```
+mediaDataObserverPlugin.addAudioObserver(this);
+```
+- 移除视频回调监听                      
+```
+mediaDataCallbackUtil.removeVideoObserver(this);
+```
+- 移除音频回调监听                      
+```
+mediaDataCallbackUtil.removeAudioObserver(this);
+```
+- 本地视频截图                         
+```
+mediaDataCallbackUtil.saveCaptureVideoSnapshot(path);
+```
+- 远端视频截图                         
+```
+mediaDataCallbackUtil.saveRenderVideoSnapshot(path);
+```
 
 ## 运行环境
 - Android Studio 3.2 +
