@@ -8,6 +8,7 @@
 #include "afxdialogex.h"
 #include "AssistantBox.h"
 #include "ExtendAudioFrameObserver.h"
+#include "ExtendVideoFrameObserver.h"
 #include "CHookPlayerInstance.h"
 
 #ifdef _DEBUG
@@ -138,7 +139,7 @@ void CAgoraHookingDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	m_bIsCapture = TRUE;
 	OutputDebugStringA(__FUNCTION__);
 	OutputDebugStringA("\n");
-	PostMessage(WM_NCLBUTTONDOWN, HTCAPTION, MAKELPARAM(point.x, point.y));
+	PostMessage(WM_NCLBUTTONDOWN, HTCAPTION,MAKELPARAM(point.x,point.y));
 
 	CDialogEx::OnLButtonDown(nFlags, point);
 }
@@ -263,7 +264,6 @@ inline void CAgoraHookingDlg::initResource()
 	m_lpAgoraObject->EnableAudio(TRUE);
 
 	m_lpAgoraObject->SetVideoRenderType(1);//DISPLAY_GDI
-	m_lpAgoraObject->SetVideoProfileEx(800, 600, 15, 900);
 	m_lpAgoraObject->SetAudioProfile(AUDIO_PROFILE_MUSIC_HIGH_QUALITY_STEREO, AUDIO_SCENARIO_SHOWROOM);
 
 	m_lpAgoraObject->EnableLastmileTest(FALSE);
@@ -277,8 +277,8 @@ inline void CAgoraHookingDlg::initResource()
 	//RTMP
 	BOOL bEnableRotate = str2int(gConfigHook.getLeftRotate90(m_strInstance));
 	BOOL bEnableRtmp = str2int(gConfigHook.getRtmpSave(m_strInstance));
-	if (bEnableRtmp){
-
+	if (bEnableRtmp && false){
+		
 		int nRtmpWidth = str2int(gConfigHook.getRtmpWidth(m_strInstance));
 		int nRtmpHeight = str2int(gConfigHook.getRtmpHeight(m_strInstance));
 		int nRtmpFps = str2int(gConfigHook.getRtmpFps(m_strInstance));
@@ -300,16 +300,22 @@ inline void CAgoraHookingDlg::initResource()
 
 inline void CAgoraHookingDlg::uninitResource()
 {
-	if (nullptr == m_lpAgoraObject){
-		return;
-	}
-
+	m_lpAgoraObject->EnableExtendVideoCapture(FALSE, NULL);
+	m_lpAgoraObject->EnableExtendVideoCapture(FALSE, NULL);
 	m_lpAgoraObject->EnableVideo(FALSE);
 	m_lpAgoraObject->EnableLastmileTest(FALSE);
 	if (m_lpAgoraObject){
 		CAgoraObject::CloseAgoraObject();
 		m_lpAgoraObject = nullptr;
 		m_lpRtcEngine = nullptr;
+	}
+
+	if (m_IpExtendVideoFrame)
+		delete m_IpExtendVideoFrame;
+	if (m_lpExtendAudioFrame)
+		delete m_lpExtendAudioFrame;
+	if (NULL == m_lpAgoraObject){
+		return;
 	}
 }
 			   
@@ -330,6 +336,7 @@ inline void CAgoraHookingDlg::getRectClientRight(RECT &rt)
 
 void CAgoraHookingDlg::onButtonCloseClicked()
 {
+	bCallBack = false;
 	if (m_lpHookPlayerInstance) 
 		m_lpHookPlayerInstance->stopHook();
 
@@ -358,6 +365,16 @@ LRESULT CAgoraHookingDlg::OnInviterJoinChannel(WPARAM wParam, LPARAM lParam)
 		m_lpExtendAudioFrame = new CExtendAudioFrameObserver;
 		if (m_lpExtendAudioFrame)
 			m_lpAgoraObject->EnableExtendAudioCapture(TRUE, m_lpExtendAudioFrame);
+		
+		m_IpExtendVideoFrame = new CExtendVideoFrameObserver;
+		if (m_IpExtendVideoFrame)
+			m_lpAgoraObject->EnableExtendVideoCapture(TRUE, m_IpExtendVideoFrame);
+
+		//SetVideoParameter.
+		m_lpAgoraObject->SetVideoProfileEx(640, 720, 15, 900);
+		m_lpAgoraObject->SetVideoKeepPro();
+
+		//SetAudioParameter.
 		m_lpAgoraObject->SetAudioRecordParam(KNSampelRate, KNChannel, KNSampelPerCall);
 
 		m_uInviter = lpData->uInviterId;
@@ -446,8 +463,11 @@ LRESULT CAgoraHookingDlg::OnLeaveChannel(WPARAM wParam, LPARAM lParam)
 	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
 	if (lpData) {
 
-		CAgoraFormatStr::AgoraWriteLog("LeaveChannel uid: %u", lpData->rtcStat.users);
+		CAgoraFormatStr::AgoraWriteLog("LeaveChannel uid: %u", m_uLoginUid);
 		delete lpData; lpData = nullptr;
+
+		//TO DO 
+
 	}
 	return TRUE;
 }

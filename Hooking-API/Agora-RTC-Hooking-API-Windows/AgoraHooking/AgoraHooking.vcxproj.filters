@@ -90,6 +90,9 @@
     <ClInclude Include="CicleBuffer.h">
       <Filter>Utilc</Filter>
     </ClInclude>
+    <ClInclude Include="ExtendVideoFrameObserver.h">
+      <Filter>AgoraMediaSDK</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AgoraHooking.cpp">
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="CicleBuffer.cpp">
       <Filter>Utilc</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendVideoFrameObserver.cpp">
+      <Filter>AgoraMediaSDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

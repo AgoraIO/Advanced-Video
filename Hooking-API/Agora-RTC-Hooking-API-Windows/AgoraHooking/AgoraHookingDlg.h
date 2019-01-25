@@ -1,12 +1,14 @@
 
 // AgoraHookingDlg.h : header file
 //
+#pragma once
 
 #include "AGButton.h"
 #pragma once
 
 class CAssistantBox;
 class CExtendAudioFrameObserver;
+class CExtendVideoFrameObserver;
 
 #include "CHookPlayerInstance.h"
 
@@ -116,6 +118,7 @@ protected:
 	CAgoraObject* m_lpAgoraObject;
 	IRtcEngine* m_lpRtcEngine;
 	CExtendAudioFrameObserver* m_lpExtendAudioFrame;
+	CExtendVideoFrameObserver* m_IpExtendVideoFrame;
 
 	CHookPlayerInstance* m_lpHookPlayerInstance;
 

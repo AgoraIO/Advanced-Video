@@ -12,31 +12,17 @@ import ReplayKit
 
 class AgoraUploader {
     private static let videoDimension : CGSize = {
-        let width : CGFloat
-        let height : CGFloat
         let screenSize = UIScreen.main.currentMode!.size
-        if screenSize.width <= screenSize.height {
-            if screenSize.width * 16 <= screenSize.height * 9 {
-                width = 640 * screenSize.width / screenSize.height
-                height = 640
-            }
-            else {
-                width = 360
-                height = 360 * screenSize.height / screenSize.width
-            }
+        var boundingSize = CGSize(width: 720, height: 1280)
+        let mW = boundingSize.width / screenSize.width
+        let mH = boundingSize.height / screenSize.height
+        if( mH < mW ) {
+            boundingSize.width = boundingSize.height / screenSize.height * screenSize.width
         }
-        else {
-            if screenSize.width * 9 <= screenSize.height * 16 {
-                width = 360 * screenSize.width / screenSize.height
-                height = 360
-            }
-            else {
-                width = 640
-                height = 640 * screenSize.height / screenSize.width
-            }
+        else if( mW < mH ) {
+            boundingSize.height = boundingSize.width / screenSize.width * screenSize.height
         }
-        
-        return CGSize(width: width, height: height)
+        return boundingSize
     }()
     
     private static let sharedAgoraEngine: AgoraRtcEngineKit = {
@@ -46,15 +32,11 @@ class AgoraUploader {
         
         kit.enableVideo()
         kit.setExternalVideoSource(true, useTexture: true, pushMode: true)
-        
-        let videoConfig = AgoraVideoEncoderConfiguration(size: videoDimension, frameRate: .fps15, bitrate: 400, orientationMode: .adaptative)
+        let videoConfig = AgoraVideoEncoderConfiguration(size: videoDimension,
+                                                         frameRate: .fps24,
+                                                         bitrate: AgoraVideoBitrateStandard,
+                                                         orientationMode: .adaptative)
         kit.setVideoEncoderConfiguration(videoConfig)
-        
-        // disable hardware encoding, as extension can not access the hardware
-        kit.setParameters("{\"che.hardware_encoding\":0}")
-        
-        // enable compact memory mode, as extension has a memory limit to 50M
-        kit.setParameters("{\"che.video.compact_memory\":true}")
         
         AgoraAudioProcessing.registerAudioPreprocessing(kit)
         kit.setRecordingAudioFrameParametersWithSampleRate(44100, channel: 1, mode: .readWrite, samplesPerCall: 1024)

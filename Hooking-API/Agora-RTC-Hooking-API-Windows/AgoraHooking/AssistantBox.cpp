@@ -111,10 +111,14 @@ void CAssistantBox::OnLButtonUp(UINT nFlags, CPoint point)
 void CAssistantBox::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	m_bIsShow = bShow;
+	static bool bFirst = false;
+	if (bFirst)
+		return;
+	bFirst = true;
 	
 	m_lpAgoraObject = CAgoraObject::GetAgoraObject();
 	m_lpRtcEngine = CAgoraObject::GetEngine();
-	if (m_lpAgoraObject && m_lpRtcEngine) {
+	if (m_lpAgoraObject && m_lpRtcEngine && false) {
 
 		m_AgoraCameraManager.Close();
 		m_AgoraAudioInputManager.Close();
@@ -127,6 +131,7 @@ void CAssistantBox::OnShowWindow(BOOL bShow, UINT nStatus)
 		m_ComCameraList.ResetContent();
 		int nDeviceCount = m_AgoraCameraManager.GetDeviceCount();
 		CString strDeviceName; CString strDeviceID;
+#if 0
 		for (int nIndex = 0; nDeviceCount > nIndex; nIndex++) {
 
 			m_AgoraCameraManager.GetDevice(nIndex, strDeviceName, strDeviceID);
@@ -135,6 +140,7 @@ void CAssistantBox::OnShowWindow(BOOL bShow, UINT nStatus)
 			m_ComCameraList.AddString(strDeviceName);
 		}
 		m_ComCameraList.SetCurSel(0);
+#endif
 
 		m_ComAudioInputList.ResetContent();
 		nDeviceCount = m_AgoraAudioInputManager.GetDeviceCount();

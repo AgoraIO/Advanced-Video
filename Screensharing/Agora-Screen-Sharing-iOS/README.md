@@ -8,7 +8,7 @@ With this sample app, you can:
 - [Start](#start-screenshare) or [Stop](#start-screenshare) Screensharing
 
 ## Prerequisites
-- Xcode 9.0+
+- Xcode 10.0+
 - Physical iOS 11+ device (iPhone or iPad)
 	
 	**Note:** Use a physical device to run the sample. Some simulators lack the functionality or the performance needed to run the sample.
@@ -37,7 +37,7 @@ To build and run the sample application, you must obtain an app ID:
     static let AppId: String = <#Your App Id#>
 	```
 
-2. Download the [Agora Video SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the `libs/AograRtcEngineKit.framework` file from the SDK folder into the sample project folder.
+2. Download the [Agora Video SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the `AograRtcEngineKit.framework` file from the SDK folder into the sample project folder.
 			
 3. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied, or your project will not run.
 
@@ -309,21 +309,6 @@ Set the engine's external video source settings using `kit.setExternalVideoSourc
         kit.enableVideo()
         kit.setExternalVideoSource(true, useTexture: true, pushMode: true)
         kit.setVideoResolution(videoResolution, andFrameRate:15, bitrate:400)
-```
-
-Set the following parameters for the engine using `kit.setParameters()` for each:
-
-Parameter|Value|Description
----|---|---
-`che.hardware_encoding`|`0`|Disable hardware encoding
-`che.video.compact_memory`|`true`|Enable compact memory mode
-
-``` Swift
-        // disable hardware encoding, as extension can not access the hardware
-        kit.setParameters("{\"che.hardware_encoding\":0}")
-        
-        // enable compact memory mode, as extension has a memory limit to 50M
-        kit.setParameters("{\"che.video.compact_memory\":true}")
 ```
 
 Register `kit` for audio pre-processing using `AgoraAudioProcessing.registerAudioPreprocessing()`.
