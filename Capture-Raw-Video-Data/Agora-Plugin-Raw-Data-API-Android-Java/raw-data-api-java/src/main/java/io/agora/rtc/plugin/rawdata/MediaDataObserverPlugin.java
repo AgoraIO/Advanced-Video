@@ -1,9 +1,13 @@
 package io.agora.rtc.plugin.rawdata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -125,7 +129,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         if (beCaptureVideoShot) {
             beCaptureVideoShot = false;
 
-            getVideoSnapshot(width, height, bufferLength, buf, captureFilePath);
+            getVideoSnapshot(width, height, rotation, bufferLength, buf, captureFilePath);
         }
     }
 
@@ -151,7 +155,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                         if (uid == renderVideoShotUid) {
                             beRenderVideoShot = false;
 
-                            getVideoSnapshot(width, height, bufferLength, buf, renderFilePath);
+                            getVideoSnapshot(width, height, rotation, bufferLength, buf, renderFilePath);
                         }
                     }
                 }
@@ -219,13 +223,31 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         byteBufferAudioMix.flip();
     }
 
-    private void getVideoSnapshot(int width, int height, int bufferLength, byte[] buffer, String filePath) {
+    private void getVideoSnapshot(int width, int height, int rotation, int bufferLength, byte[] buffer, String filePath) {
         File file = new File(filePath);
 
         byte[] NV21 = new byte[bufferLength];
         swapYV12toYUV420SemiPlanar(buffer, NV21, width, height);
 
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         YuvImage image = new YuvImage(NV21, ImageFormat.NV21, width, height, null);
+
+        image.compressToJpeg(
+                new Rect(0, 0, image.getWidth(), image.getHeight()),
+                100, baos);
+
+        // rotate picture when saving to file
+        Matrix matrix = new Matrix();
+        matrix.postRotate(rotation);
+        byte[] bytes = baos.toByteArray();
+        try {
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Bitmap target = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
         File fileParent = file.getParentFile();
         if (!fileParent.exists()) {
@@ -248,9 +270,16 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
             e.printStackTrace();
         }
 
-        image.compressToJpeg(
-                new Rect(0, 0, image.getWidth(), image.getHeight()),
-                70, fos);
+        target.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+        target.recycle();
+        bitmap.recycle();
+
+        try {
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void swapYV12toYUV420SemiPlanar(byte[] yv12bytes, byte[] i420bytes, int width, int height) {
