@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E2050FFD-E57F-33EB-A5BF-975672F4050B}</ProjectGuid>
+    <RootNamespace>AgoraVideoCall</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <PlatformToolSet>v140</PlatformToolSet>
+    <OutputDirectory>release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>AgoraVideoCall</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <PlatformToolSet>v140</PlatformToolSet>
+    <OutputDirectory>debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>AgoraVideoCall</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+    <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AgoraVideoCall</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AgoraVideoCall</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;Agora_native_sdk\include;Agora_native_sdk\videokit;E:\QT\QT5.6.2\5.6\MSVC2015\include;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuickWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuick;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtGui;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtANGLE;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQml;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtNetwork;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtCore;release;E:\QT\QT5.6.2\5.6\MSVC2015\mkspecs\win32-msvc2015;C:\Users\zhanxiaochao\Desktop\agora-demo-qt\VideoPlayerKit\videoPlayer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_NO_DEBUG;QT_QUICKWIDGETS_LIB;QT_QUICK_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\QT\QT5.6.2\5.6\MSVC2015\lib\qtmain.lib;shell32.lib;D3D9.lib;.\Agora_native_sdk\lib\agora_rtc_sdk.lib;.\Agora_native_sdk\lib\re_sampler.lib;.\Agora_native_sdk\lib\VideoPlayerKit.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5QuickWidgets.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Quick.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Widgets.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Gui.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Qml.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Network.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\QT\QT5.6.2\5.6\MSVC2015\lib;C:\utils\my_sql\my_sql\lib;C:\utils\postgresql\pgsql\lib;$(QTDIR)\lib;.\Agora_native_sdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\AgoraVideoCall.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_NO_DEBUG;QT_QUICKWIDGETS_LIB;QT_QUICK_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <QTDIR>E:\QT\QT5.6.2\5.6\MSVC2015</QTDIR>
+      <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <Define>UNICODE;$(Platform);QT_NO_DEBUG;QT_QUICKWIDGETS_LIB;QT_QUICK_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_MSC_VER=1900;_$(Platform)</Define>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <InputFile>%(FullPath)</InputFile>
+      <DynamicSource>output</DynamicSource>
+      <IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;Agora_native_sdk\include;Agora_native_sdk\videokit;E:\QT\QT5.6.2\5.6\MSVC2015\include;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuickWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuick;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtGui;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtANGLE;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQml;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtNetwork;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtCore;release;E:\QT\QT5.6.2\5.6\MSVC2015\mkspecs\win32-msvc2015;C:\Users\zhanxiaochao\Desktop\agora-demo-qt\VideoPlayerKit\videoPlayer;%(AdditionalIncludeDirectories)</IncludePath>
+    </QtMoc>
+    <QtRcc>
+      <InitFuncName>qml</InitFuncName>
+      <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
+      <QTDIR>E:\QT\QT5.6.2\5.6\MSVC2015</QTDIR>
+      <Compression>default</Compression>
+      <InputFile>%(FullPath)</InputFile>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+    </QtRcc>
+    <QtUic>
+      <QTDIR>E:\QT\QT5.6.2\5.6\MSVC2015</QTDIR>
+      <InputFile>%(FullPath)</InputFile>
+      <OutputFile>.\GeneratedFiles\ui_%(Filename).h</OutputFile>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;Agora_native_sdk\include;Agora_native_sdk\videokit;E:\QT\QT5.6.2\5.6\MSVC2015\include;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuickWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuick;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtGui;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtANGLE;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQml;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtNetwork;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtCore;debug;E:\QT\QT5.6.2\5.6\MSVC2015\mkspecs\win32-msvc2015;C:\Users\zhanxiaochao\Desktop\agora-demo-qt\re_sampler\re_sampler;C:\Users\zhanxiaochao\Desktop\agora-demo-qt\VideoPlayerKit\videoPlayer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_QUICKWIDGETS_LIB;QT_QUICK_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>E:\QT\QT5.6.2\5.6\MSVC2015\lib\qtmaind.lib;shell32.lib;.\Agora_native_sdk\lib\agora_rtc_sdk.lib;.\Agora_native_sdk\lib\re_sampler.lib;.\Agora_native_sdk\lib\VideoPlayerKit.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5QuickWidgetsd.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Quickd.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Widgetsd.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Guid.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Qmld.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Networkd.lib;E:\QT\QT5.6.2\5.6\MSVC2015\lib\Qt5Cored.lib;D3D9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\QT\QT5.6.2\5.6\MSVC2015\lib;C:\utils\my_sql\my_sql\lib;C:\utils\postgresql\pgsql\lib;$(QTDIR)\lib;.\Agora_native_sdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\AgoraVideoCall.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_QUICKWIDGETS_LIB;QT_QUICK_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtRcc>
+      <QTDIR>E:\QT\QT5.6.2\5.6\MSVC2015</QTDIR>
+      <Compression>default</Compression>
+      <InitFuncName>qml</InitFuncName>
+      <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
+      <InputFile>%(FullPath)</InputFile>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+    </QtRcc>
+    <QtMoc>
+      <QTDIR>E:\QT\QT5.6.2\5.6\MSVC2015</QTDIR>
+      <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <Define>UNICODE;$(Platform);QT_QUICKWIDGETS_LIB;QT_QUICK_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_MSC_VER=1900;_$(Platform)</Define>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <InputFile>%(FullPath)</InputFile>
+      <DynamicSource>output</DynamicSource>
+      <IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;Agora_native_sdk\include;Agora_native_sdk\videokit;E:\QT\QT5.6.2\5.6\MSVC2015\include;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuickWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuick;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtWidgets;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtGui;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtANGLE;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtQml;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtNetwork;E:\QT\QT5.6.2\5.6\MSVC2015\include\QtCore;debug;E:\QT\QT5.6.2\5.6\MSVC2015\mkspecs\win32-msvc2015;C:\Users\zhanxiaochao\Desktop\agora-demo-qt\re_sampler\re_sampler;C:\Users\zhanxiaochao\Desktop\agora-demo-qt\VideoPlayerKit\videoPlayer;%(AdditionalIncludeDirectories)</IncludePath>
+    </QtMoc>
+    <QtUic>
+      <QTDIR>E:\QT\QT5.6.2\5.6\MSVC2015</QTDIR>
+      <InputFile>%(FullPath)</InputFile>
+      <OutputFile>.\GeneratedFiles\ui_%(Filename).h</OutputFile>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Agora_native_sdk\videokit\ExtendAudioFrameObserver.cpp" />
+    <ClCompile Include="QTVideoKit.cpp" />
+    <ClCompile Include="agorartcengine.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="Agora_native_sdk\videokit\videoinfocallback.cpp" />
+    <ClCompile Include="Agora_native_sdk\videokit\videokit.cpp" />
+    <ClCompile Include="videorender.cpp" />
+    <ClCompile Include="ZD3DRender.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="QTVideoKit.h">
+    </QtMoc>
+    <QtMoc Include="agorartcengine.h">
+    </QtMoc>
+    <QtMoc Include="mainwindow.h">
+    </QtMoc>
+    <QtMoc Include="videorender.h">
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Agora_native_sdk\videokit\SingleTon.h" />
+    <ClInclude Include="Agora_native_sdk\videokit\videoinfocallback.h" />
+    <ClInclude Include="Agora_native_sdk\videokit\videokit.h" />
+    <ClInclude Include="ui_videorender.h" />
+    <ClInclude Include="ZD3DRender.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="videorender.ui">
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="controls\AButton.qml" />
+    <None Include="controls\AComboBox.qml" />
+    <None Include="controls\ADragArea.qml" />
+    <None Include="controls\AImageButton.qml" />
+    <None Include="controls\ASlider.qml" />
+    <None Include="controls\ATitleBar.qml" />
+    <None Include="controls\AVideoView.qml" />
+    <None Include="DeviceSettings.qml" />
+    <None Include="DeviceSettingsForm.ui.qml" />
+    <None Include="InRoom.qml" />
+    <None Include="InRoomForm.ui.qml" />
+    <None Include="JoinRoom.qml" />
+    <None Include="JoinRoomForm.ui.qml" />
+    <None Include="Splash.qml" />
+    <None Include="SplashForm.ui.qml" />
+    <None Include="VideoSettings.qml" />
+    <None Include="VideoSettingsForm.ui.qml" />
+    <None Include="Videoplayer.qml" />
+    <None Include="VideoplayerForm.ui.qml" />
+    <None Include="images\btn_down.png" />
+    <None Include="images\btn_down_touch.png" />
+    <None Include="images\btn_endcall.png" />
+    <None Include="images\btn_endcall_push.png" />
+    <None Include="images\btn_maximize.png" />
+    <None Include="images\btn_maximize_push.png" />
+    <None Include="images\btn_maximize_touch.png" />
+    <None Include="images\btn_mute_close.png" />
+    <None Include="images\btn_mute_close_push.png" />
+    <None Include="images\btn_mute_close_touch.png" />
+    <None Include="images\btn_mute_open.png" />
+    <None Include="images\btn_mute_open_push.png" />
+    <None Include="images\btn_mute_open_touch.png" />
+    <None Include="images\btn_restore.png" />
+    <None Include="images\btn_restore_push.png" />
+    <None Include="images\btn_restore_touch.png" />
+    <None Include="images\btn_settings.png" />
+    <None Include="images\btn_settings_push.png" />
+    <None Include="images\btn_settings_touch.png" />
+    <None Include="images\btn_video.png" />
+    <None Include="images\btn_video_push.png" />
+    <None Include="images\btn_video_touch.png" />
+    <None Include="images\btn_voice.png" />
+    <None Include="images\btn_voice_push.png" />
+    <None Include="images\btn_voice_touch.png" />
+    <None Include="images\btn_window_close.png" />
+    <None Include="images\btn_window_close_push.png" />
+    <None Include="images\btn_window_close_touch.png" />
+    <None Include="images\btn_window_minimize.png" />
+    <None Include="images\btn_window_minimize_push.png" />
+    <None Include="images\btn_window_minimize_touch.png" />
+    <None Include="images\icon_background_video.png" />
+    <None Include="images\icon_logo.png" />
+    <None Include="main.qml" />
+    <QtRcc Include="qml.qrc">
+    </QtRcc>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" Qt5Version_x0020_Win32="msvc2015" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
