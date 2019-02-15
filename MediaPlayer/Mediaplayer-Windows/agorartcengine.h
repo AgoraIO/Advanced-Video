@@ -5,7 +5,7 @@
 #include <QVariant>
 #include <IAgoraRtcEngine.h>
 #include <IAgoraMediaEngine.h>
-#include "Agora_native_sdk/videokit/videokit.h"
+#include "Agora_Video_Kit/videokit/videokit.h"
 
 class QQuickItem;
 

@@ -14,10 +14,10 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DQT_QML_DEBUG -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG
 CFLAGS        = -nologo -Zc:wchar_t -FS -Zc:strictStrings -O2 -MD -W3 -w44456 -w44457 -w44458 $(DEFINES)
 CXXFLAGS      = -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zc:throwingNew -O2 -MD -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc $(DEFINES)
-INCPATH       = -I. -IAgora_native_sdk\include -IAgora_native_sdk\videokit -IE:\Qt\Qt5.6.2\5.6\msvc2015\include -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQuickWidgets -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQuick -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtANGLE -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQml -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtNetwork -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore -Irelease -I. -IE:\Qt\Qt5.6.2\5.6\msvc2015\mkspecs\win32-msvc2015 
+INCPATH       = -I. -IAgora_Video_Kit\include -IAgora_Video_Kit\videokit -Isdk\include -IE:\Qt\Qt5.6.2\5.6\msvc2015\include -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQuickWidgets -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQuick -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtANGLE -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQml -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtNetwork -IE:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore -Irelease -I. -IE:\Qt\Qt5.6.2\5.6\msvc2015\mkspecs\win32-msvc2015 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:E:\Qt\Qt5.6.2\5.6\msvc2015\lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\qtmain.lib shell32.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib /LIBPATH:C:\Users\zhanxiaochao\Desktop\agora-demo-qt\Agora_native_sdk\lib C:\Users\zhanxiaochao\Desktop\agora-demo-qt\Agora_native_sdk\lib\agora_rtc_sdk.lib C:\Users\zhanxiaochao\Desktop\agora-demo-qt\Agora_native_sdk\lib\re_sampler.lib C:\Users\zhanxiaochao\Desktop\agora-demo-qt\Agora_native_sdk\lib\VideoPlayerKit.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5QuickWidgets.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Quick.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Widgets.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Gui.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Qml.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Network.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Core.lib 
+LIBS          = /LIBPATH:E:\Qt\Qt5.6.2\5.6\msvc2015\lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\qtmain.lib shell32.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib /LIBPATH:C:\Users\zhanxiaochao\Desktop\Advanced-Video-Mediaplayer\MediaPlayer\Mediaplayer-Windows\Agora_Video_Kit\lib C:\Users\zhanxiaochao\Desktop\Advanced-Video-Mediaplayer\MediaPlayer\Mediaplayer-Windows\Agora_Video_Kit\lib\re_sampler.lib C:\Users\zhanxiaochao\Desktop\Advanced-Video-Mediaplayer\MediaPlayer\Mediaplayer-Windows\Agora_Video_Kit\lib\VideoPlayerKit.lib /LIBPATH:C:\Users\zhanxiaochao\Desktop\Advanced-Video-Mediaplayer\MediaPlayer\Mediaplayer-Windows\sdk\lib C:\Users\zhanxiaochao\Desktop\Advanced-Video-Mediaplayer\MediaPlayer\Mediaplayer-Windows\sdk\lib\agora_rtc_sdk.lib D3D9.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5QuickWidgets.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Quick.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Widgets.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Gui.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Qml.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Network.lib E:\Qt\Qt5.6.2\5.6\msvc2015\lib\Qt5Core.lib 
 QMAKE         = E:\Qt\Qt5.6.2\5.6\msvc2015\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -48,9 +48,9 @@ SOURCES       = main.cpp \
 		mainwindow.cpp \
 		QTVideoKit.cpp \
 		videorender.cpp \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.cpp \
-		Agora_native_sdk\videokit\videoinfocallback.cpp \
-		Agora_native_sdk\videokit\videokit.cpp release\qrc_qml.cpp \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.cpp \
+		Agora_Video_Kit\videokit\videoinfocallback.cpp \
+		Agora_Video_kit\videokit\videokit.cpp release\qrc_qml.cpp \
 		release\moc_agorartcengine.cpp \
 		release\moc_mainwindow.cpp \
 		release\moc_QTVideoKit.cpp \
@@ -77,9 +77,9 @@ DIST          =  agorartcengine.h \
 		mainwindow.cpp \
 		QTVideoKit.cpp \
 		videorender.cpp \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.cpp \
-		Agora_native_sdk\videokit\videoinfocallback.cpp \
-		Agora_native_sdk\videokit\videokit.cpp
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.cpp \
+		Agora_Video_Kit\videokit\videoinfocallback.cpp \
+		Agora_Video_kit\videokit\videokit.cpp
 QMAKE_TARGET  = AgoraVideoCall
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = AgoraVideoCall.exe
@@ -89,65 +89,17 @@ DESTDIR_TARGET = release\AgoraVideoCall.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{Agora_native_sdk\videokit}.cpp{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
+.cpp.obj:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
 
-{Agora_native_sdk\videokit}.cc{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
+.cc.obj:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
 
-{Agora_native_sdk\videokit}.cxx{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
+.cxx.obj:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
 
-{Agora_native_sdk\videokit}.c{release\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cpp{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cc{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cxx{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.c{release\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{.}.cpp{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{.}.cc{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{.}.cxx{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{.}.c{release\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
+.c.obj:
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fo$@ $<
 
 ####### Build rules
 
@@ -316,14 +268,18 @@ release\moc_agorartcengine.cpp: E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QStrin
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qpoint.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qset.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qcontiguouscache.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
+		sdk\include\IAgoraMediaEngine.h \
+		Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
 		agorartcengine.h
-	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/include -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/videokit -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore agorartcengine.h -o release\moc_agorartcengine.cpp
+	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/include -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/videokit -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/sdk/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore agorartcengine.h -o release\moc_agorartcengine.cpp
 
 release\moc_mainwindow.cpp: E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QMainWindow \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qmainwindow.h \
@@ -432,13 +388,17 @@ release\moc_mainwindow.cpp: E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QMainWi
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\qtouchdevice.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qtabwidget.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\qicon.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
 		QTVideoKit.h \
-		Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+		Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		sdk\include\IAgoraMediaEngine.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
 		videorender.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QWidget \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQuickWidgets\QQuickWidget \
@@ -474,13 +434,15 @@ release\moc_mainwindow.cpp: E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QMainWi
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qbasictimer.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\QCloseEvent \
 		mainwindow.h
-	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/include -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/videokit -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore mainwindow.h -o release\moc_mainwindow.cpp
+	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/include -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/videokit -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/sdk/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore mainwindow.h -o release\moc_mainwindow.cpp
 
-release\moc_QTVideoKit.cpp: Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+release\moc_QTVideoKit.cpp: Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		sdk\include\IAgoraMediaEngine.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobject.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobjectdefs.h \
@@ -536,8 +498,10 @@ release\moc_QTVideoKit.cpp: Agora_native_sdk\videokit\videokit.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qvarlengtharray.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qcontainerfwd.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobject_impl.h \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
 		QTVideoKit.h
-	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/include -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/videokit -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore QTVideoKit.h -o release\moc_QTVideoKit.cpp
+	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/include -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/videokit -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/sdk/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore QTVideoKit.h -o release\moc_QTVideoKit.cpp
 
 release\moc_videorender.cpp: E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QWidget \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qwidget.h \
@@ -678,7 +642,7 @@ release\moc_videorender.cpp: E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QWidge
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qbasictimer.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\QCloseEvent \
 		videorender.h
-	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/include -IC:/Users/zhanxiaochao/Desktop/agora-demo-qt/Agora_native_sdk/videokit -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore videorender.h -o release\moc_videorender.cpp
+	E:\Qt\Qt5.6.2\5.6\msvc2015\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -IE:/Qt/Qt5.6.2/5.6/msvc2015/mkspecs/win32-msvc2015 -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/include -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/Agora_Video_Kit/videokit -IC:/Users/zhanxiaochao/Desktop/Advanced-Video-Mediaplayer/MediaPlayer/Mediaplayer-Windows/sdk/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuickWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQuick -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtWidgets -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtGui -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtANGLE -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtQml -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtNetwork -IE:/Qt/Qt5.6.2/5.6/msvc2015/include/QtCore videorender.h -o release\moc_videorender.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -816,13 +780,17 @@ release\main.obj: main.cpp E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QApplica
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qmainwindow.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qtabwidget.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\qicon.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
 		QTVideoKit.h \
-		Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+		Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		sdk\include\IAgoraMediaEngine.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
 		videorender.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QWidget \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQuickWidgets\QQuickWidget \
@@ -857,6 +825,7 @@ release\main.obj: main.cpp E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QApplica
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qtimer.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qbasictimer.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\QCloseEvent
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\main.obj main.cpp
 
 release\agorartcengine.obj: agorartcengine.cpp agorartcengine.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QString \
@@ -927,12 +896,16 @@ release\agorartcengine.obj: agorartcengine.cpp agorartcengine.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qpoint.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qset.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qcontiguouscache.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
+		sdk\include\IAgoraMediaEngine.h \
+		Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
 		mainwindow.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QMainWindow \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qmainwindow.h \
@@ -1014,6 +987,7 @@ release\agorartcengine.obj: agorartcengine.cpp agorartcengine.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QMessageBox \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qmessagebox.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qdialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\agorartcengine.obj agorartcengine.cpp
 
 release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QMainWindow \
@@ -1123,13 +1097,17 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\qtouchdevice.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qtabwidget.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\qicon.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
 		QTVideoKit.h \
-		Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+		Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		sdk\include\IAgoraMediaEngine.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
 		videorender.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QWidget \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtQuickWidgets\QQuickWidget \
@@ -1190,13 +1168,16 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\qdialog.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QTextCodec \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qtextcodec.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\mainwindow.obj mainwindow.cpp
 
 release\QTVideoKit.obj: QTVideoKit.cpp QTVideoKit.h \
-		Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+		Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		sdk\include\IAgoraMediaEngine.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobject.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobjectdefs.h \
@@ -1251,7 +1232,10 @@ release\QTVideoKit.obj: QTVideoKit.cpp QTVideoKit.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qmetatype.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qvarlengtharray.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qcontainerfwd.h \
-		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobject_impl.h
+		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobject_impl.h \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\QTVideoKit.obj QTVideoKit.cpp
 
 release\videorender.obj: videorender.cpp videorender.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QWidget \
@@ -1394,11 +1378,15 @@ release\videorender.obj: videorender.cpp videorender.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtGui\QCloseEvent \
 		ui_videorender.h \
 		QTVideoKit.h \
-		Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+		Agora_Video_Kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		sdk\include\IAgoraMediaEngine.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QTextCodec \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qtextcodec.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtWidgets\QFileDialog \
@@ -1409,23 +1397,28 @@ release\videorender.obj: videorender.cpp videorender.h \
 		agorartcengine.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QString \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QVariant
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\videorender.obj videorender.cpp
 
-release\ExtendAudioFrameObserver.obj: Agora_native_sdk\videokit\ExtendAudioFrameObserver.cpp Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\include\external_resampler.h \
-		Agora_native_sdk\videokit\AudioCircularBuffer.h \
-		Agora_native_sdk\videokit\scoped_ptr.h \
-		Agora_native_sdk\videokit\constructor_magic.h \
-		Agora_native_sdk\videokit\template_util.h \
-		Agora_native_sdk\videokit\typedefs.h
+release\ExtendAudioFrameObserver.obj: Agora_Video_Kit\videokit\ExtendAudioFrameObserver.cpp Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
+		sdk\include\IAgoraMediaEngine.h \
+		Agora_Video_Kit\include\external_resampler.h \
+		Agora_Video_Kit\videokit\AudioCircularBuffer.h \
+		Agora_Video_Kit\videokit\scoped_ptr.h \
+		Agora_Video_Kit\videokit\constructor_magic.h \
+		Agora_Video_Kit\videokit\template_util.h \
+		Agora_Video_Kit\videokit\typedefs.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ExtendAudioFrameObserver.obj Agora_Video_Kit\videokit\ExtendAudioFrameObserver.cpp
 
-release\videoinfocallback.obj: Agora_native_sdk\videokit\videoinfocallback.cpp Agora_native_sdk\videokit\videoinfocallback.h
+release\videoinfocallback.obj: Agora_Video_Kit\videokit\videoinfocallback.cpp Agora_Video_Kit\videokit\videoinfocallback.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\videoinfocallback.obj Agora_Video_Kit\videokit\videoinfocallback.cpp
 
-release\videokit.obj: Agora_native_sdk\videokit\videokit.cpp Agora_native_sdk\videokit\videokit.h \
-		Agora_native_sdk\videokit\videoinfocallback.h \
-		Agora_native_sdk\include\IAgoraMediaEngine.h \
-		Agora_native_sdk\include\IAgoraRtcEngine.h \
-		Agora_native_sdk\videokit\ExtendAudioFrameObserver.h \
+release\videokit.obj: Agora_Video_kit\videokit\videokit.cpp Agora_Video_kit\videokit\videokit.h \
+		Agora_Video_Kit\videokit\videoinfocallback.h \
+		sdk\include\IAgoraMediaEngine.h \
+		sdk\include\IAgoraRtcEngine.h \
+		sdk\include\AgoraBase.h \
+		sdk\include\IAgoraService.h \
+		Agora_Video_Kit\videokit\ExtendAudioFrameObserver.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\QObject \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobject.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobjectdefs.h \
@@ -1481,17 +1474,25 @@ release\videokit.obj: Agora_native_sdk\videokit\videokit.cpp Agora_native_sdk\vi
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qvarlengtharray.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qcontainerfwd.h \
 		E:\Qt\Qt5.6.2\5.6\msvc2015\include\QtCore\qobject_impl.h \
-		Agora_native_sdk\include\videoplayertool.h
+		Agora_Video_Kit\videokit\SingleTon.h \
+		Agora_Video_Kit\videokit\ZD3DRender.h \
+		Agora_Video_Kit\include\videoplayertool.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\videokit.obj Agora_Video_kit\videokit\videokit.cpp
 
 release\qrc_qml.obj: release\qrc_qml.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\qrc_qml.obj release\qrc_qml.cpp
 
 release\moc_agorartcengine.obj: release\moc_agorartcengine.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\moc_agorartcengine.obj release\moc_agorartcengine.cpp
 
 release\moc_mainwindow.obj: release\moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\moc_mainwindow.obj release\moc_mainwindow.cpp
 
 release\moc_QTVideoKit.obj: release\moc_QTVideoKit.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\moc_QTVideoKit.obj release\moc_QTVideoKit.cpp
 
 release\moc_videorender.obj: release\moc_videorender.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\moc_videorender.obj release\moc_videorender.cpp
 
 ####### Install
 

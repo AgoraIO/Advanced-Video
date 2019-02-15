@@ -1,5 +1,5 @@
 #pragma once
-#include "Agora_native_sdk/videokit/videokit.h"
+#include "Agora_Video_Kit/videokit/videokit.h"
 #include <QObject>
 #include  "SingleTon.h"
 #include <mutex>

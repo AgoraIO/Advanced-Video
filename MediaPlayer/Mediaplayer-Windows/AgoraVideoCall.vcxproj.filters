@@ -47,7 +47,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Agora_native_sdk\videokit\ExtendAudioFrameObserver.cpp">
+    <ClCompile Include="Agora_Video_Kit\videokit\ExtendAudioFrameObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QTVideoKit.cpp">
@@ -62,16 +62,16 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Agora_native_sdk\videokit\videoinfocallback.cpp">
+    <ClCompile Include="Agora_Video_Kit\videokit\videoinfocallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Agora_native_sdk\videokit\videokit.cpp">
+    <ClCompile Include="Agora_Video_kit\videokit\videokit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="videorender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ZD3DRender.cpp">
+    <ClCompile Include="Agora_Video_Kit\videokit\ZD3DRender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,16 +93,7 @@
     <ClInclude Include="ui_videorender.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="Agora_native_sdk\videokit\videokit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Agora_native_sdk\videokit\SingleTon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZD3DRender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Agora_native_sdk\videokit\videoinfocallback.h">
+    <ClInclude Include="Agora_Video_Kit\videokit\ZD3DRender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
