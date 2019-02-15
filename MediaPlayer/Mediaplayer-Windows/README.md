@@ -6,6 +6,8 @@
 
 然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话/视频直播 SDK**，解压后将其中的 **sdk** 文件夹复制到 AgoraVideoCall.sln文件同级目录下。
 
+还需要下载  [Agora_Video_Kit](https://github.com/AgoraIO/Advanced-Video/releases/download/MediaPlayer1.0/Agora_Video_Kit_1.0.zip) 同样将解压后的Agora_Video_Kit文件夹复制到AgoraVideoCall.sln文件同级目录下。
+
 最后打开AgoraVideoCall.sln 文件编译运行即可
 
 ##注意 Agora_Video_Kit/dll文件下的dll库需要放在相应的执行路径下
