@@ -41,6 +41,12 @@ Finally, Open AgoraMediaSource.sln, build the solution and run.
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
 - You can fire bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
+##Note
+
+For master branch
+
+You need IAgoraRtcEngine2.h header file.
+
 ## License
 
 The MIT License (MIT).

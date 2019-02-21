@@ -44,6 +44,12 @@
 - 如果需要售后技术支持，你可以在 [Agora Dashboard](https://dashboard.agora.io) 提交工单
 - 如果发现了示例代码的bug，欢迎提交 [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
+## 注意
+
+对于master分支：
+
+视频裸数据回调的使用，需要IAgoraRtcEngine2.h。
+
 ## 代码许可
 
 The MIT License (MIT).
