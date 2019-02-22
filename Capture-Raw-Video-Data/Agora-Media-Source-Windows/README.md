@@ -43,9 +43,7 @@ Finally, Open AgoraMediaSource.sln, build the solution and run.
 
 ##Note
 
-For master branch
-
-You need IAgoraRtcEngine2.h header file.
+sdk 2.3.2 and above
 
 ## License
 

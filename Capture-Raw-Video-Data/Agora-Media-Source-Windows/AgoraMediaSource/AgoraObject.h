@@ -2,7 +2,6 @@
 
 #include "../SDK/include/IAgoraRtcEngine.h"
 #include "../SDK/include/IAgoraMediaEngine.h"
-#include "../SDK/include/IAgoraRtcEngine2.h"
 #include "AGEngineEventHandler.h"
 
 #include "ExtendVideoFrameObserver.h"
@@ -23,7 +22,7 @@ using namespace agora::media;
 #define AG_CODEC_EVP	0x00000001
 #define AG_CODEC_VP8	0x00000002
 
-#define APP_ID _T("")
+#define APP_ID _T("aab8b8f5a8cd4469a63042fcfafe7063")
 
 class CAgoraObject
 {
@@ -62,7 +61,7 @@ public:
 	BOOL EnableVideo(BOOL bEnable = TRUE);
 	BOOL IsVideoEnabled();
 
-	BOOL EnableScreenCapture(HWND hWnd, int nCapFPS = 15, LPCRECT lpCapRect = NULL, BOOL bEnable = TRUE);
+	BOOL EnableScreenCapture(HWND hWnd, int nCapFPS = 15, LPCRECT lpCapRect = NULL, BOOL bEnable = TRUE, int nBitrate = 0);
 	BOOL IsScreenCaptureEnabled();
 
 	BOOL MuteLocalAudio(BOOL bMuted = TRUE);
@@ -78,7 +77,6 @@ public:
 	BOOL EnableEchoTest(BOOL bEnable = TRUE);
 	BOOL IsEchoTesting() { return m_bEchoTest; };
 
-	BOOL SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate);
 	BOOL SetAudioProfileEx(int nSampleRate, int nChannels, int nSamplesPerCall);
 
 	BOOL EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* lpAudioFrameObserver);
@@ -86,7 +84,7 @@ public:
 
 	BOOL LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn = TRUE);
 
-	BOOL SetLogFilter(LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath);
+	BOOL SetLogFilter(agora::LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath);
 
     BOOL SetEncryptionSecret(LPCTSTR lpKey, int nEncryptType = 0);
 

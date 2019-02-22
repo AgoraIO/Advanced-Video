@@ -48,7 +48,7 @@
 
 对于master分支：
 
-视频裸数据回调的使用，需要IAgoraRtcEngine2.h。
+sdk 版本2.3.2及以上
 
 ## 代码许可
 

@@ -192,7 +192,11 @@ void CExtCaptureDlg::OnBnClickedBtnapplyExtcap()
 		m_agVideoCaptureDevice.SetGrabberCallback(&m_agVideoCapture, 1);
 		CVideoPackageQueue::GetInstance()->SetVideoFormat(&videoInfo.bmiHeader);
 
-		lpAgoraObject->SetVideoProfileEx(videoInfo.bmiHeader.biWidth, videoInfo.bmiHeader.biHeight, static_cast<int>(10000000 / videoInfo.AvgTimePerFrame), 1000);
+		VideoEncoderConfiguration config;
+		config.dimensions.width = videoInfo.bmiHeader.biWidth;
+		config.dimensions.height = videoInfo.bmiHeader.biHeight;
+		lpAgoraObject->GetEngine()->setVideoEncoderConfiguration(config);
+		//lpAgoraObject->SetVideoProfileEx(videoInfo.bmiHeader.biWidth, videoInfo.bmiHeader.biHeight, static_cast<int>(10000000 / videoInfo.AvgTimePerFrame), 1000);
 		
 	}
 
