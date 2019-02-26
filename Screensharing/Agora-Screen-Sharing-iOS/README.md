@@ -1,5 +1,7 @@
 # Agora Screen Sharing iOS
 
+*Read this in other languages: [Chinese](README.zh.md)*
+
 This tutorial describes how to add screensharing to your iOS applications using the Agora Video SDK.
 
 With this sample app, you can:
