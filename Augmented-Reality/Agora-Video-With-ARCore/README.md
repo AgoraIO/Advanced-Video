@@ -1,6 +1,6 @@
 # Agora Video with ARCore
 
-*Read this in other languages: [Chinese](README.zh.md)*
+*Read this in other languages: [中文](README.zh.md)*
 
 This tutorial shows you how to create an Android app with live video chat using Google's ARCore platform and the Agora Video SDK.
 

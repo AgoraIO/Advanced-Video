@@ -1,6 +1,6 @@
 # Agora Video with ARKit
 
-*Read this in other languages: [Chinese](README.zh.md)*
+*Read this in other languages: [中文](README.zh.md)*
 
 This quick start enables you to integrate live video chat functionality from the Agora Video SDK using an iOS ARKit sample application.
 
