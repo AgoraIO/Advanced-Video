@@ -1,6 +1,6 @@
 # Agora Screen Sharing Android
 
-*其他语言版本： [简体中文](README.zh.md)*
+*Read this in other languages: [中文](README.zh.md)*
 
 The Agora Screen Sharing for Android Sample App is an open-source demo that shows how to enable screen sharing function using the Agora Video SDK.
 
