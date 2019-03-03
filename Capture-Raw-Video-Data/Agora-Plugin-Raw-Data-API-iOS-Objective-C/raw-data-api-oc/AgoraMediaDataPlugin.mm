@@ -64,16 +64,18 @@ public:
     {
         if (!mediaDataPlugin) return true;
         @synchronized(mediaDataPlugin) {
-            AgoraVideoRawData *newData = nil;
-            if ([mediaDataPlugin.videoDelegate respondsToSelector:@selector(mediaDataPlugin:didCapturedVideoRawData:)]) {
-                AgoraVideoRawData *data = getVideoRawDataWithVideoFrame(videoFrame);
-                newData = [mediaDataPlugin.videoDelegate mediaDataPlugin:mediaDataPlugin didCapturedVideoRawData:data];
-                modifiedVideoFrameWithNewVideoRawData(videoFrame, newData);
-                
-                // ScreenShot
-                if (getOneDidCaptureVideoFrame) {
-                    getOneDidCaptureVideoFrame = false;
-                    [mediaDataPlugin yuvToUIImageWithVideoRawData:newData];
+            @autoreleasepool {
+                AgoraVideoRawData *newData = nil;
+                if ([mediaDataPlugin.videoDelegate respondsToSelector:@selector(mediaDataPlugin:didCapturedVideoRawData:)]) {
+                    AgoraVideoRawData *data = getVideoRawDataWithVideoFrame(videoFrame);
+                    newData = [mediaDataPlugin.videoDelegate mediaDataPlugin:mediaDataPlugin didCapturedVideoRawData:data];
+                    modifiedVideoFrameWithNewVideoRawData(videoFrame, newData);
+                    
+                    // ScreenShot
+                    if (getOneDidCaptureVideoFrame) {
+                        getOneDidCaptureVideoFrame = false;
+                        [mediaDataPlugin yuvToUIImageWithVideoRawData:newData];
+                    }
                 }
             }
             return true;
@@ -84,17 +86,19 @@ public:
     {
         if (!mediaDataPlugin) return true;
         @synchronized(mediaDataPlugin) {
-            AgoraVideoRawData *newData = nil;
-            if ([mediaDataPlugin.videoDelegate respondsToSelector:@selector(mediaDataPlugin:willRenderVideoRawData:)]) {
-                AgoraVideoRawData *data = getVideoRawDataWithVideoFrame(videoFrame);
-                newData = [mediaDataPlugin.videoDelegate mediaDataPlugin:mediaDataPlugin willRenderVideoRawData:data];
-                modifiedVideoFrameWithNewVideoRawData(videoFrame, newData);
-                
-                // ScreenShot
-                if (getOneWillRenderVideoFrame && videoFrameUid == uid) {
-                    getOneWillRenderVideoFrame = false;
-                    videoFrameUid = -1;
-                    [mediaDataPlugin yuvToUIImageWithVideoRawData:newData];
+            @autoreleasepool {
+                AgoraVideoRawData *newData = nil;
+                if ([mediaDataPlugin.videoDelegate respondsToSelector:@selector(mediaDataPlugin:willRenderVideoRawData:)]) {
+                    AgoraVideoRawData *data = getVideoRawDataWithVideoFrame(videoFrame);
+                    newData = [mediaDataPlugin.videoDelegate mediaDataPlugin:mediaDataPlugin willRenderVideoRawData:data];
+                    modifiedVideoFrameWithNewVideoRawData(videoFrame, newData);
+                    
+                    // ScreenShot
+                    if (getOneWillRenderVideoFrame && videoFrameUid == uid) {
+                        getOneWillRenderVideoFrame = false;
+                        videoFrameUid = -1;
+                        [mediaDataPlugin yuvToUIImageWithVideoRawData:newData];
+                    }
                 }
             }
             return true;
@@ -132,11 +136,13 @@ public:
     virtual bool onRecordAudioFrame(AudioFrame& audioFrame) override
     {
         @synchronized(mediaDataPlugin) {
-            if (!mediaDataPlugin) return true;
-            if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:didRecordAudioRawData:)]) {
-                AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
-                AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin didRecordAudioRawData:data];
-                modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+            @autoreleasepool {
+                if (!mediaDataPlugin) return true;
+                if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:didRecordAudioRawData:)]) {
+                    AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
+                    AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin didRecordAudioRawData:data];
+                    modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+                }
             }
             return true;
         }
@@ -145,11 +151,13 @@ public:
     virtual bool onPlaybackAudioFrame(AudioFrame& audioFrame) override
     {
         @synchronized(mediaDataPlugin) {
-            if (!mediaDataPlugin) return true;
-            if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:willPlaybackAudioRawData:)]) {
-                AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
-                AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin willPlaybackAudioRawData:data];
-                modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+            @autoreleasepool {
+                if (!mediaDataPlugin) return true;
+                if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:willPlaybackAudioRawData:)]) {
+                    AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
+                    AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin willPlaybackAudioRawData:data];
+                    modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+                }
             }
             return true;
         }
@@ -158,11 +166,13 @@ public:
     virtual bool onPlaybackAudioFrameBeforeMixing(unsigned int uid, AudioFrame& audioFrame) override
     {
         @synchronized(mediaDataPlugin) {
-            if (!mediaDataPlugin) return true;
-            if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:willPlaybackBeforeMixingAudioRawData:)]) {
-                AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
-                AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin willPlaybackBeforeMixingAudioRawData:data];
-                modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+            @autoreleasepool {
+                if (!mediaDataPlugin) return true;
+                if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:willPlaybackBeforeMixingAudioRawData:)]) {
+                    AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
+                    AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin willPlaybackBeforeMixingAudioRawData:data];
+                    modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+                }
             }
             return true;
         }
@@ -171,11 +181,13 @@ public:
     virtual bool onMixedAudioFrame(AudioFrame& audioFrame) override
     {
         @synchronized(mediaDataPlugin) {
-            if (!mediaDataPlugin) return true;
-            if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:didMixedAudioRawData:)]) {
-                AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
-                AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin didMixedAudioRawData:data];
-                modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+            @autoreleasepool {
+                if (!mediaDataPlugin) return true;
+                if ([mediaDataPlugin.audioDelegate respondsToSelector:@selector(mediaDataPlugin:didMixedAudioRawData:)]) {
+                    AgoraAudioRawData *data = getAudioRawDataWithAudioFrame(audioFrame);
+                    AgoraAudioRawData *newData = [mediaDataPlugin.audioDelegate mediaDataPlugin:mediaDataPlugin didMixedAudioRawData:data];
+                    modifiedAudioFrameWithNewAudioRawData(audioFrame, newData);
+                }
             }
             return true;
         }
