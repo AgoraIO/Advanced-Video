@@ -4,7 +4,6 @@
 
 ## 简介
 
-The Agora-Custom-VideoSource-Web Sample App is an open-source demo that helps you get live video chat integrated into your applications with custom video source.
 本开源示例项目基于 Agora Web SDK videoSource 接口开发，演示了如何使用Agora Web SDK，实现自定义视频采集和渲染。
 
 本示例项目中包含以下的功能：
