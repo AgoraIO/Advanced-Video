@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>
+        Agora-Custom-VideoSource-Web
+    </title>
+    <meta name="keywords" content="">
+    <meta name="x5-fullscreen" content="false" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+      }
+      .sender,
+      .sender-canvas,
+      .canvas,
+      .remotes {
+        flex: 1;
+      }
+      .but {
+      }
+    </style>
+    <div class="container">
+          <a href="?receiver" target="_blank">copy link address for receiver side</a>
+      <div class="sender">
+              <h5>video stream: sender</h5>
+        <div id="local_agora" style="width: 480px; height: 360px;"></div>
+        <div class="but">
+          <button id="publishSender">publish</button>
+        </div>
+      </div>
+      <div class="sender-canvas">
+              <h5>canvas:</h5>
+              <canvas id="myCanvas" width="480" height="360"></canvas>
+      </div>
+      <div class="canvas">
+              <h5>videosource from canvas: </h5>
+        <div id="canvasPlayer" style="width: 480px; height: 360px;"></div>
+      </div>
+      <div class="remotes">
+              <h5>receiver subscribed streams</h5>
+        <div id="video">
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
