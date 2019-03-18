@@ -324,7 +324,7 @@ BOOL CAgoraObject::IsVideoEnabled()
 	return m_bVideoEnable;
 }
 
-BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable)
+BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable, int nBitrate)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
@@ -335,18 +335,18 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 
 	if (bEnable) {
 		if (lpCapRect == NULL)
-			ret = rep.startScreenCapture(hWnd, nCapFPS, NULL);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, NULL, nBitrate);
 		else {
 			rcCap.left = lpCapRect->left;
 			rcCap.right = lpCapRect->right;
 			rcCap.top = lpCapRect->top;
 			rcCap.bottom = lpCapRect->bottom;
 
-			ret = rep.startScreenCapture(hWnd, nCapFPS, &rcCap);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap, nBitrate);
 		}
 	}
 	else
-		ret = rep.stopScreenCapture();
+		ret = m_lpAgoraEngine->stopScreenCapture();
 
 	if (ret == 0)
 		m_bScreenCapture = bEnable;
@@ -480,7 +480,7 @@ void CAgoraObject::SetWantedRole(CLIENT_ROLE_TYPE role)
 
 BOOL CAgoraObject::SetClientRole(CLIENT_ROLE_TYPE role, LPCSTR lpPermissionKey)
 {
-	int nRet = m_lpAgoraEngine->setClientRole(role, lpPermissionKey);
+	int nRet = m_lpAgoraEngine->setClientRole(role);
 
 	m_nRoleType = role;
 
@@ -542,7 +542,7 @@ BOOL CAgoraObject::LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn)
 	return nRet == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::SetLogFilter(LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath)
+BOOL CAgoraObject::SetLogFilter(UINT logFilterType, LPCTSTR lpLogPath)
 {
 	int nRet = 0;
 	RtcEngineParameters rep(*m_lpAgoraEngine);
@@ -1065,7 +1065,7 @@ BOOL CAgoraObject::UpdateCaptureRegion(const LPRECT lpRect)
 	rect.top = lpRect->top;
 	rect.bottom = lpRect->bottom;
 
-	ret = rep.updateScreenCaptureRegion(&rect);
+	ret = m_lpAgoraEngine->updateScreenCaptureRegion(&rect);
 
 	return ret == 0 ? TRUE : FALSE;
 }
