@@ -3,8 +3,8 @@
 #include <memory>
 #include <QString>
 #include <QVariant>
-#include <IAgoraRtcEngine.h>  // 此头文件在下载的sdk 中
-#include <IAgoraMediaEngine.h>  // 此头文件在下载的sdk 中
+#include <IAgoraRtcEngine.h>  
+#include <IAgoraMediaEngine.h>  
 #include "Agora_Video_Kit/videokit/videokit.h"
 
 class QQuickItem;
