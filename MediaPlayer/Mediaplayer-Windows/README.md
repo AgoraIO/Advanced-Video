@@ -2,7 +2,7 @@
 这个开源项目演示了如何利用Agora视频SDK 和 Agora_Video_Kit插件 来实现视频播放内容共享
 
 # 运行示例程序
-首先在 [Agora.io](https://dashboard.agora.io/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 agorartcengine.cpp 对应位置。
+首先在 [Agora.io](https://dashboard.agora.io/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 agorartcengine.cpp 对应位置(在context.appId = APP_ID 处用你申请到的AppID 替换APP_ID)。
 
 然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话/视频直播 SDK**，解压后将其中的 **sdk** 文件夹复制到 AgoraVideoCall.sln文件同级目录下。
 
@@ -10,7 +10,7 @@
 
 最后打开AgoraVideoCall.sln 文件编译运行即可
 
-### 注意 Agora_Video_Kit/dll文件下的dll库需要放在相应的执行路径下
+### 注意 Agora_Video_Kit/dll文件下的dll库和sdk/dll文件下的dll库需要放在相应的执行路径下
 
 ## 使用方法
 1. 填入频道号加入频道；
