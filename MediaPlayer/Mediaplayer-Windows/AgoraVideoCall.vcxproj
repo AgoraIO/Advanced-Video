@@ -194,10 +194,22 @@
       <OutputFile>ui_videorender.h</OutputFile>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
     </QtUic>
+    <PostBuildEvent>
+      <Command>copy .\sdk\dll\*.dll .\debug\
+copy .\Agora_Video_Kit\dll\*.dll .\debug\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agora_Video_Kit\videokit\ExtendAudioFrameObserver.cpp" />
     <ClCompile Include="Agora_Video_Kit\videokit\ZD3DRender.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_agorartcengine.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_agorartcengine.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="QTVideoKit.cpp" />
     <ClCompile Include="agorartcengine.cpp" />
     <ClCompile Include="main.cpp" />
@@ -209,8 +221,16 @@
   <ItemGroup>
     <QtMoc Include="QTVideoKit.h">
     </QtMoc>
-    <QtMoc Include="agorartcengine.h">
-    </QtMoc>
+    <CustomBuild Include="agorartcengine.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing agorartcengine.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\GeneratedFiles" "-I." "-I.\Agora_Video_Kit\include" "-I.\Agora_Video_Kit\videokit" "-I.\sdk\include" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuickWidgets" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuick" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtWidgets" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtGui" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtANGLE" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtQml" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtNetwork" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtCore" "-I.\debug" "-IE:\QT\QT5.6.2\5.6\MSVC2015\mkspecs\win32-msvc2015"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing agorartcengine.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\GeneratedFiles" "-I." "-I.\Agora_Video_Kit\include" "-I.\Agora_Video_Kit\videokit" "-I.\sdk\include" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuickWidgets" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtQuick" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtWidgets" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtGui" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtANGLE" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtQml" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtNetwork" "-IE:\QT\QT5.6.2\5.6\MSVC2015\include\QtCore" "-I.\release" "-IE:\QT\QT5.6.2\5.6\MSVC2015\mkspecs\win32-msvc2015"</Command>
+    </CustomBuild>
     <QtMoc Include="mainwindow.h">
     </QtMoc>
     <QtMoc Include="videorender.h">
