@@ -5,7 +5,7 @@
 首先在 [Agora.io](https://dashboard.agora.io/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 agorartcengine.cpp 对应位置
 
 
-#context.appId = APP_ID;
+context.appId = APP_ID;
 
 
 然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话/视频直播 SDK**，解压后将其中的 **sdk** 文件夹复制到 AgoraVideoCall.sln文件同级目录下。
