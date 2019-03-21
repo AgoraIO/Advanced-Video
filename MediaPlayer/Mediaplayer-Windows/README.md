@@ -14,7 +14,10 @@ context.appId = APP_ID;
 
 最后打开AgoraVideoCall.sln 编译运行即可
 
-## 注意: Agora_Video_Kit/dll文件下的dll库需要放在相应的执行路径下
+## 注意
+# 1.Agora_Video_Kit/dll文件下的dll库需要放在相应的执行路径下
+# 2.sdk/dll文件下的dll库也需要放在相应的执行路径下
+# 温馨提示：此案例教程中已经为您配置好相关的dll库，若用户想自己使用agora提供的接口进行相关开发，则需按上述提示将dll库放入相应的执行路径下。
 
 ## 使用方法
 1. 填入频道号加入频道；
