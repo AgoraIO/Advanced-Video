@@ -3,8 +3,8 @@
 #include <memory>
 #include <QString>
 #include <QVariant>
-#include <IAgoraRtcEngine.h>  
-#include <IAgoraMediaEngine.h>  
+#include <IAgoraRtcEngine.h>
+#include <IAgoraMediaEngine.h>
 #include "Agora_Video_Kit/videokit/videokit.h"
 
 class QQuickItem;
