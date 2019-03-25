@@ -46,7 +46,7 @@ public:
         if (_byteBufferObject) {
             int width = videoFrame.width;
             int height = videoFrame.height;
-            size_t widthAndHeight = (size_t) width * height;
+            size_t widthAndHeight = (size_t) videoFrame.yStride * height;
             size_t length = widthAndHeight * 3 / 2;
 
             AttachThreadScoped ats(gJVM);
@@ -81,7 +81,7 @@ public:
 
         int width = videoFrame.width;
         int height = videoFrame.height;
-        size_t widthAndHeight = (size_t) width * height;
+        size_t widthAndHeight = (size_t) videoFrame.yStride * height;
 
         memcpy(videoFrame.yBuffer, byteBuffer, widthAndHeight);
         memcpy(videoFrame.uBuffer, (uint8_t *) byteBuffer + widthAndHeight, widthAndHeight / 4);

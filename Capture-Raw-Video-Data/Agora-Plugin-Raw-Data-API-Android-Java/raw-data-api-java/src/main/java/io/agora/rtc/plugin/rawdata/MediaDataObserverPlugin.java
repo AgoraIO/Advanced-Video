@@ -129,7 +129,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         if (beCaptureVideoShot) {
             beCaptureVideoShot = false;
 
-            getVideoSnapshot(width, height, rotation, bufferLength, buf, captureFilePath);
+            getVideoSnapshot(width, height, rotation, bufferLength, buf, captureFilePath, yStride, uStride, vStride);
         }
     }
 
@@ -155,7 +155,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
                         if (uid == renderVideoShotUid) {
                             beRenderVideoShot = false;
 
-                            getVideoSnapshot(width, height, rotation, bufferLength, buf, renderFilePath);
+                            getVideoSnapshot(width, height, rotation, bufferLength, buf, renderFilePath, yStride, uStride, vStride);
                         }
                     }
                 }
@@ -223,15 +223,16 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         byteBufferAudioMix.flip();
     }
 
-    private void getVideoSnapshot(int width, int height, int rotation, int bufferLength, byte[] buffer, String filePath) {
+    private void getVideoSnapshot(int width, int height, int rotation, int bufferLength, byte[] buffer, String filePath, int yStride, int uStride, int vStride) {
         File file = new File(filePath);
 
         byte[] NV21 = new byte[bufferLength];
-        swapYV12toYUV420SemiPlanar(buffer, NV21, width, height);
+        swapYU12toYUV420SemiPlanar(buffer, NV21, width, height, yStride, uStride, vStride);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        YuvImage image = new YuvImage(NV21, ImageFormat.NV21, width, height, null);
+        int[] strides = {yStride, yStride};
+        YuvImage image = new YuvImage(NV21, ImageFormat.NV21, width, height, strides);
 
         image.compressToJpeg(
                 new Rect(0, 0, image.getWidth(), image.getHeight()),
@@ -282,14 +283,14 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         }
     }
 
-    private void swapYV12toYUV420SemiPlanar(byte[] yv12bytes, byte[] i420bytes, int width, int height) {
-        System.arraycopy(yv12bytes, 0, i420bytes, 0, width * height);
-        int startPos = width * height;
+    private void swapYU12toYUV420SemiPlanar(byte[] yu12bytes, byte[] i420bytes, int width, int height, int yStride, int uStride, int vStride) {
+        System.arraycopy(yu12bytes, 0, i420bytes, 0, yStride * height);
+        int startPos = yStride * height;
         int yv_start_pos_u = startPos;
         int yv_start_pos_v = startPos + startPos / 4;
         for (int i = 0; i < startPos / 4; i++) {
-            i420bytes[startPos + 2 * i + 0] = yv12bytes[yv_start_pos_v + i];
-            i420bytes[startPos + 2 * i + 1] = yv12bytes[yv_start_pos_u + i];
+            i420bytes[startPos + 2 * i + 0] = yu12bytes[yv_start_pos_v + i];
+            i420bytes[startPos + 2 * i + 1] = yu12bytes[yv_start_pos_u + i];
         }
     }
 
