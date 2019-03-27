@@ -194,6 +194,10 @@
       <OutputFile>ui_videorender.h</OutputFile>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
     </QtUic>
+    <PostBuildEvent>
+      <Command>copy .\sdk\dll\*.dll .\debug\
+copy .\Agora_Video_Kit\dll\*.dll .\debug\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agora_Video_Kit\videokit\ExtendAudioFrameObserver.cpp" />
