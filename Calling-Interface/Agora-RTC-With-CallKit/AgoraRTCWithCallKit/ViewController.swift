@@ -111,8 +111,8 @@ private extension ViewController {
     func startSession(_ session: String) {
         isCallActive = true
         
-        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord,
-                                                         mode: AVAudioSessionModeVoiceChat,
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord,
+                                                         mode: AVAudioSession.Mode.voiceChat,
                                                          options: [.mixWithOthers, .allowBluetooth])
         
         rtcEngine.setAudioSessionOperationRestriction(.configureSession)

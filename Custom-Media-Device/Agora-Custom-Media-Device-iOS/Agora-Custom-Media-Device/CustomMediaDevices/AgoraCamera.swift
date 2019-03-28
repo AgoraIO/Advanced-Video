@@ -47,8 +47,8 @@ class AgoraCamera: NSObject {
     
     override init() {
         super.init()
-        viewOrientationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillChangeStatusBarOrientation, object: nil, queue: nil) { [weak self] (notify) in
-            guard let value = notify.userInfo?[UIApplicationStatusBarOrientationUserInfoKey] as? Int, let orientation = UIInterfaceOrientation(rawValue: value) else {
+        viewOrientationObserver = NotificationCenter.default.addObserver(forName: UIApplication.willChangeStatusBarOrientationNotification, object: nil, queue: nil) { [weak self] (notify) in
+            guard let value = notify.userInfo?[UIApplication.statusBarOrientationUserInfoKey] as? Int, let orientation = UIInterfaceOrientation(rawValue: value) else {
                 return
             }
             self?.viewOrientation = orientation

@@ -364,7 +364,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2017;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora Video Source/VideoChat/Agora Video Source-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -387,7 +387,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora Video Source/VideoChat/Agora Video Source-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

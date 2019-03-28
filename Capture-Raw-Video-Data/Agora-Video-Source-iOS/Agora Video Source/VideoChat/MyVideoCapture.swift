@@ -53,16 +53,15 @@ class MyVideoCapture: NSObject {
         captureSession.usesApplicationAudioSession = false
         
         let captureOutput = AVCaptureVideoDataOutput()
-        captureOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as AnyHashable: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
+        captureOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
         if captureSession.canAddOutput(captureOutput) {
             captureSession.addOutput(captureOutput)
         }
         
         captureQueue = DispatchQueue(label: "MyCaptureQueue")
         
-        if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
-            videoView.insertCaptureVideoPreviewLayer(previewLayer: previewLayer)
-        }
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoView.insertCaptureVideoPreviewLayer(previewLayer: previewLayer)
     }
     
     deinit {
@@ -83,8 +82,8 @@ class MyVideoCapture: NSObject {
             }
             strongSelf.changeCaptureDevice(toIndex: camera.rawValue, ofSession: strongSelf.captureSession)
             strongSelf.captureSession.beginConfiguration()
-            if strongSelf.captureSession.canSetSessionPreset(AVCaptureSessionPreset640x480) {
-                strongSelf.captureSession.sessionPreset = AVCaptureSessionPreset640x480
+            if strongSelf.captureSession.canSetSessionPreset(AVCaptureSession.Preset.vga640x480) {
+                strongSelf.captureSession.sessionPreset = AVCaptureSession.Preset.vga640x480
             }
             strongSelf.captureSession.commitConfiguration()
             strongSelf.captureSession.startRunning()
@@ -114,8 +113,7 @@ private extension MyVideoCapture {
         let currentInputs = captureSession.inputs as? [AVCaptureDeviceInput]
         let currentInput = currentInputs?.first
         
-        if let currentInput = currentInput,
-            let currentInputName = currentInput.device.localizedName,
+        if let currentInputName = currentInput?.device.localizedName,
             currentInputName == captureDevice.uniqueID {
             return
         }
@@ -135,9 +133,7 @@ private extension MyVideoCapture {
     }
     
     func captureDevice(atIndex index: Int) -> AVCaptureDevice? {
-        guard let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as? [AVCaptureDevice] else {
-            return nil
-        }
+        let devices = AVCaptureDevice.devices(for: AVMediaType.video)
         
         let count = devices.count
         guard count > 0, index >= 0 else {
@@ -161,7 +157,7 @@ extension MyVideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         let time = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-        DispatchQueue.main.async {[weak self] _ in
+        DispatchQueue.main.async {[weak self] in
             guard let weakSelf = self else {
                 return
             }

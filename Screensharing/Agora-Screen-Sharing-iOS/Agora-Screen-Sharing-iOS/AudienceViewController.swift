@@ -48,7 +48,7 @@ class AudienceViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if self.isMovingFromParentViewController {
+        if self.isMovingFromParent {
             leaveChannel()
         }
     }
