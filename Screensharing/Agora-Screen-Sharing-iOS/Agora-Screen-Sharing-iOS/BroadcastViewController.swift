@@ -31,7 +31,13 @@ class BroadcastViewController: UIViewController {
             let frame = CGRect(x: 0, y:view.frame.size.height - 60, width: 60, height: 60)
             let systemBroadcastPicker = RPSystemBroadcastPickerView(frame: frame)
             systemBroadcastPicker.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
-            systemBroadcastPicker.preferredExtension = Bundle.main.bundleIdentifier! + ".Broadcast"
+
+            if let url = Bundle.main.url(forResource: "Agora-Screen-Sharing-iOS-Broadcast", withExtension: "appex", subdirectory: "PlugIns") {
+                if let bundle = Bundle(url: url) {
+                    systemBroadcastPicker.preferredExtension = bundle.bundleIdentifier
+                }
+            }
+
             return systemBroadcastPicker
         }
         else {
@@ -99,8 +105,14 @@ private extension BroadcastViewController {
         RPScreenRecorder.shared().isMicrophoneEnabled = true
         
         // Broadcast Pairing
-        let bundleID = Bundle.main.bundleIdentifier!
-        RPBroadcastActivityViewController.load(withPreferredExtension: bundleID + ".BroadcastUI") { (broadcastActivityViewController, _) in
+        var bundleID : String? = nil
+        if let url = Bundle.main.url(forResource: "Agora-Screen-Sharing-iOS-BroadcastUI", withExtension: "appex", subdirectory: "PlugIns") {
+            if let bundle = Bundle(url: url) {
+                bundleID = bundle.bundleIdentifier
+            }
+        }
+
+        RPBroadcastActivityViewController.load(withPreferredExtension: bundleID) { (broadcastActivityViewController, _) in
             self.presentBroadcastActivityVC(broadcastActivityVC: broadcastActivityViewController)
         }
     }
