@@ -25,7 +25,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     private final List<MediaDataVideoObserver> videoObserverList = new ArrayList<>();
     private final List<MediaDataAudioObserver> audioObserverList = new ArrayList<>();
 
-    private static final int VIDEO_DEFAULT_BUFFER_SIZE = 1920 * 720; // default maximum video size 720P
+    private static final int VIDEO_DEFAULT_BUFFER_SIZE = 3240 * 1080; // default maximum video size Full HD+
     private static final int AUDIO_DEFAULT_BUFFER_SIZE = 2048;
 
     public ByteBuffer byteBufferCapture = ByteBuffer.allocateDirect(VIDEO_DEFAULT_BUFFER_SIZE);
