@@ -21,6 +21,7 @@
 		1ABDEE7A1D383C66007DE451 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABDEE791D383C66007DE451 /* VideoToolbox.framework */; };
 		1ABDEE7C1D383C71007DE451 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABDEE7B1D383C71007DE451 /* CoreMedia.framework */; };
 		20BB0F231E8A828C003225FC /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 20BB0F221E8A828C003225FC /* libc++.tbd */; };
+		3802EF28225CC1910065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF27225CC1910065A2E1 /* CoreML.framework */; };
 		38D618DD224CD546004A6C87 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38D618DC224CD546004A6C87 /* Accelerate.framework */; };
 		70982BBC20EE400100C24186 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70982BBB20EE400100C24186 /* AgoraRtcEngineKit.framework */; };
 		70CDCC7120EF0FDF0073DA9C /* AgoraPacketProcessing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 70CDCC7020EF0FDF0073DA9C /* AgoraPacketProcessing.mm */; };
@@ -44,6 +45,7 @@
 		1ABDEE7D1D383C7C007DE451 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1ABDEE831D383CD0007DE451 /* Agora-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agora-Bridging-Header.h"; sourceTree = "<group>"; };
 		20BB0F221E8A828C003225FC /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		3802EF27225CC1910065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		38D618DC224CD546004A6C87 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		70982BBB20EE400100C24186 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcEngineKit.framework; path = AgoraRtcCustomizedEncryptionTutorial/AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		70CDCC6F20EF0FDF0073DA9C /* AgoraPacketProcessing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgoraPacketProcessing.h; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3802EF28225CC1910065A2E1 /* CoreML.framework in Frameworks */,
 				70982BBC20EE400100C24186 /* AgoraRtcEngineKit.framework in Frameworks */,
 				38D618DD224CD546004A6C87 /* Accelerate.framework in Frameworks */,
 				20BB0F231E8A828C003225FC /* libc++.tbd in Frameworks */,
@@ -108,6 +111,7 @@
 		1ABDEE811D383C96007DE451 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF27225CC1910065A2E1 /* CoreML.framework */,
 				38D618DC224CD546004A6C87 /* Accelerate.framework */,
 				70982BBB20EE400100C24186 /* AgoraRtcEngineKit.framework */,
 				20BB0F221E8A828C003225FC /* libc++.tbd */,
@@ -149,7 +153,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora.io;
 				TargetAttributes = {
 					1ABDEE3D1D383BE4007DE451 = {
@@ -162,7 +166,7 @@
 			};
 			buildConfigurationList = 1ABDEE391D383BE4007DE451 /* Build configuration list for PBXProject "AgoraRtcCustomizedEncryptionTutorial" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -229,6 +233,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -285,6 +290,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

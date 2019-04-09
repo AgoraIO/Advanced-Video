@@ -27,6 +27,7 @@
 		07D8BA111FE91A1600E8B4E2 /* AgoraMetalShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 07D8BA0F1FE91A1600E8B4E2 /* AgoraMetalShader.metal */; };
 		07D8BA121FE91A1600E8B4E2 /* AgoraRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D8BA101FE91A1600E8B4E2 /* AgoraRenderView.swift */; };
 		07D8BA141FE91A2500E8B4E2 /* AgoraCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D8BA131FE91A2500E8B4E2 /* AgoraCamera.swift */; };
+		3802EF26225CC1590065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF25225CC1590065A2E1 /* CoreML.framework */; };
 		7047EFCC2194193B00FAA24C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7047EFCB2194193B00FAA24C /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		07D8BA0F1FE91A1600E8B4E2 /* AgoraMetalShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = AgoraMetalShader.metal; sourceTree = "<group>"; };
 		07D8BA101FE91A1600E8B4E2 /* AgoraRenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraRenderView.swift; sourceTree = "<group>"; };
 		07D8BA131FE91A2500E8B4E2 /* AgoraCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraCamera.swift; sourceTree = "<group>"; };
+		3802EF25225CC1590065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		7047EFCB2194193B00FAA24C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3802EF26225CC1590065A2E1 /* CoreML.framework in Frameworks */,
 				7047EFCC2194193B00FAA24C /* Accelerate.framework in Frameworks */,
 				07D8B9FB1FE908C500E8B4E2 /* AgoraRtcEngineKit.framework in Frameworks */,
 				07D8BA0A1FE90C3C00E8B4E2 /* libresolv.tbd in Frameworks */,
@@ -115,6 +118,7 @@
 		07D8B9FC1FE90C1900E8B4E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF25225CC1590065A2E1 /* CoreML.framework */,
 				7047EFCB2194193B00FAA24C /* Accelerate.framework */,
 				07D8BA091FE90C3C00E8B4E2 /* libresolv.tbd */,
 				07D8BA071FE90C3700E8B4E2 /* CoreTelephony.framework */,
@@ -164,7 +168,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora;
 				TargetAttributes = {
 					07D8B9CE1FE8EF9800E8B4E2 = {
@@ -262,6 +266,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -269,6 +274,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -319,6 +325,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -326,6 +333,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

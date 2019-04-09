@@ -106,11 +106,7 @@ private extension GameScene {
 }
 
 private extension GameScene {
-    func random() -> CGFloat {
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
-    
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
-        return random() * (max - min) + min
+        return CGFloat.random(in: min...max)
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3802EF31225CC32C0065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF30225CC32C0065A2E1 /* CoreML.framework */; };
 		702F6E451FAAC701009413E4 /* NSObject+JSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 702F6E441FAAC701009413E4 /* NSObject+JSONString.m */; };
 		702F6E551FAB3F52009413E4 /* ring.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 702F6E531FAB3F51009413E4 /* ring.mp3 */; };
 		702F6E561FAB3F52009413E4 /* tones.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 702F6E541FAB3F51009413E4 /* tones.mp3 */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3802EF30225CC32C0065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		702F6E431FAAC701009413E4 /* NSObject+JSONString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSONString.h"; sourceTree = "<group>"; };
 		702F6E441FAAC701009413E4 /* NSObject+JSONString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSONString.m"; sourceTree = "<group>"; };
 		702F6E531FAB3F51009413E4 /* ring.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ring.mp3; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3802EF31225CC32C0065A2E1 /* CoreML.framework in Frameworks */,
 				70D88DE72140D83E00FAB445 /* Accelerate.framework in Frameworks */,
 				70D37E34200BA73A0034E06F /* AgoraSigKit.framework in Frameworks */,
 				7035E92E1FF3C43A00944D2D /* SystemConfiguration.framework in Frameworks */,
@@ -147,6 +150,7 @@
 		70DA28561FA84F5A00A56C64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF30225CC32C0065A2E1 /* CoreML.framework */,
 				70D88DE62140D83E00FAB445 /* Accelerate.framework */,
 				70D37E33200BA73A0034E06F /* AgoraSigKit.framework */,
 				705AF7D41FAC8B57002434E7 /* AgoraRtcEngineKit.framework */,

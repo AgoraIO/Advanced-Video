@@ -23,6 +23,7 @@
 		1A8E8D7D1D396DCF002FA67C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8E8D7C1D396DCF002FA67C /* CoreMotion.framework */; };
 		1A8E8D7F1D396DD3002FA67C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8E8D7E1D396DD3002FA67C /* SystemConfiguration.framework */; };
 		1A8E8D811D396DDE002FA67C /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8E8D801D396DDE002FA67C /* libc++.1.dylib */; };
+		3802EF22225CC08F0065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF21225CC08F0065A2E1 /* CoreML.framework */; };
 		A7237F8A212A5E6000F2F397 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7237F89212A5E6000F2F397 /* Accelerate.framework */; };
 		A7237F8C212A5F1700F2F397 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7237F8B212A5F1600F2F397 /* AgoraRtcEngineKit.framework */; };
 		A7AC6ED020455BEB00F11E61 /* AgoraMediaDataPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7AC6ECA20455BEB00F11E61 /* AgoraMediaDataPlugin.mm */; };
@@ -52,6 +53,7 @@
 		1A8E8D7C1D396DCF002FA67C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		1A8E8D7E1D396DD3002FA67C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1A8E8D801D396DDE002FA67C /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "/usr/lib/libc++.1.dylib"; sourceTree = "<absolute>"; };
+		3802EF21225CC08F0065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		A7237F89212A5E6000F2F397 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		A7237F8B212A5F1600F2F397 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcEngineKit.framework; path = "Agora-Plugin-Raw-Data-API-iOS-Objective-C/AgoraRtcEngineKit.framework"; sourceTree = SOURCE_ROOT; };
 		A7AC6ECA20455BEB00F11E61 /* AgoraMediaDataPlugin.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AgoraMediaDataPlugin.mm; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			files = (
 				A7237F8C212A5F1700F2F397 /* AgoraRtcEngineKit.framework in Frameworks */,
 				A7237F8A212A5E6000F2F397 /* Accelerate.framework in Frameworks */,
+				3802EF22225CC08F0065A2E1 /* CoreML.framework in Frameworks */,
 				077537C21ED5442900EF0878 /* libresolv.tbd in Frameworks */,
 				1A8E8D811D396DDE002FA67C /* libc++.1.dylib in Frameworks */,
 				1A8E8D7F1D396DD3002FA67C /* SystemConfiguration.framework in Frameworks */,
@@ -139,6 +142,7 @@
 		1A8E8D6F1D396D3B002FA67C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF21225CC08F0065A2E1 /* CoreML.framework */,
 				A7237F8B212A5F1600F2F397 /* AgoraRtcEngineKit.framework */,
 				A7237F89212A5E6000F2F397 /* Accelerate.framework */,
 				077537C11ED5442900EF0878 /* libresolv.tbd */,
@@ -213,6 +217,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);

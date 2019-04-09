@@ -34,7 +34,14 @@ class ViewController: UIViewController {
         agoraKit.setChannelProfile(.liveBroadcasting)
         agoraKit.setClientRole(.broadcaster)
         
-        agoraKit.setVideoProfile(.portrait360P, swapWidthAndHeight: false)
+        agoraKit.setVideoEncoderConfiguration(
+            AgoraVideoEncoderConfiguration(
+                size: AgoraVideoDimension640x360,
+                frameRate: .fps15,
+                bitrate: AgoraVideoBitrateStandard,
+                orientationMode: .adaptative
+            )
+        )
         agoraKit.enableVideo()
         agoraKit.setVideoSource(videoSource)
         

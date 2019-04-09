@@ -31,6 +31,8 @@
 		07AA91A91F308E78006AF490 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91A81F308E78006AF490 /* AVFoundation.framework */; };
 		07AA91AB1F308E85006AF490 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91AA1F308E85006AF490 /* CoreMedia.framework */; };
 		07AA91AD1F308E8E006AF490 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91AC1F308E8E006AF490 /* libc++.tbd */; };
+		3802EF2C225CC2A10065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF2B225CC2A10065A2E1 /* CoreML.framework */; };
+		3802EF2D225CC2B00065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF2B225CC2A10065A2E1 /* CoreML.framework */; };
 		701EA75C2153BE3F00644CAA /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701EA75B2153BE3F00644CAA /* Accelerate.framework */; };
 		702385401F974CD400AC60AA /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A67FDD1F3073CD0051AD0D /* KeyCenter.swift */; };
 		70AE340D1FDFBCC000B05F34 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */; };
@@ -115,6 +117,7 @@
 		07AA91A81F308E78006AF490 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		07AA91AA1F308E85006AF490 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		07AA91AC1F308E8E006AF490 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		3802EF2B225CC2A10065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		701EA75B2153BE3F00644CAA /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		70DC1D4C215F34DF000CAD6B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 				70DC1D61215F5646000CAD6B /* AudioToolbox.framework in Frameworks */,
 				70DC1D5D215F55C7000CAD6B /* AVFoundation.framework in Frameworks */,
 				70DC1D60215F562F000CAD6B /* CoreMedia.framework in Frameworks */,
+				3802EF2C225CC2A10065A2E1 /* CoreML.framework in Frameworks */,
 				70DC1D5F215F55E9000CAD6B /* CoreTelephony.framework in Frameworks */,
 				70DC1D59215F55A7000CAD6B /* SystemConfiguration.framework in Frameworks */,
 				70DC1D5E215F55CE000CAD6B /* VideoToolbox.framework in Frameworks */,
@@ -152,6 +156,7 @@
 				70AE340D1FDFBCC000B05F34 /* SystemConfiguration.framework in Frameworks */,
 				07AA91AD1F308E8E006AF490 /* libc++.tbd in Frameworks */,
 				07AA91AB1F308E85006AF490 /* CoreMedia.framework in Frameworks */,
+				3802EF2D225CC2B00065A2E1 /* CoreML.framework in Frameworks */,
 				07AA91A91F308E78006AF490 /* AVFoundation.framework in Frameworks */,
 				07A67FEE1F3078AA0051AD0D /* libresolv.tbd in Frameworks */,
 				07A67FEC1F3078570051AD0D /* CoreTelephony.framework in Frameworks */,
@@ -216,6 +221,7 @@
 		07A67F4F1F3070A20051AD0D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF2B225CC2A10065A2E1 /* CoreML.framework */,
 				70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */,
 				701EA75B2153BE3F00644CAA /* Accelerate.framework */,
 				70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */,
@@ -321,7 +327,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora;
 				TargetAttributes = {
 					07A67F2E1F306F6C0051AD0D = {
@@ -356,7 +362,7 @@
 			};
 			buildConfigurationList = 07A67F2A1F306F6C0051AD0D /* Build configuration list for PBXProject "Agora-Screen-Sharing-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -485,6 +491,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -544,6 +551,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

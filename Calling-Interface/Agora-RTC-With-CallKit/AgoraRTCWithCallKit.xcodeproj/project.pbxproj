@@ -20,6 +20,7 @@
 		077ACAB82010886500212563 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 077ACAB72010886500212563 /* Assets.xcassets */; };
 		077ACABB2010886500212563 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 077ACAB92010886500212563 /* LaunchScreen.storyboard */; };
 		077ACB132011CEE500212563 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077ACB122011CEE500212563 /* ViewController.swift */; };
+		3802EF20225CBFC80065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF1F225CBFC70065A2E1 /* CoreML.framework */; };
 		A730EEFC20FC7533003174AD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A730EEFB20FC7533003174AD /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		077ACABA2010886500212563 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		077ACABC2010886500212563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		077ACB122011CEE500212563 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3802EF1F225CBFC70065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		A730EEFB20FC7533003174AD /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -49,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3802EF20225CBFC80065A2E1 /* CoreML.framework in Frameworks */,
 				A730EEFC20FC7533003174AD /* Accelerate.framework in Frameworks */,
 				0772B12A2018387800C542B7 /* SystemConfiguration.framework in Frameworks */,
 				0772B128201837DC00C542B7 /* libresolv.tbd in Frameworks */,
@@ -66,6 +69,7 @@
 		0772B11C2018379E00C542B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF1F225CBFC70065A2E1 /* CoreML.framework */,
 				A730EEFB20FC7533003174AD /* Accelerate.framework */,
 				0772B1292018387800C542B7 /* SystemConfiguration.framework */,
 				0772B127201837DC00C542B7 /* libresolv.tbd */,
@@ -138,7 +142,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora;
 				TargetAttributes = {
 					077ACAAC2010886500212563 = {
@@ -230,6 +234,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -237,6 +242,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -287,6 +293,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -294,6 +301,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

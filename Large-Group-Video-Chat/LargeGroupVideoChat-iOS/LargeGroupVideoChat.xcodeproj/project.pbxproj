@@ -18,6 +18,7 @@
 		0F240F821F7FA72C001B0AC6 /* VideoSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F240F811F7FA72C001B0AC6 /* VideoSessionView.swift */; };
 		0F7ED6B61F7FA7A000B5329E /* VideoSessionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7ED6B51F7FA7A000B5329E /* VideoSessionView.xib */; };
 		0F80CD3B217867DA00131A5E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F80CD3A217867D900131A5E /* Accelerate.framework */; };
+		3802EF2A225CC2240065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF29225CC2240065A2E1 /* CoreML.framework */; };
 		384C9A942179792100921076 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 384C9A932179792100921076 /* README.md */; };
 		384C9A9621797A3800921076 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384C9A9521797A3800921076 /* AgoraRtcEngineKit.framework */; };
 		384C9A9821797A5800921076 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384C9A9721797A5700921076 /* CoreTelephony.framework */; };
@@ -41,6 +42,7 @@
 		0F7ED6B51F7FA7A000B5329E /* VideoSessionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoSessionView.xib; sourceTree = "<group>"; };
 		0F80CD38217867D500131A5E /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		0F80CD3A217867D900131A5E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		3802EF29225CC2240065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		384C9A932179792100921076 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		384C9A9521797A3800921076 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		384C9A9721797A5700921076 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3802EF2A225CC2240065A2E1 /* CoreML.framework in Frameworks */,
 				384C9A9621797A3800921076 /* AgoraRtcEngineKit.framework in Frameworks */,
 				0F80CD3B217867DA00131A5E /* Accelerate.framework in Frameworks */,
 				384C9A9821797A5800921076 /* CoreTelephony.framework in Frameworks */,
@@ -70,6 +73,7 @@
 		0745273B1E9E050C0054D2D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF29225CC2240065A2E1 /* CoreML.framework */,
 				384C9A9D21797A7800921076 /* libc++.tbd */,
 				384C9A9B21797A6500921076 /* VideoToolbox.framework */,
 				384C9A9921797A5D00921076 /* SystemConfiguration.framework */,
@@ -144,7 +148,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora;
 				TargetAttributes = {
 					078012E81D1E57730093DE24 = {
@@ -162,7 +166,7 @@
 			};
 			buildConfigurationList = 078012E41D1E57730093DE24 /* Build configuration list for PBXProject "LargeGroupVideoChat" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -232,6 +236,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -288,6 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

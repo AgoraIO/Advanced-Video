@@ -106,7 +106,7 @@ extension VideoChatViewController: AgoraRtcEngineDelegate {
         let videoCanvas = AgoraRtcVideoCanvas()
         videoCanvas.uid = uid
         videoCanvas.view = remoteVideo
-        videoCanvas.renderMode = .adaptive
+        videoCanvas.renderMode = .hidden
         agoraKit.setupRemoteVideo(videoCanvas)
     }
     

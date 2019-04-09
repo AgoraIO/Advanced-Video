@@ -22,6 +22,7 @@
 		0763E69A200376F00010390F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0763E699200376F00010390F /* SystemConfiguration.framework */; };
 		0763E69C200376F70010390F /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0763E69B200376F70010390F /* libresolv.tbd */; };
 		07A51DA720074FBA00C2EE3D /* ARVideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A51DA620074FBA00C2EE3D /* ARVideoSource.swift */; };
+		3802EF1E225CB6330065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF1D225CB6330065A2E1 /* CoreML.framework */; };
 		383D981B213FD7F500B46614 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383D981A213FD7F500B46614 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		0763E699200376F00010390F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0763E69B200376F70010390F /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		07A51DA620074FBA00C2EE3D /* ARVideoSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARVideoSource.swift; sourceTree = "<group>"; };
+		3802EF1D225CB6330065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		383D981A213FD7F500B46614 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3802EF1E225CB6330065A2E1 /* CoreML.framework in Frameworks */,
 				383D981B213FD7F500B46614 /* Accelerate.framework in Frameworks */,
 				0763E68B200376470010390F /* AgoraRtcEngineKit.framework in Frameworks */,
 				0763E69C200376F70010390F /* libresolv.tbd in Frameworks */,
@@ -102,6 +105,7 @@
 		0763E692200376D60010390F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3802EF1D225CB6330065A2E1 /* CoreML.framework */,
 				383D981A213FD7F500B46614 /* Accelerate.framework */,
 				0763E69B200376F70010390F /* libresolv.tbd */,
 				0763E699200376F00010390F /* SystemConfiguration.framework */,
