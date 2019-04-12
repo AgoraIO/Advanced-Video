@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/remote_video_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+ />
+
+    <FrameLayout
+        android:id="@+id/local_video_view_container"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+
+
+       />
+
+
+    <TextView
+        android:id="@+id/meet_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:id="@+id/call_layout_tools"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginBottom="120dp"
+        android:layout_alignParentBottom="true">
+
+        <CheckBox
+            android:id="@+id/call_mute_button"
+            android:layout_width="28dp"
+            android:layout_height="40dp"
+            android:button="@null"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/select_checkbox_mute"/>
+
+        <ImageView
+            android:id="@+id/call_switch_camera"
+            android:layout_width="44dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:onClick="onSwitchCameraClicked"
+            android:layout_marginRight="40dp"
+            android:src="@drawable/icon_camera"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/call_layout_callin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/call_in_hangup"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:button="@null"
+            android:layout_marginLeft="100dp"
+            android:onClick="CallClickInit"
+            android:background="@drawable/icon_video_hangup"/>
+
+        <ImageView
+            android:id="@+id/call_in_pickup"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:onClick="CallClickInit"
+            android:layout_marginRight="100dp"
+            android:src="@drawable/icon_video_pickup"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/call_button_hangup"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:button="@null"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:onClick="CallClickInit"
+        android:background="@drawable/icon_video_hangup"/>
+
+
+
+</RelativeLayout>
