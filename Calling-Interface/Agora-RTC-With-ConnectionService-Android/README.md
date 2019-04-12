@@ -2,19 +2,19 @@
 
 *其他语言版本： [简体中文](README.zh.md)*
 
-This readme describes the steps and considerations for demonstrating the Agora OpenDuo sample app.
+This readme describes the steps and considerations for demonstrating the Agora calling sample app with [ConnectionService](https://developer.android.com/reference/android/telecom/ConnectionService).
 
 ## Introduction
 
-Built upon the Agora Video SDK and the Agora Signaling SDK, the Agora-RTC-With-ConnectionService for Android is an open-source demo that integrates video chat into your Android applications. This demo also shows how to use the ConnectionService provided by Android framework to achieve the IOS call kit alike user experience.
+Built upon the Agora Video SDK and the Agora Signaling SDK, the Agora-RTC-With-ConnectionService for Android is an open-source demo that integrates video chat into your Android applications. This demo also shows how to use the [ConnectionService](https://developer.android.com/reference/android/telecom/ConnectionService) provided by Android framework to achieve the iOS [CallKit](https://developer.apple.com/documentation/callkit) alike user experience.
 
 This sample app allows you to:
 
 - Login the signaling server
 - Inquire whether the calling subscriber is online
 - Call each other
-- Accept or hang up a call initiated by this demo app using system incall ui just like a normal sim call
-- View the demo app call history in the system phone app call history just like a normal sim call
+- Accept or hang up a call initiated by this app using system incall ui just like a telephone call
+- View the app call history in the system phone app call history just like a telephone call
 - Mute/unmute a user
 - Switch the camera
 
@@ -24,7 +24,7 @@ This sample app allows you to:
 - Android API level >= 23
 - Real Android devices with API level >= 23
 
-NOTE: Agora recommends using a real device instead of an emulator.
+NOTE: Agora recommends using a real device instead of an emulator. May fail to run on some device not supporting ConnectionService
 
 ## Running the App
 1. Create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID.
