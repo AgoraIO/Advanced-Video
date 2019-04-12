@@ -24,7 +24,7 @@ This sample app allows you to:
 - Android API level >= 23
 - Real Android devices with API level >= 23
 
-NOTE: Agora recommends using a real device instead of an emulator. May fail to run on some device not supporting ConnectionService
+NOTE: Agora recommends using a real device instead of an emulator.
 
 ## Running the App
 1. Create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID.
