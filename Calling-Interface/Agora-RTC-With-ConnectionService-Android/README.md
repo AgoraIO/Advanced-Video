@@ -49,9 +49,9 @@ NOTE: Agora recommends using a real device instead of an emulator.
 
           implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-6. Use Android Studio to open the project, connect your Android device to your computer, and build and run the sample app.
+6. Use Android Studio to open the project, connect your Android device to your computer, and build and run the sample app. You can also use `Gradle` to build and run the sample app.
 
-   NOTE: You can also use `Gradle` to build and run the sample app.
+   NOTE: If you are running this app for first time, then after launching this app, you need to enable the "Agora CS IN" calling accounts under system phone app->settings->Calls->Calling accounts->All calling accounts. 
 
 ## Contact Us
 

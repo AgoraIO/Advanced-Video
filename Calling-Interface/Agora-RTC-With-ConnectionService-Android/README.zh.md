@@ -37,6 +37,8 @@ implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 也可以使用 `Gradle` 直接编译运行。
 
+**注意：**首次运行时在启动本应用后，需在系统电话应用->设置->通话->通话账号->所有通话账号中打开"Agora CS IN"的通话账号，同时将SIM卡的通话账号设置为默认通话账号
+
 ## 运行环境
 - Android Studio 3.0 +
 - Android API level >= 23
