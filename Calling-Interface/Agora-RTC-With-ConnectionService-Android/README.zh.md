@@ -2,7 +2,7 @@
 
 *Read this in other languages: [English](README.md)*
 
-这个开源示例项目演示了如何快速集成 Agora 视频 SDK 和信令 SDK，实现一个带呼叫功能的演示程序(本程序不带离线推送功能，比如 [GCM](https://developers.google.com/cloud-messaging/)/[APNs](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html) 或其它，如需此功能需要开发者自行去实现)。本程序同时还演示了如何使用Android框架层提供的ConnectionService来达到类似IOS call kit的用户体验。
+这个开源示例项目演示了如何快速集成 Agora 视频 SDK 和信令 SDK，实现一个带呼叫功能的演示程序(本程序不带离线推送功能，比如 [GCM](https://developers.google.com/cloud-messaging/)/[APNs](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html) 或其它，如需此功能需要开发者自行去实现)。本程序同时还演示了如何使用 Android 提供的 [ConnectionService](https://developer.android.com/reference/android/telecom/ConnectionService) 来达到类似 iOS 上 [CallKit](https://developer.apple.com/documentation/callkit) 的用户体验。
 
 在这个示例项目中包含了以下功能：
 
@@ -42,6 +42,7 @@ implementation fileTree(dir: 'libs', include: ['*.jar'])
 - Android API level >= 23
 - 真实 Android 设备 (API level >=23)
 - 部分模拟器会存在功能缺失或者性能问题，所以推荐使用真机
+- 有些不支持 ConnectionService 的机器可能会运行不了此程序
 
 ## 联系我们
 - 完整的 API 文档见 [文档中心](https://docs.agora.io/cn/)
