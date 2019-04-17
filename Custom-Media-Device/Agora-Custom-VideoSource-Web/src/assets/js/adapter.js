@@ -52,14 +52,14 @@ export const Sender = {
     });
     return new Promise( (resolve) => {
       client.init(appID, () => {
-        client.join(appID, channelName, this.uid, (uid) => {
+        client.join(null, channelName, this.uid, (uid) => {
           this.uid = uid;
           AgoraRTC.getDevices((devices) => {
             console.log('devices', devices);
             var stream = this.stream = AgoraRTC.createStream({
               cameraId: devices.find(e => e.kind == "videoinput").deviceId,
               microphoneId: devices.find(e => e.kind == "audioinput").deviceId,
-              streamId: uid,
+              streamID: uid,
               audio: true,
               video: true
             });
@@ -149,15 +149,15 @@ export const VideoSource = {
     });
 
     client.init(appID, () => {
-      this.client.join(appID, channelName, this.uid, (uid) => {
+      this.client.join(null, channelName, this.uid, (uid) => {
         this.uid = uid;
         var canvasStream = canvas.captureStream(60);
         var videoSource = canvasStream.getVideoTracks()[0];
         var stream = this.stream = AgoraRTC.createStream({
-          streamId: uid,
+          streamID: uid,
           videoSource,
           audio: false,
-          video: false
+          video: true
         });
         stream.on("accessAllowed", function() {
           console.log("accessAllowed");
@@ -186,13 +186,11 @@ export const VideoSource = {
     }, function (err) {
       console.error('canvas join failed', err);
     });
-    
   },
   start: function () {
     this.publish();
   },
   publish: function () {
-
     console.log('canvas published');
   },
 }
@@ -250,7 +248,7 @@ export const Receiver = {
       }
     });
     client.init(appID, () => {
-      client.join(appID, channelName, this.uid, (uid) => {
+      client.join(null, channelName, this.uid, (uid) => {
         console.log('receiver joined');
       }, function (err) {
         console.error('receiver join failed', err);
