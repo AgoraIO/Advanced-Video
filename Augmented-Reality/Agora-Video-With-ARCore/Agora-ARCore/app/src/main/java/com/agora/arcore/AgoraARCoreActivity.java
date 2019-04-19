@@ -8,7 +8,6 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Message;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.PixelCopy;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -46,8 +46,6 @@ import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationExceptio
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -59,6 +57,7 @@ import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.mediaio.MediaIO;
+import io.agora.rtc.video.VideoEncoderConfiguration;
 
 /**
  * Created by wyylling@gmail.com on 03/01/2018.
@@ -92,7 +91,6 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
 
     private RtcEngine mRtcEngine;
     private Handler mSenderHandler;
-    private final static int SEND_AR_VIEW = 1;
     private AgoraVideoSource mSource;
     private AgoraVideoRender mRender;
     private ByteBuffer mSendBuffer;
@@ -112,6 +110,7 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mSurfaceView = findViewById(R.id.surfaceview);
         mDisplayRotationHelper = new DisplayRotationHelper(/*context=*/ this);
 
@@ -148,7 +147,14 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         mSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 
         installRequested = false;
-        initRtcEngine();
+
+        checkAndInitRtc();
+    }
+
+    private void checkAndInitRtc() {
+        if (checkSelfPermissions()) {
+            initRtcEngine();
+        }
     }
 
     @Override
@@ -236,46 +242,27 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         mRemoteRenders.clear();
         mSenderHandler.getLooper().quit();
 
+        mRtcEngine.leaveChannel();
+
         RtcEngine.destroy();
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
-        if (!CameraPermissionHelper.hasCameraPermission(this)) {
-            Toast.makeText(this,
-                "Camera permission is needed to run this application", Toast.LENGTH_LONG).show();
-            if (!CameraPermissionHelper.shouldShowRequestPermissionRationale(this)) {
-                // Permission denied with checking "Do not ask again".
-                CameraPermissionHelper.launchPermissionSettings(this);
-            }
-            finish();
-        }
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            int deniedCount = 0;
 
-        switch (requestCode) {
-            case PERMISSION_REQ_ID_RECORD_AUDIO: {
-                if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
-                    checkSelfPermission(Manifest.permission.CAMERA, PERMISSION_REQ_ID_CAMERA);
-                } else {
-                    finish();
+            for (int i = 0; i < results.length; i++) {
+                if (results[i] == PackageManager.PERMISSION_DENIED) {
+                    deniedCount++;
                 }
-                break;
             }
-            case PERMISSION_REQ_ID_CAMERA: {
-                if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
-                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE);
-                    //((AGApplication) getApplication()).initWorkerThread();
-                } else {
-                    finish();
-                }
-                break;
-            }
-            case PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE: {
-                if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    finish();
-                }
-                break;
+
+            if (deniedCount == 0) {
+                initRtcEngine();
+            } else {
+                finish();
             }
         }
     }
@@ -286,12 +273,12 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         if (hasFocus) {
             // Standard Android full-screen functionality.
             getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
@@ -317,7 +304,7 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
             mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
 
             mVirtualObjectShadow.createOnGlThread(/*context=*/this,
-                "andy_shadow.obj", "andy_shadow.png");
+                    "andy_shadow.obj", "andy_shadow.png");
             mVirtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
             mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
         } catch (IOException e) {
@@ -470,7 +457,7 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
                 }
             }
 
-            sendARViewMessage(gl);
+            sendARViewMessage();
         } catch (Throwable t) {
             // Avoid crashing the application due to unhandled exceptions.
             Log.e(TAG, "Exception on the OpenGL thread", t);
@@ -486,7 +473,7 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         modeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchMode((Button)view);
+                switchMode((Button) view);
             }
         });
 
@@ -494,7 +481,7 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         hidePointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPointCloud((Button)v);
+                showPointCloud((Button) v);
             }
         });
 
@@ -502,7 +489,7 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         hidePlaneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPlane((Button)v);
+                showPlane((Button) v);
             }
         });
 
@@ -569,11 +556,14 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
             mRtcEngine = RtcEngine.create(this, getString(R.string.private_broadcasting_app_id), mRtcEventHandler);
             mRtcEngine.setParameters("{\"rtc.log_filter\": 65535}");
             mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
-            mRtcEngine.enableVideo();
             mRtcEngine.enableDualStreamMode(true);
-
-            mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_480P, false);
+            mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x480,
+                    VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_30,
+                    VideoEncoderConfiguration.STANDARD_BITRATE,
+                    VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE));
             mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
+
+            mRtcEngine.enableVideo();
 
             mSource = new AgoraVideoSource();
             mRender = new AgoraVideoRender(0, true);
@@ -590,39 +580,31 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
 
         HandlerThread thread = new HandlerThread("ArSendThread");
         thread.start();
-        mSenderHandler = new Handler(thread.getLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case SEND_AR_VIEW:
-                        sendARView((Bitmap)msg.obj);
-                }
-            }
-        };
+        mSenderHandler = new Handler(thread.getLooper());
     }
 
     private void showSnackbarMessage(String message, boolean finishOnDismiss) {
         mMessageSnackbar = Snackbar.make(
-            AgoraARCoreActivity.this.findViewById(android.R.id.content),
-            message, Snackbar.LENGTH_INDEFINITE);
+                AgoraARCoreActivity.this.findViewById(android.R.id.content),
+                message, Snackbar.LENGTH_INDEFINITE);
         mMessageSnackbar.getView().setBackgroundColor(0xbf323232);
         if (finishOnDismiss) {
             mMessageSnackbar.setAction(
-                "Dismiss",
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mMessageSnackbar.dismiss();
-                    }
-                });
+                    "Dismiss",
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mMessageSnackbar.dismiss();
+                        }
+                    });
             mMessageSnackbar.addCallback(
-                new BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                    @Override
-                    public void onDismissed(Snackbar transientBottomBar, int event) {
-                        super.onDismissed(transientBottomBar, event);
-                        finish();
-                    }
-                });
+                    new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            super.onDismissed(transientBottomBar, event);
+                            finish();
+                        }
+                    });
         }
         mMessageSnackbar.show();
     }
@@ -652,41 +634,18 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         Log.e("ARCore", message);
     }
 
-    private void sendARViewMessage(GL10 gl) {
-        int w = mSurfaceView.getWidth();
-        int h = mSurfaceView.getHeight();
-        int sceneSize = w * h;
-        if (mSendBuffer == null) {
-            mSendBuffer = ByteBuffer.allocateDirect(sceneSize * 4);
-            mSendBuffer.order(ByteOrder.nativeOrder());
-        }
-        mSendBuffer.position(0);
-
-        gl.glReadPixels(0, 0, w, h, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, mSendBuffer);
-        int pixelsBuffer[] = new int[sceneSize];
-        mSendBuffer.asIntBuffer().get(pixelsBuffer);
-        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.RGB_565);
-        bitmap.setPixels(pixelsBuffer, sceneSize - w, -w, 0, 0, w, h);
-        pixelsBuffer = null;
-
-        short sBuffer[] = new short[sceneSize];
-        ShortBuffer tmpBuffer = ShortBuffer.wrap(sBuffer);
-        bitmap.copyPixelsToBuffer(tmpBuffer);
-
-        // Making created bitmap (from OpenGL points) compatible with
-        // Android bitmap
-        for (int i = 0; i < sceneSize; ++i) {
-            short v = sBuffer[i];
-            sBuffer[i] = (short) (((v & 0x1f) << 11) | (v & 0x7e0) | ((v & 0xf800) >> 11));
-        }
-        tmpBuffer.rewind();
-        bitmap.copyPixelsFromBuffer(tmpBuffer);
-        Bitmap result = bitmap.copy(Bitmap.Config.ARGB_8888,false);
-
-        Message message = Message.obtain();
-        message.what = SEND_AR_VIEW;
-        message.obj = result;
-        mSenderHandler.sendMessage(message);
+    private void sendARViewMessage() {
+        final Bitmap outBitmap = Bitmap.createBitmap(mSurfaceView.getWidth(), mSurfaceView.getHeight(), Bitmap.Config.ARGB_8888);
+        PixelCopy.request(mSurfaceView, outBitmap, new PixelCopy.OnPixelCopyFinishedListener() {
+            @Override
+            public void onPixelCopyFinished(int copyResult) {
+                if (copyResult == PixelCopy.SUCCESS) {
+                    sendARView(outBitmap);
+                } else {
+                    Toast.makeText(AgoraARCoreActivity.this, "Pixel Copy Failed", Toast.LENGTH_SHORT);
+                }
+            }
+        }, mSenderHandler);
     }
 
     private void sendARView(Bitmap bitmap) {
@@ -703,7 +662,7 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         bitmap.copyPixelsToBuffer(byteBuffer);
         byte[] data = byteBuffer.array();
 
-        mSource.getConsumer().consumeByteArrayFrame(data, MediaIO.PixelFormat.RGBA.intValue(), width, height, 270, System.currentTimeMillis());
+        mSource.getConsumer().consumeByteArrayFrame(data, MediaIO.PixelFormat.RGBA.intValue(), width, height, 0, System.currentTimeMillis());
     }
 
     private void addRemoteRender(int uid) {
@@ -712,22 +671,24 @@ public class AgoraARCoreActivity extends AppCompatActivity implements GLSurfaceV
         mRtcEngine.setRemoteVideoRenderer(uid, render);
     }
 
-    private static final int BASE_VALUE_PERMISSION = 0X0001;
-    private static final int PERMISSION_REQ_ID_RECORD_AUDIO = BASE_VALUE_PERMISSION + 1;
-    private static final int PERMISSION_REQ_ID_CAMERA = BASE_VALUE_PERMISSION + 2;
-    private static final int PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE = BASE_VALUE_PERMISSION + 3;
+    private String[] permissions = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CAMERA
+    };
+
+    private static final int PERMISSION_REQUEST_CODE = 0X0001;
 
     private boolean checkSelfPermissions() {
-        return checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO) &&
-                checkSelfPermission(Manifest.permission.CAMERA, PERMISSION_REQ_ID_CAMERA) &&
-                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE);
-    }
+        List<String> needList = new ArrayList<>();
+        for (String perm : permissions) {
+            if (ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
+                needList.add(perm);
+            }
+        }
 
-    public boolean checkSelfPermission(String permission, int requestCode) {
-        //log.debug("checkSelfPermission " + permission + " " + requestCode);
-        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+        if (!needList.isEmpty()) {
+            ActivityCompat.requestPermissions(this, needList.toArray(new String[needList.size()]), PERMISSION_REQUEST_CODE);
             return false;
         }
 
