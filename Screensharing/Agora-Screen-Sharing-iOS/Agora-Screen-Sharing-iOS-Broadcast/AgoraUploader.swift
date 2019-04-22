@@ -59,28 +59,14 @@ class AgoraUploader {
         }
         
         var rotation : Int32 = 0
-        if let orientationAttachment = CMGetAttachment(sampleBuffer, RPVideoSampleOrientationKey as CFString, nil) as? NSNumber {
+        if let orientationAttachment = CMGetAttachment(sampleBuffer, key: RPVideoSampleOrientationKey as CFString, attachmentModeOut: nil) as? NSNumber {
             if let orientation = CGImagePropertyOrientation(rawValue: orientationAttachment.uint32Value) {
                 switch orientation {
-                case .up:
-                    fallthrough
-                case .upMirrored:
-                    rotation = 0
-
-                case .down:
-                    fallthrough
-                case .downMirrored:
-                    rotation = 180
-
-                case .left:
-                    fallthrough
-                case .leftMirrored:
-                    rotation = 90
-
-                case .right:
-                    fallthrough
-                case .rightMirrored:
-                    rotation = 270
+                case .up, .upMirrored:       rotation = 0
+                case .down, .downMirrored:   rotation = 180
+                case .left, .leftMirrored:   rotation = 90
+                case .right, .rightMirrored: rotation = 270
+                @unknown default:            break
                 }
             }
         }
