@@ -1,4 +1,4 @@
-package io.agora.openduo;
+package io.agora.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,16 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-import io.agora.AgoraAPI;
-import io.agora.AgoraAPIOnlySignal;
-import io.agora.IAgoraAPI;
+import io.agora.openduo.AGApplication;
+import io.agora.openduo.R;
+import io.agora.rtm.ErrorInfo;
+import io.agora.rtm.LocalInvitation;
+import io.agora.rtm.RemoteInvitation;
+import io.agora.rtm.ResultCallback;
+import io.agora.rtm.RtmCallEventListener;
+import io.agora.rtm.RtmClient;
+import io.agora.rtm.RtmMessage;
+import io.agora.utils.Constant;
 
 /**
  * "*" and "#" is useless
@@ -23,15 +30,15 @@ import io.agora.IAgoraAPI;
 public class NumberCallActivity extends AppCompatActivity {
     private final String TAG = NumberCallActivity.class.getSimpleName();
 
-    private String mMyAccount;
+    private String myUID;
     private String mSubscriber;
     private TextView mCallTitle;
     private EditText mSubscriberPhoneNumberText;
-    private StringBuffer mCallNumberText = new StringBuffer("");
+    private StringBuffer mCallNumberText = new StringBuffer();
 
     private String channelName = "channelid";
 
-    private AgoraAPIOnlySignal mAgoraAPI;
+    private RtmClient rtmClient;
     private final int REQUEST_CODE = 0x01;
 
     @Override
@@ -39,18 +46,17 @@ public class NumberCallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number);
 
-        initAgoraEngineAndJoinChannel();
+        initRTMClient();
 
         initUI();
     }
 
     private void initUI() {
         Intent intent = getIntent();
-        mMyAccount = intent.getStringExtra("account");
-
-        mCallTitle = (TextView) findViewById(R.id.meet_title);
-        mCallTitle.setText(String.format(Locale.US, "Your account ID is %s", mMyAccount));
-        mSubscriberPhoneNumberText = (EditText) findViewById(R.id.call_number_edit);
+        myUID = intent.getStringExtra("uid");
+        mCallTitle = findViewById(R.id.meet_title);
+        mCallTitle.setText(String.format(Locale.US, "Your account ID is %s", myUID));
+        mSubscriberPhoneNumberText = findViewById(R.id.call_number_edit);
     }
 
     public void CallClickInit(View v) {
@@ -66,12 +72,16 @@ public class NumberCallActivity extends AppCompatActivity {
             case R.id.call_number_call: // number layout call out button
 
                 if (!Constant.isFastlyClick()) {
-                    if (mSubscriberPhoneNumberText.getText().toString().equals(mMyAccount)) {
+                    if (mSubscriberPhoneNumberText.getText().toString().equals(myUID)) {
                         Toast.makeText(this, "could not call yourself", Toast.LENGTH_SHORT).show();
                     } else {
                         mSubscriber = mSubscriberPhoneNumberText.getText().toString();
                         // call out
-                        mAgoraAPI.queryUserStatus(mSubscriberPhoneNumberText.getText().toString());
+                        //Since we don't have queryUserStatus in RTM yet, we can directly send
+                        // the call request/invite to the other User
+                        // and check if he is online using callback.
+                        if (mSubscriberPhoneNumberText.getText().toString().isEmpty()) return;
+                        checkIfSubscriberIsOnline(mSubscriberPhoneNumberText.getText().toString());
                     }
                 } else {
                     Toast.makeText(this, "fast click", Toast.LENGTH_SHORT).show();
@@ -83,6 +93,60 @@ public class NumberCallActivity extends AppCompatActivity {
         }
     }
 
+    private void sendCallInvite(final String subscriberPhoneNumber) {
+        LocalInvitation localInvitation = rtmClient.getRtmCallManager().createLocalInvitation(subscriberPhoneNumber);
+        channelName = myUID + mSubscriber;
+        localInvitation.setContent(channelName);//we can pass extra info if required here, must not exceed 8kb if encoded in UTF-8.
+        //Note: do not use localInvitation.setChannelId, its a reserved interface to interact with the Signaling SDK
+        AGApplication.the().holdLocalInvitation(localInvitation);
+        rtmClient.getRtmCallManager().sendLocalInvitation(localInvitation, new ResultCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.i(TAG, "sendLocalInvitation method call succeeds subscriberPhoneNumber = " + subscriberPhoneNumber);
+            }
+
+            @Override
+            public void onFailure(ErrorInfo errorInfo) {
+                Log.i(TAG, "sendLocalInvitation error_code = " + errorInfo.getErrorCode()
+                        + " and error_description " + errorInfo.getErrorDescription());
+            }
+        });
+    }
+
+
+    //Temporary replacement for queryUserStatus, the below method can be replaced by queryUserStatus after release
+    //sendMessageToPeer/callee then cache PEER_MESSAGE_ERR_PEER_UNREACHABLE and consider the callee is offline for now.
+    private void checkIfSubscriberIsOnline(final String subscriberPhoneNumber) {
+        RtmMessage message = rtmClient.createMessage();
+        message.setText("test-message");
+        rtmClient.sendMessageToPeer(subscriberPhoneNumber, message, new ResultCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.i(TAG, "sendMessageToPeer method call succeeds subscriberID = " + subscriberPhoneNumber);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendCallInvite(mSubscriberPhoneNumberText.getText().toString());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(final ErrorInfo errorInfo) {
+                Log.i(TAG, "sendMessageToPeer error_code = " + errorInfo.getErrorCode()
+                        + " and error_description " + errorInfo.getErrorDescription());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final int errorCode = errorInfo.getErrorCode();
+                        //1-PEER_MESSAGE_ERR_FAILURE, 2-PEER_MESSAGE_ERR_TIMEOUT, 3-PEER_MESSAGE_ERR_PEER_UNREACHABLE
+                        if (errorCode == 1 || errorCode == 2 || errorCode == 3)
+                            Toast.makeText(NumberCallActivity.this, subscriberPhoneNumber + " is offline ", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
 
     /**
      * number click button
@@ -96,46 +160,70 @@ public class NumberCallActivity extends AppCompatActivity {
     }
 
     private void addCallback() {
-        if (mAgoraAPI == null) {
+
+        if (rtmClient == null) {
             return;
         }
-
-        mAgoraAPI.callbackSet(new AgoraAPI.CallBack() {
-
+        Log.d(TAG, "addCallback RTM callbacks for NumberCallActivity");
+        rtmClient.getRtmCallManager().setEventListener(new RtmCallEventListener() {
             @Override
-            public void onLogout(final int i) {
-                Log.i(TAG, "onLogout  i = " + i);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (i == IAgoraAPI.ECODE_LOGOUT_E_KICKED) { // other login the account
-                            Toast.makeText(NumberCallActivity.this, "Other login account, you are logout.", Toast.LENGTH_SHORT).show();
-
-                        } else if (i == IAgoraAPI.ECODE_LOGOUT_E_NET) { // net
-                            Toast.makeText(NumberCallActivity.this, "Logout for Network can not be.", Toast.LENGTH_SHORT).show();
-
-                        }
-                        finish();
-                    }
-                });
-
-            }
-
-            @Override
-            public void onLoginFailed(int i) {
-                Log.i(TAG, "onLoginFailed  i = " + i);
-            }
-
-            @Override
-            public void onInviteReceived(final String channelID, final String account, int uid, String s2) { //call out other remote receiver
-                Log.i(TAG, "onInviteReceived  channelID = " + channelID + " account = " + account);
+            public void onLocalInvitationReceivedByPeer(LocalInvitation localInvitation) {
+                Log.i(TAG, "onLocalInvitationReceivedByPeer myUID = " + myUID +
+                        " CalleeId = " + localInvitation.getCalleeId() + " ChannelId = " + localInvitation.getContent());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Intent intent = new Intent(NumberCallActivity.this, CallActivity.class);
-                        intent.putExtra("account", mMyAccount);
-                        intent.putExtra("channelName", channelID);
-                        intent.putExtra("subscriber", account);
+                        intent.putExtra("uid", myUID);
+                        intent.putExtra("channelName", channelName);
+                        intent.putExtra("subscriber", mSubscriber);
+                        intent.putExtra("type", Constant.CALL_OUT);
+                        startActivityForResult(intent, REQUEST_CODE);
+                    }
+                });
+            }
+
+            @Override
+            public void onLocalInvitationAccepted(LocalInvitation localInvitation, String s) {
+
+            }
+
+            @Override
+            public void onLocalInvitationRefused(LocalInvitation localInvitation, String s) {
+                Log.i(TAG, "onLocalInvitationRefused " +
+                        "myUID = " + myUID +
+                        " CalleeId = " + localInvitation.getCalleeId() +
+                        " ChannelId = " + localInvitation.getContent());
+            }
+
+            @Override
+            public void onLocalInvitationCanceled(LocalInvitation localInvitation) {
+                Log.i(TAG, "onLocalInvitationCanceled " +
+                        "myUID = " + myUID +
+                        " CalleeId = " + localInvitation.getCalleeId() +
+                        " ChannelId = " + localInvitation.getContent());
+            }
+
+            @Override
+            public void onLocalInvitationFailure(LocalInvitation localInvitation, int i) {
+                Log.i(TAG, "onLocalInvitationFailure " +
+                        "myUID = " + myUID +
+                        " CalleeId = " + localInvitation.getCalleeId() +
+                        " ChannelId = " + localInvitation.getContent() +
+                        " Reason = " + i);
+            }
+
+            @Override
+            public void onRemoteInvitationReceived(final RemoteInvitation remoteInvitation) {
+                Log.i(TAG, "onRemoteInvitationReceived  ChannelId = " + remoteInvitation.getContent() + " CallerId = " + remoteInvitation.getCallerId());
+                AGApplication.the().holdRemoteInvitation(remoteInvitation);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(NumberCallActivity.this, CallActivity.class);
+                        intent.putExtra("uid", myUID);
+                        intent.putExtra("channelName", remoteInvitation.getContent());
+                        intent.putExtra("subscriber", remoteInvitation.getCallerId());
                         intent.putExtra("type", Constant.CALL_IN);
                         startActivityForResult(intent, REQUEST_CODE);
                     }
@@ -143,58 +231,24 @@ public class NumberCallActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onInviteReceivedByPeer(final String channelID, final String account, int uid) {//call out other local receiver
-                Log.i(TAG, "onInviteReceivedByPeer  channelID = " + channelID + "  account = " + account);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(NumberCallActivity.this, CallActivity.class);
-                        intent.putExtra("account", mMyAccount);
-                        intent.putExtra("channelName", channelID);
-                        intent.putExtra("subscriber", account);
-                        intent.putExtra("type", Constant.CALL_OUT);
-                        startActivityForResult(intent, REQUEST_CODE);
-                    }
-                });
+            public void onRemoteInvitationAccepted(RemoteInvitation remoteInvitation) {
 
             }
 
             @Override
-            public void onInviteFailed(String channelID, String account, int uid, int i1, String s2) {
-                Log.i(TAG, "onInviteFailed  channelID = " + channelID + " account = " + account + " s2: " + s2 + " i1: " + i1);
+            public void onRemoteInvitationRefused(RemoteInvitation remoteInvitation) {
+
             }
 
             @Override
-            public void onError(final String s, int i, final String s1) {
-                Log.e(TAG, "onError s = " + s + " i = " + i + " s1 = " + s1);
+            public void onRemoteInvitationCanceled(RemoteInvitation remoteInvitation) {
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (s.equals("query_user_status")) {
-                            Toast.makeText(NumberCallActivity.this, s1, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
 
             @Override
-            public void onQueryUserStatusResult(final String name, final String status) {
-                Log.i(TAG, "onQueryUserStatusResult name = " + name + " status = " + status);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+            public void onRemoteInvitationFailure(RemoteInvitation remoteInvitation, int i) {
 
-                        if (status.equals("1")) {
-                            channelName = mMyAccount + mSubscriber;
-                            mAgoraAPI.channelInviteUser(channelName, mSubscriberPhoneNumberText.getText().toString(), 0);
-                        } else if (status.equals("0")) {
-                            Toast.makeText(NumberCallActivity.this, name + " is offline ", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
-
         });
     }
 
@@ -207,9 +261,8 @@ public class NumberCallActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         Log.i(TAG, "onDestroy");
-        mAgoraAPI.logout();
+        rtmClient.logout(null);
     }
 
     @Override
@@ -223,8 +276,8 @@ public class NumberCallActivity extends AppCompatActivity {
         }
     }
 
-    private void initAgoraEngineAndJoinChannel() {
-        mAgoraAPI = AGApplication.the().getmAgoraAPI();
+    private void initRTMClient() {
+        rtmClient = AGApplication.the().getRTMClient();
     }
 
 }
