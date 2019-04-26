@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Agora Screen Sharing</string>
+    <string name="app_name">Agora Screen Sharing With Camera</string>
 
     <!-- PLEASE KEEP THIS App ID IN SAFE PLACE -->
     <!-- Get your own App ID at https://dashboard.agora.io/ -->
@@ -9,9 +9,10 @@
     <!-- Tutorial Step 1 -->
     <string name="agora_app_id"><#YOUR APP ID#></string>
 
-    <string name="label_hello_agora">Hello, welcome</string>
+    <string name="label_start_camera">Start sharing your camera</string>
+    <string name="label_stop_camera">Stop sharing your camera</string>
     <string name="label_start_sharing_your_screen">Start Sharing your screen</string>
     <string name="label_stop_sharing_your_screen">Stop Sharing your screen</string>
 
-    <string name="label_channel_info">Channel: %s</string>
+    <string name="label_channel_name">ss_test</string>
 </resources>

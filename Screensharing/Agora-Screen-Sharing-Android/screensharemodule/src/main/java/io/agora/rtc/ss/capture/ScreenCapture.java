@@ -2,10 +2,8 @@ package io.agora.rtc.ss.capture;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.SurfaceTexture;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
@@ -24,11 +22,11 @@ import java.lang.ref.WeakReference;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import io.agora.rtc.ss.GLRender;
-import io.agora.rtc.ss.GlUtil;
-import io.agora.rtc.ss.ImgTexFormat;
-import io.agora.rtc.ss.ImgTexFrame;
-import io.agora.rtc.ss.SrcConnector;
+import io.agora.rtc.ss.gles.GLRender;
+import io.agora.rtc.ss.gles.GlUtil;
+import io.agora.rtc.ss.gles.ImgTexFormat;
+import io.agora.rtc.ss.gles.ImgTexFrame;
+import io.agora.rtc.ss.gles.SrcConnector;
 
 /**
  * capture video frames from screen
@@ -40,7 +38,6 @@ public class ScreenCapture implements SurfaceTexture.OnFrameAvailableListener {
 
     private static final String TAG = ScreenCapture.class.getSimpleName();
 
-    public static final String ASSISTANT_ACTIVITY_CREATED_INTENT = "ScreenCapture.OnAssistantActivityCreated";
     public static final int MEDIA_PROJECTION_REQUEST_CODE = 1001;
 
     private Context mContext;
@@ -48,8 +45,6 @@ public class ScreenCapture implements SurfaceTexture.OnFrameAvailableListener {
     public MediaProjectionManager mMediaProjectManager;  // mMediaProjectionManager
     private MediaProjection mMediaProjection;  // mMediaProjection
     private VirtualDisplay mVirtualDisplay;  // mVirtualDisplay
-    public static ScreenCaptureAssistantActivity mScreenCaptureActivity;
-    private BroadcastReceiver mScreenBroadcastReceiver = new ScreenBroadcastReceiver(this);
 
     private int mWidth = 1280;  // mWidth
     private int mHeight = 720;  // mHeight
@@ -151,12 +146,6 @@ public class ScreenCapture implements SurfaceTexture.OnFrameAvailableListener {
             return false;
         }
 
-        //if the screen permission is show, will start failed
-        if (mScreenCaptureActivity != null) {
-            Log.e(TAG, "start failed you may best confim the user permission");
-            return false;
-        }
-
         mState.set(SCREEN_STATE_INITIALIZING);
         mScreenSetupHandler.removeMessages(MSG_SCREEN_START_SCREEN_ACTIVITY);
         mScreenSetupHandler.sendEmptyMessage(MSG_SCREEN_START_SCREEN_ACTIVITY);
@@ -241,7 +230,7 @@ public class ScreenCapture implements SurfaceTexture.OnFrameAvailableListener {
         if (DEBUG_ENABLED) {
             Log.d(TAG, "initProjection");
         }
-        mContext.unregisterReceiver(this.mScreenBroadcastReceiver);
+
         if (requestCode != MEDIA_PROJECTION_REQUEST_CODE) {
             if (DEBUG_ENABLED) {
                 Log.d(TAG, "Unknown request code: " + requestCode);
@@ -444,14 +433,10 @@ public class ScreenCapture implements SurfaceTexture.OnFrameAvailableListener {
             mMediaProjectManager = (MediaProjectionManager) mContext.getSystemService(
                     Context.MEDIA_PROJECTION_SERVICE);
         }
-        // registerReceiver
-        IntentFilter intentFilter;
-        (intentFilter = new IntentFilter()).addAction(ASSISTANT_ACTIVITY_CREATED_INTENT);
-        mContext.registerReceiver(mScreenBroadcastReceiver, intentFilter);
 
-        // start ScreenCaptureAssistantActivity for MediaProjection onActivityResult
         Intent intent;
         (intent = new Intent(mContext, ScreenCapture.ScreenCaptureAssistantActivity.class)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        ScreenCapture.ScreenCaptureAssistantActivity.mScreenCapture = this;
         mContext.startActivity(intent);
     }
 
@@ -481,18 +466,19 @@ public class ScreenCapture implements SurfaceTexture.OnFrameAvailableListener {
     public Intent mProjectionIntent;
 
     public static class ScreenCaptureAssistantActivity extends Activity {
-        public ScreenCapture mScreenCapture;  // init in the ScreenBroadcastReceiver;
-
-        public ScreenCaptureAssistantActivity() {
-        }
+        public static ScreenCapture mScreenCapture;
 
         public void onCreate(Bundle bundle) {
             super.onCreate(bundle);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
-            ScreenCapture.mScreenCaptureActivity = this;
-            // send to start the media projection activity
-            Intent intent = new Intent(ASSISTANT_ACTIVITY_CREATED_INTENT);
-            sendBroadcast(intent);
+            if (mScreenCapture.mMediaProjectManager == null) {
+                mScreenCapture.mMediaProjectManager =
+                       (MediaProjectionManager) this.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+            }
+
+            this.startActivityForResult(
+                    mScreenCapture.mMediaProjectManager.createScreenCaptureIntent(),
+                    ScreenCapture.MEDIA_PROJECTION_REQUEST_CODE);
         }
 
         public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -505,10 +491,8 @@ public class ScreenCapture implements SurfaceTexture.OnFrameAvailableListener {
                 mScreenCapture.mScreenSetupHandler.removeMessages(MSG_SCREEN_INIT_PROJECTION);
                 mScreenCapture.mScreenSetupHandler.sendMessage(msg);
             }
-
-            finish();
             mScreenCapture = null;
-            ScreenCapture.mScreenCaptureActivity = null;
+            finish();
         }
     }
 

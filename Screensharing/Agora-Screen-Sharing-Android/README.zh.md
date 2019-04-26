@@ -12,10 +12,12 @@ mRtcEngine.muteAllRemoteVideoStreams(true);
 ```
 避免接收远端的音视频流数据。
 
+这个开源示例项目还展现了同时开启相机画面共享和屏幕共享的功能。这是通过将屏幕共享设计为一个独立的进程服务来实现的，具体可参考本示例项目根目录下的screen_share_service.png文件。
 
 在这个示例项目中包含了以下功能：
 
 - 开始或结束屏幕共享
+- 开始或结束相机画面共享
 
 你可以在这里查看 Agora 视频 SDK 的入门示例项目：[Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
 
