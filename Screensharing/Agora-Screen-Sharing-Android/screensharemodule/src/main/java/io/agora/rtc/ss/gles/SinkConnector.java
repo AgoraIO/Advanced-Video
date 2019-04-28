@@ -1,4 +1,4 @@
-package io.agora.rtc.ss;
+package io.agora.rtc.ss.gles;
 
 public abstract class SinkConnector<T> {
     private volatile boolean mConnected = false;

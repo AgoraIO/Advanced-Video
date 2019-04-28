@@ -1,4 +1,4 @@
-package io.agora.rtc.ss;
+package io.agora.rtc.ss.gles;
 
 public class ImgTexFormat {
     public static final int COLOR_FORMAT_EXTERNAL_OES = 3;
