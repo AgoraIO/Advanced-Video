@@ -1,4 +1,4 @@
-package io.agora.rtc.ss;
+package io.agora.rtc.ss.gles;
 
 import java.util.Iterator;
 import java.util.LinkedList;

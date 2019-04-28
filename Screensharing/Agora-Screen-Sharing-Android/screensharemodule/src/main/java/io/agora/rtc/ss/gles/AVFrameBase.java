@@ -1,4 +1,4 @@
-package io.agora.rtc.ss;
+package io.agora.rtc.ss.gles;
 
 public class AVFrameBase {
     public long dts;

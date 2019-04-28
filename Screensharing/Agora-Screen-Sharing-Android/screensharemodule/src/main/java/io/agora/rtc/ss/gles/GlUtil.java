@@ -1,4 +1,4 @@
-package io.agora.rtc.ss;
+package io.agora.rtc.ss.gles;
 
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
