@@ -2,11 +2,13 @@
 
 *Read this in other languages: [中文](README.zh.md)*
 
-The Agora Screen Sharing for Android Sample App is an open-source demo that shows how to enable screen sharing function using the Agora Video SDK.
+The Agora Screen Sharing for Android Sample App is an open-source demo that shows how to enable screen sharing function using the Agora Video SDK. This sample also shows how to start both camera view and screen share view in one application. This is achieved by making screen share as a standalone service. For the detailed design, please refer to below diagram.  
+![Alt Image Text](screen_share_service.png)
 
 With this sample app, you can:
 
-- Start/Stop sharing screen
+- Start/Stop sharing screen view
+- Start/Stop sharing camera view
 
 A tutorial demo for Agora Video SDK can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
 

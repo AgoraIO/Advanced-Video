@@ -36,13 +36,14 @@ class SampleHandler: RPBroadcastSampleHandler {
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with sampleBufferType: RPSampleBufferType) {
         DispatchQueue.main.async {
             switch sampleBufferType {
-            case .video:
+            case RPSampleBufferType.video:
                 AgoraUploader.sendVideoBuffer(sampleBuffer)
-            case .audioApp:
+                break
+            case RPSampleBufferType.audioApp:
                 AgoraUploader.sendAudioAppBuffer(sampleBuffer)
-            case .audioMic:
+                break
+            case RPSampleBufferType.audioMic:
                 AgoraUploader.sendAudioMicBuffer(sampleBuffer)
-            @unknown default:
                 break
             }
         }

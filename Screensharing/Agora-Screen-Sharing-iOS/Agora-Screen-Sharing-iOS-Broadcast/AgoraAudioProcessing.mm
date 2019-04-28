@@ -9,15 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "AgoraAudioProcessing.h"
 #import "AgoraAudioCriticalSection.h"
-#import "AgoraAudioResample.h"
 
 #import <AgoraRtcEngineKit/IAgoraRtcEngine.h>
 #import <AgoraRtcEngineKit/IAgoraMediaEngine.h>
 #import <string.h>
 
 static const int kAudioBufferPoolSize = 500000;
-static unsigned char mRecordingAudioAppPool[kAudioBufferPoolSize];
-static unsigned char mRecordingAudioMicPool[kAudioBufferPoolSize];
+static  unsigned char mRecordingAudioAppPool[kAudioBufferPoolSize];
+static  unsigned char mRecordingAudioMicPool[kAudioBufferPoolSize];
 static int mRecordingAppBufferBytes = 0;
 static int mRecordingMicBufferBytes = 0;
 static CriticalSectionWrapper *CritSect = CriticalSectionWrapper::CreateCriticalSection();
@@ -54,7 +53,7 @@ void pushAudioMicFrame(unsigned char *inAudioFrame, int frameSize)
 
 class AgoraAudioFrameObserver : public agora::media::IAudioFrameObserver
 {
-public:
+    public:
     virtual bool onRecordAudioFrame(AudioFrame& audioFrame) override
     {
         CriticalSectionScoped lock(CritSect);
@@ -124,6 +123,7 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
     if (!kit) {
         return;
     }
+    
     agora::rtc::IRtcEngine* rtc_engine = (agora::rtc::IRtcEngine*)kit.getNativeHandle;
     agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
     mediaEngine.queryInterface(rtc_engine, agora::AGORA_IID_MEDIA_ENGINE);
@@ -131,7 +131,7 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
         mediaEngine->registerAudioFrameObserver(&s_audioFrameObserver);
     }
 }
-
+    
 + (void)deregisterAudioPreprocessing:(AgoraRtcEngineKit*)kit
 {
     if (!kit) {
@@ -148,35 +148,45 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
 
 + (void)pushAudioAppBuffer:(CMSampleBufferRef)sampleBuffer
 {
-    [[self sharedAppResampler] resamplingBuffer:sampleBuffer completion:^(unsigned char * _Nonnull audioFrame, int frameSize) {
-        pushAudioAppFrame(audioFrame, frameSize);
-    }];
+    AudioBufferList inAudioBufferList;
+    CMBlockBufferRef blockBuffer = nil;
+    OSStatus status = CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sampleBuffer, NULL, &inAudioBufferList, sizeof(inAudioBufferList), NULL, NULL, 0, &blockBuffer);
+    if (status != noErr) {
+        return;
+    }
+    
+    AudioBuffer buffer = inAudioBufferList.mBuffers[0];
+    uint8_t* p = (uint8_t*)buffer.mData;
+    
+    for (int i = 0; i < buffer.mDataByteSize; i += 2) {
+        uint8_t tmp;
+        tmp = p[i];
+        p[i] = p[i + 1];
+        p[i + 1] = tmp;
+    }
+    pushAudioAppFrame(p, buffer.mDataByteSize);
+    
+    if (blockBuffer) {
+        CFRelease(blockBuffer);
+    }
 }
-
+    
 + (void)pushAudioMicBuffer:(CMSampleBufferRef)sampleBuffer
 {
-    [[self sharedMicResampler] resamplingBuffer:sampleBuffer completion:^(unsigned char * _Nonnull audioFrame, int frameSize) {
-        pushAudioMicFrame(audioFrame, frameSize);
-    }];
-}
-
-+ (AgoraAudioResample *)sharedMicResampler
-{
-    static AgoraAudioResample *sharedMicResampler;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedMicResampler = [[AgoraAudioResample alloc] initWithTargetSampleRate:44100];
-    });
-    return sharedMicResampler;
-}
-
-+ (AgoraAudioResample *)sharedAppResampler
-{
-    static AgoraAudioResample *sharedAppResampler;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedAppResampler = [[AgoraAudioResample alloc] initWithTargetSampleRate:44100];
-    });
-    return sharedAppResampler;
+    AudioBufferList inAaudioBufferList;
+    CMBlockBufferRef blockBuffer = nil;
+    OSStatus status = CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sampleBuffer, NULL, &inAaudioBufferList, sizeof(inAaudioBufferList), NULL, NULL, 0, &blockBuffer);
+    if (status != noErr) {
+        return;
+    }
+    
+    AudioBuffer buffer = inAaudioBufferList.mBuffers[0];
+    uint8_t* p = (uint8_t*)buffer.mData;
+    
+    pushAudioMicFrame(p, buffer.mDataByteSize);
+    
+    if (blockBuffer) {
+        CFRelease(blockBuffer);
+    }
 }
 @end
