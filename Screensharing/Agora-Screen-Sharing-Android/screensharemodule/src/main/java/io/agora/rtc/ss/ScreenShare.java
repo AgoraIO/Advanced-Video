@@ -114,11 +114,15 @@ public class ScreenShare {
 
     @TargetApi(21)
     public void renewToken(String token) {
-        try {
-            mScreenShareSvc.renewToken(token);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            Log.e(TAG, Log.getStackTraceString(e));
+        if (mScreenShareSvc != null) {
+            try {
+                mScreenShareSvc.renewToken(token);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        } else {
+            Log.e(TAG, "screen share service not exist");
         }
     }
 

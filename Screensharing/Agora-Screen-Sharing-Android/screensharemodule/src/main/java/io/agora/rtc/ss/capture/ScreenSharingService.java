@@ -53,7 +53,7 @@ public class ScreenSharingService extends Service {
         }
 
         public void renewToken(String token) {
-            renewToken(token);
+            refreshToken(token);
         }
     };
 
@@ -156,7 +156,7 @@ public class ScreenSharingService extends Service {
         mScreenCapture.stop();
     }
 
-    private void renewToken(String token) {
+    private void refreshToken(String token) {
         if (mRtcEngine != null) {
             mRtcEngine.renewToken(token);
         } else {
