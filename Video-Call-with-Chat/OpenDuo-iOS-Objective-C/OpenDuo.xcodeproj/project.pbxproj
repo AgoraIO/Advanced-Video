@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3802EF31225CC32C0065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF30225CC32C0065A2E1 /* CoreML.framework */; };
+		38B220172269B03D00DDF0F4 /* AgoraRtmKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B220162269B03D00DDF0F4 /* AgoraRtmKit.framework */; };
 		702F6E451FAAC701009413E4 /* NSObject+JSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 702F6E441FAAC701009413E4 /* NSObject+JSONString.m */; };
 		702F6E551FAB3F52009413E4 /* ring.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 702F6E531FAB3F51009413E4 /* ring.mp3 */; };
 		702F6E561FAB3F52009413E4 /* tones.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 702F6E541FAB3F51009413E4 /* tones.mp3 */; };
 		7035E92E1FF3C43A00944D2D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7035E92D1FF3C43A00944D2D /* SystemConfiguration.framework */; };
 		705AF7D61FAC8B57002434E7 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705AF7D41FAC8B57002434E7 /* AgoraRtcEngineKit.framework */; };
 		705AF7DC1FAC8C8D002434E7 /* KeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 705AF7DA1FAC8C8D002434E7 /* KeyCenter.m */; };
-		70D37E34200BA73A0034E06F /* AgoraSigKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70D37E33200BA73A0034E06F /* AgoraSigKit.framework */; };
 		70D88DE72140D83E00FAB445 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70D88DE62140D83E00FAB445 /* Accelerate.framework */; };
 		70DA28421FA8455D00A56C64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70DA28411FA8455D00A56C64 /* AppDelegate.m */; };
 		70DA28451FA8455D00A56C64 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70DA28441FA8455D00A56C64 /* LoginViewController.m */; };
@@ -35,15 +35,15 @@
 
 /* Begin PBXFileReference section */
 		3802EF30225CC32C0065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		38B220162269B03D00DDF0F4 /* AgoraRtmKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtmKit.framework; sourceTree = "<group>"; };
 		702F6E431FAAC701009413E4 /* NSObject+JSONString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSONString.h"; sourceTree = "<group>"; };
 		702F6E441FAAC701009413E4 /* NSObject+JSONString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSONString.m"; sourceTree = "<group>"; };
 		702F6E531FAB3F51009413E4 /* ring.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ring.mp3; sourceTree = "<group>"; };
 		702F6E541FAB3F51009413E4 /* tones.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tones.mp3; sourceTree = "<group>"; };
 		7035E92D1FF3C43A00944D2D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		705AF7D41FAC8B57002434E7 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcEngineKit.framework; path = OpenDuo/AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
+		705AF7D41FAC8B57002434E7 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		705AF7D91FAC8C8D002434E7 /* KeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyCenter.h; sourceTree = "<group>"; };
 		705AF7DA1FAC8C8D002434E7 /* KeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyCenter.m; sourceTree = "<group>"; };
-		70D37E33200BA73A0034E06F /* AgoraSigKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraSigKit.framework; path = OpenDuo/AgoraSigKit.framework; sourceTree = "<group>"; };
 		70D88DE62140D83E00FAB445 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		70DA283D1FA8455D00A56C64 /* OpenDuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70DA28401FA8455D00A56C64 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -78,11 +78,11 @@
 			files = (
 				3802EF31225CC32C0065A2E1 /* CoreML.framework in Frameworks */,
 				70D88DE72140D83E00FAB445 /* Accelerate.framework in Frameworks */,
-				70D37E34200BA73A0034E06F /* AgoraSigKit.framework in Frameworks */,
 				7035E92E1FF3C43A00944D2D /* SystemConfiguration.framework in Frameworks */,
 				705AF7D61FAC8B57002434E7 /* AgoraRtcEngineKit.framework in Frameworks */,
 				70DA286B1FA85B8600A56C64 /* CoreTelephony.framework in Frameworks */,
 				70DA28671FA85AA600A56C64 /* VideoToolbox.framework in Frameworks */,
+				38B220172269B03D00DDF0F4 /* AgoraRtmKit.framework in Frameworks */,
 				70DA28631FA85A7100A56C64 /* AVFoundation.framework in Frameworks */,
 				70DA28651FA85A7D00A56C64 /* libc++.tbd in Frameworks */,
 				70DA28691FA85AE700A56C64 /* libresolv.tbd in Frameworks */,
@@ -122,8 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				705AF7D71FAC8C8D002434E7 /* KeyCenter */,
-				70DA28401FA8455D00A56C64 /* AppDelegate.h */,
-				70DA28411FA8455D00A56C64 /* AppDelegate.m */,
 				70DA28431FA8455D00A56C64 /* LoginViewController.h */,
 				70DA28441FA8455D00A56C64 /* LoginViewController.m */,
 				70DA286D1FA86D4300A56C64 /* DialViewController.h */,
@@ -143,6 +141,10 @@
 				70DA284B1FA8455D00A56C64 /* LaunchScreen.storyboard */,
 				70DA284E1FA8455D00A56C64 /* Info.plist */,
 				70DA284F1FA8455D00A56C64 /* main.m */,
+				70DA28401FA8455D00A56C64 /* AppDelegate.h */,
+				70DA28411FA8455D00A56C64 /* AppDelegate.m */,
+				705AF7D41FAC8B57002434E7 /* AgoraRtcEngineKit.framework */,
+				38B220162269B03D00DDF0F4 /* AgoraRtmKit.framework */,
 			);
 			path = OpenDuo;
 			sourceTree = "<group>";
@@ -152,8 +154,6 @@
 			children = (
 				3802EF30225CC32C0065A2E1 /* CoreML.framework */,
 				70D88DE62140D83E00FAB445 /* Accelerate.framework */,
-				70D37E33200BA73A0034E06F /* AgoraSigKit.framework */,
-				705AF7D41FAC8B57002434E7 /* AgoraRtcEngineKit.framework */,
 				7035E92D1FF3C43A00944D2D /* SystemConfiguration.framework */,
 				70DA286C1FA85BA200A56C64 /* AudioToolbox.framework */,
 				70DA286A1FA85B7F00A56C64 /* CoreTelephony.framework */,
