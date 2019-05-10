@@ -6,11 +6,11 @@ This readme describes the steps and considerations for demonstrating the Agora O
 
 ## Introduction
 
-Built upon the Agora Video SDK and the Agora Signaling SDK, the Agora OpenDuo for iOS is an open-source demo that integrates video chat into your Web applications.
+Built upon the Agora Video SDK and the Agora RTM SDK, the Agora OpenDuo for iOS is an open-source demo that integrates video chat into your iOS applications.
 
 This sample app allows you to:
 
-- Login the signaling server
+- Login the RTM server
 - Make a call
 - Accept or hang up a call
 - Mute/unmute a user
@@ -18,7 +18,7 @@ This sample app allows you to:
 
 ## Preparing the Developer Environment
 
-* Xcode 9.0 or later
+* Xcode 10.0 or later
 * An iPhone or iPad
 
 NOTE: The iOS emulator is NOT supported.
@@ -29,18 +29,15 @@ NOTE: The iOS emulator is NOT supported.
 
         static NSString * const kAppID = @"Your App ID";
 
-3. Download the **Agora Video SDK** and the **Agora Signaling SDK** from [Agora.io](https://docs.agora.io/en/Agora%20Platform/downloads).
+3. Download the **Agora Video SDK** and the **Agora RTM SDK** from [Agora.io](https://docs.agora.io/en/Agora%20Platform/downloads).
 4. Unzip the downloaded **Agora Video SDK** and copy **libs/AgoraRtcEngineKit.framework** to the *OpenDuo* folder of your project.
-5. Unzip the downloaded **Agora Signaling SDK** and copy **libs/AgoraSigKit.framework** to the *OpenDuo* folder of your project.
+5. Unzip the downloaded **Agora RTM SDK** and copy **libs/AgoraRtmKit.framework** to the *OpenDuo* folder of your project.
 6. Open OpenDuo.xcodeproj, connect your iPhone／iPad device, set up your code signature, and run the sample app.
 
 ## About the Dynamic Key
 
-For security, Agora recommends enabling the Dynamic Key.
+For security, Agora recommends enabling the Dynamic Key, see [RTM key](https://docs.agora.io/cn/Real-time-Messaging/RTM_key?platform=All%20Platforms).
 
-For information on SignalingToken, see [SignalingToken](https://docs.agora.io/en/2.2/addons/Signaling/Agora%20Basics/key_signaling).
-
-For information on AccessToken, see [AccessToken](https://docs.agora.io/en/2.2/product/Video/Agora%20Basics/key_native). 
 
 ## Contact Us
 

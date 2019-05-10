@@ -6,11 +6,11 @@ This readme describes the steps and considerations for demonstrating the Agora O
 
 ## Introduction
 
-Built upon the Agora Video SDK and the Agora Signaling SDK, the Agora OpenDuo for Android is an open-source demo that integrates video chat into your Android applications.
+Built upon the Agora Video SDK and the Agora RTM SDK, the Agora OpenDuo for Android is an open-source demo that integrates video chat into your Android applications.
 
 This sample app allows you to:
 
-- Login the signaling server
+- Login the RTM server
 - Inquire whether the calling subscriber is online
 - Call each other
 - Accept or hang up a call
@@ -27,16 +27,11 @@ NOTE: Agora recommends using a real device instead of an emulator.
 ## Running the App
 1. Create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID.
 
-   NOTE: For more information, see [Obtaining an App ID](https://docs.agora.io/en/2.2/addons/Signaling/Agora%20Basics/key_signaling?platform=All%20Platforms).
-
 2. Fill in your App ID in the **app/src/main/res/values/strings.xml**.
-
 
         <string name="agora_app_id"><#YOUR APP ID#></string>
 
-3. Download the Agora Video SDK and the Agora Signaling SDK from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads).
-
-   NOTE: This project is built upon the **Agora Video SDK 2.1.0** and the **Agora Signaling SDK 1.2.1**.
+3. Download the Agora Video SDK and the Agora RTM SDK from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads).
 
 4. Unzip the downloaded SDK package and:
 
