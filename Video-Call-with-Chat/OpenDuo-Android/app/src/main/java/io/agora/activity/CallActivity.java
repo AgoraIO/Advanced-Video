@@ -1,4 +1,4 @@
-package io.agora.openduo;
+package io.agora.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -16,13 +16,18 @@ import android.widget.*;
 
 import java.util.Locale;
 
-import io.agora.AgoraAPI;
-import io.agora.AgoraAPIOnlySignal;
-import io.agora.IAgoraAPI;
-
+import io.agora.openduo.AGApplication;
+import io.agora.openduo.R;
+import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
-import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtm.ErrorInfo;
+import io.agora.rtm.LocalInvitation;
+import io.agora.rtm.RemoteInvitation;
+import io.agora.rtm.ResultCallback;
+import io.agora.rtm.RtmCallEventListener;
+import io.agora.rtm.RtmClient;
+import io.agora.utils.Constant;
 
 /**
  * Created by beryl on 2017/11/6.
@@ -35,7 +40,7 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
     private static final int PERMISSION_REQ_ID_CAMERA = PERMISSION_REQ_ID_RECORD_AUDIO + 1;
     private static final int PERMISSION_REQ_ID_STORAGE = PERMISSION_REQ_ID_CAMERA + 1;
 
-    private AgoraAPIOnlySignal mAgoraAPI;
+    private RtmClient rtmClient;
     private RtcEngine mRtcEngine;
 
     private String mSubscriber;
@@ -53,6 +58,8 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
     private int callType = -1;
     private boolean mIsCallInRefuse = false;
     private int mRemoteUid = 0;
+    private RemoteInvitation remoteInvitation;
+    private LocalInvitation localInvitation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,23 +76,27 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
     }
 
     private void InitUI() {
-        mCallTitle = (TextView) findViewById(R.id.meet_title);
+        mCallTitle = findViewById(R.id.meet_title);
 
-        mCheckMute = (CheckBox) findViewById(R.id.call_mute_button);
+        mCheckMute = findViewById(R.id.call_mute_button);
         mCheckMute.setOnCheckedChangeListener(oncheckChangeListerener);
 
-        mCallHangupBtn = (ImageView) findViewById(R.id.call_button_hangup);
-        mLayoutCallIn = (RelativeLayout) findViewById(R.id.call_layout_callin);
+        mCallHangupBtn = findViewById(R.id.call_button_hangup);
+        mLayoutCallIn = findViewById(R.id.call_layout_callin);
 
-        mLayoutBigView = (FrameLayout) findViewById(R.id.remote_video_view_container);
-        mLayoutSmallView = (FrameLayout) findViewById(R.id.local_video_view_container);
+        mLayoutBigView = findViewById(R.id.remote_video_view_container);
+        mLayoutSmallView = findViewById(R.id.local_video_view_container);
     }
 
     private void setupData() {
         Intent intent = getIntent();
-
         mSubscriber = intent.getStringExtra("subscriber");
         channelName = intent.getStringExtra("channelName");
+
+        //Get Invitation objects form AGApplication
+        remoteInvitation = AGApplication.the().getRemoteInvitation();
+        localInvitation = AGApplication.the().getLocalInvitation();
+
         callType = intent.getIntExtra("type", -1);
         if (callType == Constant.CALL_IN) {
             mIsCallInRefuse = true;
@@ -178,7 +189,19 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
             case R.id.call_in_pickup:
                 mIsCallInRefuse = false;
                 joinChannel(); // Tutorial Step 4
-                mAgoraAPI.channelInviteAccept(channelName, mSubscriber, 0, null);
+
+                rtmClient.getRtmCallManager().acceptRemoteInvitation(remoteInvitation, new ResultCallback<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i(TAG, "acceptRemoteInvitation method call succeeds");
+                    }
+
+                    @Override
+                    public void onFailure(ErrorInfo errorInfo) {
+                        Log.i(TAG, "acceptRemoteInvitation error_code = " + errorInfo.getErrorCode()
+                                + "and error_description" + errorInfo.getErrorDescription());
+                    }
+                });
                 mLayoutCallIn.setVisibility(View.GONE);
                 mCallHangupBtn.setVisibility(View.VISIBLE);
                 mCallTitle.setVisibility(View.GONE);
@@ -188,24 +211,44 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
                 break;
 
             case R.id.call_button_hangup: // call out canceled or call ended
-
                 callOutHangup();
                 break;
         }
     }
 
     private void callOutHangup() {
-        if (mAgoraAPI != null)
-            mAgoraAPI.channelInviteEnd(channelName, mSubscriber, 0);
+        Log.i(TAG, "callOutHangup localInvitation = " + localInvitation);
+        if (rtmClient != null) {
+            rtmClient.getRtmCallManager().cancelLocalInvitation(localInvitation, new ResultCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.i(TAG, "cancelLocalInvitation method call succeeds");
+                }
+
+                @Override
+                public void onFailure(ErrorInfo errorInfo) {
+                    Log.i(TAG, "cancelLocalInvitation error_code = " + errorInfo.getErrorCode()
+                            + "and error_description" + errorInfo.getErrorDescription());
+                }
+            });
+        }
+        onEncCallClicked();
     }
 
     private void callInRefuse() {
-        // "status": 0 // Default
-        // "status": 1 // Busy
-        if (mAgoraAPI != null)
-            mAgoraAPI.channelInviteRefuse(channelName, mSubscriber, 0, "{\"status\":0}");
+        if (rtmClient != null)
+            rtmClient.getRtmCallManager().refuseRemoteInvitation(remoteInvitation, new ResultCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.i(TAG, "refuseRemoteInvitation method call succeeds");
+                }
 
-        onEncCallClicked();
+                @Override
+                public void onFailure(ErrorInfo errorInfo) {
+                    Log.i(TAG, "refuseRemoteInvitation error_code = " + errorInfo.getErrorCode()
+                            + "and error_description" + errorInfo.getErrorDescription());
+                }
+            });
     }
 
     @Override
@@ -213,60 +256,16 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
         Log.i(TAG, "onJoinChannelSuccess channel: " + channel + " uid: " + uid);
     }
 
+
     private void addSignalingCallback() {
-        if (mAgoraAPI == null) {
+        if (rtmClient == null) {
             return;
         }
 
-        mAgoraAPI.callbackSet(new AgoraAPI.CallBack() {
-
+        rtmClient.getRtmCallManager().setEventListener(new RtmCallEventListener() {
             @Override
-            public void onLogout(final int i) {
-                Log.i(TAG, "onLogout  i = " + i);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (i == IAgoraAPI.ECODE_LOGOUT_E_KICKED) { // other login the account
-                            Toast.makeText(CallActivity.this, "Other login account ,you are logout.", Toast.LENGTH_SHORT).show();
-
-                        } else if (i == IAgoraAPI.ECODE_LOGOUT_E_NET) { // net
-                            Toast.makeText(CallActivity.this, "Logout for Network can not be.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                        Intent intent = new Intent();
-                        intent.putExtra("result", "finish");
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }
-                });
-
-            }
-
-            /**
-             * call in receiver
-             */
-            @Override
-            public void onInviteReceived(final String channelID, final String account, final int uid, String s2) {
-                Log.i(TAG, "onInviteReceived  channelID = " + channelID + "  account = " + account);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                      "status": 0 // Default
-//                      "status": 1 // Busy
-                        mAgoraAPI.channelInviteRefuse(channelID, account, uid, "{\"status\":1}");
-
-                    }
-                });
-            }
-
-            /**
-             * call out other ,local receiver
-             */
-            @Override
-            public void onInviteReceivedByPeer(final String channelID, String account, int uid) {
-                Log.i(TAG, "onInviteReceivedByPeer  channelID = " + channelID + "  account = " + account);
-
+            public void onLocalInvitationReceivedByPeer(LocalInvitation localInvitation) {
+                Log.i(TAG, "onLocalInvitationReceivedByPeer channelID = " + localInvitation.getContent() + "  CalleeId = " + localInvitation.getCalleeId());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -277,15 +276,9 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
                 });
             }
 
-            /**
-             * other receiver call accept callback
-             * @param channelID
-             * @param account
-             * @param uid
-             * @param s2
-             */
             @Override
-            public void onInviteAcceptedByPeer(String channelID, String account, int uid, String s2) {
+            public void onLocalInvitationAccepted(LocalInvitation localInvitation, String s) {
+                Log.i(TAG, "onLocalInvitationAccepted channelID = " + localInvitation.getContent() + "  CalleeId = " + localInvitation.getCalleeId());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -295,30 +288,21 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
                         mCallTitle.setVisibility(View.GONE);
                     }
                 });
-
             }
 
-            /**
-             * other receiver call refuse callback
-             * @param channelID
-             * @param account
-             * @param uid
-             * @param s2
-             */
-
             @Override
-            public void onInviteRefusedByPeer(String channelID, final String account, int uid, final String s2) {
-                Log.i(TAG, "onInviteRefusedByPeer channelID = " + channelID + " account = " + account + " s2 = " + s2);
+            public void onLocalInvitationRefused(LocalInvitation localInvitation, String s) {
+                Log.i(TAG, "onLocalInvitationRefused channelID = " + localInvitation.getContent() + "  CalleeId = " + localInvitation.getCalleeId());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (mPlayer != null && mPlayer.isPlaying()) {
                             mPlayer.stop();
                         }
-                        if (s2.contains("status") && s2.contains("1")) {
-                            Toast.makeText(CallActivity.this, account + " reject your call for busy", Toast.LENGTH_SHORT).show();
+                        if (remoteInvitation.getResponse().contains("status") && remoteInvitation.getResponse().contains("1")) {
+                            Toast.makeText(CallActivity.this, remoteInvitation.getCallerId() + " reject your call for busy", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(CallActivity.this, account + " reject your call", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CallActivity.this, remoteInvitation.getCallerId() + " reject your call", Toast.LENGTH_SHORT).show();
                         }
 
                         onEncCallClicked();
@@ -326,43 +310,70 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
                 });
             }
 
-
-            /**
-             * end call remote receiver callback
-             * @param channelID
-             * @param account
-             * @param uid
-             * @param s2
-             */
             @Override
-            public void onInviteEndByPeer(final String channelID, String account, int uid, String s2) {
-                Log.i(TAG, "onInviteEndByPeer channelID = " + channelID + " account = " + account);
+            public void onLocalInvitationCanceled(LocalInvitation localInvitation) {
+                Log.i(TAG, "onLocalInvitationCanceled channelID = " + localInvitation.getContent() + "  CalleeId = " + localInvitation.getCalleeId());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (channelID.equals(channelName)) {
+                        onEncCallClicked();
+                    }
+                });
+            }
+
+            @Override
+            public void onLocalInvitationFailure(LocalInvitation localInvitation, int i) {
+                Log.i(TAG, "onLocalInvitationFailure channelID = " + localInvitation.getContent() + "  CalleeId = " + localInvitation.getCalleeId());
+            }
+
+            @Override
+            public void onRemoteInvitationReceived(final RemoteInvitation remoteInvitation) {
+                Log.i(TAG, "onRemoteInvitationReceived  channelID = " + remoteInvitation.getContent() + "  CallerId = " + remoteInvitation.getCallerId());
+                // "status": 0 // Default
+                // "status": 1 // Busy
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        remoteInvitation.setResponse("{\"status\":1}");
+                        rtmClient.getRtmCallManager().refuseRemoteInvitation(remoteInvitation, null);
+                    }
+                });
+            }
+
+            @Override
+            public void onRemoteInvitationAccepted(RemoteInvitation remoteInvitation) {
+                Log.i(TAG, "onRemoteInvitationAccepted  channelID = " + remoteInvitation.getContent() + "  CallerId = " + remoteInvitation.getCallerId());
+            }
+
+            @Override
+            public void onRemoteInvitationRefused(final RemoteInvitation remoteInvitation) {
+                Log.i(TAG, "onRemoteInvitationRefused channelID = " + remoteInvitation.getContent() + " CallerId = " + remoteInvitation.getCallerId() + " extra = " + remoteInvitation.getResponse());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (remoteInvitation.getContent().equals(channelName)) {
                             onEncCallClicked();
                         }
-
                     }
                 });
             }
 
-            /**
-             * end call local receiver callback
-             * @param channelID
-             * @param account
-             * @param uid
-             */
             @Override
-            public void onInviteEndByMyself(String channelID, String account, int uid) {
-                Log.i(TAG, "onInviteEndByMyself channelID = " + channelID + "  account = " + account);
+            public void onRemoteInvitationCanceled(final RemoteInvitation remoteInvitation) {
+                Log.i(TAG, "onRemoteInvitationCanceled channelID = " + remoteInvitation.getContent() + " CallerId = " + remoteInvitation.getCallerId());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        onEncCallClicked();
+                        if (remoteInvitation.getContent().equals(channelName)) {
+                            onEncCallClicked();
+                        }
                     }
                 });
+            }
+
+            @Override
+            public void onRemoteInvitationFailure(RemoteInvitation remoteInvitation, int i) {
+                Log.i(TAG, "onRemoteInvitationFailure code = " + i);
             }
         });
     }
@@ -423,7 +434,7 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
 
     // Tutorial Step 1
     private void initializeAgoraEngine() {
-        mAgoraAPI = AGApplication.the().getmAgoraAPI();
+        rtmClient = AGApplication.the().getRTMClient();
         mRtcEngine = AGApplication.the().getmRtcEngine();
         Log.i(TAG, "initializeAgoraEngine mRtcEngine :" + mRtcEngine);
         if (mRtcEngine != null) {
@@ -436,11 +447,7 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
     // Tutorial Step 2
     private void setupVideoProfile() {
         mRtcEngine.enableVideo();
-//      mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, false); // Earlier than 2.3.0
-
-        mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x360, VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
-                VideoEncoderConfiguration.STANDARD_BITRATE,
-                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
+        mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P, false);
     }
 
     // Tutorial Step 3
@@ -488,7 +495,7 @@ public class CallActivity extends AppCompatActivity implements AGApplication.OnA
 
     // Tutorial Step 10
     private void onRemoteUserVideoMuted(int uid, boolean muted) {
-        FrameLayout container = (FrameLayout) findViewById(R.id.remote_video_view_container);
+        FrameLayout container = findViewById(R.id.remote_video_view_container);
 
         SurfaceView surfaceView = (SurfaceView) container.getChildAt(0);
 

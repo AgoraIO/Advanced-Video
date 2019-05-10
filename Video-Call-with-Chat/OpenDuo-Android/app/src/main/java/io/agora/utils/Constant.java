@@ -1,4 +1,4 @@
-package io.agora.openduo;
+package io.agora.utils;
 
 /**
  * Created by beryl on 2017/11/6.
