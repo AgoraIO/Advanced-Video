@@ -55,7 +55,7 @@
   "description": "Agora Signaling Tutorial (WEB)",
   "dependencies": {
     "agora-signaling-sdk": "^1.4.0",
-    "agora-rtc-sdk": "^2.4.1",
+    "agora-rtc-sdk": "^2.6.1",
     "bootstrap-material-design": "4.1.1",
     "bootstrap-material-design-icons": "^2.2.0",
     "events": "^3.0.0",

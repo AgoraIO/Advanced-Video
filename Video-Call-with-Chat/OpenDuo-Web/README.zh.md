@@ -2,11 +2,11 @@
 
 *README in [English](readme_en.md).*
 
-这个开源示例项目演示了如何快速集成 Agora 信令 SDK 实现一个简单的视频电话应用。
+这个开源示例项目演示了如何快速集成 Agora 实时消息 SDK 实现一个简单的视频电话应用。
 
 在这个示例项目中包含了以下功能：
 
-- 登录信令服务器
+- 登录实时消息服务器
 - 键入对方姓名，进行视频电话
 - 接收对方的视频电话，进行视频电话
 - 注销
@@ -21,7 +21,7 @@
 const appid = "YOUR_AGORA_APPID";
 ```
 
-将您获得的信令SDK文件'AgoraSig-*.js' 重命名为 'AgoraSig.js' 置于'/static'目录下。在项目根目录使用npm安装项目依赖，并使用webpack打包出发布文件  
+将您获得的实时消息SDK文件重命名为 'rtm.min.js' 置于'/static'目录下。在项目根目录使用npm安装项目依赖，并使用webpack打包出发布文件  
 
 ``` bash
 # install dependency
@@ -34,12 +34,11 @@ npm run build
 将static目录copy到build目录即可开始使用。
 
 ### 关于Token
-在登录信令服务器时可提供一个参数token，一般由服务器计算提供作为身份凭证，默认不使用，如需使用，请重写signalingClient.js中的login函数  
-
-``` javascript
-//... 
-let session = this.signal.login(account,'_no_need_token');
-//... 
+在登录实时消息服务器时可提供一个参数token，一般由服务器计算提供作为身份凭证，默认不使用，如需使用，请重写rtmClient.js中的login函数  
+```javascript
+  //... 
+  let rtmClient = this.rtm.login(localAccount, token);
+  //... 
 ```
 ### 关于动态key
 在使用视频通讯服务时可提供动态key，一般由服务器计算提供作为身份凭证，默认不适用，如需使用，请修改rtc.js中的getDynamicKey函数

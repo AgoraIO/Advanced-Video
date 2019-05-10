@@ -1,5 +1,5 @@
-import SignalingClient from './signalingClient';
 import RtcClient from './rtcClient';
+import RtmClient from './rtmClient';
 import { Howl } from 'howler';
 import $ from 'jquery';
 import { Logger, Message } from './utils'
@@ -9,8 +9,8 @@ class Client {
     constructor(appid) {
         this.appid = appid;
         this.channelName = Math.random() * 10000 + "";
-        this.signal = new SignalingClient(appid);
         this.rtc = new RtcClient(appid);
+        this.rtm = new RtmClient(appid);
 
         //ring tones resources
         this.sound_ring = new Howl({
@@ -23,14 +23,19 @@ class Client {
             loop: true
         });
 
-        this.signal.on("inviteReceived", call => {this.onInviteReceived(call)});
-        this.signal.on("inviteEndByPeer", () => {this.onInviteEndByPeer()});
-
+        // this.signal.on("inviteReceived", call => {this.onInviteReceived(call)});
+        // this.signal.on("inviteEndByPeer", () => {this.onInviteEndByPeer()});
+        this.rtm.on("RemoteInvitationReceived", callerId => {this.onInviteReceived(callerId)});
+        this.rtm.on("inviteEndByPeer", () => {this.onInviteEndByPeer()});
+        this.rtm.on("LocalInvitationAccepted", ({peerId}) => {
+            this.ringCalling(false)
+        })
         this.subscribeEvents();
     }
 
-    init(localAccount) {
-        return this.signal.login(localAccount);
+    async init(localAccount) {
+        const rtmClient = this.rtm.login(localAccount)
+        return rtmClient
     }
 
 
@@ -68,21 +73,21 @@ class Client {
         return new Promise((resolve, reject) => {
             let dialog = $(".callingModal");
             dialog.find(".callee").html(account);
-            let signal = this.signal;
+            this.rtm.invite(channelName, account)
+            // let signal = this.signal;
 
-            signal.call(channelName, account, requirePeerOnline).then(() => {
-                dialog.modal('hide');
-                resolve();
-            }).catch(err => {
-                Message.show(err.reason);
-                reject();
-            });
+            // signal.call(channelName, account, requirePeerOnline).then(() => {
+            //     dialog.modal('hide');
+            //     resolve();
+            // }).catch(err => {
+            //     Message.show(err.reason);
+            //     reject();
+            // });
         });
     }
 
     //end given call object, passive means the call is ended by peer
-    endCall(call, passive) {
-        let signal = this.signal;
+    endCall(passive) {
         let rtc = this.rtc;
         let btn = $(".toolbar .muteBtn");
 
@@ -92,10 +97,11 @@ class Client {
         btn.removeClass("btn-info").addClass("btn-secondary");
         btn.find("i").html("mic");
         //end rtc
-        rtc.end();
-        //end signal call
-        signal.endCall(call, passive);
-        return Promise.resolve();
+        rtc.end().then(() => {})
+        //end rtm
+        if (!passive) {
+            this.rtm.endCall()
+        }
     }
 
     //ring when calling someone else
@@ -117,11 +123,11 @@ class Client {
 
     //events
     subscribeEvents() {
-        let signal = this.signal;
+        let signal = this.rtm;
         //toolbar end call btn
         $(".toolbar .endCallBtn").off("click").on("click", () => {
             this.ringCalling(false);
-            this.endCall(signal.call_active || signal.call_holding, false);
+            this.endCall(false);
         });
 
         //toolbar mute btn
@@ -150,11 +156,11 @@ class Client {
                             this.rtc.rtc.publish(stream);
                         }).catch(() => {
                             this.ringCalling(false);
-                            this.endCall(signal.call_active || signal.call_holding, false);
+                            this.endCall(false);
                         });
                     }).catch(() => {
                         this.ringCalling(false);
-                        this.endCall(signal.call_active || signal.call_holding, false);
+                        this.endCall(false);
                     });
                 }
             });
@@ -162,27 +168,31 @@ class Client {
     }
 
     //delegate callback when receiving call
-    onInviteReceived(call) {
+    onInviteReceived(res) {
         let dialog = $(".calledModal");
-        let signal = this.signal;
+        // let signal = this.signal;
+        let rtm = this.rtm
         let rtc = this.rtc;
 
-        dialog.find(".caller").html(call.peer);
+        dialog.find(".caller").html(res);
         dialog.find(".declineBtn").off("click").on("click", () => {
             dialog.modal('hide');
             this.ringCalled(false);
-            signal.rejectCall(call, 0);
+            rtm.on("RemoteInvitationCanceled", ({state}) => {
+                console.log("[client] RemoteInvitationCanceled ", state)
+            })
+            rtm.refuse()
         });
 
         dialog.find(".acceptBtn").off("click").on("click", () => {
             dialog.modal('hide');
             $(".startCallBtn").hide();
             this.ringCalled(false);
-            signal.acceptCall(call).then(call => {
-                rtc.init(call.channelName, true);
-            }).catch(err => {
-                Logger.log(`Accept call failed: ${err}`);
-            });
+            rtm.on("RemoteInvitationAccepted", ({uid, channel, state}) => {
+                console.log("[client] RemoteInvitationAccepted ", {uid, channel, state})
+                rtc.init(channel, true);
+            })
+            rtm.accept()
         });
 
         this.ringCalled(true);
@@ -191,10 +201,10 @@ class Client {
 
     //delegate callback called when call end by peer
     onInviteEndByPeer() {
-        let signal = this.signal;
+        let rtm = this.rtm;
         $(".calledModal").modal('hide');
         this.ringCalled(false);
-        this.endCall(signal.call_active || signal.call_holding, true);
+        this.endCall(true);
     }
 }
 

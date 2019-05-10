@@ -8,7 +8,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const utils = require('./webpack.utils');
 
 module.exports = {
-  entry: utils.getEntry(),
+  entry: {
+    ...utils.getEntry(),
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
@@ -56,7 +58,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.join(__dirname, './src')
+      '@': path.resolve(__dirname, './src'),
+      'rtm': path.resolve(__dirname, './static/rtm.min.js')
     },
     extensions: ['*', '.js', '.json']
   },
@@ -74,7 +77,8 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default']
+      Popper: ['popper.js', 'default'],
+      AgoraRTM: 'rtm'
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
