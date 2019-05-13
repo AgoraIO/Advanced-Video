@@ -82,7 +82,7 @@ extension ChannelPageViewController: MediaCenterDelegate {
         currentVC.showLoading(false)
     }
     
-    func mediaCenter(_ center: MediaCenter, didRemoteVideoDecoded channel: String) {
+    func mediaCenter(_ center: MediaCenter, didRemoteVideoFrameIn channel: String) {
         guard let currentVC = viewControllers?.first as? ChannelViewController,
             currentVC.channel.channelName == channel else {
                 return

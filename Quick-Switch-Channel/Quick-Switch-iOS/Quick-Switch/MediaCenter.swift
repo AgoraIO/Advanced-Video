@@ -11,12 +11,12 @@ import AgoraRtcEngineKit
 
 protocol MediaCenterDelegate: NSObjectProtocol {
     func mediaCenter(_ center: MediaCenter, didJoinChannel channel: String)
-    func mediaCenter(_ center: MediaCenter, didRemoteVideoDecoded channel: String)
+    func mediaCenter(_ center: MediaCenter, didRemoteVideoFrameIn channel: String)
 }
 
 class MediaCenter: NSObject {
     fileprivate lazy var agoraKit: AgoraRtcEngineKit = {
-        let agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: <#Your App Id#>, delegate: self)
+        let agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppId, delegate: self)
         agoraKit.setChannelProfile(.liveBroadcasting)
         agoraKit.setClientRole(.audience)
         agoraKit.enableVideo()
@@ -91,6 +91,8 @@ extension MediaCenter: AgoraRtcEngineDelegate {
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        print("didJoinedOfUid: \(uid)")
+        
         guard let _ = channel else {
             return
         }
@@ -100,15 +102,14 @@ extension MediaCenter: AgoraRtcEngineDelegate {
         canvas.view = renderView
         canvas.renderMode = .hidden
         agoraKit.setupRemoteVideo(canvas)
-        
-        print("didJoinedOfUid: \(uid)")
     }
     
-    func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
+    func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoFrameOfUid uid: UInt, size: CGSize, elapsed: Int) {
+        print("firstRemoteVideoFrameOfUid: \(uid)")
+        
         guard let channel = channel else {
             return
         }
-        delegate?.mediaCenter(self, didRemoteVideoDecoded: channel.channelName)
-        print("firstRemoteVideoDecodedOfUid: \(uid)")
+        delegate?.mediaCenter(self, didRemoteVideoFrameIn: channel.channelName)
     }
 }
