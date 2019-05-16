@@ -53,9 +53,9 @@ This sample app allows you to:
 
 NOTE: Deploy this project on the server and view the page using http/https. Do not double click the corresponding file to view the page. 
 
-## About SignalingToken
+## About rtm token
 
-When you login the signaling server, you can use SignalingToken provided by the server for authentication purposes. SignalingToken is not used by default. To use SignalingToken, rewrite the following login function in rtmClient.js.
+When you login the rtm server, you can use rtm token provided by the server for authentication purposes. rtm token is not used by default. To use rtm token, rewrite the following login function in rtmClient.js.
 ```javascript
   //... 
   let rtmClient = this.rtm.login(localAccount, token);

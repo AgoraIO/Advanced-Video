@@ -4,8 +4,6 @@ import { EventEmitter } from 'events'
 export default class RTMClient {
     constructor(appid) {
         this.client = AgoraRTM.createInstance(appid)
-        //turn on logs
-        // this.signal.setDoLog(true)
         this.channel = null
         this.uid = null
         this.appid = appid
