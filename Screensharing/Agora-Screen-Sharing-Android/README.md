@@ -2,11 +2,13 @@
 
 *Read this in other languages: [中文](README.zh.md)*
 
-The Agora Screen Sharing for Android Sample App is an open-source demo that shows how to enable screen sharing function using the Agora Video SDK.
+The Agora Screen Sharing for Android Sample App is an open-source demo that shows how to enable screen sharing function using the Agora Video SDK. This sample also shows how to start both camera view and screen share view in one application. This is achieved by making screen share as a standalone service. For the detailed design, please refer to below diagram.  
+![Alt Image Text](screen_share_service.png)
 
 With this sample app, you can:
 
-- Start/Stop sharing screen
+- Start/Stop sharing screen view
+- Start/Stop sharing camera view
 
 A tutorial demo for Agora Video SDK can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
 
@@ -23,9 +25,9 @@ A tutorial demo for Agora Video SDK can be found here: [Agora-Android-Tutorial-1
 
 Add the address which can integrate the Agora Video SDK automatically through JCenter in the property of the dependence of the "app/build.gradle":
 ```
-compile 'io.agora.rtc:full-sdk:2.0.0'
+implementation 'io.agora.rtc:full-sdk:2.4.0'
 ```
-(This sample program has added this address and do not need to add again. Adding the link address is the most important step if you want to integrate the Agora Video SDK in your own application.)
+(Adding the dependency is the most important step if you want to integrate the Agora Video SDK in your own application.)
 
 - Alternative way to integrate:
 
@@ -34,7 +36,7 @@ a
 Then, add the fllowing code in the property of the dependence of the "app/build.gradle":
 
 ```
-compile fileTree(dir: 'libs', include: ['*.jar'])
+implementation fileTree(dir: 'libs', include: ['*.jar'])
 ```
 
 **Finally**, open project with Android Studio, connect your Android device, build and run.
@@ -42,7 +44,7 @@ compile fileTree(dir: 'libs', include: ['*.jar'])
 Or use `Gradle` to build and run.
 
 ## Developer Environment Requirements
-- Android Studio 2.0 or above
+- Android Studio 3.1 or above
 - Real devices (Nexus 5X or other devices)
 - Some simulators are function missing or have performance issue, so real device is the best choice
 

@@ -2,11 +2,11 @@
 
 *Read this in other languages: [English](README.md)*
 
-这个开源示例项目演示了如何快速集成 Agora 视频 SDK 和信令 SDK，实现一个带呼叫功能的演示程序(本程序不带离线推送功能，比如 [GCM](https://developers.google.com/cloud-messaging/)/[APNs](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html) 或其它，如需此功能需要开发者自行去实现)。
+这个开源示例项目演示了如何快速集成 Agora 视频 SDK 和实时消息 SDK，实现一个带呼叫功能的演示程序(本程序不带离线推送功能，比如 [GCM](https://developers.google.com/cloud-messaging/)/[APNs](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html) 或其它，如需此功能需要开发者自行去实现)。
 
 在这个示例项目中包含了以下功能：
 
-- 登录信服务器（APP层限制只允许数字登录）；
+- 登录实时消息 RTM 服务器（APP层限制只允许数字登录）；
 - 查询呼叫对象是否在线；
 - 呼叫对方，加入通话，结束通话；
 - 静音和解除静音；
@@ -21,9 +21,7 @@
 
 ```
 
-`本项目代码当前适配了视频 SDK 2.1.1 版本以及信令 SDK 1.2.1 版本，如果使用不同版本的 SDK 可能会需要稍微调整代码里的调用代码`
-
-**其次** 在 [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads) 下载视频通话 SDK 和信令 SDK，解压后将其中的 **libs** 文件夹下的 ***.jar** 复制到本项目的 **app/libs** 下，其中的 **libs** 文件夹下的 **arm64-v8a**/**x86**/**armeabi-v7a** 复制到本项目的 **app/src/main/jniLibs** 下。
+**其次** 在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载**视频通话/视频直播 SDK** 和**实时消息 SDK**，解压后将其中的 **libs** 文件夹下的 ***.jar** 复制到本项目的 **app/libs** 下，其中的 **libs** 文件夹下的 **arm64-v8a**/**x86**/**armeabi-v7a** 复制到本项目的 **app/src/main/jniLibs** 下。
 
 在本项目的 "app/build.gradle" 文件依赖属性中添加如下依赖关系（此处代码中已添加示例）：
 

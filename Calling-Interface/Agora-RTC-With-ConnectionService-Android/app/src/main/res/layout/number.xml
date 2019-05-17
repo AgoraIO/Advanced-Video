@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <Button
+            android:id="@+id/bt_two"
+            style="@style/NumberStytle"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/two"/>
+
+        <Button
+            android:id="@+id/bt_five"
+            style="@style/NumberStytle"
+            android:layout_below="@+id/bt_two"
+            android:layout_centerHorizontal="true"
+            android:text="@string/five" />
+
+        <Button
+            android:id="@+id/bt_eight"
+            style="@style/NumberStytle"
+            android:layout_below="@+id/bt_five"
+            android:layout_centerHorizontal="true"
+            android:text="@string/eight"/>
+
+        <Button
+            android:id="@+id/bt_zero"
+            style="@style/NumberStytle"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/bt_eight"
+            android:text="@string/zero" />
+
+        <Button
+            android:id="@+id/bt_one"
+            style="@style/NumberStytle"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/bt_two"
+            android:text="@string/one" />
+
+        <Button
+            android:id="@+id/bt_three"
+            style="@style/NumberStytle"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/bt_five"
+            android:text="@string/three"/>
+
+        <Button
+            android:id="@+id/bt_four"
+            style="@style/NumberStytle"
+            android:layout_below="@+id/bt_one"
+            android:layout_toLeftOf="@+id/bt_five"
+            android:text="@string/four" />
+
+        <Button
+            android:id="@+id/bt_six"
+            style="@style/NumberStytle"
+            android:layout_below="@+id/bt_three"
+            android:layout_toRightOf="@+id/bt_five"
+            android:text="@string/six" />
+
+        <Button
+            android:id="@+id/bt_seven"
+            style="@style/NumberStytle"
+            android:layout_below="@+id/bt_four"
+            android:layout_toLeftOf="@+id/bt_eight"
+            android:text="@string/seven" />
+
+        <Button
+            android:id="@+id/bt_nine"
+            style="@style/NumberStytle"
+            android:layout_below="@+id/bt_six"
+            android:layout_toRightOf="@+id/bt_eight"
+            android:text="@string/nine"
+            />
+
+        <Button
+            android:id="@+id/bt_point"
+            style="@style/NumberStytle"
+            android:layout_toLeftOf="@+id/bt_zero"
+            android:layout_below="@+id/bt_seven"
+            android:onClick="CallClickInit"
+            android:text="@string/num_left" />
+
+        <Button
+            android:id="@+id/bt_right"
+            style="@style/NumberStytle"
+            android:layout_below="@+id/bt_nine"
+            android:layout_toRightOf="@+id/bt_zero"
+            android:onClick="CallClickInit"
+            android:text="@string/num_right" />
+
+
+
+
+
+</RelativeLayout>

@@ -10,83 +10,54 @@
 #import "CallViewController.h"
 #import "AlertUtil.h"
 #import "NSObject+JSONString.h"
-#import "KeyCenter.h"
-#import <AgoraSigKit/AgoraSigKit.h>
+#import <AgoraRtmKit/AgoraRtmKit.h>
 
-@interface DialViewController ()
-{
-    AgoraAPI *signalEngine;
-}
-
+@interface DialViewController () <AgoraRtmCallDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *lacalAccountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *remoteAccountLabel;
-
+@property (strong, nonatomic) AgoraRtmCallKit *callKit;
 @end
 
 @implementation DialViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.callKit = [self.signalEngine getRtmCallKit];
+    
     self.navigationItem.hidesBackButton = YES;
     self.lacalAccountLabel.text = [NSString stringWithFormat:@"Your account ID is %@", self.localAccount];
-    
-    signalEngine = [AgoraAPI getInstanceWithoutMedia:[KeyCenter appId]];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.remoteAccountLabel.text = @"";
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    __weak typeof(self) weakSelf = self;
-    
-    signalEngine.onLogout = ^(AgoraEcode ecode) {
-        NSLog(@"onLogout, ecode: %lu", (unsigned long)ecode);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIViewController *presentedVC = weakSelf.presentedViewController;
-            if (weakSelf.presentedViewController) {
-                [weakSelf dismissViewControllerAnimated:NO completion:nil];
-                if ([presentedVC isMemberOfClass:[CallViewController class]]) {
-                    [(CallViewController *)presentedVC logout];
-                }
-            }
-            [weakSelf.navigationController popViewControllerAnimated:NO];
-        });
-    };
-
-    signalEngine.onInviteReceived = ^(NSString* channelID, NSString *account, uint32_t uid, NSString *extra) {
-        NSLog(@"onInviteReceived, channel: %@, account: %@, uid: %u, extra: %@", channelID, account, uid, extra);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (weakSelf.presentedViewController == nil) {
-                [weakSelf showCallView:channelID remoteAccount:account];
-            }
-            else {
-                [weakSelf refuseInvite:channelID fromAccount:account];
-            }
-        });
-    };
+    self.remoteAccountLabel.text = @"";
+    self.callKit.callDelegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.isMovingFromParentViewController) {
-        signalEngine.onLogout = nil;
-        signalEngine.onInviteReceived = nil;
+        self.callKit.callDelegate = nil;
     }
 }
 
 - (IBAction)logout:(id)sender {
-    [signalEngine logout];
+//    __weak typeof(self) weakSelf = self;
+    [self.signalEngine logoutWithCompletion:^(AgoraRtmLogoutErrorCode errorCode) {
+        NSLog(@"onLogout, ecode: %ld", (long)errorCode);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            UIViewController *presentedVC = weakSelf.presentedViewController;
+//            if (weakSelf.presentedViewController) {
+//                [weakSelf dismissViewControllerAnimated:NO completion:nil];
+//                if ([presentedVC isMemberOfClass:[CallViewController class]]) {
+//                    [(CallViewController *)presentedVC logout];
+//                }
+//            }
+//            [weakSelf.navigationController popViewControllerAnimated:NO];
+//        });
+    }];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -102,9 +73,8 @@
         if ([remoteAccount isEqualToString:self.localAccount]) {
             [AlertUtil showAlert:@"Cannot call yourself"];
             self.remoteAccountLabel.text = @"";
-        }
-        else {
-            [self showCallView:nil remoteAccount:remoteAccount];
+        } else {
+            [self showCallViewForInvitation:nil remoteAccount:remoteAccount];
         }
     }
 }
@@ -117,18 +87,28 @@
     }
 }
 
-- (void)showCallView:(NSString* )channel remoteAccount:(NSString *)account {
+- (void)showCallViewForInvitation:(AgoraRtmRemoteInvitation* )invitation remoteAccount:(NSString *)account {
     CallViewController *callVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
-    callVC.localUID = self.localUID;
     callVC.localAccount = self.localAccount;
     callVC.remoteAccount = account;
-    callVC.channel = channel;
+    callVC.signalEngine = self.signalEngine;
+    callVC.remoteInvitation = invitation;
     [self presentViewController:callVC animated:NO completion:nil];
 }
 
-- (void)refuseInvite:(NSString* )channel fromAccount:(NSString *)account {
-    NSDictionary *extraDic = @{@"status": @(1)};
-    [signalEngine channelInviteRefuse:channel account:account uid:0 extra:[extraDic JSONString]];
+- (void)refuseInvitation:(AgoraRtmRemoteInvitation* )invitation {
+    [self.callKit refuseRemoteInvitation:invitation completion:nil];
 }
 
+- (void)rtmCallKit:(AgoraRtmCallKit *)callKit remoteInvitationReceived:(AgoraRtmRemoteInvitation *)remoteInvitation {
+    NSString *channelId = remoteInvitation.channelId;
+    NSString *callerId = remoteInvitation.callerId;
+    NSLog(@"remoteInvitationReceived, channel: %@, uid: %@", channelId, callerId);
+    
+    if (self.presentedViewController == nil) {
+        [self showCallViewForInvitation:remoteInvitation remoteAccount:callerId];
+    } else {
+        [self refuseInvitation:remoteInvitation];
+    }
+}
 @end

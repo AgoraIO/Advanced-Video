@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CallViewController : UIViewController
+@class AgoraRtmKit;
+@class AgoraRtmRemoteInvitation;
 
-@property (assign, nonatomic) unsigned localUID;
+@interface CallViewController : UIViewController
 @property (copy, nonatomic) NSString *localAccount;
 @property (copy, nonatomic) NSString *remoteAccount;
-@property (copy, nonatomic) NSString *channel;
+@property (strong, nonatomic) AgoraRtmKit *signalEngine;
+@property (strong, nonatomic) AgoraRtmRemoteInvitation *remoteInvitation;
 
 - (void)logout;
 

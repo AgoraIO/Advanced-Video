@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_video_chat_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:alpha="0.2"/>
+
+
+    <TextView
+        android:id="@+id/meet_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+    <RelativeLayout
+        android:id="@+id/layout_call_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/meet_title">
+        <EditText
+            android:id="@+id/call_number_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:lines="1"
+            android:gravity="center"
+            android:background="@null"
+            android:inputType="number"
+            android:textColor="@color/blue"
+
+            />
+        <ImageView
+            android:id="@+id/call_number_call"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="CallClickInit"
+            android:src="@drawable/icon_video_pickup"/>
+        <ImageView
+            android:id="@+id/call_number_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/call_number_call"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp"
+            android:layout_marginLeft="30dp"
+            android:onClick="CallClickInit"
+            android:src="@drawable/icon_delete_num"/>
+        <include
+            layout="@layout/number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/call_number_call"
+            android:layout_below="@+id/call_number_edit"
+            />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

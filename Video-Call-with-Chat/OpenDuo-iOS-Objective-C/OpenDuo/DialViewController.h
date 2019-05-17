@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DialViewController : UIViewController
+@class AgoraRtmKit;
 
-@property (assign, nonatomic) unsigned localUID;
+@interface DialViewController : UIViewController
 @property (copy, nonatomic) NSString *localAccount;
+@property (strong, nonatomic) AgoraRtmKit *signalEngine;
 
 @end

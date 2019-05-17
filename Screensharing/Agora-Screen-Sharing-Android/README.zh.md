@@ -3,19 +3,22 @@
 
 *Read this in other languages: [English](README.md)*
 
-这个开源示例项目演示了如何用 Agora 视频 SDK 实现屏幕共享,默认我们 SDK 是会订阅远端流，只是不显示，但这样就会产生额外的计费
-考虑到屏幕共享的引用场景大多数并不需要观看远端的音视频流，因此在本例中joinchannel前加入如下代码
+这个开源示例项目演示了如何用 Agora 视频 SDK 实现屏幕共享，默认我们 SDK 是会订阅远端流，只是不显示，但这样就会产生额外的计费
+考虑到屏幕共享的应用场景大多数并不需要观看远端的音视频流，并且不会发送本地音频流，因此在本例中 `joinChannel` 前加入如下代码
 
 ```
 mRtcEngine.muteAllRemoteAudioStreams(true);
-mRtcEngine.muteAllRemoteVideoStreams(true);
+mRtcEngine.muteAllRemoteVideoStreams(true);  
+mRtcEngine.disableAudio();
 ```
-避免接收远端的音视频流数据。
 
+这个开源示例项目还展现了同时开启相机画面共享和屏幕共享的功能。这是通过将屏幕共享设计为一个独立的进程服务来实现的，具体可参考如下UML顺序图 
+![Alt Image Text](screen_share_service.png)
 
 在这个示例项目中包含了以下功能：
 
 - 开始或结束屏幕共享
+- 开始或结束相机画面共享
 
 你可以在这里查看 Agora 视频 SDK 的入门示例项目：[Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
 
@@ -34,10 +37,9 @@ mRtcEngine.muteAllRemoteVideoStreams(true);
 在项目对应的模块的 "app/build.gradle" 文件的依赖属性中加入通过 JCenter 自动集成 Agora 视频 SDK 的地址：
 
 ```
-compile 'io.agora.rtc:full-sdk:2.0.0'
+implementation 'io.agora.rtc:full-sdk:2.4.0'
 ```
-
-( 该示例程序已添加此链接地址，无需再添加，如果要在自己的应用中集成 Agora 视频 SDK，添加链接地址是最重要的一步。）
+(如果要在自己的应用中集成 Agora 视频 SDK，添加依赖链接地址是最重要的一步。）
 
 - 次选集成方式：
 
@@ -46,7 +48,7 @@ compile 'io.agora.rtc:full-sdk:2.0.0'
 第二步: 在本项目的 "app/build.gradle" 文件依赖属性中添加如下依赖关系：
 
 ```
-compile fileTree(dir: 'libs', include: ['*.jar'])
+implementation fileTree(dir: 'libs', include: ['*.jar'])
 ```
 
 **最后**用 Android Studio 打开该项目，连上设备，编译并运行。
@@ -54,7 +56,7 @@ compile fileTree(dir: 'libs', include: ['*.jar'])
 也可以使用 `Gradle` 直接编译运行。
 
 ## 运行环境
-- Android Studio 2.0 +
+- Android Studio 3.1+
 - 真实 Android 设备 (Nexus 5X 或者其它设备)
 - 部分模拟器会存在功能缺失或者性能问题，所以推荐使用真机
 

@@ -14,9 +14,10 @@ import io.agora.rtc.video.VideoCanvas;
 
 public class AudienceActivity extends Activity {
 
-    private static final String TAG = "audience";
+    private static final String TAG = AudienceActivity.class.getSimpleName();
 
-    private FrameLayout mFlRoot;
+    private FrameLayout mFlCam;
+    private FrameLayout mFlSS;
     private RtcEngine mRtcEngine;
 
     @Override
@@ -24,7 +25,8 @@ public class AudienceActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audience);
 
-        mFlRoot = (FrameLayout) findViewById(R.id.fl_root);
+        mFlCam = (FrameLayout) findViewById(R.id.fl_camera);
+        mFlSS = (FrameLayout) findViewById(R.id.fl_screenshare);
 
         initEngineAndJoin();
     }
@@ -58,16 +60,23 @@ public class AudienceActivity extends Activity {
         mRtcEngine.enableVideo();
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
 
-        mRtcEngine.joinChannel(null, "ss_test", "", 0);
+        mRtcEngine.joinChannel(null, getResources().getString(R.string.label_channel_name), "", Constant.AUDIENCE_UID);
     }
 
     private void setupRemoteView(int uid) {
         SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
         surfaceV.setZOrderOnTop(true);
         surfaceV.setZOrderMediaOverlay(true);
-        mFlRoot.addView(surfaceV, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        mRtcEngine.setupRemoteVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, uid));
+        if (uid == Constant.CAMERA_UID) {
+            mFlCam.addView(surfaceV, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        } else if (uid == Constant.SCREEN_SHARE_UID){
+            mFlSS.addView(surfaceV, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        } else {
+            Log.e(TAG, "unknown uid");
+        }
+
+        mRtcEngine.setupRemoteVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_FIT, uid));
     }
 
     @Override

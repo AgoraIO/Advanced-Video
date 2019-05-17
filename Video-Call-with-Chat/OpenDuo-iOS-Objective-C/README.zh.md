@@ -2,13 +2,13 @@
 
 *Read this in other languages: [English](README.md)*
 
-**为了安全，建议正式环境中启用 [动态密钥鉴权](https://docs.agora.io/cn/2.2/product/Video/Agora%20Basics/key_native) 机制**
+**为了安全，建议正式环境中启用 [动态密钥鉴权](https://docs.agora.io/cn/Real-time-Messaging/RTM_key?platform=All%20Platforms) 机制**
 
-这个开源示例项目演示了如何快速集成 Agora 视频 SDK 和信令 SDK，实现1对1视频通话。
+这个开源示例项目演示了如何快速集成 Agora 视频 SDK 和实时消息 SDK，实现1对1视频通话。
 
 在这个示例项目中包含了以下功能：
 
-- 登录信令；
+- 登录实时消息 RTM 服务器；
 - 拨号和呼叫；
 - 接听和挂断；
 - 静音和解除静音；
@@ -22,13 +22,13 @@ static NSString * const kAppID = @"Your App ID";
 ```
 
 然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads)
-- 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs/AgoraRtcEngineKit.framework** 复制到本项目的 “OpenDuo” 文件夹下。
-- 下载 **信令SDK**，解压后将其中的 **libs/AgoraSigKit.framework** 复制到本项目的 “OpenDuo” 文件夹下。
+- 下载 **视频通话/视频直播 SDK**，解压后将其中的 **libs/AgoraRtcEngineKit.framework** 复制到本项目的 “OpenDuo” 文件夹下。
+- 下载 **实时消息 SDK**，解压后将其中的 **libs/AgoraRtmKit.framework** 复制到本项目的 “OpenDuo” 文件夹下。
 
 最后使用 XCode 打开 OpenDuo.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
 ## 运行环境
-* XCode 9.0 +
+* XCode 10.0 +
 * iOS 真机设备
 * 不支持模拟器
 

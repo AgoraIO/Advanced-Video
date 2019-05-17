@@ -9,17 +9,12 @@
 #import "CallViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
-#import <AgoraSigKit/AgoraSigKit.h>
+#import <AgoraRtmKit/AgoraRtmKit.h>
 #import "KeyCenter.h"
 #import "AlertUtil.h"
 #import "NSObject+JSONString.h"
 
-@interface CallViewController () <AgoraRtcEngineDelegate>
-{
-    AVAudioPlayer *audioPlayer;
-    AgoraAPI *signalEngine;
-    AgoraRtcEngineKit *mediaEngine;
-}
+@interface CallViewController () <AgoraRtcEngineDelegate, AgoraRtmCallDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *remoteVideo;
 @property (weak, nonatomic) IBOutlet UIView *localVideo;
@@ -28,217 +23,158 @@
 @property (weak, nonatomic) IBOutlet UIButton *hangupButton;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 
+@property (strong, nonatomic) AgoraRtcEngineKit *mediaEngine;
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+
+@property (strong, nonatomic) AgoraRtmCallKit *callKit;
+@property (strong, nonatomic) AgoraRtmLocalInvitation *localInvitation;
 @end
 
 @implementation CallViewController
-
--(void)dealloc
-{
+-(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadSignalEngine];
+    self.callKit = [self.signalEngine getRtmCallKit];
+    self.callKit.callDelegate = self;
     
-    if (self.channel.length == 0) {
-        self.callingLabel.text = [NSString stringWithFormat:@"%@ is being called ...", self.remoteAccount];
-        self.buttonStackView.axis = UILayoutConstraintAxisVertical;
-        [self.acceptButton removeFromSuperview];
-        
-        [signalEngine queryUserStatus:self.remoteAccount];
-    }
-    else {
+//    self.signalEngine.agoraRtmDelegate = self;
+    
+    if (self.remoteInvitation) {
         self.callingLabel.text = [NSString stringWithFormat:@"%@ is calling ...", self.remoteAccount];
         [self loadMediaEngine];
         [self startLocalVideo];
         [self playRing:@"ring"];
-    }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationWillTerminate:)
-                                                 name:UIApplicationWillTerminateNotification
-                                               object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter appId] delegate:nil];
-    
-    signalEngine.onError = nil;
-    signalEngine.onQueryUserStatusResult = nil;
-    signalEngine.onInviteReceivedByPeer = nil;
-    signalEngine.onInviteFailed = nil;
-    signalEngine.onInviteAcceptedByPeer = nil;
-    signalEngine.onInviteRefusedByPeer = nil;
-    signalEngine.onInviteEndByPeer = nil;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)applicationWillTerminate:(NSNotification *)noti
-{
-    if (self.channel.length > 0) {
-        [signalEngine channelInviteEnd:self.channel account:self.remoteAccount uid:0];
-    }
-}
-
-- (void)loadSignalEngine {
-    signalEngine = [AgoraAPI getInstanceWithoutMedia:[KeyCenter appId]];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    signalEngine.onError = ^(NSString* name, AgoraEcode ecode, NSString* desc) {
-        NSLog(@"onError, name: %@, code:%lu, desc: %@", name, (unsigned long)ecode, desc);
-        if ([name isEqualToString:@"query_user_status"]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [AlertUtil showAlert:desc completion:^{
-                    [weakSelf dismissViewControllerAnimated:NO completion:nil];
-                }];
-            });
-        }
-    };
-    
-    signalEngine.onQueryUserStatusResult = ^(NSString *name, NSString *status) {
-        NSLog(@"onQueryUserStatusResult, name: %@, status: %@", name, status);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([status intValue] == 0) {
-                NSString *message = [NSString stringWithFormat:@"%@ is not online", name];
+    } else {
+        self.callingLabel.text = [NSString stringWithFormat:@"%@ is being called ...", self.remoteAccount];
+        self.buttonStackView.axis = UILayoutConstraintAxisVertical;
+        [self.acceptButton removeFromSuperview];
+        
+        __weak typeof(self) weakSelf = self;
+        [self.signalEngine queryPeersOnlineStatus:@[self.remoteAccount] completion:^(NSArray<AgoraRtmPeerOnlineStatus *> *peerOnlineStatus, AgoraRtmQueryPeersOnlineErrorCode errorCode) {
+            AgoraRtmPeerOnlineStatus *status = peerOnlineStatus.firstObject;
+            NSLog(@"onQueryPeersOnlineStatus, peerId: %@, isOnline: %d", status.peerId, status.isOnline);
+            if (status.isOnline) {
+                [weakSelf loadMediaEngine];
+                [weakSelf startLocalVideo];
+                [weakSelf sendInviteRequest];
+            } else {
+                NSString *message = [NSString stringWithFormat:@"%@ is not online", status.peerId];
                 [AlertUtil showAlert:message completion:^{
                     [weakSelf dismissViewControllerAnimated:NO completion:nil];
                 }];
             }
-            else {
-                [weakSelf loadMediaEngine];
-                [weakSelf startLocalVideo];
-                [weakSelf sendInviteRequest];
+        }];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.mediaEngine.delegate = nil;
+}
+
+- (void)rtmCallKit:(AgoraRtmCallKit *)callKit localInvitationReceivedByPeer:(AgoraRtmLocalInvitation *)localInvitation {
+    NSLog(@"localInvitationReceivedByPeer: %@, channel: %@", localInvitation.calleeId, localInvitation.channelId);
+    if (![localInvitation.channelId isEqualToString:self.localInvitation.channelId] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
+        return;
+    }
+    
+    [self playRing:@"tones"];
+}
+
+- (void)rtmCallKit:(AgoraRtmCallKit *)callKit localInvitationAccepted:(AgoraRtmLocalInvitation *)localInvitation withResponse:(NSString *)response {
+    NSLog(@"localInvitationAccepted by: %@, response: %@", localInvitation.calleeId, response);
+    if (![localInvitation.channelId isEqualToString:self.localInvitation.channelId] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
+        return;
+    }
+    
+    self.callingLabel.hidden = YES;
+    [self adjustLocalVideoView];
+    
+    [self stopRing];
+    [self joinChannel];
+}
+
+- (void)rtmCallKit:(AgoraRtmCallKit *)callKit localInvitationRefused:(AgoraRtmLocalInvitation *)localInvitation withResponse:(NSString *)response {
+    NSLog(@"localInvitationRefused: %@, response: %@", localInvitation.calleeId, response);
+    if (![localInvitation.channelId isEqualToString:self.localInvitation.channelId] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
+        return;
+    }
+    
+    [self stopRing];
+    [self leaveChannel];
+    
+    if ([response isEqualToString:@"busy"]) {
+        NSString *message = [NSString stringWithFormat:@"%@ is busy", localInvitation.calleeId];
+        [AlertUtil showAlert:message completion:^{
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }];
+    } else {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+}
+
+- (void)rtmCallKit:(AgoraRtmCallKit *)callKit remoteInvitationCanceled:(AgoraRtmRemoteInvitation *)remoteInvitation {
+    if (!self.callingLabel.hidden) {
+        __weak typeof(self) weakSelf = self;
+        [AlertUtil showAlert:@"Call canceled" completion:^{
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+        }];
+    }
+}
+
+- (void)sendInviteRequest {
+    AgoraRtmLocalInvitation *invitation = [[AgoraRtmLocalInvitation alloc] initWithCalleeId:self.remoteAccount];
+    NSString *channel = [NSString stringWithFormat:@"%@-%@-%f", self.localAccount, self.remoteAccount, [NSDate date].timeIntervalSinceReferenceDate];
+    invitation.channelId = channel;
+    self.localInvitation = invitation;
+    
+    __weak typeof(self) weakSelf = self;
+    [self.callKit sendLocalInvitation:invitation completion:^(AgoraRtmInvitationApiCallErrorCode errorCode) {
+        if (errorCode != AgoraRtmInvitationApiCallErrorOk) {
+            NSLog(@"Call %@ failed, ecode: %lu", self.remoteAccount, (unsigned long)errorCode);
+            if (![invitation.calleeId isEqualToString:weakSelf.remoteAccount]) {
+                return;
             }
-        });
-    };
-    
-    signalEngine.onInviteReceivedByPeer = ^(NSString* channelID, NSString *account, uint32_t uid) {
-        NSLog(@"onInviteReceivedByPeer, channel: %@, account: %@, uid: %u", channelID, account, uid);
-        if (![channelID isEqualToString:weakSelf.channel] || ![account isEqualToString:weakSelf.remoteAccount]) {
-            return;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf playRing:@"tones"];
-        });
-    };
-    
-    signalEngine.onInviteFailed = ^(NSString* channelID, NSString* account, uint32_t uid, AgoraEcode ecode, NSString *extra) {
-        NSLog(@"Call %@ failed, ecode: %lu", account, (unsigned long)ecode);
-        if (![channelID isEqualToString:weakSelf.channel] || ![account isEqualToString:weakSelf.remoteAccount]) {
-            return;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+            
             [weakSelf leaveChannel];
             
             [AlertUtil showAlert:@"Call failed" completion:^{
                 [weakSelf dismissViewControllerAnimated:NO completion:nil];
             }];
-        });
-    };
-    
-    signalEngine.onInviteAcceptedByPeer = ^(NSString* channelID, NSString *account, uint32_t uid, NSString *extra) {
-        NSLog(@"onInviteAcceptedByPeer, channel: %@, account: %@, uid: %u, extra: %@", channelID, account, uid, extra);
-        if (![channelID isEqualToString:weakSelf.channel] || ![account isEqualToString:weakSelf.remoteAccount]) {
-            return;
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^() {
-            weakSelf.callingLabel.hidden = YES;
-            [weakSelf adjustLocalVideoView];
-            
-            [weakSelf stopRing];
-            [weakSelf joinChannel];
-        });
-    };
-    
-    signalEngine.onInviteRefusedByPeer = ^(NSString* channelID, NSString *account, uint32_t uid, NSString *extra) {
-        NSLog(@"onInviteRefusedByPeer, channel: %@, account: %@, uid: %u, extra: %@", channelID, account, uid, extra);
-        if (![channelID isEqualToString:weakSelf.channel] || ![account isEqualToString:weakSelf.remoteAccount]) {
-            return;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf stopRing];
-            [weakSelf leaveChannel];
-            
-            NSData *data = [extra dataUsingEncoding:NSUTF8StringEncoding];
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            if ([dic[@"status"] intValue] == 1) {
-                NSString *message = [NSString stringWithFormat:@"%@ is busy", account];
-                [AlertUtil showAlert:message completion:^{
-                    [weakSelf dismissViewControllerAnimated:NO completion:nil];
-                }];
-            }
-            else {
-                [weakSelf dismissViewControllerAnimated:NO completion:nil];
-            }
-        });
-    };
-    
-    signalEngine.onInviteEndByPeer = ^(NSString* channelID, NSString *account, uint32_t uid, NSString *extra) {
-        NSLog(@"onInviteEndByPeer, channel: %@, account: %@, uid: %u, extra: %@", channelID, account, uid, extra);
-        if (![channelID isEqualToString:weakSelf.channel] || ![account isEqualToString:weakSelf.remoteAccount]) {
-            return;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^() {
-            [weakSelf stopRing];
-            [weakSelf leaveChannel];
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
-        });
-    };
-}
-
-- (void)sendInviteRequest {
-    self.channel = [NSString stringWithFormat:@"%@-%@-%f", self.localAccount, self.remoteAccount, [NSDate date].timeIntervalSinceReferenceDate];
-    
-    NSDictionary *extraDic = @{@"_require_peer_online": @(1)};
-    
-    [signalEngine channelInviteUser2:self.channel account:self.remoteAccount extra:[extraDic JSONString]];
+    }];
 }
 
 - (IBAction)muteButtonClicked:(UIButton *)sender {
-    if (mediaEngine) {
+    if (self.mediaEngine) {
         [sender setSelected:!sender.isSelected];
-        [mediaEngine muteLocalAudioStream:sender.isSelected];
+        [self.mediaEngine muteLocalAudioStream:sender.isSelected];
     }
 }
 
 - (IBAction)switchCameraButtonClicked:(UIButton *)sender {
-    if (mediaEngine) {
+    if (self.mediaEngine) {
         [sender setSelected:!sender.isSelected];
-        [mediaEngine switchCamera];
+        [self.mediaEngine switchCamera];
     }
 }
 
 - (IBAction)hangupButtonClicked:(UIButton *)sender {
     if (self.acceptButton) {
         // called by other
-        NSDictionary *extraDic = @{@"status": @(0)};
-        [signalEngine channelInviteRefuse:self.channel account:self.remoteAccount uid:0 extra:[extraDic JSONString]];
-        
+        [self.callKit refuseRemoteInvitation:self.remoteInvitation completion:nil];
         [self stopRing];
-    }
-    else {
-        [signalEngine channelInviteEnd:self.channel account:self.remoteAccount uid:0];
-        
+    } else {
         if (self.callingLabel.hidden) {
             // already accepted
             [self leaveChannel];
-        }
-        else {
+        } else {
             // calling other
+            [self.callKit cancelLocalInvitation:self.localInvitation completion:nil];
             [self stopRing];
         }
     }
@@ -247,7 +183,7 @@
 }
 
 - (IBAction)acceptButtonClicked:(UIButton *)sender {
-    [signalEngine channelInviteAccept:self.channel account:self.remoteAccount uid:0 extra:nil];
+    [self.callKit acceptRemoteInvitation:self.remoteInvitation completion:nil];
     
     self.callingLabel.hidden = YES;
     self.buttonStackView.axis = UILayoutConstraintAxisVertical;
@@ -269,36 +205,36 @@
     [audioSession setActive:YES error:nil];
     
     NSURL *path = [[NSBundle mainBundle] URLForResource:name withExtension:@"mp3"];
-    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:path error:nil];
-    audioPlayer.numberOfLoops = 1;
-    [audioPlayer play];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:path error:nil];
+    self.audioPlayer.numberOfLoops = 1;
+    [self.audioPlayer play];
 }
 
 - (void)stopRing {
-    if (audioPlayer) {
-        [audioPlayer stop];
-        audioPlayer = nil;
+    if (self.audioPlayer) {
+        [self.audioPlayer stop];
+        self.audioPlayer = nil;
     }
 }
 
 - (void)loadMediaEngine {
-    mediaEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter appId] delegate:self];
+    self.mediaEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter appId] delegate:self];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd ah-mm-ss"];
     NSString *logFilePath = [NSString stringWithFormat:@"%@/AgoraRtcEngine %@.log",
                       NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES).firstObject,
                       [dateFormatter stringFromDate:[NSDate date]]];
-    [mediaEngine setLogFile:logFilePath];
+    [self.mediaEngine setLogFile:logFilePath];
     //[mediaEngine setParameters:@"{\"rtc.log_filter\":65535}"];
     
-    [mediaEngine enableVideo];
+    [self.mediaEngine enableVideo];
     
     AgoraVideoEncoderConfiguration *videoConfiguration = [[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension640x360
                                                                                                     frameRate:AgoraVideoFrameRateFps15
                                                                                                       bitrate:AgoraVideoBitrateStandard
                                                                                               orientationMode:AgoraVideoOutputOrientationModeAdaptative];
-    [mediaEngine setVideoEncoderConfiguration:videoConfiguration];
+    [self.mediaEngine setVideoEncoderConfiguration:videoConfiguration];
 }
 
 - (void)startLocalVideo {
@@ -306,8 +242,8 @@
     videoCanvas.uid = 0;
     videoCanvas.view = self.localVideo;
     videoCanvas.renderMode = AgoraVideoRenderModeHidden;
-    [mediaEngine setupLocalVideo:videoCanvas];
-    [mediaEngine startPreview];
+    [self.mediaEngine setupLocalVideo:videoCanvas];
+    [self.mediaEngine startPreview];
 }
 
 - (void)adjustLocalVideoView {
@@ -317,26 +253,22 @@
 
 - (void)joinChannel {
     NSString *mediaToken = nil;
-    int result = [mediaEngine joinChannelByToken:mediaToken channelId:self.channel info:nil uid:self.localUID joinSuccess:nil];
-    if (result != AgoraEcode_SUCCESS) {
-        NSLog(@"Join channel failed: %d", result);
-        
-        [signalEngine channelInviteEnd:self.channel account:self.remoteAccount uid:0];
-        
-        __weak typeof(self) weakSelf = self;
-        [AlertUtil showAlert:[NSString stringWithFormat:@"Join channel failed"] completion:^{
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
-        }];
+    NSString *channel;
+    if (self.localInvitation) {
+        channel = self.localInvitation.channelId;
+    } else {
+        channel = self.remoteInvitation.channelId;
     }
+    [self.mediaEngine joinChannelByToken:mediaToken channelId:channel info:nil uid:0 joinSuccess:nil];
 }
 
 - (void)leaveChannel {
-    if (mediaEngine) {
+    if (self.mediaEngine) {
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-        [mediaEngine stopPreview];
-        [mediaEngine setupLocalVideo:nil];
-        [mediaEngine leaveChannel:nil];
-        mediaEngine = nil;
+        [self.mediaEngine stopPreview];
+        [self.mediaEngine setupLocalVideo:nil];
+        [self.mediaEngine leaveChannel:nil];
+        self.mediaEngine = nil;
     }
 }
 
@@ -359,7 +291,7 @@
     videoCanvas.uid = uid;
     videoCanvas.view = self.remoteVideo;
     videoCanvas.renderMode = AgoraVideoRenderModeHidden;
-    [mediaEngine setupRemoteVideo:videoCanvas];
+    [self.mediaEngine setupRemoteVideo:videoCanvas];
 }
 
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine didOfflineOfUid:(NSUInteger)uid reason:(AgoraUserOfflineReason)reason {

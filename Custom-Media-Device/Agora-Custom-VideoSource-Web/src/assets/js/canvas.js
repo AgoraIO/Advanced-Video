@@ -5,7 +5,6 @@ export default function renderCanvas(actived, timers) {
   let canvas_width = 480;
   let canvas_height = 360;
   let points = [];
-  //  requestAnimationFrame
   function draw() {
     ctx.clearRect(0, 0, canvas_width, canvas_height);
     let i, pi, x_dist, y_dist;
