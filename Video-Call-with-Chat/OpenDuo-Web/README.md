@@ -6,7 +6,7 @@ This readme describes the steps and considerations for demonstrating the Agora W
 
 ## Introduction
 
-Built upon the Agora Video SDK and the Agora Signaling SDK, the Agora Web OpenDuo sample app is an open-source demo that integrates video chat into your Web applications.
+Built upon the Agora Video SDK and the Agora RTM SDK, the Agora Web OpenDuo sample app is an open-source demo that integrates video chat into your Web applications.
 
 This sample app allows you to:
 * Login the signaling server
@@ -37,8 +37,8 @@ This sample app allows you to:
 
           const appid = "YOUR_SIGNALING_APPID";
       
-3. Download the Signaling SDK from [Agora.io](https://docs.agora.io/en/Agora%20Platform/downloads). 
-4. Unzip the downloaded SDKs to /static folder, rename Signaling SDK to 'AgoraSig.js'
+3. Download the RTM SDK from [Agora.io](https://docs.agora.io/en/Agora%20Platform/downloads). 
+4. Unzip the downloaded SDKs to /static folder, rename RTM SDK to 'rtm.min.js'
 4. Run npm in the root directory of your project to install the dependency. 
    
           npm install
@@ -53,31 +53,32 @@ This sample app allows you to:
 
 NOTE: Deploy this project on the server and view the page using http/https. Do not double click the corresponding file to view the page. 
 
-## About SignalingToken
+## About rtm token
 
-When you login the signaling server, you can use SignalingToken provided by the server for authentication purposes. SignalingToken is not used by default. To use SignalingToken, rewrite the following login function in signalingClient.js.
-
-      //... 
-      let session = this.signal.login(account,'_no_need_token');
-      //... 
-
+When you login the rtm server, you can use rtm token provided by the server for authentication purposes. rtm token is not used by default. To use rtm token, rewrite the following login function in rtmClient.js.
+```javascript
+  //... 
+  let rtmClient = this.rtm.login(localAccount, token);
+  //... 
+```
 ## About the Dynamic Key
 
-You can use the Dynamic Key provided by the server for authentication purposes. The Dynamic Key is not used by default.  To enable or disable it, modify the getDynamicKey function in rtc.js. 
+You can use the Dynamic Key provided by the server for authentication purposes. The Dynamic Key is not used by default. To enable or disable it, modify the getDynamicKey function in rtc.js. 
 
 * If the Dynamic Key is not enabled:
-
+```javascript
         getDynamicKey(channelName){
-        return new Deferred().resolve(undefined).promise();
+          return new Deferred().resolve(undefined).promise();
         }
-        
+```
  * If the Dynamic Key is enabled: 
- 
+```javascript
         getDynamicKey(channelName){
           return $.ajax({
               url: 'service url to get your dynamic key'
           })
         }
+```
         
 ## Contact Us
  

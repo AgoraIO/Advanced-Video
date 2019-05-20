@@ -77,6 +77,7 @@ class RtcClient {
 
         return new Promise((resolve, reject) => {
             client.leave(() => {
+                console.log("[rtcClient] rtc leave")
                 resolve();
             }, () => {
                 reject();
@@ -172,14 +173,6 @@ class RtcClient {
         } else if (remoteStreams.length === 1) {
             this.displayStream($("#media-container"), remoteStreams[0].stream, "fullscreen");
             this.displayStream($("#media-container"), localStream, "side");
-            var id = localStream.getId();
-            if (!localStream.used) {
-                localStream.play(id);
-                localStream.used = true;
-            } else {
-                localStream.stop(id);
-                localStream.play(id);
-            }
         }
     }
 
@@ -203,7 +196,6 @@ class RtcClient {
     }
 
     resizeStream(stream, size) {
-
         $("#" + stream.getId()).css({
             width: `${size.width}px`,
             height: `${size.height}px`
@@ -231,15 +223,12 @@ class RtcClient {
                 height: `120px`
             });
         }
-        if (stream !== this.localStream) {
-            var id = stream.getId();
-            if (!stream.used) {
-                stream.play(id);
-                stream.used = true;
-            } else {
-                stream.stop(id);
-                stream.play(id);
-            }
+        const id = stream.getId().toString();
+        if (!stream.isPlaying()) {
+            stream.play(id)
+        } else {
+            stream.stop(id)
+            stream.play(id)
         }
     }
 
