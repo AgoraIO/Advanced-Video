@@ -1,21 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "io.agora.openduo"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion 14
+        targetSdkVersion 26
         versionCode 2
         versionName "1.1"
-
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a"//,"x86"
-        }
     }
-
 
     buildTypes {
         release {
@@ -23,22 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-    packagingOptions {
-        exclude 'lib/armeabi-v7a/libcrypto.so'
-        exclude 'lib/arm64-v8a/libcrypto.so'
-    }
-
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'org.slf4j:slf4j-api:1.7.21'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'io.agora.rtc:full-sdk:2.4.0'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'com.github.tony19:logback-android-core:1.1.1-4'
+    implementation('com.github.tony19:logback-android-classic:1.1.1-4') {
+        // workaround issue #73
+        exclude group: 'com.google.android', module: 'android'
+    }
+    implementation 'com.android.support:appcompat-v7:26.1.0'
 }
