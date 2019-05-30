@@ -1,6 +1,6 @@
 # Open Duo for Android
 
-*其他语言版本： [简体中文](README.zh.md)*
+*Other languages: [简体中文](README.zh.md)*
 
 This readme describes the steps and considerations for demonstrating the Agora OpenDuo sample app.
 
@@ -19,7 +19,7 @@ This sample app allows you to:
 
 ## Developer Environment Requirements
 
-- Android Studio 2.0 or later
+- Android Studio 3.3 or later
 - Real Android devices, for example Nexus 5X
 
 NOTE: Agora recommends using a real device instead of an emulator.
@@ -40,7 +40,7 @@ NOTE: Agora recommends using a real device instead of an emulator.
 
 5. Check whether the following code snippet is in the property of the dependency of **app/build.gradle** (included in the sample app):
 
-          compile fileTree(dir: 'libs', include: ['*.jar'])
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 6. Use Android Studio to open the project, connect your Android device to your computer, and build and run the sample app.
 

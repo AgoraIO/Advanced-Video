@@ -1,12 +1,12 @@
 # Open Duo for Android
 
-*Read this in other languages: [English](README.md)*
+*其他语言：[English](README.md)*
 
 这个开源示例项目演示了如何快速集成 Agora 视频 SDK 和 Agora RTM SDK，实现一个带呼叫功能的演示程序(本程序不带离线推送功能，比如 [GCM](https://developers.google.com/cloud-messaging/)/[APNs](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html) 或其它，如需此功能需要开发者自行去实现)。
 
 在这个示例项目中包含了以下功能：
 
-- 登录信服务器（APP层限制只允许数字登录）；
+- 登录 RTM 务器（应用层限制只允许数字作为账号登录）；
 - 查询呼叫对象是否在线；
 - 呼叫对方，加入通话，结束通话；
 - 静音和解除静音；
