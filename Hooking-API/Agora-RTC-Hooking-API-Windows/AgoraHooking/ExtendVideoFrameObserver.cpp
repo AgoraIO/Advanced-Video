@@ -2,6 +2,12 @@
 #include "ExtendVideoFrameObserver.h"
 #include <iostream>
 
+#include "../LibYUV/include/libyuv.h"
+#ifdef _M_IX86
+#pragma comment(lib,"../LibYUV/lib/X86/libyuv.lib")
+#elif defined _M_X64
+#pragma comment(lib,"../LibYUV/lib/X64/libyuv.lib")
+#endif
 
 CExtendVideoFrameObserver::CExtendVideoFrameObserver()
 {
@@ -12,7 +18,7 @@ CExtendVideoFrameObserver::CExtendVideoFrameObserver()
 	m_lpImageBufferRemoteTemp = new BYTE[0x800000];
 	ZeroMemory(m_lpImageBufferRemoteTemp, 0x800000);
 	m_pFileYUVLocal = NULL;
-	m_pFileYUVLocal = fopen("../Extendvideo.yuv", "rb+");
+	m_pFileYUVLocal = fopen("../Extendvideo360.yuv", "rb+");
 }
 
 CExtendVideoFrameObserver::~CExtendVideoFrameObserver()
@@ -55,9 +61,13 @@ bool CExtendVideoFrameObserver::onCaptureVideoFrame(VideoFrame& videoFrame)
 		unsigned char* pBufferV = pBufferU + nUStride * nHeight / 2;
 		int nVStride = nYStride / 2;
 
-		memcpy_s(videoFrame.yBuffer, nYStride * nHeight, pBufferY, nYStride*nHeight);
-		memcpy_s(videoFrame.uBuffer, nUStride * nHeight / 2, pBufferU, nUStride * nHeight / 2);
-		memcpy_s(videoFrame.vBuffer, nVStride * nHeight / 2, pBufferV, nVStride * nHeight / 2);
+		libyuv::I420Rotate(
+			pBufferY, nYStride,
+			pBufferU, nUStride,
+			pBufferV, nVStride,
+			(uint8*)videoFrame.yBuffer, videoFrame.yStride,
+			(uint8*)videoFrame.uBuffer, videoFrame.uStride,
+			(uint8*)videoFrame.vBuffer, videoFrame.vStride, nWidthSrc, nHeightSrc, libyuv::kRotate0);
 		videoFrame.type = IVideoFrameObserver::FRAME_TYPE_YUV420;
 	}
 

@@ -96,7 +96,7 @@ CAgoraObject *CAgoraObject::GetAgoraObject(LPCTSTR lpVendorKey)
 	if(m_lpAgoraEngine == NULL)
 		m_lpAgoraEngine = createAgoraRtcEngine();
 
-	// Èç¹ûVendorKeyÎª¿ÕÔòÖ±½Ó·µ»Ø¶ÔÏó
+	// ï¿½ï¿½ï¿½VendorKeyÎªï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½
 	if (!m_strAppID.IsEmpty())
 	{
 		return m_lpAgoraObject;
@@ -570,10 +570,11 @@ BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* l
 		return FALSE;
 
 	int result;
-	int r = apm->getInt("rtc.addref_media_engine", result);
+	//int r = apm->getInt("rtc.addref_media_engine", result);
 
 	if (bEnable && lpVideoFrameObserver != NULL) {
-		apm->setParameters("{\"che.video.local.camera_index\":1024}");
+		int iRet = apm->setParameters(R"({"che.video.local.camera_index":1024})");
+		iRet = apm->setParameters(R"({"che.video.startVideoBitRate":650})");	
 		nRet = mediaEngine->registerVideoFrameObserver(lpVideoFrameObserver);
 	}
 	else {

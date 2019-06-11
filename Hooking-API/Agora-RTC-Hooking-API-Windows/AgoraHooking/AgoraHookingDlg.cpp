@@ -239,17 +239,12 @@ inline void CAgoraHookingDlg::uninitCtrl()
 
 inline void CAgoraHookingDlg::initResource()
 {
-	m_lpAgoraObject->EnableExtendAudioCapture(FALSE, NULL);
-	if (m_lpExtendAudioFrame) {
-		delete m_lpExtendAudioFrame;
-		m_lpExtendAudioFrame = nullptr;
-	}
-
 	m_lpHookPlayerInstance = CHookPlayerInstance::getHookInstance();
 
 	m_lpAgoraObject = CAgoraObject::GetAgoraObject(s2cs(m_strAppId));
 	ASSERT(m_lpAgoraObject);
 	m_lpAgoraObject->SetMsgHandlerWnd(m_hWnd);
+	m_lpAgoraObject->SetVideoKeepPro();
 
 	m_lpRtcEngine = CAgoraObject::GetEngine();
 	ASSERT(m_lpRtcEngine);
@@ -263,21 +258,22 @@ inline void CAgoraHookingDlg::initResource()
 	m_lpAgoraObject->EnableVideo(TRUE);
 	m_lpAgoraObject->EnableAudio(TRUE);
 
-	m_lpAgoraObject->SetVideoRenderType(1);//DISPLAY_GDI
+	//m_lpAgoraObject->SetVideoRenderType(1);//DISPLAY_GDI
 	m_lpAgoraObject->SetAudioProfile(AUDIO_PROFILE_MUSIC_HIGH_QUALITY_STEREO, AUDIO_SCENARIO_SHOWROOM);
 
 	m_lpAgoraObject->EnableLastmileTest(FALSE);
-	m_lpAgoraObject->SetClientRole(CLIENT_ROLE_TYPE::CLIENT_ROLE_BROADCASTER);
 	m_lpAgoraObject->SetChannelProfile(TRUE);
+	m_lpAgoraObject->SetClientRole(CLIENT_ROLE_TYPE::CLIENT_ROLE_BROADCASTER);
 
 	m_lpAgoraObject->setAudioAEC(FALSE);
 	m_lpAgoraObject->setAudioAgcOn(FALSE);
 	m_lpAgoraObject->setAudioNS(FALSE);
+	m_lpAgoraObject->EnableLocalRender(TRUE);
 
 	//RTMP
 	BOOL bEnableRotate = str2int(gConfigHook.getLeftRotate90(m_strInstance));
 	BOOL bEnableRtmp = str2int(gConfigHook.getRtmpSave(m_strInstance));
-	if (bEnableRtmp && false){
+	if (bEnableRtmp){
 		
 		int nRtmpWidth = str2int(gConfigHook.getRtmpWidth(m_strInstance));
 		int nRtmpHeight = str2int(gConfigHook.getRtmpHeight(m_strInstance));
@@ -371,8 +367,7 @@ LRESULT CAgoraHookingDlg::OnInviterJoinChannel(WPARAM wParam, LPARAM lParam)
 			m_lpAgoraObject->EnableExtendVideoCapture(TRUE, m_IpExtendVideoFrame);
 
 		//SetVideoParameter.
-		m_lpAgoraObject->SetVideoProfileEx(640, 720, 15, 900);
-		m_lpAgoraObject->SetVideoKeepPro();
+		m_lpAgoraObject->SetVideoProfileEx(360, 640, 15, 900);
 
 		//SetAudioParameter.
 		m_lpAgoraObject->SetAudioRecordParam(KNSampelRate, KNChannel, KNSampelPerCall);
