@@ -1,6 +1,6 @@
 # AgoraPluginRawDataAPI for Android(Java)
 
-*其他语言：[English](https://github.com/AgoraIO/Advanced-Video/blob/master/Capture-Raw-Video-Data/Agora-Plugin-Raw-Data-API-Android-Java/README.zh.md)*
+*其他语言：[中文](https://github.com/AgoraIO/Advanced-Video/blob/master/Capture-Raw-Video-Data/Agora-Plugin-Raw-Data-API-Android-Java/README.zh.md)*
 
 The Agora-Plugin-Raw-Data-API-Android-Java Sample App is an open-source demo that will help you how to call Agora Raw Data API and Screenshot API of Java.
 
