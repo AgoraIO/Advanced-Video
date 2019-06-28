@@ -38,6 +38,7 @@ class VideoChatViewController: UIViewController {
     
     func initializeAgoraEngine() {
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppID, delegate: self)
+        agoraKit.setParameters("{\"rtc.user_account_server_list\":[\"58.211.82.170\"]}")
     }
 
     func setupVideo() {
@@ -58,7 +59,9 @@ class VideoChatViewController: UIViewController {
     
     func joinChannel() {
         agoraKit.setDefaultAudioRouteToSpeakerphone(true)
-        agoraKit.joinChannel(byToken: Token, channelId: "demoChannel1", info:nil, uid:0) {(sid, uid, elapsed) -> Void in
+        // - joinChannelByUserAccount, the account must be unique in channel
+        // - you can call registerLocalUserAccount earlier to speed up channel join
+        agoraKit.joinChannel(byUserAccount: "agora-\(Date().timeIntervalSince1970)", token: Token, channelId: "demoChannel1") { (sid, uid, elapsed) in
             // Did join channel "demoChannel1"
         }
         
@@ -142,6 +145,16 @@ extension VideoChatViewController: AgoraRtcEngineDelegate {
     
     internal func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid:UInt, reason:AgoraUserOfflineReason) {
         self.remoteVideo.isHidden = true
+    }
+    
+    // called when other user joins channel with user account
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didUpdatedUserInfo userInfo: AgoraUserInfo, withUid uid: UInt) {
+        print("didUpdatedUserInfo uid: \(userInfo.uid), account: \(userInfo.userAccount ?? "")")
+    }
+    
+    // called when you have registered a local user account
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didRegisteredLocalUser userAccount: String, withUid uid: UInt) {
+        print("didRegisteredLocalUser uid: \(uid), account: \(userAccount)")
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didVideoMuted muted:Bool, byUid:UInt) {
