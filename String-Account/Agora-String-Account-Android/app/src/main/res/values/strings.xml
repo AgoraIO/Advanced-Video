@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Agora Tutorial Stringified Account for Android</string>
+    <string name="app_name">Agora Tutorial String Account for Android</string>
 
     <!-- PLEASE KEEP THIS App ID IN SAFE PLACE -->
     <!-- Get your own App ID at https://dashboard.agora.io/ -->
@@ -12,5 +12,5 @@
 
     <string name="legal_characters_for_agora">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&amp;()+,-:;&lt;=.>?@[]^_`{|}~</string>
 
-    <string name="label_account">Stringified Account</string>
+    <string name="label_account">String Account</string>
 </resources>
