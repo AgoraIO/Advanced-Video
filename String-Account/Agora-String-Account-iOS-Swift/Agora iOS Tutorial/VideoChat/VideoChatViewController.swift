@@ -147,7 +147,7 @@ extension VideoChatViewController: AgoraRtcEngineDelegate {
         self.remoteVideo.isHidden = true
     }
     
-    // called when other user joins channel with user account
+    // called when remote user joins channel with user account
     func rtcEngine(_ engine: AgoraRtcEngineKit, didUpdatedUserInfo userInfo: AgoraUserInfo, withUid uid: UInt) {
         print("didUpdatedUserInfo uid: \(userInfo.uid), account: \(userInfo.userAccount ?? "")")
     }

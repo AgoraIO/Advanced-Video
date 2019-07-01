@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		039990F022C6862900E1B926 /* AgoraRtcCryptoLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039990ED22C6862900E1B926 /* AgoraRtcCryptoLoader.framework */; };
-		039990F122C6862900E1B926 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039990EE22C6862900E1B926 /* AgoraRtcEngineKit.framework */; };
+		033FF37D22C9A1FD0080AE6A /* AgoraRtcCryptoLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033FF37A22C9A1FD0080AE6A /* AgoraRtcCryptoLoader.framework */; };
+		033FF37E22C9A1FD0080AE6A /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033FF37B22C9A1FD0080AE6A /* AgoraRtcEngineKit.framework */; };
+		033FF37F22C9A1FD0080AE6A /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 033FF37C22C9A1FD0080AE6A /* libcrypto.a */; };
 		039990F222C6862900E1B926 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039990EF22C6862900E1B926 /* AppDelegate.swift */; };
 		1A2655D51D3F35E700BDBA68 /* AppID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2655D41D3F35E700BDBA68 /* AppID.swift */; };
 		1ABDEE421D383BE4007DE451 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABDEE411D383BE4007DE451 /* AppDelegate.swift */; };
@@ -26,8 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		039990ED22C6862900E1B926 /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
-		039990EE22C6862900E1B926 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
+		033FF37A22C9A1FD0080AE6A /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
+		033FF37B22C9A1FD0080AE6A /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
+		033FF37C22C9A1FD0080AE6A /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		039990EF22C6862900E1B926 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A2655D41D3F35E700BDBA68 /* AppID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppID.swift; path = VideoChat/AppID.swift; sourceTree = "<group>"; };
 		1ABDEE3E1D383BE4007DE451 /* Agora iOS Tutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agora iOS Tutorial.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,14 +53,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				039990F122C6862900E1B926 /* AgoraRtcEngineKit.framework in Frameworks */,
+				033FF37D22C9A1FD0080AE6A /* AgoraRtcCryptoLoader.framework in Frameworks */,
+				033FF37F22C9A1FD0080AE6A /* libcrypto.a in Frameworks */,
 				389D999B218825B200BFD852 /* Accelerate.framework in Frameworks */,
 				389D99A5218825EC00BFD852 /* CoreTelephony.framework in Frameworks */,
 				38D619302250B7AB004A6C87 /* CoreML.framework in Frameworks */,
 				389D99A1218825C700BFD852 /* libc++.tbd in Frameworks */,
 				389D999F218825C300BFD852 /* libresolv.9.tbd in Frameworks */,
-				039990F022C6862900E1B926 /* AgoraRtcCryptoLoader.framework in Frameworks */,
 				389D99A3218825DB00BFD852 /* SystemConfiguration.framework in Frameworks */,
+				033FF37E22C9A1FD0080AE6A /* AgoraRtcEngineKit.framework in Frameworks */,
 				389D999D218825BE00BFD852 /* VideoToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,13 +90,14 @@
 			isa = PBXGroup;
 			children = (
 				1ABDEE841D383EB3007DE451 /* Video Chat */,
+				033FF37A22C9A1FD0080AE6A /* AgoraRtcCryptoLoader.framework */,
+				033FF37B22C9A1FD0080AE6A /* AgoraRtcEngineKit.framework */,
+				033FF37C22C9A1FD0080AE6A /* libcrypto.a */,
 				1ABDEE411D383BE4007DE451 /* AppDelegate.swift */,
 				1ABDEE451D383BE4007DE451 /* Main.storyboard */,
 				1ABDEE481D383BE4007DE451 /* Assets.xcassets */,
 				1ABDEE4A1D383BE4007DE451 /* LaunchScreen.storyboard */,
 				1ABDEE4D1D383BE4007DE451 /* Info.plist */,
-				039990ED22C6862900E1B926 /* AgoraRtcCryptoLoader.framework */,
-				039990EE22C6862900E1B926 /* AgoraRtcEngineKit.framework */,
 				039990EF22C6862900E1B926 /* AppDelegate.swift */,
 			);
 			path = "Agora iOS Tutorial";
@@ -154,7 +158,6 @@
 				TargetAttributes = {
 					1ABDEE3D1D383BE4007DE451 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 48TB6ZZL5S;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -342,20 +345,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
 					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
 					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
+					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
+					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
 				);
 				INFOPLIST_FILE = "Agora iOS Tutorial/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-iOS-Tutorial";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-iOS-Tutorial-qz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -369,8 +379,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -378,11 +389,17 @@
 					"$(PROJECT_DIR)/libs",
 					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
 					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
+					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
+					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
 				);
 				INFOPLIST_FILE = "Agora iOS Tutorial/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-iOS-Tutorial";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Agora\\ iOS\\ Tutorial",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-iOS-Tutorial-qz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
