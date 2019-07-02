@@ -11,7 +11,9 @@ import AgoraRtcEngineKit
 
 class VideoChatViewController: UIViewController {
     @IBOutlet weak var localVideo: UIView!
+    @IBOutlet weak var localAccount: UILabel!
     @IBOutlet weak var remoteVideo: UIView!
+    @IBOutlet weak var remoteAccount: UILabel!
     @IBOutlet weak var controlButtons: UIView!
     @IBOutlet weak var remoteVideoMutedIndicator: UIImageView!
     @IBOutlet weak var localVideoMutedBg: UIImageView!
@@ -61,11 +63,17 @@ class VideoChatViewController: UIViewController {
         agoraKit.setDefaultAudioRouteToSpeakerphone(true)
         // - joinChannelByUserAccount, the account must be unique in channel
         // - you can call registerLocalUserAccount earlier to speed up channel join
-        agoraKit.joinChannel(byUserAccount: "agora-\(Date().timeIntervalSince1970)", token: Token, channelId: "demoChannel1") { (sid, uid, elapsed) in
+        agoraKit.joinChannel(byUserAccount: randomString(length: 8), token: Token, channelId: "demoChannel1") { (sid, uid, elapsed) in
             // Did join channel "demoChannel1"
         }
         
         UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    //generate random string with length
+    func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0..<length).map{ _ in letters.randomElement()! })
     }
     
     @IBAction func didClickHangUpButton(_ sender: UIButton) {
@@ -149,12 +157,17 @@ extension VideoChatViewController: AgoraRtcEngineDelegate {
     
     // called when remote user joins channel with user account
     func rtcEngine(_ engine: AgoraRtcEngineKit, didUpdatedUserInfo userInfo: AgoraUserInfo, withUid uid: UInt) {
-        print("didUpdatedUserInfo uid: \(userInfo.uid), account: \(userInfo.userAccount ?? "")")
+        guard let userAccount = userInfo.userAccount else {return}
+        print("didUpdatedUserInfo uid: \(userInfo.uid), account: \(userAccount)")
+        //update local user account to screen
+        remoteAccount.text = "\(userAccount)\n\(uid)"
     }
     
     // called when you have registered a local user account
     func rtcEngine(_ engine: AgoraRtcEngineKit, didRegisteredLocalUser userAccount: String, withUid uid: UInt) {
         print("didRegisteredLocalUser uid: \(uid), account: \(userAccount)")
+        //update local user account to screen
+        localAccount.text = "\(userAccount)\n\(uid)"
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didVideoMuted muted:Bool, byUid:UInt) {
