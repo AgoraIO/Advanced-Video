@@ -14,6 +14,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var sceneView: ARSCNView!
     
+    fileprivate var coachingOverlay: UIView?
+    
     fileprivate var agoraKit: AgoraRtcEngineKit!
     
     fileprivate let videoSource = ARVideoSource()
@@ -28,6 +30,11 @@ class ViewController: UIViewController {
         sceneView.delegate = self
         sceneView.session.delegate = self
         sceneView.showsStatistics = true
+        
+        coachingOverlay = createCoachingOverlay()
+        if let coachingOverlay = coachingOverlay {
+            sceneView.addSubview(coachingOverlay)
+        }
         
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: <#Your App Id#>, delegate: self)
         
@@ -59,6 +66,8 @@ class ViewController: UIViewController {
             showUnsupportedDeviceError()
             return
         }
+        
+        coachingOverlay?.center = sceneView.center
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -146,6 +155,18 @@ private extension ViewController {
                 undisplayedUsers.insert(uid, at: 0)
             }
         }
+    }
+    
+    func createCoachingOverlay() -> UIView? {
+        guard #available(iOS 13.0, *) else {
+            return nil
+        }
+        
+        let coachingOverlay = ARCoachingOverlayView()
+        coachingOverlay.session = sceneView.session
+        coachingOverlay.goal = .horizontalPlane
+        
+        return coachingOverlay
     }
     
     func showUnsupportedDeviceError() {
