@@ -23,7 +23,7 @@
 
 ```
 
-`本项目代码当前适配了视频 SDK 2.4.0 版本以及信令 SDK 1.4.0 版本，如果使用不同版本的 SDK 可能会需要稍微调整代码里的调用代码`
+`本项目代码当前适配了 RTC SDK 2.9.1 版本以及 RTM 1.1.0 版本，如果使用不同版本的 SDK 可能会需要稍微调整代码里的调用代码`
 
 **其次** 在 [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads) 下载视频通话 SDK 和信令 SDK，解压后将其中的 **libs** 文件夹下的 ***.jar** 复制到本项目的 **app/libs** 下，其中的 **libs** 文件夹下的 **arm64-v8a**/**x86**/**armeabi-v7a** 复制到本项目的 **app/src/main/jniLibs** 下。
 
@@ -37,7 +37,9 @@ implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 也可以使用 `Gradle` 直接编译运行。
 
-**注意：**首次运行时在启动本应用后，需在系统电话应用->设置->通话->通话账号->所有通话账号中打开"Agora CS IN"的通话账号，同时将SIM卡的通话账号设置为默认通话账号
+**注意：**首次运行时在启动本应用后，可能需在系统电话应用->设置->通话->通话账号->所有通话账号中打开"Ag_CS_IN"的通话账号，同时将 SIM 卡的通话账号设置为默认通话账号
+
+**注意：**请根据自己的需要实现来电界面或者使用系统界面
 
 ## 运行环境
 - Android Studio 3.0 +
@@ -52,6 +54,7 @@ implementation fileTree(dir: 'libs', include: ['*.jar'])
 - 如果有售前咨询问题, 可以拨打 400 632 6626，或加入官方Q群 12742516 提问
 - 如果需要售后技术支持, 你可以在 [Agora Dashboard](https://dashboard.agora.io) 提交工单
 - 如果发现了示例代码的 bug, 欢迎提交 [issue](https://github.com/AgoraIO/Advanced-Video/issues)
+- [构建一个通话应用](https://developer.android.com/guide/topics/connectivity/telecom/selfManaged)
 
 ## 代码许可
 The MIT License (MIT).
