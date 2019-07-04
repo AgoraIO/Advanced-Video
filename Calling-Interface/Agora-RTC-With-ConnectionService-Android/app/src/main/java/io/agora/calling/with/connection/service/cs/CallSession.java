@@ -1,6 +1,5 @@
-package io.agora.cs;
+package io.agora.calling.with.connection.service.cs;
 
-import android.content.Context;
 import android.telecom.PhoneAccount;
 
 /**
@@ -11,33 +10,26 @@ public class CallSession {
     private PhoneAccount mPAIn;
     private AgoraConnection mAC;
     private static volatile CallSession mInstance = null;
-    private Context mContext;
 
     public static CallSession getInstance() {
         if (mInstance == null) {
             synchronized (CallSession.class) {
-                if(mInstance == null) {
+                if (mInstance == null) {
                     mInstance = new CallSession();
                 }
             }
         }
-        return  mInstance;
+        return mInstance;
     }
 
     private CallSession() {
 
     }
 
-    public void setContext (Context context) {
-        mContext = context;
-    }
-    public Context getContext() {
-        return mContext;
-    }
-
     public void setPhoneAccountIn(PhoneAccount pa) {
         mPAIn = pa;
     }
+
     public void setPhoneAccountOut(PhoneAccount pa) {
         mPAOut = pa;
     }
@@ -45,6 +37,7 @@ public class CallSession {
     public PhoneAccount getPhoneAccountIn() {
         return mPAIn;
     }
+
     public PhoneAccount getPhoneAccountOut() {
         return mPAOut;
     }
@@ -52,6 +45,7 @@ public class CallSession {
     public void setConnection(AgoraConnection ac) {
         mAC = ac;
     }
+
     public AgoraConnection getConnection() {
         return mAC;
     }
