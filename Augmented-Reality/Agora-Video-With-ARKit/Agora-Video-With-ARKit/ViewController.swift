@@ -73,6 +73,10 @@ class ViewController: UIViewController {
         configuration.planeDetection = .horizontal
         configuration.providesAudioData = true
         
+        if #available(iOS 13.0, *), ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+            configuration.frameSemantics = .personSegmentationWithDepth
+        }
+        
         sceneView.session.run(configuration)
     }
     
