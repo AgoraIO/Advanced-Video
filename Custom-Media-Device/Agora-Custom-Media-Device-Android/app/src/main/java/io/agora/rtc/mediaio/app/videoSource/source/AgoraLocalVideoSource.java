@@ -237,7 +237,7 @@ public class AgoraLocalVideoSource extends TextureSource {
                             signaledEos = (size == -1);
                             mDecoder.queueInputBuffer(inputBufferIndex,
                                     0,
-                                    size,
+                                    signaledEos ? 0 : size,
                                     timestampUs,
                                     signaledEos ? MediaCodec.BUFFER_FLAG_END_OF_STREAM : 0);
                         }
