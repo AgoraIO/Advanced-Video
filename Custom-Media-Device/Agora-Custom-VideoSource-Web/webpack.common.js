@@ -52,40 +52,7 @@ module.exports = {
                 }
 
             }]
-        }, {
-            test: /\.(gif|jpg|png|ico)\??.*$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 1024,
-                    name: '[name].[ext]',
-                    publicPath: '../../',
-                    outputPath: 'assets/css/'
-                }
-            }
-        }, {
-            test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 10000,
-                    name: '[name].[ext]',
-                    publicPath: '../../',
-                    outputPath: 'assets/media/'
-                }
-            }
-        }, {
-            test: /\.(svg|woff|otf|ttf|eot)\??.*$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 1024,
-                    name: '[name].[ext]',
-                    publicPath: '../../',
-                    outputPath: 'assets/fonts/'
-                }
-            }
-        }, {
+        },{
             test: /\.html$/,
             use: {
                 loader: 'html-loader',
@@ -105,14 +72,6 @@ module.exports = {
             verbose: true,
             dry: false
         }),
-        new CopyWebpackPlugin([{
-            from: path.resolve(__dirname, "src/assets/img"),
-            to: path.resolve(__dirname, "dist/assets/img")
-
-        }, {
-            from: path.resolve(__dirname, "src/assets/media"),
-            to: path.resolve(__dirname, "dist/assets/media")
-        }]),
         new MiniCssExtractPlugin({
             filename: 'assets/css/[name].[chunkhash].min.css',
             chunkFilename: 'assets/css/[name].[chunkhash].css'
