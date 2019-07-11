@@ -244,7 +244,9 @@ inline void CAgoraHookingDlg::initResource()
 	m_lpAgoraObject = CAgoraObject::GetAgoraObject(s2cs(m_strAppId));
 	ASSERT(m_lpAgoraObject);
 	m_lpAgoraObject->SetMsgHandlerWnd(m_hWnd);
+#ifdef old_engine
 	m_lpAgoraObject->SetVideoKeepPro();
+#endif
 
 	m_lpRtcEngine = CAgoraObject::GetEngine();
 	ASSERT(m_lpRtcEngine);
@@ -270,7 +272,7 @@ inline void CAgoraHookingDlg::initResource()
 	m_lpAgoraObject->setAudioNS(FALSE);
 	m_lpAgoraObject->EnableLocalRender(TRUE);
 
-	//RTMP
+	//RTMP 1.0
 	BOOL bEnableRotate = str2int(gConfigHook.getLeftRotate90(m_strInstance));
 	BOOL bEnableRtmp = str2int(gConfigHook.getRtmpSave(m_strInstance));
 	if (bEnableRtmp){

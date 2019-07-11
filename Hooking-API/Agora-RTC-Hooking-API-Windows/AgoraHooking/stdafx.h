@@ -33,8 +33,13 @@
 
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
+//2.1.0;2.2.0 SDK should use old engine;otherwise use new engine.
+//#define old_engine 
+
 #include "../AgoraSDK/include/IAgoraRtcEngine.h"
+#ifdef old_engine
 #include "../AgoraSDK/include/IAgoraRtcEngine2.h"
+#endif
 #include "../AgoraSDK/include/AgoraBase.h"
 using namespace  agora::util;
 using namespace agora::rtc;

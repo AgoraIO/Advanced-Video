@@ -2,7 +2,9 @@
 
 #include <atlcoll.h>
 #include "../AgoraSDK/include/IAgoraRtcEngine.h"
+#ifdef old_engine
 #include "../AgoraSDK/include/IAgoraRtcEngine2.h"
+#endif
 #include "../AgoraSDK/include/IAgoraMediaEngine.h"
 
 #include "AGEngineEventHandler.h"
@@ -136,7 +138,10 @@ public:
 	BOOL SetVideoRenderType(int nType);
 
 	BOOL EnableWebSdkInteroperability(BOOL bEnable);
+
+#ifdef old_engine
 	BOOL EnableLocalPublishLeftRotate90(BOOL bEnable);
+#endif
 
     int CreateMessageStream();
     BOOL SendChatMessage(int nStreamID, LPCTSTR lpChatMessage);

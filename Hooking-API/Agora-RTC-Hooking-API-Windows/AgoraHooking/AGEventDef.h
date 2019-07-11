@@ -189,7 +189,8 @@ typedef struct _AGE_REMOTE_VIDEO_STAT
 	int width;
 	int height;
 	int receivedBitrate;
-	int receivedFrameRate;
+	int rendererOutputFrameRate;
+	int decoderOutputFrameRate;
 
 } AGE_REMOTE_VIDEO_STAT, *PAGE_REMOTE_VIDEO_STAT, *LPAGE_REMOTE_VIDEO_STAT;
 

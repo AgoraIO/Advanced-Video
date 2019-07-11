@@ -261,8 +261,17 @@ BOOL CAgoraObject::SetVideoProfile(VIDEO_PROFILE_TYPE nVideoProfileIndex, BOOL b
 
 BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate)
 {
+#ifdef old_engine
 	IRtcEngine2 *lpRtcEngineEx = (IRtcEngine2 *)m_lpAgoraEngine;
 	int nRet = lpRtcEngineEx->setVideoProfileEx(nWidth, nHeight, nFrameRate, nBitRate);
+#else
+	VideoEncoderConfiguration vec;
+	vec.bitrate = nBitRate;
+	vec.dimensions = VideoDimensions(nWidth,nHeight);
+	vec.frameRate = FRAME_RATE::FRAME_RATE_FPS_15;
+	vec.orientationMode = ORIENTATION_MODE::ORIENTATION_MODE_FIXED_PORTRAIT;
+	int nRet = m_lpAgoraEngine->setVideoEncoderConfiguration(vec);
+#endif
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -750,6 +759,7 @@ BOOL CAgoraObject::EnableWebSdkInteroperability(BOOL bEnable)
 	return nRet == 0 ? TRUE : FALSE;
 }
 
+#ifdef old_engine
 BOOL CAgoraObject::EnableLocalPublishLeftRotate90(BOOL bEnable)
 {
 	int nRet = 0;
@@ -762,6 +772,7 @@ BOOL CAgoraObject::EnableLocalPublishLeftRotate90(BOOL bEnable)
 
 	return nRet;
 }
+#endif
 
 int CAgoraObject::CreateMessageStream()
 {
