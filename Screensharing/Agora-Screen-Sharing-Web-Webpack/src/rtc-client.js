@@ -50,7 +50,7 @@ export default class RTCClient {
       const remoteStream = evt.stream;
       const id = remoteStream.getId();
       this._remoteStreams.push(remoteStream);
-      addView(id);
+      addView(id, this._showProfile);
       remoteStream.play("remote_video_" + id, {fit: "cover", muted: true});
       Toast.info('stream-subscribed remote-uid: ' + id);
       console.log('stream-subscribed remote-uid: ', id);
