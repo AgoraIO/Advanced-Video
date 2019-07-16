@@ -64,16 +64,6 @@
 		8BFBC9F721B02719000F4202 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BFBC9F621B02715000F4202 /* SecurityFoundation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		07F5319F1E289ED4009BFE58 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 071CE2251D79362D00B82401 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 071CE22C1D79362D00B82401;
-			remoteInfo = AgoraMediaPlayerDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		071CE22D1D79362D00B82401 /* AgoraMediaPlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgoraMediaPlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		071CE2301D79362D00B82401 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,7 +90,6 @@
 		075589A51D7D44C8004B0DEA /* ReplacementSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplacementSegue.swift; sourceTree = "<group>"; };
 		07D29C3D1E9E1A6300C3583C /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcEngineKit.framework; path = ../../../libs/AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		07D29C401E9E1ABD00C3583C /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		07F5319A1E289ED4009BFE58 /* AgoraMediaPlayerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgoraMediaPlayerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2747C71FB453AA005D3DBA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8B0DEA75218EEA8100B51315 /* AgoraMediaPlayerDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgoraMediaPlayerDemo.entitlements; sourceTree = "<group>"; };
 		8B17F8D321BA464F00B740B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -232,13 +221,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		07F531971E289ED4009BFE58 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -255,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				071CE22D1D79362D00B82401 /* AgoraMediaPlayerDemo.app */,
-				07F5319A1E289ED4009BFE58 /* AgoraMediaPlayerDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -581,24 +562,6 @@
 			productReference = 071CE22D1D79362D00B82401 /* AgoraMediaPlayerDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		07F531991E289ED4009BFE58 /* AgoraMediaPlayerDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 07F531A31E289ED4009BFE58 /* Build configuration list for PBXNativeTarget "AgoraMediaPlayerDemoUITests" */;
-			buildPhases = (
-				07F531961E289ED4009BFE58 /* Sources */,
-				07F531971E289ED4009BFE58 /* Frameworks */,
-				07F531981E289ED4009BFE58 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				07F531A01E289ED4009BFE58 /* PBXTargetDependency */,
-			);
-			name = AgoraMediaPlayerDemoUITests;
-			productName = AgoraMediaPlayerDemoUITests;
-			productReference = 07F5319A1E289ED4009BFE58 /* AgoraMediaPlayerDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -620,12 +583,6 @@
 							};
 						};
 					};
-					07F531991E289ED4009BFE58 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 48TB6ZZL5S;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 071CE22C1D79362D00B82401;
-					};
 				};
 			};
 			buildConfigurationList = 071CE2281D79362D00B82401 /* Build configuration list for PBXProject "AgoraMediaPlayerDemo" */;
@@ -643,7 +600,6 @@
 			projectRoot = "";
 			targets = (
 				071CE22C1D79362D00B82401 /* AgoraMediaPlayerDemo */,
-				07F531991E289ED4009BFE58 /* AgoraMediaPlayerDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -655,13 +611,6 @@
 			files = (
 				071CE2351D79362D00B82401 /* Assets.xcassets in Resources */,
 				071CE2381D79362D00B82401 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		07F531981E289ED4009BFE58 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,22 +659,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		07F531961E289ED4009BFE58 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		07F531A01E289ED4009BFE58 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 071CE22C1D79362D00B82401 /* AgoraMediaPlayerDemo */;
-			targetProxy = 07F5319F1E289ED4009BFE58 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		071CE2361D79362D00B82401 /* Main.storyboard */ = {
@@ -885,39 +819,6 @@
 			};
 			name = Release;
 		};
-		07F531A11E289ED4009BFE58 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
-				INFOPLIST_FILE = AgoraMediaPlayerDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraMediaPlayerDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = AgoraMediaPlayerDemo;
-			};
-			name = Debug;
-		};
-		07F531A21E289ED4009BFE58 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
-				INFOPLIST_FILE = AgoraMediaPlayerDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraMediaPlayerDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = AgoraMediaPlayerDemo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -935,15 +836,6 @@
 			buildConfigurations = (
 				071CE23D1D79362D00B82401 /* Debug */,
 				071CE23E1D79362D00B82401 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		07F531A31E289ED4009BFE58 /* Build configuration list for PBXNativeTarget "AgoraMediaPlayerDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				07F531A11E289ED4009BFE58 /* Debug */,
-				07F531A21E289ED4009BFE58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
