@@ -8,5 +8,5 @@
 
 struct KeyCenter {
     //test AppId
-    static let AppId: String = "70412dfc112347609108b0ffe20a36df"
+    static let AppId: String = <#YOUR_APPID#>
 }
