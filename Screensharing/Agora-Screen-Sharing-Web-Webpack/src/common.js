@@ -1,8 +1,8 @@
 import AgoraRTC from 'agora-rtc-sdk';
-import Toastify from 'toastify-js';
+import * as M from 'materialize-css';
 import UAParser from 'ua-parser-js';
 
-export const screenSharingresolutions = [
+export const screenShareResolutions = [
   {
     name: 'default',
     value: 'default',
@@ -44,24 +44,28 @@ export const isFirefox = () => {
   return userAgentInfo.browser.name === 'Firefox';
 };
 
+function Toastify (options) {
+  M.toast({html: options.text, classes: options.classes});
+}
+
 export const Toast = {
   info: (msg) => {
     Toastify({
       text: msg,
-      backgroundColor: "#3498db"
-    }).showToast();
+      classes: "info-toast"
+    })
   },
   notice: (msg) => {
     Toastify({
       text: msg,
-      backgroundColor: "#07bc0c"
-    }).showToast();
+      classes: "notice-toast"
+    })
   },
   error: (msg) => {
     Toastify({
       text: msg,
-      backgroundColor: "#e74c3c"
-    }).showToast();
+      classes: "error-toast"
+    })
   }
 };
 

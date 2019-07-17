@@ -1,21 +1,16 @@
 import RTCClient from './rtc-client';
-import {Toast, getDevices, serializeFormData, validator, isSafari, screenSharingresolutions} from './common';
+import {getDevices, serializeFormData, validator, screenShareResolutions, isSafari} from './common';
 import "./assets/style.scss";
-import * as bs from 'bootstrap-material-design';
-
+import * as M from 'materialize-css';
 
 $(() => {
-  let selects = null;
 
-  $('body').bootstrapMaterialDesign();
   $("#settings").on("click", function (e) {
     e.preventDefault();
-    $("#settings").toggleClass("btn-raised");
-    $('#setting-collapse').collapse();
+    $(this).open(1);
   });
 
   getDevices(function (devices) {
-    selects = devices;
     devices.audios.forEach(function (audio) {
       $('<option/>', {
         value: audio.value,
@@ -28,12 +23,13 @@ $(() => {
         text: video.name,
       }).appendTo("#cameraId");
     })
-    screenSharingresolutions.forEach(function (resolution) {
+    screenShareResolutions.forEach(function (resolution) {
       $('<option/>', {
         value: resolution.value,
         text: resolution.name
       }).appendTo("#screenShareResolution");
     })
+    M.AutoInit();
   })
 
   if (isSafari()) {
@@ -45,9 +41,10 @@ $(() => {
 
   let rtc = new RTCClient();
 
-  $("#check_quality").on("change", function () {
+  $("#show_quality").on("change", function (e) {
+    e.preventDefault();
     rtc.setNetworkQualityAndStreamStats(this.checked);
-  })
+  });
 
   $("#join").on("click", function (e) {
     e.preventDefault();
@@ -84,24 +81,6 @@ $(() => {
     const params = serializeFormData();
     if (validator(params, fields)) {
       rtc.leave();
-    }
-  })
-
-  $("#startSharing").on("click", function (e) {
-    e.preventDefault();
-    console.log("startSharing")
-    const params = serializeFormData();
-    if (validator(params, fields)) {
-      rtc.startScreenSharing()
-    }
-  })
-
-  $("#stopSharing").on("click", function (e) {
-    e.preventDefault();
-    console.log("stopSharing")
-    const params = serializeFormData();
-    if (validator(params, fields)) {
-      rtc.stopScreenSharing();
     }
   })
 })
