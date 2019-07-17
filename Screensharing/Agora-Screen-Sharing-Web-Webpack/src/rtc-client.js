@@ -51,7 +51,7 @@ export default class RTCClient {
       const id = remoteStream.getId();
       this._remoteStreams.push(remoteStream);
       addView(id, this._showProfile);
-      remoteStream.play("remote_video_" + id, {fit: "cover", muted: true});
+      remoteStream.play("remote_video_" + id, {fit: "cover"});
       Toast.info('stream-subscribed remote-uid: ' + id);
       console.log('stream-subscribed remote-uid: ', id);
     })
@@ -170,6 +170,7 @@ export default class RTCClient {
           // Occurs when a you stop screen sharing
           this._localStream.on("stopScreenSharing", (evt) => {
             this._localStream.stop();
+            this._showProfile = false;
             Toast.notice("stop screen sharing")
           })
     
@@ -177,7 +178,7 @@ export default class RTCClient {
           this._localStream.init(() => {
             console.log("init local stream success");
             // play stream with html element id "local_stream"
-            this._localStream.play("local_stream")
+            this._localStream.play("local_stream", {fit: "cover"})
     
             // run callback
             resolve();
@@ -326,8 +327,7 @@ export default class RTCClient {
   setNetworkQualityAndStreamStats (enable) {
     this._showProfile = enable;
     this._showProfile ? $(".video-profile").removeClass("hide") : $(".video-profile").addClass("hide")
-    // this._showProfile ? $("#network-quality").removeClass("hide") : $("#network-quality").addClass("hide")
-    if (!this._interval) {
+    if (this._joined && !this._interval) {
       this._interval = setInterval(() => {
         this._updateVideoInfo()
       }, 2000);
