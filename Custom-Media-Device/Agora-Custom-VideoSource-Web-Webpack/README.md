@@ -7,7 +7,8 @@ This tutorial shows you how to quickly create Custom Video Source using the Agor
 The small demo contains following features:
 
 - Join/Leave Channel
-- ReplaceTrack
+- switch whiteboard, video, agora rtc stream
+- replace current live streaming
 - Select Media Device
 
 ## Prerequisites
@@ -52,7 +53,7 @@ To build and run the sample application, get an App ID:
 ## Resources
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/Video/API%20Reference/web/index.html)
-- You can file bugs about this demo at [issue](https://github.com/agoraio/Advanced-Audio/issues)
+- You can file bugs about this demo at [issue](https://github.com/agoraio/Advanced-Video/issues)
 
 ## License
 
