@@ -56,8 +56,13 @@ export default class RTCClient {
       addView(id, this._showProfile);
       remoteStream.play("remote_video_" + id, {fit: "cover"}, (err) => {
         if (err) {
-          Toast.error("remotestream play failed probably caused by web browser autopolicy open console see more details");
-          console.error(err);
+          // when status is 'pasued' need website user trigger event to play subscription stream
+          if (err.status == 'paused') {
+            $("#video_autoplay_"+id).removeClass("hide")
+          } else {
+            Toast.error("remotestream play failed probably caused by web browser autopolicy open console see more details");
+            console.error(err);
+          }
         }
       });
       Toast.info('stream-subscribed remote-uid: ' + id);
@@ -144,8 +149,13 @@ export default class RTCClient {
       // play stream with html element id "local_stream"
       this._localStream.play("local_stream", {fit: "cover"}, (err) => {
         if (err) {
-          Toast.error("local stream play failed probably caused by web browser autopolicy open console see more details");
-          console.error(err);
+          // when status is 'pasued' need website user trigger event to play subscription stream
+          if (err.status == 'pasued') {
+            $("#video_autoplay_local").removeClass("hide")
+          } else {
+            Toast.error("local stream play failed probably caused by web browser autopolicy open console see more details");
+            console.error(err);
+          }
         }
       });
 
@@ -336,7 +346,7 @@ export default class RTCClient {
       for (let remoteStream of this._remoteStreams) {
         remoteStream.getStats((stats) => {
           const remoteStreamProfile = [
-            ['uid: ', this._localStream.getId()].join(''),
+            ['uid: ', remoteStream.getId()].join(''),
             ['accessDelay: ', stats.accessDelay, 'ms'].join(''),
             ['endToEndDelay: ', stats.endToEndDelay, 'ms'].join(''),
             ['audioReceiveDelay: ', stats.audioReceiveDelay, 'ms'].join(''),
@@ -347,7 +357,9 @@ export default class RTCClient {
             ['videoReceivePacketsLost: ', this._getLostRate(stats.videoReceivePacketsLost, stats.videoReceivePackets), '%'].join(''),
             ['resolution: ', stats.videoReceiveResolutionWidth + 'x' + stats.videoReceiveResolutionHeight].join(''),
           ].join('<br/>');
-          $("#remote_video_info_"+remoteStream.getId())[0].innerHTML = remoteStreamProfile;
+          if ($("#remote_video_info_"+remoteStream.getId())[0]) {
+            $("#remote_video_info_"+remoteStream.getId())[0].innerHTML = remoteStreamProfile;
+          }
         })
       }
     }

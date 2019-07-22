@@ -40,7 +40,7 @@
             </div>
             <div class="input-field">
               <label for="sharelink" class="active">Share link</label>
-              <input type="text" placeholder="token" id="share_link">
+              <input class="tooltipped" type="text" data-position="bottom" placeholder="link avaliable for audiences" id="share_link" data-tooltip="A link will be available for audiences when pressing share">
             </div>
             <div class="row" style="margin: 0">
               <button class="btn btn-raised btn-primary waves-effect waves-light" id="join">JOIN AS HOST</button>
@@ -124,6 +124,7 @@
           <div class="video-view" id="local_video_view">
             <div id="local_stream" class="video-placeholder" style="margin: 0"></div>
             <div id="local_video_info" class="video-profile hide"></div>
+            <div id="video_autoplay_local" class="autoplay-fallback hide"></div>
           </div>
         </div>
       </div>
