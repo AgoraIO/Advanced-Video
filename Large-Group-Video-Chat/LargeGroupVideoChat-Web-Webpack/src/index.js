@@ -109,6 +109,15 @@ $(() => {
     Toast.notice("copy success");
   })
 
+  $("#sure").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+  })
+
+  $("#never_show").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+    localStorage.setItem("large_group_video_chat", true)
+  })
+
   getDevices(function (devices) {
     devices.audios.forEach(function (audio) {
       $('<option/>', {
@@ -129,6 +138,12 @@ $(() => {
       }).appendTo("#cameraResolution");
     })
     M.AutoInit();
+
+    if (localStorage.getItem("large_group_video_chat") != "true") {
+      M.Modal.init($("#warn")[0], {
+        dismissible: false,
+      }).open()
+    }
     
     let urlData = fillForm(getUrlParameters());
     if (urlData && !rtc._joined) {
@@ -136,6 +151,7 @@ $(() => {
         // join success
       })
     }
+    
   })
 
   const fields = ['appID', 'channel'];

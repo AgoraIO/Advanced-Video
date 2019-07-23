@@ -130,4 +130,29 @@
       </div>
     </div>
   </form>
+  <!-- notice for developer -->
+  <div id="warn" class="modal">
+    <div class="modal-content">
+      <div>
+        Note: <br/>
+      
+        Ensure that you grant permissions to the media devices.<br/>
+
+        Due to web browser <a target="_blank" href="https://developers.google.com/web/updates/2017/09/autoplay-policy-changes">autoplay policy changes</a>,
+        audio is not automatically played on Safari and Chrome 70 or later. <br/>
+        To solve this problem, call the <a target="_blank" href="https://docs.agora.io/en/Interactive%20Broadcast/API%20Reference/web/interfaces/agorartc.stream.html#play">stream.play</a>
+        method and watch the <b>err</b> object in the <b>callback</b> parameter.
+        When the <b>status</b> property of <b>err</b> is <b>"paused"</b>,
+        prompt the user to resume the playback <a target="_blank" href="https://docs.agora.io/en/Interactive Broadcast/API Reference/web/interfaces/agorartc.stream.html#resume">stream.resume</a>
+        with a button.
+        
+        You can find an example solution in this demo.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a id="never_show" class="modal-close waves-effect waves-green btn light-blue darken-1" id="hide_modal">DON'T SHOW AGAIN</a>
+      <a id="sure" class="modal-close waves-effect waves-light btn light-blue darken-4" id="sure">SURE</a>
+    </div>
+  </div>
+  <!-- notice for developer -->
 </html>
