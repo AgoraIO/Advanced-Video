@@ -281,6 +281,7 @@ export default class RTCClient {
           Toast.notice("join channel: " + data.channel + " success, uid: " + uid);
           console.log("join channel: " + data.channel + " success, uid: " + uid);
           this._joined = true;
+          $("#show_profile").attr("disabled", false)
 
           // start stream interval stats
           // if you don't need show stream profile you can comment this
@@ -381,7 +382,6 @@ export default class RTCClient {
     }
     // leave channel
     this._client.leave(() => {
-
       // close stream
       this._localStream.close();
 

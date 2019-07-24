@@ -71,10 +71,12 @@ export default class SketchPad {
         const canvas = $('.sketch')[0];
         const ctx = canvas.getContext('2d');
         if (flag == false) {
+          // use interval for canvas framerate
           this.createInterval(() => {
             ctx.drawImage(canvas, 0, 0);
           }, 50);
         } else {
+          // use requestAnimationFrame for canvas framerate
           this.clearInterval();
           requestAnimationFrame(() => {
             ctx.drawImage(canvas, 0, 0);

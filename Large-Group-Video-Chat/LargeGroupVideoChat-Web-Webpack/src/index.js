@@ -155,7 +155,7 @@ $(() => {
   })
 
   const fields = ['appID', 'channel'];
-  $("#show_quality").on("change", function (e) {
+  $("#show_profile").on("change", function (e) {
     e.preventDefault();
     if (!rtc._joined) {
       $(this).removeAttr("checked");
