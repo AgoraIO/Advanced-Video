@@ -25,12 +25,27 @@ $(() => {
       }).appendTo("#screenShareResolution");
     })
     M.AutoInit();
+
+    if (localStorage.getItem("screen_sharing") != "true") {
+      M.Modal.init($("#warn")[0], {
+        dismissible: false,
+      }).open()
+    }
   })
 
   if (isSafari()) {
     Toast.error("Safari not support screen sharing")
     $("#join").prop("disabled", true)
   }
+
+  $("#sure").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+  })
+
+  $("#never_show").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+    localStorage.setItem("screen_sharing", true)
+  })
 
   const fields = ['appID', 'channel'];
 

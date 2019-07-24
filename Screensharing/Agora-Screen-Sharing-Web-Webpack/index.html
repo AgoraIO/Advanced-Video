@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Agora-Screen-Sharing-Web-Webpack</title>
+  <title>Screen Sharing</title>
 
 <body class="agora-theme">
   <div class="navbar-fixed">
     <nav class="agora-navbar">
       <div class="nav-wrapper agora-primary-bg valign-wrapper">
-        <h5 class="left-align">Agora-Screen-Sharing-Web-Webpack</h5>
+        <h5 class="left-align">Screen Sharing</h5>
         <a href="https://github.com/AgoraIO/Advanced-Video/tree/master/Screensharing/Agora-Screen-Sharing-Web-Webpack" class="agora-github-pin"></a>
       </div>
     </nav>
@@ -108,10 +108,26 @@
           <div class="video-view">
             <div id="local_stream" class="video-placeholder"></div>
             <div id="local_video_info" class="video-profile hide"></div>
+            <div id="video_autoplay_local" class="autoplay-fallback hide"></div>
           </div>
         </div>
       </div>
     </div>
   </form>
 
+  <!-- notice for developer -->
+  <div id="warn" class="modal">
+    <div class="modal-content">
+      <div>
+        Note: <br/>
+        On Chrome, if you use the Agora Web SDK 2.5.2 or earlier, you need to add a Chrome extenstion for screen sharing, if you use the Agora Web SDK 2.6.0 or later, you don't need to add the extension.<br/>
+        For screen sharing on Firefox and Safari, see <a href="https://docs.agora.io/en/Interactive%20Broadcast/screensharing_web">Share the Screen</a>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a id="never_show" class="modal-close waves-effect waves-green btn light-blue darken-1" id="hide_modal">DON'T SHOW AGAIN</a>
+      <a id="sure" class="modal-close waves-effect waves-light btn light-blue darken-4" id="sure">SURE</a>
+    </div>
+  </div>
+  <!-- notice for developer -->
 </html>

@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Agora-Custom-VideoSource-Web</title>
+  <title>Agora Custom VideoSource</title>
 
 <body class="agora-theme">
   <div class="navbar-fixed">
     <nav class="agora-navbar">
       <div class="nav-wrapper agora-primary-bg valign-wrapper">
-        <h5 class="left-align">Agora-Custom-VideoSource-Web</h5>
+        <h5 class="left-align">Agora Custom VideoSource</h5>
         <a href="https://github.com/AgoraIO/Advanced-Video/tree/master/Custom-Media-Device/Agora-Custom-VideoSource-Web-Webpack" class="agora-github-pin"></a>
       </div>
     </nav>
@@ -152,9 +152,27 @@
             </div>
             <div id="local_stream" class="video-placeholder card hide" style="margin: 0"></div>
             <div id="local_video_info" class="video-profile hide"></div>
+            <div id="video_autoplay_local" class="autoplay-fallback hide"></div>
           </div>
         </div>
       </div>
     </div>
   </form>
+    <!-- notice for developer -->
+    <div id="warn" class="modal">
+      <div class="modal-content">
+        <div>
+          Note: <br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ensure that you grant permissions to the media devices.<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select a video source from the drop-down list and preview it. <br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Click SWITCH to replace the current stream with the selected video source.<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This demo uses the replaceTrack method which supports Chrome 65+, Safari, and latest Firefox. <br/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="never_show" class="modal-close waves-effect waves-green btn light-blue darken-1" id="hide_modal">DON'T SHOW AGAIN</a>
+        <a id="sure" class="modal-close waves-effect waves-light btn light-blue darken-4" id="sure">SURE</a>
+      </div>
+    </div>
+    <!-- notice for developer -->
 </html>

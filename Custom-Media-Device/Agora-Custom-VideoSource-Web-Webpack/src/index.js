@@ -39,10 +39,24 @@ $(() => {
       }).appendTo("#cameraResolution");
     })
     M.AutoInit();
+
+    if (localStorage.getItem("custom_videosource") != "true") {
+      M.Modal.init($("#warn")[0], {
+        dismissible: false,
+      }).open()
+    }
   })
 
   const fields = ['appID', 'channel'];
 
+  $("#sure").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+  })
+
+  $("#never_show").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+    localStorage.setItem("custom_videosource", true)
+  })
 
   let lineWidthCount = 1;
   $("#lineWidth").on("click", function (e) {
