@@ -1,7 +1,7 @@
 {
-  "name": "LargeGroupVideoChat-Web",
+  "name": "LargeGroupVideoChat",
   "version": "2.8.0",
-  "description": "Agora-Web-Tutorial - LargeGroupVideoChat-Web",
+  "description": "Agora-Web-Tutorial - LargeGroupVideoChat",
   "keywords": [
     "realtime-communication",
     "agora-rtc-sdk",

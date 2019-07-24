@@ -5,6 +5,8 @@ import {getDevices, serializeFormData, validator, resolutions, Toast} from './co
 import "./assets/style.scss";
 import * as M from 'materialize-css';
 
+// handle current tab or window inactive scenario
+// If current tab or window inactive `visibilitychange` would occurs and we would change `activate` state so that it will switch to another async render way 
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === 'hidden') {
     SketchPad.activate = false;
@@ -37,10 +39,24 @@ $(() => {
       }).appendTo("#cameraResolution");
     })
     M.AutoInit();
+
+    if (localStorage.getItem("custom_videosource") != "true") {
+      M.Modal.init($("#warn")[0], {
+        dismissible: false,
+      }).open()
+    }
   })
 
   const fields = ['appID', 'channel'];
 
+  $("#sure").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+  })
+
+  $("#never_show").on("click", () => {
+    M.Modal.init($("#warn")[0]).close()
+    localStorage.setItem("custom_videosource", true)
+  })
 
   let lineWidthCount = 1;
   $("#lineWidth").on("click", function (e) {
@@ -67,7 +83,33 @@ $(() => {
 
   let rtc = new RTCClient();
 
-  $("#show_quality").on("change", function (e) {
+  $(".autoplay-fallback").on("click", function (e) {
+    e.preventDefault()
+    const id = e.target.getAttribute("id").split("video_autoplay_")[1]
+    console.log("autoplay fallback")
+    if (id === 'local') {
+      rtc._localStream.resume().then(() => {
+        Toast.notice("local resume")
+        $(e.target).addClass("hide")
+      }).catch((err) => {
+        Toast.error("resume failed, please open console see more details")
+        console.error(err)
+      })
+      return;
+    }
+    const remoteStream = rtc._remoteStreams.find((item) => `${item.getId()}` == id)
+    if (remoteStream) {
+      remoteStream.resume().then(() => {
+        Toast.notice("remote resume")
+        $(e.target).addClass("hide")
+      }).catch((err) => {
+        Toast.error("resume failed, please open console see more details")
+        console.error(err)
+      })
+    }
+  })
+
+  $("#show_profile").on("change", function (e) {
     e.preventDefault();
     if (!rtc._joined) {
       $(this).removeAttr("checked");

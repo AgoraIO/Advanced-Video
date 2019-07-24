@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>LargeGroupVideoChat-Web</title>
+  <title>LargeGroupVideoChat</title>
 
 <body class="agora-theme">
   <div class="navbar-fixed">
     <nav class="agora-navbar">
       <div class="nav-wrapper agora-primary-bg valign-wrapper">
-        <h5 class="left-align">LargeGroupVideoChat-Web</h5>
+        <h5 class="left-align">LargeGroupVideoChat</h5>
         <a href="https://github.com/AgoraIO/Advanced-Video/tree/master/Large-Group-Video-Chat/LargeGroupVideoChat-Web-Webpack"
           class="agora-github-pin"></a>
       </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="input-field">
               <label for="sharelink" class="active">Share link</label>
-              <input type="text" placeholder="token" id="share_link">
+              <input class="tooltipped" type="text" data-position="bottom" placeholder="link avaliable for audiences" id="share_link" data-tooltip="A link will be available for audiences when pressing share">
             </div>
             <div class="row" style="margin: 0">
               <button class="btn btn-raised btn-primary waves-effect waves-light" id="join">JOIN AS HOST</button>
@@ -51,7 +51,7 @@
               <div class="switch">
                 <h6 style="color: rgba(0,0,0,.26);">Show Profile</h6>
                 <label>
-                  <input id="show_quality" type="checkbox">
+                  <input id="show_profile" type="checkbox">
                   <span class="lever"></span>
                 </label>
               </div>
@@ -124,9 +124,35 @@
           <div class="video-view" id="local_video_view">
             <div id="local_stream" class="video-placeholder" style="margin: 0"></div>
             <div id="local_video_info" class="video-profile hide"></div>
+            <div id="video_autoplay_local" class="autoplay-fallback hide"></div>
           </div>
         </div>
       </div>
     </div>
   </form>
+  <!-- notice for developer -->
+  <div id="warn" class="modal">
+    <div class="modal-content">
+      <div>
+        Note: <br/>
+      
+        Ensure that you grant permissions to the media devices.<br/>
+
+        Due to web browser <a target="_blank" href="https://developers.google.com/web/updates/2017/09/autoplay-policy-changes">autoplay policy changes</a>,
+        audio is not automatically played on Safari and Chrome 70 or later. <br/>
+        To solve this problem, call the <a target="_blank" href="https://docs.agora.io/en/Interactive%20Broadcast/API%20Reference/web/interfaces/agorartc.stream.html#play">stream.play</a>
+        method and watch the <b>err</b> object in the <b>callback</b> parameter.
+        When the <b>status</b> property of <b>err</b> is <b>"paused"</b>,
+        prompt the user to resume the playback <a target="_blank" href="https://docs.agora.io/en/Interactive Broadcast/API Reference/web/interfaces/agorartc.stream.html#resume">stream.resume</a>
+        with a button.
+        
+        You can find an example solution in this demo.
+      </div>
+    </div>
+    <div class="modal-footer" style="padding: 0 1rem;">
+      <a id="never_show" class="modal-close waves-effect waves-green btn light-blue darken-1" id="hide_modal">DON'T SHOW AGAIN</a>
+      <a id="sure" class="modal-close waves-effect waves-light btn light-blue darken-4" id="sure">SURE</a>
+    </div>
+  </div>
+  <!-- notice for developer -->
 </html>
