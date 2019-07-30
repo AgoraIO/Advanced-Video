@@ -35,11 +35,11 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
     private static final int PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE = PERMISSION_REQ_ID_RECORD_AUDIO + 3;
 
     private MediaDataObserverPlugin mediaDataObserverPlugin;
-    private int count = 0;
 
     private int mRemoteUid = 0;
 
     private RtcEngine mRtcEngine; // Tutorial Step 1
+
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() { // Tutorial Step 1
         @Override
         public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
@@ -184,9 +184,10 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
 
     public void onLocalCaptureClicked(View view) {
         if (mediaDataObserverPlugin != null) {
-            mediaDataObserverPlugin.saveCaptureVideoSnapshot("/sdcard/raw-data-test/capture" + count + ".jpg");
-            Toast.makeText(this, "Picture saved success /sdcard/raw-data-test/capture" + count + ".jpg", Toast.LENGTH_SHORT).show();
-            count++;
+            long index = System.currentTimeMillis();
+            String target = "/sdcard/raw-data-test/capture_" + index + ".jpg";
+            mediaDataObserverPlugin.saveCaptureVideoSnapshot(target);
+            Toast.makeText(this, "Snapshot saved successfully " + target, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -196,9 +197,10 @@ public class VideoChatViewActivity extends AppCompatActivity implements MediaDat
         }
 
         if (mediaDataObserverPlugin != null) {
-            mediaDataObserverPlugin.saveRenderVideoSnapshot("/sdcard/raw-data-test/render" + count + ".jpg", mRemoteUid);
-            Toast.makeText(this, "Picture saved success /sdcard/raw-data-test/render" + count + ".jpg", Toast.LENGTH_SHORT).show();
-            count++;
+            long index = System.currentTimeMillis();
+            String target = "/sdcard/raw-data-test/remote_" + index + ".jpg";
+            mediaDataObserverPlugin.saveRenderVideoSnapshot(target, mRemoteUid);
+            Toast.makeText(this, "Snapshot saved successfully " + target, Toast.LENGTH_SHORT).show();
         }
     }
 

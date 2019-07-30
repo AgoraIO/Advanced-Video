@@ -15,15 +15,15 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by yt on 2018/2/1/001.
  */
 public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallback {
 
-    private final List<MediaDataVideoObserver> videoObserverList = new ArrayList<>();
-    private final List<MediaDataAudioObserver> audioObserverList = new ArrayList<>();
+    private final CopyOnWriteArrayList<MediaDataVideoObserver> videoObserverList = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<MediaDataAudioObserver> audioObserverList = new CopyOnWriteArrayList<>();
 
     private static final int VIDEO_DEFAULT_BUFFER_SIZE = 3240 * 1080; // default maximum video size Full HD+
     private static final int AUDIO_DEFAULT_BUFFER_SIZE = 2048;
@@ -35,7 +35,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     public ByteBuffer byteBufferBeforeAudioMix = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
     public ByteBuffer byteBufferAudioMix = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
 
-    private final List<DecodeDataBuffer> decodeBufferList = new ArrayList<>();
+    private final ArrayList<DecodeDataBuffer> decodeBufferList = new ArrayList<>();
 
     private static MediaDataObserverPlugin myAgent = null;
 
@@ -89,21 +89,15 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     public void removeDecodeBuffer(int uid) {
-        int index = getDecodeIndex(uid);
-        if (index != -1) {
-            decodeBufferList.remove(index);
+        Iterator<DecodeDataBuffer> it = decodeBufferList.iterator();
+        while (it.hasNext()) {
+            DecodeDataBuffer buffer = it.next();
+            if (buffer.getUid() == uid) {
+                it.remove();
+            }
         }
 
         MediaPreProcessing.setVideoDecodeByteBuffer(uid, null);
-    }
-
-    private int getDecodeIndex(int uid) {
-        for (int i = 0; i < decodeBufferList.size(); i++) {
-            if (decodeBufferList.get(i).getUid() == uid) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public void removeAllBuffer() {
