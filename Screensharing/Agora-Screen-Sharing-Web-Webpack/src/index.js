@@ -38,12 +38,14 @@ $(() => {
     $("#join").prop("disabled", true)
   }
 
+  const modal = M.Modal.init($("#warn")[0]);
+
   $("#sure").on("click", () => {
-    M.Modal.init($("#warn")[0]).close()
+    modal.close()
   })
 
   $("#never_show").on("click", () => {
-    M.Modal.init($("#warn")[0]).close()
+    modal.close()
     localStorage.setItem("screen_sharing", true)
   })
 
