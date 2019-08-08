@@ -48,13 +48,15 @@ $(() => {
   })
 
   const fields = ['appID', 'channel'];
+  
+  const modal = M.Modal.init($("#warn")[0]);
 
   $("#sure").on("click", () => {
-    M.Modal.init($("#warn")[0]).close()
+    modal.close();
   })
 
   $("#never_show").on("click", () => {
-    M.Modal.init($("#warn")[0]).close()
+    modal.close();
     localStorage.setItem("custom_videosource", true)
   })
 
