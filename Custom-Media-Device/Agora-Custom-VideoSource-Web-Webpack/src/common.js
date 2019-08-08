@@ -66,6 +66,10 @@ export function serializeFormData() {
     var val = item.value;
     obj[key] = val;
   }
+  if (obj.uid != undefined
+    && !Number.isNaN(+obj.uid)) {
+    obj.uid = +obj.uid
+  }
   console.log("form data", obj);
   return obj;
 }
