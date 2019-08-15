@@ -301,6 +301,7 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
 
     int height = data.height;
     int yStride = data.yStride;
+    int rotation = data.rotation;
     
     char* yBuffer = data.yBuffer;
     char* uBuffer = data.uBuffer;
@@ -318,7 +319,7 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
     unsigned char * NV12buf = (unsigned char *)malloc(Len);
     [self yuv420p_to_nv12:buf nv12:NV12buf width:yStride height:height];
     @autoreleasepool {
-        [self UIImageToJpg:NV12buf width:yStride height:height];
+        [self UIImageToJpg:NV12buf width:yStride height:height rotation:rotation];
     }
     if(buf != NULL) {
         free(buf);
@@ -360,15 +361,15 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
     }
 }
 
-- (void)UIImageToJpg:(unsigned char *)buffer width:(int)width height:(int)height {
-    UIImage *image = [self YUVtoUIImage:width h:height buffer:buffer];
+- (void)UIImageToJpg:(unsigned char *)buffer width:(int)width height:(int)height rotation:(int)rotation {
+    UIImage *image = [self YUVtoUIImage:buffer width:width height:height rotation:rotation];
     if (self.imageBlock) {
         self.imageBlock(image);
     }
 }
 
 //This is API work well for NV12 data format only.
-- (UIImage *)YUVtoUIImage:(int)w h:(int)h buffer:(unsigned char *)buffer{
+- (UIImage *)YUVtoUIImage:(unsigned char *)buffer width:(int)w height:(int)h rotation:(int)rotation {
     //YUV(NV12)-->CIImage--->UIImage Conversion
     NSDictionary *pixelAttributes = @{(NSString*)kCVPixelBufferIOSurfacePropertiesKey:@{}};
     CVPixelBufferRef pixelBuffer = NULL;
@@ -402,9 +403,31 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
                                                        fromRect:CGRectMake(0, 0, w, h)];
 
     // UIImage Conversion
+    UIImageOrientation orientation;
+    switch (rotation) {
+        case 0:
+            orientation = UIImageOrientationUp;
+            break;
+
+        case 90:
+            orientation = UIImageOrientationRight;
+            break;
+
+        case 180:
+            orientation = UIImageOrientationDown;
+            break;
+
+        case 270:
+            orientation = UIImageOrientationLeft;
+            break;
+
+        default:
+            orientation = UIImageOrientationUp;
+            break;
+    }
     UIImage *finalImage = [[UIImage alloc] initWithCGImage:videoImage
                                                      scale:1.0
-                                               orientation:UIImageOrientationRight];
+                                               orientation:orientation];
     CVPixelBufferRelease(pixelBuffer);
     CGImageRelease(videoImage);
     return finalImage;

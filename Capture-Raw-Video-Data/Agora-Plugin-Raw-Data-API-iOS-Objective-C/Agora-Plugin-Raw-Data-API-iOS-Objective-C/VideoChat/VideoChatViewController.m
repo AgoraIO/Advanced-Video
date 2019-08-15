@@ -54,7 +54,7 @@
 
 - (void)setupVideo {
     [self.agoraKit enableVideo];
-    [self.agoraKit setVideoProfile:AgoraVideoProfilePortrait360P swapWidthAndHeight: true];
+    [self.agoraKit setVideoEncoderConfiguration:[[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension640x360 frameRate:AgoraVideoFrameRateFps15 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative]];
 }
 
 - (void)setupLocalVideo {
@@ -91,7 +91,7 @@
     videoCanvas.uid = uid;
     
     videoCanvas.view = self.remoteVideo;
-    videoCanvas.renderMode = AgoraVideoRenderModeHidden;
+    videoCanvas.renderMode = AgoraVideoRenderModeFit;
     [self.agoraKit setupRemoteVideo:videoCanvas];
     
     self.remoteUid = uid;
