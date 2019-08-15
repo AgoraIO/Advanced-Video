@@ -15,16 +15,14 @@ static let AppId: String = "YOUR_APPID";
 
 最后打开AgoraMediaPlayerDemo.xcodeproj 编译运行即可
 
-## 注意
-1. libs 文件下的 AgoraVideoPlayerKit.framework库 需要拷贝一份放在 xxx.app 的安装路径下
 
 ## 使用方法
 1. 填入频道号加入频道；
-2. 点击 open 按钮, 选择需要播放的文件；
+2. 点击 Open media 按钮, 选择需要播放的文件；
 3. 观众端使用另一台设备，同样打开本示例程序，加入到相同的房间, 即可欣赏主播端播放的视频内容；
 
 ## 运行环境
-* Xcode 9.0  编译环境
+* Xcode 10.2  编译环境
 * Mac OS 10.11  以上版本
 
 ## 联系我们
