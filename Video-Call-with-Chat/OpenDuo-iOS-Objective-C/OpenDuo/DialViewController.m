@@ -101,7 +101,7 @@
 }
 
 - (void)rtmCallKit:(AgoraRtmCallKit *)callKit remoteInvitationReceived:(AgoraRtmRemoteInvitation *)remoteInvitation {
-    NSString *channelId = remoteInvitation.channelId;
+    NSString *channelId = remoteInvitation.content;
     NSString *callerId = remoteInvitation.callerId;
     NSLog(@"remoteInvitationReceived, channel: %@, uid: %@", channelId, callerId);
     
