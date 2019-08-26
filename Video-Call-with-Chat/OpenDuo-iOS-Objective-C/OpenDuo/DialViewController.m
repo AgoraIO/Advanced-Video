@@ -93,6 +93,7 @@
     callVC.remoteAccount = account;
     callVC.signalEngine = self.signalEngine;
     callVC.remoteInvitation = invitation;
+    callVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:callVC animated:NO completion:nil];
 }
 
