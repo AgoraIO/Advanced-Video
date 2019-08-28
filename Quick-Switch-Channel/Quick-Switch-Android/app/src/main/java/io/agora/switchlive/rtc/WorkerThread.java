@@ -165,7 +165,7 @@ public class WorkerThread extends Thread {
 
         ensureRtcEngineReadyLock();
 
-        mRtcEngine.switchChannel(null, channel, "OpenLive", uid);
+        mRtcEngine.switchChannel(null, channel);
 
         mEngineConfig.mChannel = channel;
 
