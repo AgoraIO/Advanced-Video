@@ -64,7 +64,7 @@ class MediaCenter: NSObject {
     
     func joinChannel(_ channel: ChannelInfo, renderView: UIView) {
         if hasJoinChannel {
-            agoraKit.switchChannel(byToken: nil, channelId: channel.channelName, info: nil, uid: 0, joinSuccess: nil)
+            agoraKit.switchChannel(byToken: nil, channelId: channel.channelName, joinSuccess: nil)
         } else {
             agoraKit.joinChannel(byToken: nil, channelId: channel.channelName, info: nil, uid: 0, joinSuccess: nil)
             hasJoinChannel = true
