@@ -77,8 +77,8 @@
 }
 
 - (void)rtmCallKit:(AgoraRtmCallKit *)callKit localInvitationReceivedByPeer:(AgoraRtmLocalInvitation *)localInvitation {
-    NSLog(@"localInvitationReceivedByPeer: %@, channel: %@", localInvitation.calleeId, localInvitation.channelId);
-    if (![localInvitation.channelId isEqualToString:self.localInvitation.channelId] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
+    NSLog(@"localInvitationReceivedByPeer: %@, channel: %@", localInvitation.calleeId, localInvitation.content);
+    if (![localInvitation.content isEqualToString:self.localInvitation.content] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
         return;
     }
     
@@ -87,7 +87,7 @@
 
 - (void)rtmCallKit:(AgoraRtmCallKit *)callKit localInvitationAccepted:(AgoraRtmLocalInvitation *)localInvitation withResponse:(NSString *)response {
     NSLog(@"localInvitationAccepted by: %@, response: %@", localInvitation.calleeId, response);
-    if (![localInvitation.channelId isEqualToString:self.localInvitation.channelId] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
+    if (![localInvitation.content isEqualToString:self.localInvitation.content] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
         return;
     }
     
@@ -100,7 +100,7 @@
 
 - (void)rtmCallKit:(AgoraRtmCallKit *)callKit localInvitationRefused:(AgoraRtmLocalInvitation *)localInvitation withResponse:(NSString *)response {
     NSLog(@"localInvitationRefused: %@, response: %@", localInvitation.calleeId, response);
-    if (![localInvitation.channelId isEqualToString:self.localInvitation.channelId] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
+    if (![localInvitation.content isEqualToString:self.localInvitation.content] || ![localInvitation.calleeId isEqualToString:self.remoteAccount]) {
         return;
     }
     
@@ -129,7 +129,7 @@
 - (void)sendInviteRequest {
     AgoraRtmLocalInvitation *invitation = [[AgoraRtmLocalInvitation alloc] initWithCalleeId:self.remoteAccount];
     NSString *channel = [NSString stringWithFormat:@"%@-%@-%f", self.localAccount, self.remoteAccount, [NSDate date].timeIntervalSinceReferenceDate];
-    invitation.channelId = channel;
+    invitation.content = channel;
     self.localInvitation = invitation;
     
     __weak typeof(self) weakSelf = self;
@@ -255,9 +255,9 @@
     NSString *mediaToken = nil;
     NSString *channel;
     if (self.localInvitation) {
-        channel = self.localInvitation.channelId;
+        channel = self.localInvitation.content;
     } else {
-        channel = self.remoteInvitation.channelId;
+        channel = self.remoteInvitation.content;
     }
     [self.mediaEngine joinChannelByToken:mediaToken channelId:channel info:nil uid:0 joinSuccess:nil];
 }

@@ -93,6 +93,7 @@
     callVC.remoteAccount = account;
     callVC.signalEngine = self.signalEngine;
     callVC.remoteInvitation = invitation;
+    callVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:callVC animated:NO completion:nil];
 }
 
@@ -101,7 +102,7 @@
 }
 
 - (void)rtmCallKit:(AgoraRtmCallKit *)callKit remoteInvitationReceived:(AgoraRtmRemoteInvitation *)remoteInvitation {
-    NSString *channelId = remoteInvitation.channelId;
+    NSString *channelId = remoteInvitation.content;
     NSString *callerId = remoteInvitation.callerId;
     NSLog(@"remoteInvitationReceived, channel: %@, uid: %@", channelId, callerId);
     
