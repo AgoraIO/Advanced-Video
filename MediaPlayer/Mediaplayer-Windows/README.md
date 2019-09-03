@@ -2,7 +2,7 @@
 这个开源项目演示了如何利用 Agora 视频 SDK 和 MediaPlayerKit 插件来实现视频播放内容共享。
 
 ## 运行示例程序
-首先在 [Agora.io](https://dashboard.agora.io/) 注册账号，并创建自己的测试项目，获取到 AppID，并将 AppID 填写进 agorartcengine.cpp 对应位置
+首先在 [Agora.io](https://dashboard.agora.io/) 注册账号，并创建自己的测试项目，获取到 AppID，并将 AppID 填写进 mediaplayerKitquikstart.cpp 对应位置
 
 
 ```
@@ -21,7 +21,7 @@ context.appId = APP_ID;
 
 2. sdk/dll 文件下的 dll 库也需要放在相应的执行路径下
 
-3. 如果提示QT头文件找不到，注意vs需要重新导入.pro 文件 重新生成QT相关的东西 报错不用管 再运行MediaPlayerKitQuikstart .sln 运行即可
+3. 如果提示QT头文件找不到，注意vs需要重新导入.pro 文件 重新生成QT相关的东西 报错不用管 再运行MediaPlayerKitQuikstart.sln 运行即可
 
 温馨提示：此案例教程中已经为您配置好相关的 dll 库，若用户想自己使用 agora 提供的接口进行相关开发，则需按上述提示将 dll 库放入相应的执行路径下。
 
