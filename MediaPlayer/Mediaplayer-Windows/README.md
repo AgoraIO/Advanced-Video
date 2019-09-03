@@ -1,5 +1,5 @@
 # Mediaplayer-Windows
-这个开源项目演示了如何利用 Agora 视频 SDK 和 Agora_Video_Kit 插件来实现视频播放内容共享。
+这个开源项目演示了如何利用 Agora 视频 SDK 和 MediaPlayerKit 插件来实现视频播放内容共享。
 
 ## 运行示例程序
 首先在 [Agora.io](https://dashboard.agora.io/) 注册账号，并创建自己的测试项目，获取到 AppID，并将 AppID 填写进 agorartcengine.cpp 对应位置
@@ -12,7 +12,7 @@ context.appId = APP_ID;
 
 然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载**视频通话/视频直播 SDK**，解压后将其中的 **sdk** 文件夹复制到  MediaPlayerKitQuikstart 文件夹同级目录下。
 
-还需要下载  [MediaPlayerKit](https://download.agora.io/sdk/release/Agora_MediaPlayerKit_for_Windows(x86)_v1_0_0.zip) 同样将解压后的 MediaPlayerKit 文件夹复制到 MediaPlayerKitQuikstart 文件同级目录下。
+还需要下载  [MediaPlayerKit](https://download.agora.io/sdk/release/Agora_MediaPlayerKit_for_Windows(x86)_v1_0_0.zip) 同样将解压后的 MediaPlayerKit 文件夹复制到 MediaPlayerKitQuikstart 文件夹同级目录下。
 
 最后打开MediaPlayerKitQuikstart .sln 编译运行即可
 
