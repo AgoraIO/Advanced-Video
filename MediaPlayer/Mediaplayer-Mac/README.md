@@ -10,7 +10,7 @@ static let AppId: String = "YOUR_APPID";
 ```
 
 
-然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载**视频通话/视频直播 SDK**，解压后将其中的 **sdk** 文件夹复制到  libs 文件夹下。
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载**视频通话/视频直播 SDK**，解压后将其中的 **AgoraRtcEngine.framework**  复制到libs 文件夹下。
 
 还需要下载  [MediaPlayerKit]( https://download.agora.io/sdk/release/Agora_MediaPlayerKit_for_macOS_v1_0_0.zip) 同样将解压后的 MediaPlayerKit.framework 文件夹复制到 libs 文件夹下。
 
