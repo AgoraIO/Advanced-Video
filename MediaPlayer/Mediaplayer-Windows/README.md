@@ -1,4 +1,5 @@
 # Mediaplayer-Windows
+
 *Other Language: [简体中文](README.zh.md)*
 
 This MediaPlayerKitQuikStart describes how to share video with others using MediaPlayerKit components.
@@ -16,12 +17,14 @@ and download  [MediaPlayerKit](https://download.agora.io/sdk/release/Agora_Media
 
 Finally, Open MediaPlayerKitQuikstart.sln,run it and open the video which you want to share.
 
+
 ## Notes
 1. MediaPlayerKit/dll Put the *.dll  in the execution path
 
 2. sdk/dll Put the *.dll  in the execution path
 
 3. If the QT header file is not found, please note that vs. need to re-import the .pro file. Regenerate the QT related items. and then run the MediaPlayerKitQuikstart .sln. 
+
 
 
 ## Usage
@@ -40,6 +43,6 @@ Finally, Open MediaPlayerKitQuikstart.sln,run it and open the video which you wa
 - You can find full API document at [Document Center](https://docs.agora.io/en/Interactive%20Broadcast/mediaplayer_win?platform=Windows#quickly-experience-mediaplayer-kit)
 - You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
-## 代码许可
+## Code license
 
 The MIT License (MIT).

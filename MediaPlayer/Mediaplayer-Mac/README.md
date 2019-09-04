@@ -14,7 +14,6 @@ Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io
 
 and download  [MediaPlayerKit]( https://download.agora.io/sdk/release/Agora_MediaPlayerKit_for_macOS_v1_0_0.zip) unzip the zip file ,copy the MediaPlayerKit.framework to the "libs" folder.
 
-
 Finally, Open MediaPlayerKitQuikstart.xcodeproj ,run it and open the video which you want to share.
 
 
