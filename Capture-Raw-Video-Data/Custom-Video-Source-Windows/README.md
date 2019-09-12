@@ -4,12 +4,10 @@
 *其他语言版本： [简体中文](README.zh.md)*
 
 *  copy sdk folder to the directroy where Opnelive.sln file is located in.
-*  currently the external video format supportted(2.9.1 and above):
-    * ARGB
+*  currently the external video format supportted(2.9.0 and below):
     * yuv420
-    * yuv422
 * copy the dll files in sdk/dll directory to execution dirctory
-* unzip the file 360p_i422.zip,then copy the file 360p_i422.yuv in the execution dirctory. This is yuv422 format and the resolution is 640*360, the framterate is 15.
+* unzip the file 360p_i420.zip,then copy the file 360p_i420.yuv in the execution dirctory. This is yuv420 format and the resolution is 640*360, the framterate is 15.
 * If you want push other video format file, you can modify the param in the function CVideoDlg::pushVideoFrame().
   Then copy your raw video file to the exectution path.
 
@@ -26,3 +24,7 @@ First, create a developer account at [Agora.io](https://dashboard.agora.io/signi
 ## License
 
 The MIT License (MIT).
+
+#Note
+
+If you want use old version agora sdk(below 2.9.1)

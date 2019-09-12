@@ -3,12 +3,11 @@
 *Read this in other languages: [English](README.md)*
 
 *  把官网的sdk放到sln相同目录下
-*  目前支持的外部视频格式(2.9.1 and above):
-    * ARGB
+*  目前支持的外部视频格式(2.9.0及以下):
     * yuv420
-    * yuv422
+  
 * sdk/dll 文件下的 dll 库需要放在相应的执行路径下。
-* 解压360p_i422.zip，把解压的yuv文件拷贝到执行目录下。yuv422格式的数据，分辨率为640*360，15fps。
+* 解压360p_I420.zip，把解压的yuv文件拷贝到执行目录下。yuv420格式的数据，分辨率为640*360，15fps。
 * 如果想要推其他格式或者分辨率的裸数据，在函数CVideoDlg::pushVideoFrame()CVideoDlg::pushVideoFrame()中修改参数。然后把你要推送的视频裸数据文件放到运行目录下
 
 ## 运行示例程序

@@ -1,3 +1,0 @@
-const AGORA_APP_ID = 'YOUR_AGORA_APPID'
-
-export { AGORA_APP_ID }

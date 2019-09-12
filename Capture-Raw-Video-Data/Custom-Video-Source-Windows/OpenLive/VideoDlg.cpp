@@ -1259,7 +1259,7 @@ void CVideoDlg::pushVideoFrame()
 	strPath.MakeLower();
 	strPath.Replace(_T("openlive.exe"), _T(""));
 
-	strPath += _T("360p_I422.yuv");
+	strPath += _T("360p_I420.yuv");
 	if (!PathFileExists(strPath)){
 		AfxMessageBox(_T("file path not exist"));
 		return;
@@ -1267,7 +1267,7 @@ void CVideoDlg::pushVideoFrame()
 
 	int fps = 15;
 	agora::media::ExternalVideoFrame frame;
-	frame.format = agora::media::ExternalVideoFrame::VIDEO_PIXEL_I422;
+	frame.format = agora::media::ExternalVideoFrame::VIDEO_PIXEL_I420;
 	frame.stride = 640;
 	frame.height = 360;
 	frame.cropTop = 0;

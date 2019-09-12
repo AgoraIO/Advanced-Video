@@ -1070,12 +1070,12 @@ void CAgoraObject::StartPushExternalVideoFrame(CString yuvPath, int fps, agora::
 		|| externalVideoInfo.frame.format == agora::media::ExternalVideoFrame::VIDEO_PIXEL_NV12) {
 		externalVideoInfo.frame.buffer = new unsigned char[externalVideoInfo.frame.stride*externalVideoInfo.frame.height * 3 / 2];
 	}
-	else  if (externalVideoInfo.frame.format == agora::media::ExternalVideoFrame::VIDEO_PIXEL_I422) {
+/*	else  if (externalVideoInfo.frame.format == agora::media::ExternalVideoFrame::VIDEO_PIXEL_I422) {
 		externalVideoInfo.frame.buffer = new unsigned char[externalVideoInfo.frame.stride*externalVideoInfo.frame.height * 2];
 	}
 	else  if (externalVideoInfo.frame.format == agora::media::ExternalVideoFrame::VIDEO_PIXEL_BGRA) {
 		externalVideoInfo.frame.buffer = new unsigned char[externalVideoInfo.frame.stride*externalVideoInfo.frame.height * 4];
-	}
+	}*/
 }
 
 
@@ -1110,14 +1110,14 @@ void CAgoraObject::PushVideoFrame()
 			num = 2;
 		}
 		// ystride*height*2
-		else if (externalVideoInfo.frame.format == agora::media::ExternalVideoFrame::VIDEO_PIXEL_I422) {
+	/*	else if (externalVideoInfo.frame.format == agora::media::ExternalVideoFrame::VIDEO_PIXEL_I422) {
 			den = 2;
 			num = 1;
 		}
 		else  if (externalVideoInfo.frame.format == agora::media::ExternalVideoFrame::VIDEO_PIXEL_BGRA) {
 			den = 4;
 			num = 1;
-		}
+		}*/
 
 		fread(externalVideoInfo.frame.buffer, 1, externalVideoInfo.frame.stride*externalVideoInfo.frame.height * den / num, fpPushExternalVideo);
 
