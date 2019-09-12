@@ -134,6 +134,10 @@ export default class RTCClient {
     })
   }
 
+  setStreamFallbackOption(stream, type) {
+    this._client.setStreamFallbackOption(stream, type);
+  }
+
   subscribe(stream, callback) {
     this._client.subscribe(stream, callback);
   }

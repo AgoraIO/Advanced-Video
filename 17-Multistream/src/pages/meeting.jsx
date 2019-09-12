@@ -12,7 +12,8 @@ const useStyles = makeStyles({
     height: '150px',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    zIndex: '10',
   },
   customBtn: {
     width: '50px',
@@ -39,7 +40,6 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    zIndex: '2',
   },
 });
 

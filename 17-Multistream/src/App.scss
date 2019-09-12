@@ -31,7 +31,7 @@ body{
   background-size: 70px 70px;
   background-position: center;
   border-radius:2px;
-  // background-image: url("assets/placeholder-audio-big.png");
+  background-image: url("assets/placeholder-audio-big.png");
 }
 
 .text-container {
@@ -172,7 +172,7 @@ body{
   top: 0;
   left: 0;
   justify-content: space-between;
-  z-index: 3;
+  z-index: 10;
 }
 
 .quit {
