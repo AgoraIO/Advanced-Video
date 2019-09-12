@@ -172,7 +172,6 @@ body{
   top: 0;
   left: 0;
   justify-content: space-between;
-  z-index: 10;
 }
 
 .quit {
@@ -184,7 +183,7 @@ body{
   width: 32px;
   height: 32px;
   border-radius: 30px;
-  z-index: 3;
+  z-index: 10;
   background-color: rgba(0,0,0,0.4);
   cursor: pointer;
 }
