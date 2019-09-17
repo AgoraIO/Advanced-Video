@@ -313,9 +313,8 @@ void CAGEngineEventHandler::onRemoteVideoStats(const RemoteVideoStats& stats)
 	lpData->delay = stats.delay;
 	lpData->width = stats.width;
 	lpData->height = stats.height;
-	lpData->receivedFrameRate = stats.receivedFrameRate;
 	lpData->receivedBitrate = stats.receivedBitrate;
-	lpData->receivedFrameRate = stats.receivedFrameRate;
+	//lpData->receivedFrameRate = stats.receivedFrameRate;
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_REMOTE_VIDEO_STAT), (WPARAM)lpData, 0);

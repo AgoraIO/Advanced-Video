@@ -394,10 +394,11 @@ BOOL CAgoraObject::EnableEchoTest(BOOL bEnable)
 
 BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate)
 {
-	IRtcEngine2 *lpRtcEngine2 = (IRtcEngine2 *)m_lpAgoraEngine;
-	int nRet = lpRtcEngine2->setVideoProfileEx(nWidth, nHeight, nFrameRate, nBitRate);
+	//IRtcEngine2 *lpRtcEngine2 = (IRtcEngine2 *)m_lpAgoraEngine;
+	//int nRet = lpRtcEngine2->setVideoProfileEx(nWidth, nHeight, nFrameRate, nBitRate);
 
-	return nRet == 0 ? TRUE : FALSE;
+	//return nRet == 0 ? TRUE : FALSE;
+    return TRUE;
 }
 
 BOOL CAgoraObject::SetAudioProfileEx(int nSampleRate, int nChannels, int nSamplesPerCall)
