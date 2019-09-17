@@ -394,10 +394,38 @@ BOOL CAgoraObject::EnableEchoTest(BOOL bEnable)
 
 BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate)
 {
-	//IRtcEngine2 *lpRtcEngine2 = (IRtcEngine2 *)m_lpAgoraEngine;
-	//int nRet = lpRtcEngine2->setVideoProfileEx(nWidth, nHeight, nFrameRate, nBitRate);
+    FRAME_RATE fps = agora::rtc::FRAME_RATE_FPS_15;
+    if (nFrameRate <= 1)
+    {
+        fps = agora::rtc::FRAME_RATE_FPS_1;
+    }
+    else if (nFrameRate <= 7)
+    {
+        fps = agora::rtc::FRAME_RATE_FPS_7;
+    }
+    else if (nFrameRate <= 10)
+    {
+        fps = agora::rtc::FRAME_RATE_FPS_10;
+    }
+    else if (nFrameRate <= 15)
+    {
+        fps = agora::rtc::FRAME_RATE_FPS_15;
+    }
+    else if (nFrameRate <= 24)
+    {
+        fps = agora::rtc::FRAME_RATE_FPS_24;
+    }
+    else if (nFrameRate <= 30)
+    {
+        fps = agora::rtc::FRAME_RATE_FPS_30;
+    }
+    else
+    {
+        fps = agora::rtc::FRAME_RATE_FPS_60;
+    }
 
-	//return nRet == 0 ? TRUE : FALSE;
+    VideoEncoderConfiguration encCfg(nWidth, nHeight, fps, nBitRate, ORIENTATION_MODE_ADAPTIVE);
+    m_lpAgoraEngine->setVideoEncoderConfiguration(encCfg);
     return TRUE;
 }
 
