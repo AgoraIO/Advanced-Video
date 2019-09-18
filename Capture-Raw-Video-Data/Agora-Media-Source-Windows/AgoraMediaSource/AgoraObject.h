@@ -2,13 +2,12 @@
 
 #include "../SDK/include/IAgoraRtcEngine.h"
 #include "../SDK/include/IAgoraMediaEngine.h"
-#include "../SDK/include/IAgoraRtcEngine2.h"
 #include "AGEngineEventHandler.h"
 
 #include "ExtendVideoFrameObserver.h"
 #include "ExtendAudioFrameObserver.h"
 
-#define AVC_VER _T("V1.13.0, Build234, 09/11/2017, SDK1.13.0")
+#define AVC_VER _T("V1.13.0, Build234, 09/11/2019, SDK2.9.0")
 
 using namespace agora::media;
 // 引擎标记位
