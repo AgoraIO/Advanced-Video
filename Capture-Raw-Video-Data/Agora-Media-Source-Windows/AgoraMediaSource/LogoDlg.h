@@ -1,17 +1,16 @@
 #pragma once
 #include "AGButton.h"
 
-// CLogoDlg 对话框
+// CLogoDlg
 
 class CLogoDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CLogoDlg)
 
 public:
-	CLogoDlg(CWnd* pParent = NULL);   // 标准构造函数
+	CLogoDlg(CWnd* pParent = NULL);
 	virtual ~CLogoDlg();
 
-// 对话框数据
 	enum { IDD = IDD_LOGO_DIALOG };
 
 protected:
@@ -19,7 +18,7 @@ protected:
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual void DoDataExchange(CDataExchange* pDX);
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg LRESULT OnNcHitTest(CPoint point);
 

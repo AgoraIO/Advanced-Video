@@ -1,4 +1,4 @@
-// AGComboBox.cpp : 实现文件
+// AGComboBox.cpp :
 //
 
 #include "stdafx.h"
@@ -280,7 +280,7 @@ void CAGComboBoxList::OnLButtonDown(UINT nFlags, CPoint point)
 
 BOOL CAGComboBoxList::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	SCROLLINFO  si;
 	int			nVertPos = 0;
 
@@ -302,7 +302,7 @@ int CAGComboBoxList::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	// TODO:  在此添加您专用的创建代码
+	// TODO:
 	ModifyStyleEx(0, WS_EX_TOOLWINDOW);
 	SetWindowPos(&wndTopMost, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
@@ -311,7 +311,7 @@ int CAGComboBoxList::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CAGComboBoxList::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	SCROLLINFO  si;
 	int			nVertPos = 0;
 
@@ -357,7 +357,7 @@ void CAGComboBoxList::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	CWnd::OnShowWindow(bShow, nStatus);
 
-	// TODO:  在此处添加消息处理程序代码
+	// TODO:
 	CRect rcClient;
 	SCROLLINFO  ScrollInfo;
 
@@ -383,7 +383,7 @@ void CAGComboBoxList::OnShowWindow(BOOL bShow, UINT nStatus)
 /*
 BOOL CAGComboBoxList::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	CRect		rcClient;
 	CRect		rcBack;
 
@@ -607,13 +607,12 @@ void CAGComboBox::SetFont(CFont* pFont, BOOL bRedraw)
 	Invalidate(bRedraw);
 }
 
-// CAGComboBox 消息处理程序
+// CAGComboBox 锟斤拷息锟斤拷锟斤拷锟斤拷锟斤拷
 
 void CAGComboBox::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
-	// TODO:  在此处添加消息处理程序代码
-	// 不为绘图消息调用 CWnd::OnPaint()
+	// TODO:
 	CString		str;
 	CRect		rcClient;
 	CRect		rcText;
@@ -717,7 +716,7 @@ void CAGComboBox::OnLButtonDown(UINT nFlags, CPoint point)
 
 BOOL CAGComboBox::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	CRect		rcClient;
 	CRect		rcBack;
 	

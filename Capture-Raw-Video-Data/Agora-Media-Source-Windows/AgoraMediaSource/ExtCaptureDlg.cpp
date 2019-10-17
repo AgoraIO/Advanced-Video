@@ -1,13 +1,9 @@
-// ExtCaptureDlg.cpp : 实现文件
-//
-
 #include "stdafx.h"
 #include "AgoraMediaSource.h"
 #include "ExtCaptureDlg.h"
 #include "afxdialogex.h"
 
-
-// CExtCaptureDlg 对话框
+#include "VideoPackageQueue.h"
 
 IMPLEMENT_DYNAMIC(CExtCaptureDlg, CDialogEx)
 
@@ -50,8 +46,6 @@ BEGIN_MESSAGE_MAP(CExtCaptureDlg, CDialogEx)
 	ON_WM_SHOWWINDOW()
 END_MESSAGE_MAP()
 
-
-// CExtCaptureDlg 消息处理程序
 void CExtCaptureDlg::OnPaint()
 {
 	CPaintDC dc(this);
@@ -63,7 +57,6 @@ BOOL CExtCaptureDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  在此添加额外的初始化
 	m_ftDes.CreateFont(15, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 	m_ftHead.CreateFont(15, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 	
@@ -86,7 +79,6 @@ BOOL CExtCaptureDlg::OnInitDialog()
 	InitCtrls();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// 异常:  OCX 属性页应返回 FALSE
 }
 
 void CExtCaptureDlg::InitCtrls()
@@ -149,23 +141,17 @@ void CExtCaptureDlg::DrawClient(CDC *lpDC)
 
 void CExtCaptureDlg::OnBnClickedBtncancelExtcap()  
 {
-	// TODO:  在此添加控件通知处理程序代码
-
 	CDialogEx::OnCancel();
 }
 
 
 void CExtCaptureDlg::OnBnClickedBtnconfirmExtcap()
 {
-	// TODO:  在此添加控件通知处理程序代码
-
 	CDialogEx::OnOK();
 }
 
-
 void CExtCaptureDlg::OnBnClickedBtnapplyExtcap()
 {
-	// TODO:  在此添加控件通知处理程序代码
 	VIDEOINFOHEADER videoInfo;
 	WAVEFORMATEX	waveFormat;
 	SIZE_T			nBufferSize = 0;
@@ -183,7 +169,7 @@ void CExtCaptureDlg::OnBnClickedBtnapplyExtcap()
 		m_cmbMicCap.SetCurSel(0);
 		nMicCapSel = 0;
 	}
-		
+	
 	if (m_ckExtVideoCapture.GetCheck()) {
 		m_agVideoCaptureDevice.SelectMediaCap(nCamCapSel);
 		m_agVideoCaptureDevice.GetCurrentVideoCap(&videoInfo);
@@ -321,7 +307,6 @@ void CExtCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	CDialogEx::OnShowWindow(bShow, nStatus);
 
-	// TODO:  在此处添加消息处理程序代码
 	if (!bShow)
 		return;
 
@@ -341,7 +326,6 @@ void CExtCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 		if (_tcscmp(szDevicePath, agDeviceInfo.szDevicePath) == 0)
 			m_cmbCamera.SetCurSel(nIndex);
 	}
-
 
 	nPathLen = MAX_PATH;
 	m_cmbMicrophone.ResetContent();
@@ -366,6 +350,8 @@ void CExtCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 		if (_tcscmp(szDevicePath, agDeviceInfo.szDevicePath) == 0)
 			m_cmbPlayout.SetCurSel(nIndex);
 	}
+
+	CVideoPackageQueue::GetInstance()->ClearBuffer();
 }
 
 BOOL CExtCaptureDlg::VideoCaptureControl(BOOL bStart)

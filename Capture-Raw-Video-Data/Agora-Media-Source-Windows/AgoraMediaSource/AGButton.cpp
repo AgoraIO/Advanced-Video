@@ -1,4 +1,4 @@
-// AGButton.cpp : 实现文件
+// AGButton.cpp :
 //
 
 #include "stdafx.h"
@@ -47,7 +47,7 @@ END_MESSAGE_MAP()
 
 
 
-// CAGButton 消息处理程序
+// CAGButton
 
 BOOL CAGButton::SetBackImage(UINT nIDResource, COLORREF crMask)
 {
@@ -109,13 +109,11 @@ void CAGButton::EnableFrameEffect(BOOL bEnable)
 
 void CAGButton::PreSubclassWindow()
 {
-	// TODO:  在此添加专用代码和/或调用基类
+	// TODO:
 	ModifyStyle(0, BS_OWNERDRAW);
 
 	CButton::PreSubclassWindow();
 }
- 
-
 
 void CAGButton::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
@@ -267,7 +265,7 @@ void CAGButton::DrawFrame(LPDRAWITEMSTRUCT lpDrawItemStruct, UINT nStat)
 
 void CAGButton::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	if (!m_bHover){
 		m_bHover = TRUE;
 		Invalidate(FALSE);
@@ -291,7 +289,7 @@ void CAGButton::OnMouseMove(UINT nFlags, CPoint point)
 
 void CAGButton::OnMouseLeave()
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	m_bHover = FALSE;
 	m_bMouseTrack = FALSE;
 	Invalidate(FALSE);
@@ -301,7 +299,7 @@ void CAGButton::OnMouseLeave()
 
 BOOL CAGButton::OnEraseBkgnd(CDC* pDC)
 {
-    // TODO:  在此添加消息处理程序代码和/或调用默认值
+    // TODO:
 
     return TRUE;
 //    return CButton::OnEraseBkgnd(pDC);

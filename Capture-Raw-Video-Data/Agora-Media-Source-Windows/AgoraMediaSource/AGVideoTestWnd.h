@@ -13,9 +13,9 @@ public:
 
 	HWND GetVideoSafeHwnd() { return m_wndVideoWnd.GetSafeHwnd(); };
 
-	// ÒôÁ¿ÌõÖ¸Ê¾
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾
 
-	void SetVolbarColor(DWORD dwFreeColor = RGB(184, 184, 184), DWORD dwBusyColor = RGB(0, 255, 0), DWORD dwBackColor = RGB(0, 0, 0));	// Éè¶¨¿ÕÏÐÑÕÉ«
+	void SetVolbarColor(DWORD dwFreeColor = RGB(184, 184, 184), DWORD dwBusyColor = RGB(0, 255, 0), DWORD dwBackColor = RGB(0, 0, 0));	// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 	void SetVolRange(int nRange = 100);
 	void SetCurVol(int nCurVol = 0);
 

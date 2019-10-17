@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-attention£ºdo not use this class in the formal production, it has not been tested!
+attentionï¿½ï¿½do not use this class in the formal production, it has not been tested!
 
 walker05 @agora
 */

@@ -211,11 +211,8 @@ HCURSOR CAgoraMediaSourceDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
-
 LRESULT CAgoraMediaSourceDlg::OnNcHitTest(CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	LRESULT lResult = CDialogEx::OnNcHitTest(point);
 	if (lResult == HTCLIENT && ::GetAsyncKeyState(MK_LBUTTON) < 0)
 			lResult = HTCAPTION;
@@ -262,14 +259,12 @@ void CAgoraMediaSourceDlg::DrawClient(CDC *lpDC)
 
 void CAgoraMediaSourceDlg::OnBnClickedBtnmin()
 {
-	// TODO:  在此添加控件通知处理程序代码
 	ShowWindow(SW_MINIMIZE);
 }
 
 
 void CAgoraMediaSourceDlg::OnBnClickedBtnclose()
 {
-	// TODO:  在此添加控件通知处理程序代码
 	CDialogEx::OnCancel();
 }
 

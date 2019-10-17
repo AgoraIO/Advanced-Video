@@ -1,6 +1,5 @@
 #pragma once
 
-
 // CAGEdit
 
 class CAGEdit : public CEdit

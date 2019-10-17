@@ -25,7 +25,6 @@ BOOL CBufferQueue::Create(int nUnitCount, SIZE_T nBytesPreUnit)
 	if (nUnitCount < 0 || nBytesPreUnit == 0)
 		return FALSE;
 
-	// 已经分配过了
 	if (!m_listFreeUnit.IsEmpty())
 		return TRUE;
 
@@ -33,7 +32,6 @@ BOOL CBufferQueue::Create(int nUnitCount, SIZE_T nBytesPreUnit)
 
 	::EnterCriticalSection(&m_csFreeLock);
 
-	// 初始化内存池
 	for (int nIndex = 0; nIndex < nUnitCount; nIndex++){
 		lpBuffer = new BYTE[nBytesPreUnit];
 		m_listFreeUnit.AddTail(lpBuffer);
@@ -55,11 +53,11 @@ BOOL CBufferQueue::Close()
 	_ASSERT(m_nUnitCount > 0 && m_nBytesPreUnit > 0);
 	_ASSERT(m_listBusyUnit.IsEmpty());
 
-	::EnterCriticalSection(&m_csAllocLock);		// 进入分配临界，防止再分配
+	::EnterCriticalSection(&m_csAllocLock);
 	::EnterCriticalSection(&m_csFreeLock);
-	::EnterCriticalSection(&m_csBusyLock);		// 进入映射临界，检查是否有忙块
+	::EnterCriticalSection(&m_csBusyLock);
 
-	if (m_listBusyUnit.GetCount() != 0){			// 还有忙块，禁止释放
+	if (m_listBusyUnit.GetCount() != 0){		
 		::LeaveCriticalSection(&m_csBusyLock);
 		::LeaveCriticalSection(&m_csFreeLock);
 		::LeaveCriticalSection(&m_csAllocLock);
@@ -67,7 +65,7 @@ BOOL CBufferQueue::Close()
 		return FALSE;
 	}
 
-	::LeaveCriticalSection(&m_csBusyLock);		// 检查映射完毕，退出临界
+	::LeaveCriticalSection(&m_csBusyLock);	
 
 	while (m_listFreeUnit.GetCount() > 0){
 		lpBuffer = m_listFreeUnit.RemoveHead();
@@ -79,9 +77,18 @@ BOOL CBufferQueue::Close()
 	m_nCurrentCount = 0;
 
 	::LeaveCriticalSection(&m_csFreeLock);
-	::LeaveCriticalSection(&m_csAllocLock);		// 池内缓冲全部销毁完毕，退出临界
+	::LeaveCriticalSection(&m_csAllocLock);	
 
 	return TRUE;
+}
+
+
+void CBufferQueue::Clear() {
+	BOOL bRet = TRUE;
+
+	do {
+		bRet = FreeBusyHead();
+	} while (bRet);
 }
 
 int	CBufferQueue::GetFreeCount() const
@@ -96,32 +103,32 @@ int	CBufferQueue::GetBusyCount() const
 
 LPVOID	CBufferQueue::AllocBuffer(BOOL bForceAlloc)
 {
-	LPBYTE		lpBuffer = NULL;	// 缓冲区
-	POSITION	posHead = NULL;		// 链表头
-	POSITION	posTail = NULL;		// 链表尾
+	LPBYTE		lpBuffer = NULL;	
+	POSITION	posHead = NULL;		
+	POSITION	posTail = NULL;		
 
 	_ASSERT(m_nUnitCount > 0 && m_nBytesPreUnit > 0);
 
-	::EnterCriticalSection(&m_csAllocLock);				// 进入分配临界
-	posHead = m_listFreeUnit.GetHeadPosition();			// 检查链表是否为空
-	posTail = m_listFreeUnit.GetTailPosition();			// 链表尾也要检查
+	::EnterCriticalSection(&m_csAllocLock);				
+	posHead = m_listFreeUnit.GetHeadPosition();			
+	posTail = m_listFreeUnit.GetTailPosition();			
 
-	if (posHead != NULL && posHead != posTail)			// 链表非空且头尾不同
+	if (posHead != NULL && posHead != posTail)			
 		lpBuffer = m_listFreeUnit.RemoveHead();
-	else if (posHead != NULL && posHead == posTail){	// 只有一个空闲
+	else if (posHead != NULL && posHead == posTail){	
 		::EnterCriticalSection(&m_csFreeLock);
 		lpBuffer = m_listFreeUnit.RemoveHead();
 		::LeaveCriticalSection(&m_csFreeLock);
 	}
-	else{												// 链表无空闲
-		if (bForceAlloc){								// 允许强制分配
+	else{												
+		if (bForceAlloc){								
 			lpBuffer = new BYTE[m_nBytesPreUnit];
 			m_nCurrentCount++;
 		}
 		else
 			lpBuffer = NULL;
 	}
-	::LeaveCriticalSection(&m_csAllocLock);				// 退出分配临界
+	::LeaveCriticalSection(&m_csAllocLock);				
 
 	if (lpBuffer == NULL)
 		return NULL;

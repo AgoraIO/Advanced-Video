@@ -21,6 +21,8 @@ public:
 	SIZE_T GetVideoPackageSize() const { return m_nPackageSize; };
 	SIZE_T GetBufferSize() const { return m_nBufferSize; };
 
+	void ClearBuffer();
+
 private:
 	CBufferQueue		m_bufQueue;
 	BITMAPINFOHEADER	m_bmiHeader;

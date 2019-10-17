@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "VideoPackageQueue.h"
 
-
 CVideoPackageQueue	*CVideoPackageQueue::m_lpVideoPackageQueue = NULL;
 
 CVideoPackageQueue::CVideoPackageQueue()
@@ -37,6 +36,8 @@ void CVideoPackageQueue::CloseInstance()
 
 void CVideoPackageQueue::SetVideoFormat(const BITMAPINFOHEADER *lpInfoHeader)
 {
+	//clear
+
 	memcpy_s(&m_bmiHeader, sizeof(BITMAPINFOHEADER), lpInfoHeader, sizeof(BITMAPINFOHEADER));
 
 	m_nPackageSize = m_bmiHeader.biWidth*m_bmiHeader.biWidth * 3 / 2;
@@ -85,4 +86,9 @@ BOOL CVideoPackageQueue::PopVideoPackage(LPVOID lpVideoPackage, SIZE_T *nPackage
 	m_bufQueue.FreeBusyHead();
 
 	return TRUE;
+}
+
+void CVideoPackageQueue::ClearBuffer()
+{
+	m_bufQueue.Clear();
 }

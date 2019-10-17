@@ -9,23 +9,20 @@
 #include "AgoraAudInputManager.h"
 #include "AgoraCameraManager.h"
 
-// CDeviceDlg 对话框
-
 class CDeviceDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CDeviceDlg)
 
 public:
-	CDeviceDlg(CWnd* pParent = NULL);   // 标准构造函数
+	CDeviceDlg(CWnd* pParent = NULL); 
 	virtual ~CDeviceDlg();
 
-// 对话框数据
 	enum { IDD = IDD_DEVICE_DIALOG };
 
 	void EnableDeviceTest(BOOL bEnable);
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual void DoDataExchange(CDataExchange* pDX);  
 	virtual BOOL OnInitDialog();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 

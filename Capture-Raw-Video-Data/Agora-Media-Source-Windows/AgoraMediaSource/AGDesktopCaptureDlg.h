@@ -1,7 +1,7 @@
 #pragma once
 #include "DskcapsetDlg.h"
 
-// CAGDesktopCaptureDlg 对话框
+// CAGDesktopCaptureDlg
 
 #define WM_DESKTOPSHARE			WM_USER+304
 
@@ -21,15 +21,15 @@ class CAGDesktopCaptureDlg : public CDialogEx
 	DECLARE_DYNAMIC(CAGDesktopCaptureDlg)
 
 public:
-	CAGDesktopCaptureDlg(CWnd* pParent = NULL);   // 标准构造函数
+	CAGDesktopCaptureDlg(CWnd* pParent = NULL);   // 锟斤拷准锟斤拷锟届函锟斤拷
 	virtual ~CAGDesktopCaptureDlg();
 
 	BOOL SaveScreen(LPCRECT lpRect);
-// 对话框数据
+
 	enum { IDD = IDD_SCRCAP_DIALOG };
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支锟斤拷
 	virtual BOOL OnInitDialog();
 
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);

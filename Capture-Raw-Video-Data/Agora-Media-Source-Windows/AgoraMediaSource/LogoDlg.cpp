@@ -1,13 +1,10 @@
-// LogoDlg.cpp : 实现文件
+// LogoDlg.cpp :
 //
 
 #include "stdafx.h"
 #include "AgoraMediaSource.h"
 #include "LogoDlg.h"
 #include "afxdialogex.h"
-
-
-// CLogoDlg 对话框
 
 IMPLEMENT_DYNAMIC(CLogoDlg, CDialogEx)
 
@@ -39,7 +36,7 @@ BEGIN_MESSAGE_MAP(CLogoDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CLogoDlg 消息处理程序
+// CLogoDlg 锟斤拷息锟斤拷锟斤拷锟斤拷锟斤拷
 
 BOOL CLogoDlg::OnInitDialog()
 {
@@ -87,7 +84,6 @@ void CLogoDlg::InitCtrls()
 
 LRESULT CLogoDlg::OnNcHitTest(CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	LRESULT lResult = CDialogEx::OnNcHitTest(point);
 	if (lResult == HTCLIENT && ::GetAsyncKeyState(MK_LBUTTON) < 0)
 		lResult = HTCAPTION;
@@ -128,14 +124,11 @@ void CLogoDlg::DrawClient(CDC *lpDC)
 
 void CLogoDlg::OnBnClickedBtnmin()
 {
-	// TODO:  在此添加控件通知处理程序代码
 	ShowWindow(SW_MINIMIZE);
 }
 
-
 void CLogoDlg::OnBnClickedBtnclose()
 {
-	// TODO:  在此添加控件通知处理程序代码
 #ifdef DEBUG
 	AnimateWindow(3000, AW_BLEND | AW_HIDE | AW_SLIDE);
 #else
@@ -144,11 +137,8 @@ void CLogoDlg::OnBnClickedBtnclose()
 	CDialogEx::OnCancel();
 }
 
-
-
 void CLogoDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	if (nIDEvent == 1){
 		PostMessage(WM_COMMAND, (WPARAM)IDCANCEL, NULL);
 		KillTimer(1);
@@ -157,12 +147,8 @@ void CLogoDlg::OnTimer(UINT_PTR nIDEvent)
 	CDialogEx::OnTimer(nIDEvent);
 }
 
-
 void CLogoDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
-	// TODO:  在此处添加消息处理程序代码
-	// 不为绘图消息调用 CDialogEx::OnPaint()
-
 	DrawClient(&dc);
 }

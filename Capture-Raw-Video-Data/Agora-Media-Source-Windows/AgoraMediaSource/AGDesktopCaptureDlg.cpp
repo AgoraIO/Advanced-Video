@@ -1,4 +1,4 @@
-// AGDesktopCaptureDlg.cpp : 实现文件
+// AGDesktopCaptureDlg.cpp :
 //
 
 #include "stdafx.h"
@@ -7,7 +7,7 @@
 #include "afxdialogex.h"
 
 
-// CAGDesktopCaptureDlg 对话框
+// CAGDesktopCaptureDlg
 
 IMPLEMENT_DYNAMIC(CAGDesktopCaptureDlg, CDialogEx)
 
@@ -39,7 +39,7 @@ BEGIN_MESSAGE_MAP(CAGDesktopCaptureDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CAGDesktopCaptureDlg 消息处理程序
+// CAGDesktopCaptureDlg 锟斤拷息锟斤拷锟斤拷锟斤拷锟斤拷
 BOOL CAGDesktopCaptureDlg::SaveScreen(LPCRECT lpRect)
 {
 	CDC			dcDesktop;
@@ -80,8 +80,7 @@ void CAGDesktopCaptureDlg::OnPaint()
 	CPaintDC	dc(this);
 	CDC			dcBuffer;
 	CBitmap		bmpBuffer;
-	// TODO:  在此处添加消息处理程序代码
-	// 不为绘图消息调用 CWnd::OnPaint()
+	// TODO:
 	CRect			rcWindow;
 	BLENDFUNCTION	blend;
 	GetWindowRect(&rcWindow);
@@ -126,7 +125,6 @@ void CAGDesktopCaptureDlg::OnPaint()
 
 void CAGDesktopCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	CRect rcRegion;
 	DESKTOP_SHARE_PARAM deskShareParam;
 	int nFPS = m_dlgCapSet.GetCaptureFPS();
@@ -147,7 +145,7 @@ void CAGDesktopCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 
 	//	CDialogEx::OnRButtonDown(nFlags, point);
 	m_dlgCapSet.ShowWindow(SW_HIDE);
@@ -156,7 +154,7 @@ void CAGDesktopCaptureDlg::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	m_bMouseLDown = TRUE;
 	m_ptStart = point;
 
@@ -167,7 +165,7 @@ void CAGDesktopCaptureDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	m_bMouseLDown = FALSE;
 	m_ptEnd = point;
 
@@ -180,7 +178,7 @@ void CAGDesktopCaptureDlg::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:
 	CRect		rcMarkWnd;
 
 	if (m_bMouseLDown) {
@@ -199,7 +197,6 @@ void CAGDesktopCaptureDlg::OnMouseMove(UINT nFlags, CPoint point)
 }
 BOOL CAGDesktopCaptureDlg::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	CDC dcBuffer;
 	dcBuffer.CreateCompatibleDC(pDC);
 	dcBuffer.SelectObject(&m_bmpDesktop);
@@ -216,9 +213,7 @@ BOOL CAGDesktopCaptureDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  在此添加额外的初始化
 	m_dlgCapSet.Create(CDskcapsetDlg::IDD, this);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// 异常:  OCX 属性页应返回 FALSE
 }

@@ -6,24 +6,21 @@
 #include "AGDesktopCaptureDlg.h"
 #include "ChatDlg.h"
 
-// CVideoDlg 对话框
-
 class CVideoDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CVideoDlg)
 
 public:
-	CVideoDlg(CWnd* pParent = NULL);   // 标准构造函数
+	CVideoDlg(CWnd* pParent = NULL);
 	virtual ~CVideoDlg();
 
-// 对话框数据
 	enum { IDD = IDD_VIDEO_DIALOG };
 
 	enum { 
-		SCREEN_VIDEO1 = 0,	// 单屏
-		SCREEN_VIDEO4,		// 4分屏
-		SCREEN_VIDEOMULTI,	// 1大4小
-//		SCREEN_WHITEBOARD	// 白板
+		SCREEN_VIDEO1 = 0,	
+		SCREEN_VIDEO4,		
+		SCREEN_VIDEOMULTI,	
+//		SCREEN_WHITEBOARD	
 	};
 
 //	enum {
@@ -39,7 +36,7 @@ public:
 	void ShowControlButton(BOOL bShow = TRUE);
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual void DoDataExchange(CDataExchange* pDX);   
 	virtual BOOL OnInitDialog();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
@@ -78,7 +75,7 @@ protected:
 
 	afx_msg void OnBnClickedHostMode();
 	afx_msg void OnBnClickedGuestMode();
-	// 用于处理引擎的回调消息
+	
 	afx_msg LRESULT OnEIDJoinChannelSuccess(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEIDReJoinChannelSuccess(WPARAM wParam, LPARAM lParam);
 	

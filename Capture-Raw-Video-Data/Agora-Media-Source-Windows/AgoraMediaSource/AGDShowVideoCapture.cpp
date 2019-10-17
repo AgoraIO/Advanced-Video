@@ -324,13 +324,13 @@ BOOL CAGDShowVideoCapture::GetVideoCap(int nIndex, VIDEOINFOHEADER *lpVideoInfo)
 
 	BOOL bSuccess = GetMediaCap(nIndex, &lpAMMediaType, &videoStreamCfgCaps, sizeof(VIDEO_STREAM_CONFIG_CAPS));
 
-	if (lpAMMediaType->formattype == FORMAT_VideoInfo) {
+	if (lpAMMediaType && lpAMMediaType->formattype == FORMAT_VideoInfo) {
 		VIDEOINFOHEADER* pVideoInfo = reinterpret_cast<VIDEOINFOHEADER*>(lpAMMediaType->pbFormat);
 		memcpy_s(lpVideoInfo, sizeof(VIDEOINFOHEADER), pVideoInfo, sizeof(VIDEOINFOHEADER));
 
 		bSuccess = TRUE;
 	}
-	else if (lpAMMediaType->formattype == FORMAT_VideoInfo2) {
+	else if (lpAMMediaType && lpAMMediaType->formattype == FORMAT_VideoInfo2) {
 		VIDEOINFOHEADER2* pVideoInfo2 = reinterpret_cast< VIDEOINFOHEADER2*>(lpAMMediaType->pbFormat);
 		memcpy_s(&lpVideoInfo->bmiHeader, sizeof(BITMAPINFOHEADER), &pVideoInfo2->bmiHeader, sizeof(BITMAPINFOHEADER));
 		lpVideoInfo->AvgTimePerFrame = pVideoInfo2->AvgTimePerFrame;

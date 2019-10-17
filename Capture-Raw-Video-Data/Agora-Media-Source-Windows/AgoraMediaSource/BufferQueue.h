@@ -10,6 +10,7 @@ public:
 
 	BOOL Create(int nUnitCount, SIZE_T nBytesPreUnit);
 	BOOL Close();
+	void Clear();
 
 	SIZE_T	GetBytesPreUnit() const { return m_nBytesPreUnit; };
 	int		GetUnitCount() const { return m_nUnitCount; };

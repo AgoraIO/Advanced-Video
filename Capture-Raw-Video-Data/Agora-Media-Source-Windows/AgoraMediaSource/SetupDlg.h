@@ -5,7 +5,6 @@
 #include "afxwin.h"
 
 #include "AGConfig.h"
-// CSetupDlg 对话框
 
 class CSetupDlg : public CDialogEx
 {
@@ -13,7 +12,7 @@ class CSetupDlg : public CDialogEx
 	DECLARE_DYNAMIC(CSetupDlg)
 
 public:
-	CSetupDlg(CWnd* pParent = NULL);   // 标准构造函数
+	CSetupDlg(CWnd* pParent = NULL); 
 	virtual ~CSetupDlg();
 
     void SetVideoSolution(int nIndex);
@@ -23,7 +22,6 @@ public:
     void SetWHSwap(BOOL bSwap);
     BOOL IsWHSwap();
 
-// 对话框数据
 	enum { IDD = IDD_SETUP_DIALOG };
 
 	typedef struct _AGVIDEO_PARAM
@@ -36,7 +34,7 @@ public:
 	} AGNET_RATE_RANGE;
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual void DoDataExchange(CDataExchange* pDX);   
 	virtual BOOL OnInitDialog();
 
 	afx_msg void OnPaint();

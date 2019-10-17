@@ -11,13 +11,12 @@
 #define AVC_VER _T("V1.13.0, Build234, 09/11/2017, SDK1.13.0")
 
 using namespace agora::media;
-// 引擎标记位
+
 #define AG_ENGFLAG_ENNETTEST	0x00000001
 #define AG_ENGFLAG_ECHOTEST		0x00000002
 #define AG_ENGFLAG_SPKPHTEST	0x00000004
 #define AG_ENGFLAG_MICPHTEST	0x00000008
 #define AG_ENGFLAG_VIDEOTEST	0x00000010
-
 
 #define AG_CODEC_E264	0x00000000
 #define AG_CODEC_EVP	0x00000001
@@ -101,8 +100,6 @@ public:
 
 	static BOOL EnableWhiteboardVer(BOOL bEnable);
 	static BOOL EnableWhiteboardFeq(BOOL bEnable);
-
-    
 
 protected:
 	CAgoraObject(void);
