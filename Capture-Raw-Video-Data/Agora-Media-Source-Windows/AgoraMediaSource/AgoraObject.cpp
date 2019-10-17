@@ -393,8 +393,8 @@ BOOL CAgoraObject::EnableEchoTest(BOOL bEnable)
 
 BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate)
 {
-	IRtcEngine2 *lpRtcEngine2 = (IRtcEngine2 *)m_lpAgoraEngine;
-	int nRet = lpRtcEngine2->setVideoProfileEx(nWidth, nHeight, nFrameRate, nBitRate);
+	VideoEncoderConfiguration vec(nWidth, nHeight, FRAME_RATE_FPS_15, nBitRate, ORIENTATION_MODE_FIXED_LANDSCAPE);
+	int nRet = m_lpAgoraEngine->setVideoEncoderConfiguration(vec);
 
 	return nRet == 0 ? TRUE : FALSE;
 }

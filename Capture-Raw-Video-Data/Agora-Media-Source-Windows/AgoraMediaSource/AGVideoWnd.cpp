@@ -187,7 +187,7 @@ BOOL CAGVideoWnd::SetBackImage(UINT nID, UINT nWidth, UINT nHeight, COLORREF crM
 	m_imgBackGround.Add(&bmBackImage, crMask);
 	bmBackImage.DeleteObject();
 
-	Invalidate(TRUE);
+	Invalidate(FALSE);
 
 	return TRUE;
 }
@@ -196,14 +196,14 @@ void CAGVideoWnd::ShowBackground(BOOL bBackground)
 {
     m_bBackground = bBackground;
 
-    Invalidate(TRUE);
+    Invalidate(FALSE);
 }
 
 void CAGVideoWnd::SetFaceColor(COLORREF crBackColor)
 {
 	m_crBackColor = crBackColor;
 
-	Invalidate(TRUE);
+	Invalidate(FALSE);
 }
 
 void CAGVideoWnd::SetVideoResolution(UINT nWidth, UINT nHeight)
@@ -264,7 +264,7 @@ void CAGVideoWnd::ShowVideoInfo(BOOL bShow)
 	m_bShowVideoInfo = bShow;
 
 	m_wndInfo.ShowTips(bShow);
-	Invalidate(TRUE);
+	Invalidate(FALSE);
 
 /*	if (!bShow) {
 		CRect rcTip;
