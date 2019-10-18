@@ -3,7 +3,7 @@
 这是一个利用 AgoraRTCSDK 和 AgoraRTMSDK 实现浏览器远程控制桌面的一个 Demo，以下简称为 AgoraWRC。
 
 ## 使用说明
-本 Demo 分为 2 个部分：基于 `Electron` 的桌面端和基于 `Web` 的网页端。其中，桌面端是受控端，负责发布字自己的屏幕共享流以及执行来自网页端的控制命令，网页端是控制端，负责订阅桌面端的屏幕共享流，并根据鼠标键盘事件向桌面端发送控制命令。
+本 Demo 分为 2 个部分：基于 `Electron` 的桌面端和基于 `Web` 的网页端。其中，桌面端是受控端，负责发布自己的屏幕共享流以及执行来自网页端的控制命令，网页端是控制端，负责订阅桌面端的屏幕共享流，并根据鼠标键盘事件向桌面端发送控制命令。
 
 使用时，需要先打开桌面端的应用程序，选择 `作为受控设备`。待连接建立完成后，界面上会给出当前 AgoraWRC 运行的 `channel` 和 `password`。之后再在 **另一台** 设备上打开网页端的网页，先后输入相应的 `channel` 和 `password` 即可远程控制刚刚的设备。
 
@@ -34,7 +34,9 @@
 
 ### 桌面端：wrc-desktop
 
-桌面端的结构和网页端类型，但是因为 Electron 分为 `Renderer` 和 `Main` 2 个 Process，所以整个结构看起来会复杂一点。桌面端使通过 `electron-forge` 生成的，使用的技术栈依然是 `react` + `mobx`：
+> 桌面端使用的架构是 Electron + Agora Web SDK
+
+桌面端的结构和网页端类型，但是因为 Electron 分为 `Renderer` 和 `Main` 2 个 Process，所以整个结构看起来会复杂一点。桌面端是通过 `electron-forge` 生成的，使用的技术栈依然是 `react` + `mobx`：
 
 - `./src/main.ts` 为 Electron Main Process 的入口文件，处理所有 Main Process 相关的逻辑
 - `./src/controller` 这里存放 AgoraWRC 的核心控制逻辑，分为 2 个部分
