@@ -57,8 +57,6 @@ Note:
 
 对于 master 分支：
 
-视频裸数据回调的使用，需要 IAgoraRtcEngine2.h。
-
 ## 代码许可
 
 The MIT License (MIT).

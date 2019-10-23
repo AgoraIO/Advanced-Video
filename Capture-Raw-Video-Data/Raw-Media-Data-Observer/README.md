@@ -54,8 +54,6 @@ Note：
 
 For master branch
 
-You need IAgoraRtcEngine2.h header file.
-
 ## License
 
 The MIT License (MIT).
