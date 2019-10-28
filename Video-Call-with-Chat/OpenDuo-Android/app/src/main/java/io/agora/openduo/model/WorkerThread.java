@@ -541,7 +541,7 @@ public class WorkerThread extends Thread {
             }
             mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_COMMUNICATION);
             mRtcEngine.enableVideo();
-            mRtcEngine.enableAudioVolumeIndication(200, 3); // 200 ms
+            mRtcEngine.enableAudioVolumeIndication(200, 3, true); // 200 ms
         }
         return mRtcEngine;
     }

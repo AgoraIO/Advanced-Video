@@ -28,6 +28,8 @@ public interface AGEventHandler {
 
     void onInvitationRefused(RemoteInvitation invitation);
 
+    void onRemoteInvitationCanceled(RemoteInvitation invitation);
+
     void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed);
 
     void onJoinChannelSuccess(String channel, int uid, int elapsed);
