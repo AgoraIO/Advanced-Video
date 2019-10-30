@@ -359,6 +359,21 @@ public class CallActivity extends BaseActivity implements AGEventHandler {
     }
 
     @Override
+    public void onRemoteInvitationCanceled(RemoteInvitation invitation) {
+        String channel = config().mChannel;
+        log.debug("onInvitationRefused " + invitation + " " + invitation.getResponse() + " " + channel);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showLongToast("Call canceled");
+                onEncCallClicked();
+            }
+        });
+    }
+
+
+    @Override
     public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
         log.debug("onFirstRemoteVideoDecoded " + (uid & 0xFFFFFFFFL) + " " + height + " " + width);
 

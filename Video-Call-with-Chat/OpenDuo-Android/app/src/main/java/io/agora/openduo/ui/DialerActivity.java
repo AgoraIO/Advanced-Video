@@ -202,6 +202,11 @@ public class DialerActivity extends BaseActivity implements AGEventHandler {
     }
 
     @Override
+    public void onRemoteInvitationCanceled(RemoteInvitation invitation) {
+
+    }
+
+    @Override
     public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
 
     }

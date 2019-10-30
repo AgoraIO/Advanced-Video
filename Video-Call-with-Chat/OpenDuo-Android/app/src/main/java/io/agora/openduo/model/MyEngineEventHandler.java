@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.agora.rtc.IRtcEngineEventHandler;
@@ -15,6 +16,7 @@ import io.agora.rtm.ErrorInfo;
 import io.agora.rtm.LocalInvitation;
 import io.agora.rtm.RemoteInvitation;
 import io.agora.rtm.RtmCallEventListener;
+import io.agora.rtm.RtmChannelAttribute;
 import io.agora.rtm.RtmChannelListener;
 import io.agora.rtm.RtmChannelMember;
 import io.agora.rtm.RtmClientListener;
@@ -245,6 +247,16 @@ public class MyEngineEventHandler {
         public void onMemberLeft(RtmChannelMember rtmChannelMember) {
 
         }
+
+        @Override
+        public void onMemberCountUpdated(int memberCount) {
+
+        }
+
+        @Override
+        public void onAttributesUpdated(List<RtmChannelAttribute> attributeList) {
+
+        }
     };
 
     final RtmCallEventListener mRtmCallEventHandler = new RtmCallEventListener() {
@@ -315,7 +327,11 @@ public class MyEngineEventHandler {
 
         @Override
         public void onRemoteInvitationCanceled(RemoteInvitation remoteInvitation) {
-
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onRemoteInvitationCanceled(remoteInvitation);
+            }
         }
 
         @Override
