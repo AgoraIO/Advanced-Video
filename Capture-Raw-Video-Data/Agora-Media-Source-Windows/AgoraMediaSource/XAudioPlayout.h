@@ -8,7 +8,7 @@
 
 
 // xaudio 2.7 only!!!!!
-#include "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include/xaudio2.h"
+#include "xaudio2.h"
 
 // #pragma comment(lib, "Xaudio2")
 

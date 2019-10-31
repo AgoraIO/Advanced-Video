@@ -21,6 +21,10 @@
 你也可以在这里查看入门版的示例项目：[Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
 
 
+##安装Directx SDK
+
+需要下载并安装[directx sdk 2010 June](https://www.microsoft.com/en-us/download/confirmation.aspx?id=6812)。安装之后需要重新启动。
+
 ## 运行示例程序
 首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 内容替换至 APP_ID 宏定义中
 
