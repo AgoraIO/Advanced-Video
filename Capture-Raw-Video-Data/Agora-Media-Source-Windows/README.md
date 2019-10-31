@@ -21,6 +21,13 @@ This demo is written in **C++**
 A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
 
 
+##Install Directx SDK
+
+You need to download and install [directx sdk 2010 June](https://www.microsoft.com/en-us/download/confirmation.aspx?id=6812)。
+
+After install dx sdk successfully,you need to reboot your computer.
+
+
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. define the APP_ID with your App ID.
 
