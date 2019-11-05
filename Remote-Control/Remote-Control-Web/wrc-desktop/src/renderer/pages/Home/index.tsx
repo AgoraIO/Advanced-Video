@@ -14,7 +14,7 @@ const Home: React.FC = () => {
 
   const openExternal = () => {
     ipcRenderer.send("hide");
-    ipcRenderer.send("notifier", { title: "提示", message: "点击托盘图标恢复窗口" });
+    ipcRenderer.send("notifier", { title: "Tips", message: "Click the tray icon to restore the window" });
     ipcRenderer.send("open-external", WRC_WEBSITE);
   };
   return (
@@ -30,10 +30,10 @@ const Home: React.FC = () => {
         <Typography className={classes.title} variant="h3" align="center">Agora WRC Desktop</Typography>
       </Grid>
       <Grid item>
-        <Button className={classes.button} component={AdapterLink} to="/control" variant="contained" color="primary">作为受控设备</Button>
+        <Button className={classes.button} component={AdapterLink} to="/control" variant="contained" color="primary">As a controlled device</Button>
       </Grid>
       <Grid item>
-        <Button className={classes.button} onClick={openExternal} variant="contained" color="primary">控制其他设备</Button>
+        <Button className={classes.button} onClick={openExternal} variant="contained" color="primary">Control other device</Button>
       </Grid>
     </Grid>
   );

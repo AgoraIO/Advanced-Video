@@ -15,9 +15,6 @@ export enum ConnectionState {
   DISCONNECTING = "DISCONNECTING",
 }
 
-/**
- * 管理 WRC 服务相关状态的 Store，用于触发一些操作 WRC 的 action 以及同步 WRC 服务的当前状态
- */
 export class WRCStore {
   @observable
   public channel: string;
@@ -41,9 +38,6 @@ export class WRCStore {
     this.handleWRCEvents();
   }
 
-  /**
-   * 开始 WRC 服务，分为 2 个过程
-   */
   @action.bound
   public async startWRC(): Promise<void> {
     this.channel = randomString();
@@ -88,9 +82,6 @@ export class WRCStore {
 
   @action.bound
   private handleRemoteRequest(uid: string | number, msg: string, cb: (result: boolean) => any): any {
-    /**
-     * 不允许抢占控制权限
-     */
     if (this.remoteUID || msg !== this.password) {
       cb(false);
       return;
@@ -100,15 +91,14 @@ export class WRCStore {
 
     ipcRenderer.send("start-control");
     ipcRenderer.send("notifier", {
-      title: "远端开始控制这台设备",
-      message: "按下 Ctrl + Alt + Q 中止远程控制",
+      title: "The remote end starts to control this device",
+      message: "Tap Ctrl + Alt + Q to stop remote control",
     });
     ipcRenderer.send("hide");
   }
 
 
   private handleWRCEvents(): void {
-    /**  以 RTC 的链接状态来决定 WRC 服务的链接状态 */
     this.wrcClient.agoraRTCClient.on("connection-state-change", (e: any) => {
       this.updateConnectionState(e.curState);
     });
@@ -117,8 +107,8 @@ export class WRCStore {
       console.log("remote close");
       ipcRenderer.send("show");
       ipcRenderer.send("notifier", {
-        title: "远程控制结束",
-        message: "远端已经断开连接",
+        title: "Remote Control is Over",
+        message: "remote disconnected",
       });
       this.remoteUID = undefined;
     });
