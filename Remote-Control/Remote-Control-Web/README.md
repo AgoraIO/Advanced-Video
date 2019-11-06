@@ -19,7 +19,8 @@ When using, you need to open the desktop app first and click  `As the controlled
 
 ## How to build
 
-At first, this demo's code has 2 parts (the desktop and the website), which are the `wrc-desktop` and `wrc-website` folders in the current directory, so you need to build 2 projects. Second, this demo is base on `AgoraRTCSDK` and `AgoraRTMSDK`, so you need to manually update your `APPID` into the code before building the code.
+- wrc-desktop and wrc-website are two different projects and need to be built respectively.
+- you will need to manually update your APPID into the code before building the code.
 
 ### build wrc-website
 
@@ -35,8 +36,7 @@ yarn start
 # build website app (production mode with minification)
 yarn build
 ```
-
-The build results are in the `build` folder.
+The build output can be found in the build folder.
 
 ### build wrc-desktop
 
