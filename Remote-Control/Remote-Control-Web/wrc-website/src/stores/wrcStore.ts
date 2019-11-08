@@ -55,7 +55,7 @@ export class WRCStore {
       let targetRemoteId: null | string | number = null;
       let handleStreamAdd: any;
       /**
-       * 当收到远端的流时 resolve，表示远端现在可以被订阅
+       * when this promise resolved, it means the remote stream can be subscribed now.
        */
       const streamAddReadyPromise: Promise<any> = new Promise(resolve => {
         handleStreamAdd = (e: any) => {
@@ -71,7 +71,7 @@ export class WRCStore {
       });
 
       /**
-       * 当收到远端的 WRC Ready 时 resolve，表示远端现在可以受控
+       * when this promise resolve, it means the remote side can accept control signal
        */
       const getRemoteUIDReadyPromise: () => Promise<any> = () => new Promise((resolve, reject) => {
         this.wrc.getRemoteTargetUID().then(id => {
@@ -91,7 +91,7 @@ export class WRCStore {
 
       this.wrc.joinChannel(channel).then((uid: number) => {
         /**
-         * 当远端既可以订阅也可以被控制时，开始远程控制
+         * when the remote side can be subscribed and accept control signal, start remote control
          */
         Promise.all([Promise.race([streamAddReadyPromise, getRemoteUIDReadyPromise()])]).then(([res]) => {
           this.remoteStream = res;
@@ -131,23 +131,23 @@ export class WRCStore {
     switch (this.connectionState) {
       case WRCState.DISCONNECTING:
       case WRCState.DISCONNECTED:
-        return ["已断开", WRCStatusLevel.RED];
+        return ["DISCONNECTED", WRCStatusLevel.RED];
       case WRCState.CONNECTING:
-        return ["正在连接中", WRCStatusLevel.RED];
+        return ["CONNECTING", WRCStatusLevel.RED];
     }
 
     switch (this.remoteState) {
       case WRCRemoteState.FETCHING_REMOTE:
-        return ["正在获取画面", WRCStatusLevel.YELLOW];
+        return ["WAITING REMOTE DATA", WRCStatusLevel.YELLOW];
       case WRCRemoteState.REMOTE_IS_BUSY:
-        return ["远端无法响应", WRCStatusLevel.RED];
+        return ["NO RESPONSE FROM REMOTE", WRCStatusLevel.RED];
       case WRCRemoteState.WAITING_RESPONSE:
       case WRCRemoteState.REQUEST_PASSWORD:
-        return ["等待验证密码", WRCStatusLevel.YELLOW];
+        return ["CHECKING PASSWORD", WRCStatusLevel.YELLOW];
       case WRCRemoteState.ACCEPTED:
-        return ["已就绪", WRCStatusLevel.GREEN];
+        return ["READY", WRCStatusLevel.GREEN];
       case WRCRemoteState.REJECT:
-        return ["密码错误", WRCStatusLevel.RED];
+        return ["PASSWORD ERROR", WRCStatusLevel.RED];
     }
 
     return ["", WRCStatusLevel.RED];

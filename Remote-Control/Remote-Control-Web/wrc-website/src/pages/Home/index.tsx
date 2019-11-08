@@ -28,9 +28,9 @@ const Home: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
             value={channel}
             onChange={(e) => setChannel(e.target.value.toLocaleUpperCase())}
             variant="outlined"
-            placeholder="输入 CHANNEL 名开始远程控制"
+            placeholder="input channel to start remote control"
           />
-          <Button type="submit" color="primary" variant="outlined" form="channel">开始</Button>
+          <Button type="submit" color="primary" variant="outlined" form="channel">START</Button>
         </form>
       </div>
     </div>

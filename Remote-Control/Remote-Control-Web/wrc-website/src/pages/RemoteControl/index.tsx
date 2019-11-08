@@ -30,7 +30,7 @@ const RemoteControl: React.FC<Props> = (props: Props) => {
   const wrc = useWRCStore();
   const notification = useNotification();
 
-  // 开始加入 channel
+  // join channel
   const joinAndStart = async () => {
     try {
       await withTimeout(wrc.joinChannel(props.match.params.channel, "remote"), 5000);
@@ -38,11 +38,11 @@ const RemoteControl: React.FC<Props> = (props: Props) => {
     } catch (e) {
       if (e === InternalError.TIMEOUT) {
         notification.pushMessage({
-          level: "warning", message: "操作超时，请检查网络连接或者频道号",
+          level: "warning", message: "timeout, please check your channel and network",
         });
       } else if (e === InternalError.REMOTE_IS_BUSY) {
         notification.pushMessage({
-          level: "warning", message: "远端当前无法响应",
+          level: "warning", message: "remote is busy",
         });
       } else {
         notification.pushMessage({
@@ -56,7 +56,7 @@ const RemoteControl: React.FC<Props> = (props: Props) => {
     joinAndStart();
   }
 
-  // 处理密码输入
+  // password checking
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState(params.get("pw") || "");
   const sendPassword = async (pw?: string) => {
@@ -66,7 +66,7 @@ const RemoteControl: React.FC<Props> = (props: Props) => {
     if (!result) {
       setShowPassword(true);
       notification.pushMessage({
-        level: "warning", message: "密码错误，或者远端当前无法响应",
+        level: "warning", message: "password error",
       });
     } else {
       if (screenfull.enabled) {
@@ -76,10 +76,10 @@ const RemoteControl: React.FC<Props> = (props: Props) => {
   }
   const [statusText, statusLevel] = wrc.getStatusText();
 
-  // 处理远端断开
+  // handle remote disconnect
   wrc.onRemoteClose = () => {
     notification.pushMessage({
-      level: "error", message: "远端断开了连接",
+      level: "error", message: "remote disconnected",
     });
     props.history.push("/");
   };
@@ -98,9 +98,9 @@ const RemoteControl: React.FC<Props> = (props: Props) => {
       <div className={classes.container} id="remote"></div>
 
       <Dialog open={showPassword}>
-        <DialogTitle>密码验证</DialogTitle>
+        <DialogTitle>PASSWORD</DialogTitle>
         <DialogContent>
-          <DialogContentText>请输入远端机器上的连接密码完成连接</DialogContentText>
+          <DialogContentText>input password</DialogContentText>
           <TextField
             value={password}
             onChange={e => setPassword(e.target.value.toLocaleUpperCase())}
@@ -108,7 +108,7 @@ const RemoteControl: React.FC<Props> = (props: Props) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => sendPassword()} color="primary">完成</Button>
+          <Button onClick={() => sendPassword()} color="primary">FINISH</Button>
         </DialogActions>
       </Dialog>
     </div>

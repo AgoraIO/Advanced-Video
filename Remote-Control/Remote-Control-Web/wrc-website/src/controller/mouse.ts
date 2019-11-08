@@ -197,9 +197,6 @@ export class MouseRemoteControl {
     if (!touch) return;
     const info = this.getCurrentVideoOffsetInfo();
     const now = Date.now();
-    /**
-     * 如果 2 次点击小于 200ms，不发送这个 move
-     */
     if (now - this.lastTouchStart > 200) {
       this.onMouseMoveEvent({
         x: Math.min(this.info.width, Math.max(0, (touch.clientX - info.offsetX) * info.scale)),

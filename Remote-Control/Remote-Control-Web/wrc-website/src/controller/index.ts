@@ -42,9 +42,7 @@ export default class AgoraWRC extends EventEmitter {
     this.agoraRTMClient = rtm.createInstance(key, { logFilter: AgoraRTM.LOG_FILTER_DEBUG });
     this.agoraRTMClient.on('ConnectionStateChanged', console.error);
     this.agoraRTMClient.on('MessageFromPeer', console.warn);
-    /**
-     * 这里以 AgoraRTC 的服务作为远端是否还在线的判断基础
-     */
+
     this.agoraRTCClient.on('peer-leave', (e: any) => {
       if (e.uid === this.remoteUID) {
         this.cleanRemote()
@@ -54,7 +52,7 @@ export default class AgoraWRC extends EventEmitter {
   }
 
   /**
-   * 同时加入 RTC 和 RTM 的频道
+   * join RTC and  RTM channel
    */
   public joinChannel(channel: string, uid?: number | string): Promise<number> {
     return new Promise((resolve, reject) => {
@@ -66,9 +64,6 @@ export default class AgoraWRC extends EventEmitter {
 
           return this.rtmChannel.join();
         }).then(() => {
-          /**
-           * 将通过 RTM 收到的来自受控端的信息传入 handleWRCMessage 处理
-           */
           this.rtmChannel.on('ChannelMessage', (data: any, uid: string) => {
             if (uid === `${this.cname}-desktop`) {
               this.handleWRCMessage(data.text);
@@ -89,7 +84,7 @@ export default class AgoraWRC extends EventEmitter {
   }
 
   /**
-   * 返回 null 代表对端没有 ready
+   * if remote is not ready, this will return null
    */
   public async getRemoteTargetUID(): Promise<number | string | null> {
     if (!this.rtmChannel || !this.cname) {
