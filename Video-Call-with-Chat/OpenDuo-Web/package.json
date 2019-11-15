@@ -60,7 +60,7 @@
     "bootstrap-material-design-icons": "^2.2.0",
     "events": "^3.0.0",
     "howler": "^2.0.12",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "less-loader": "^4.1.0",
     "popper.js": "^1.14.3",
     "toastr": "^2.1.4"
