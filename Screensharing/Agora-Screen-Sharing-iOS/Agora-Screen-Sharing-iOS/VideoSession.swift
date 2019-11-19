@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AgoraRtcEngineKit
+import AgoraRtcKit
 
 class VideoSession: NSObject {
     var uid: Int64 = 0

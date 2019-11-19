@@ -33,6 +33,9 @@
 		07AA91AD1F308E8E006AF490 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91AC1F308E8E006AF490 /* libc++.tbd */; };
 		3802EF2C225CC2A10065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF2B225CC2A10065A2E1 /* CoreML.framework */; };
 		3802EF2D225CC2B00065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF2B225CC2A10065A2E1 /* CoreML.framework */; };
+		38AC02A62383C17200762C80 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38AC02A42383C16B00762C80 /* AgoraRtcKit.framework */; };
+		38AC02A72383C17200762C80 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 38AC02A42383C16B00762C80 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		38AC02A92383C1C200762C80 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38AC02A42383C16B00762C80 /* AgoraRtcKit.framework */; };
 		38AEB69A2269FE5600C3ADD8 /* libios_resampler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38AEB6992269FE5600C3ADD8 /* libios_resampler.a */; };
 		38AEB6BD226D9A8F00C3ADD8 /* AgoraAudioResample.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38AEB6BC226D9A8F00C3ADD8 /* AgoraAudioResample.mm */; };
 		701EA75C2153BE3F00644CAA /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701EA75B2153BE3F00644CAA /* Accelerate.framework */; };
@@ -43,8 +46,6 @@
 		70DC1D51215F3515000CAD6B /* ChannelNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D50215F3515000CAD6B /* ChannelNameViewController.swift */; };
 		70DC1D54215F5019000CAD6B /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D52215F5019000CAD6B /* VideoSession.swift */; };
 		70DC1D55215F5019000CAD6B /* VideoViewLayouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DC1D53215F5019000CAD6B /* VideoViewLayouter.swift */; };
-		70DC1D57215F557B000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */; };
-		70DC1D58215F5592000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */; };
 		70DC1D59215F55A7000CAD6B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */; };
 		70DC1D5A215F55AB000CAD6B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701EA75B2153BE3F00644CAA /* Accelerate.framework */; };
 		70DC1D5B215F55B1000CAD6B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AA91AC1F308E8E006AF490 /* libc++.tbd */; };
@@ -86,6 +87,17 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		38AC02A82383C17200762C80 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				38AC02A72383C17200762C80 /* AgoraRtcKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +132,7 @@
 		07AA91AA1F308E85006AF490 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		07AA91AC1F308E8E006AF490 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		3802EF2B225CC2A10065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		38AC02A42383C16B00762C80 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		38AEB6982269FE3B00C3ADD8 /* external_resampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = external_resampler.h; sourceTree = "<group>"; };
 		38AEB6992269FE5600C3ADD8 /* libios_resampler.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libios_resampler.a; sourceTree = "<group>"; };
 		38AEB6BB226D9A8F00C3ADD8 /* AgoraAudioResample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgoraAudioResample.h; sourceTree = "<group>"; };
@@ -131,7 +144,6 @@
 		70DC1D50215F3515000CAD6B /* ChannelNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelNameViewController.swift; sourceTree = "<group>"; };
 		70DC1D52215F5019000CAD6B /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
 		70DC1D53215F5019000CAD6B /* VideoViewLayouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewLayouter.swift; sourceTree = "<group>"; };
-		70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,8 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70DC1D57215F557B000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */,
 				70DC1D5A215F55AB000CAD6B /* Accelerate.framework in Frameworks */,
+				38AC02A62383C17200762C80 /* AgoraRtcKit.framework in Frameworks */,
 				70DC1D61215F5646000CAD6B /* AudioToolbox.framework in Frameworks */,
 				70DC1D5D215F55C7000CAD6B /* AVFoundation.framework in Frameworks */,
 				70DC1D60215F562F000CAD6B /* CoreMedia.framework in Frameworks */,
@@ -157,8 +169,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70DC1D58215F5592000CAD6B /* AgoraRtcEngineKit.framework in Frameworks */,
 				701EA75C2153BE3F00644CAA /* Accelerate.framework in Frameworks */,
+				38AC02A92383C1C200762C80 /* AgoraRtcKit.framework in Frameworks */,
 				70AE340D1FDFBCC000B05F34 /* SystemConfiguration.framework in Frameworks */,
 				07AA91AD1F308E8E006AF490 /* libc++.tbd in Frameworks */,
 				07AA91AB1F308E85006AF490 /* CoreMedia.framework in Frameworks */,
@@ -191,6 +203,7 @@
 				07A67F311F306F6C0051AD0D /* Agora-Screen-Sharing-iOS */,
 				07A67FB41F3071420051AD0D /* Agora-Screen-Sharing-iOS-Broadcast */,
 				07A67FC11F3071420051AD0D /* Agora-Screen-Sharing-iOS-BroadcastUI */,
+				38AC02A42383C16B00762C80 /* AgoraRtcKit.framework */,
 				07A67F4F1F3070A20051AD0D /* Frameworks */,
 				07A67F301F306F6C0051AD0D /* Products */,
 			);
@@ -229,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				3802EF2B225CC2A10065A2E1 /* CoreML.framework */,
-				70DC1D56215F557B000CAD6B /* AgoraRtcEngineKit.framework */,
 				701EA75B2153BE3F00644CAA /* Accelerate.framework */,
 				70AE340C1FDFBCC000B05F34 /* SystemConfiguration.framework */,
 				07AA91AC1F308E8E006AF490 /* libc++.tbd */,
@@ -285,6 +297,7 @@
 				07A67F2C1F306F6C0051AD0D /* Frameworks */,
 				07A67F2D1F306F6C0051AD0D /* Resources */,
 				07A67F611F3070A20051AD0D /* Embed App Extensions */,
+				38AC02A82383C17200762C80 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -620,10 +633,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -636,11 +650,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
@@ -649,9 +665,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -665,49 +682,57 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};
 		07A67FCF1F3071420051AD0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-BroadcastUI/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.BroadcastUI";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
+				PRODUCT_NAME = "Agora-Screen-Sharing-iOS-BroadcastUI";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
 		07A67FD01F3071420051AD0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
-				ENABLE_BITCODE = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-BroadcastUI/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.BroadcastUI";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2017;
+				PRODUCT_NAME = "Agora-Screen-Sharing-iOS-BroadcastUI";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};
@@ -715,10 +740,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -726,18 +752,20 @@
 				);
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-Broadcast/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.Broadcast";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
+				PRODUCT_NAME = "Agora-Screen-Sharing-iOS-Broadcast";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Screen-Sharing-iOS-Broadcast/Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
@@ -745,28 +773,31 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-Broadcast/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Agora-Screen-Sharing-iOS-Broadcast",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.Broadcast";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Agora-Screen-Sharing-iOS-Broadcast";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Screen-Sharing-iOS-Broadcast/Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};

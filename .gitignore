@@ -1,5 +1,6 @@
 .DS_Store
 AgoraRtcEngineKit.framework
+AgoraRtcKit.framework
 xcuserdata
 node_modules
 .DS_Store

@@ -7,7 +7,7 @@
 //
 
 #import <CoreMedia/CoreMedia.h>
-#import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
+#import <AgoraRtcKit/AgoraRtcEngineKit.h>
 
 @interface AgoraAudioProcessing : NSObject
 + (void)registerAudioPreprocessing:(AgoraRtcEngineKit*) kit;

@@ -11,8 +11,8 @@
 #import "AgoraAudioCriticalSection.h"
 #import "AgoraAudioResample.h"
 
-#import <AgoraRtcEngineKit/IAgoraRtcEngine.h>
-#import <AgoraRtcEngineKit/IAgoraMediaEngine.h>
+#import <AgoraRtcKit/IAgoraRtcEngine.h>
+#import <AgoraRtcKit/IAgoraMediaEngine.h>
 #import <string.h>
 
 static const int kAudioBufferPoolSize = 500000;
