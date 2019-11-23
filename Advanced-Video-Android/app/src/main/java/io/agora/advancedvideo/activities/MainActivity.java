@@ -1,4 +1,4 @@
-package io.agora.advancedvideo;
+package io.agora.advancedvideo.activities;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -22,6 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import io.agora.advancedvideo.R;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -228,7 +230,7 @@ public class MainActivity extends BaseActivity {
 
     private void resetLayoutAndForward() {
         closeImeDialogIfNeeded();
-        gotoRoleActivity();
+        gotoActivity();
     }
 
     private void closeImeDialogIfNeeded() {
@@ -238,11 +240,11 @@ public class MainActivity extends BaseActivity {
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
-    public void gotoRoleActivity() {
-        //Intent intent = new Intent(MainActivity.this, RoleActivity.class);
-        //String room = mTopicEdit.getText().toString();
-        //config().setChannelName(room);
-        //startActivity(intent);
+    public void gotoActivity() {
+        Intent intent = new Intent(MainActivity.this, RoleActivity.class);
+        String room = mTopicEdit.getText().toString();
+        config().setChannelName(room);
+        startActivity(intent);
     }
 
     private void toastNeedPermissions() {

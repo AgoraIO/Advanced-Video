@@ -69,7 +69,7 @@
             android:textColor="@color/start_broadcast_text_color"
             android:textAllCaps="false"
             android:onClick="onStartBroadcastClicked"
-            android:background="@drawable/start_broadcast_bg"/>
+            android:background="@drawable/video_option_btn_bg"/>
     </RelativeLayout>
 
     <TextView

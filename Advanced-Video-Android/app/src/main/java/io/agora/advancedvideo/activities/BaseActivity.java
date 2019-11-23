@@ -1,4 +1,4 @@
-package io.agora.advancedvideo;
+package io.agora.advancedvideo.activities;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -8,6 +8,8 @@ import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.agora.advancedvideo.AgoraApplication;
+import io.agora.advancedvideo.rtc.EngineConfig;
 import io.agora.advancedvideo.rtc.EventHandler;
 import io.agora.advancedvideo.utils.WindowUtil;
 import io.agora.rtc.IRtcEngineEventHandler;
@@ -24,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EventHan
         setGlobalLayoutListener();
         getDisplayMetrics();
         initStatusBarHeight();
+        registerRtcEventHandler(this);
     }
 
     private void setGlobalLayoutListener() {
@@ -66,12 +69,22 @@ public abstract class BaseActivity extends AppCompatActivity implements EventHan
         return application().rtcEngine();
     }
 
+    protected EngineConfig config() {
+        return application().engineConfig();
+    }
+
     protected void registerRtcEventHandler(EventHandler handler) {
         application().registerEventHandler(handler);
     }
 
     protected void removeRtcEventHandler(EventHandler handler) {
         application().removeEventHandler(handler);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        removeRtcEventHandler(this);
     }
 
     @Override
