@@ -17,7 +17,7 @@ import io.agora.rtc.Constants;
 
 @DisplayActivity(
     SubClasses = {
-        "io.agora.advancedvideo.screenshare.activity.ScreenShareActivity"
+        "io.agora.advancedvideo.screenshare.ScreenShareActivity"
     }
 )
 public abstract class BaseLiveActivity extends BaseActivity {
