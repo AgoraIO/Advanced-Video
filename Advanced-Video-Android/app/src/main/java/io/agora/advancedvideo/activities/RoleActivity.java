@@ -46,17 +46,17 @@ public class RoleActivity extends BaseActivity {
         Class<?> targetActivity = null;
         for (Annotation annotation : annotations) {
             if (annotation instanceof DisplayActivity) {
-                boolean found = false;
+                boolean found;
                 String[] targets = ((DisplayActivity) annotation).SubClasses();
                 for (String className : targets) {
                     try {
                         targetActivity = Class.forName(className);
                         found = true;
                     } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
+                        found = false;
                     }
 
-                    if (found) {
+                    if (targetActivity != null && found) {
                         break;
                     }
                 }
