@@ -1,2 +1,2 @@
-include ':app', ':screenshare', ':localvideo'
+include ':app', ':screenshare', ':localvideo', ':videoencryption'
 rootProject.name='Advanced-Video-Android'
