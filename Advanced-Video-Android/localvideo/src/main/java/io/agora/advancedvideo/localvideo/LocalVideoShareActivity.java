@@ -130,13 +130,13 @@ public class LocalVideoShareActivity extends BaseLiveActivity implements LocalVi
 
     @Override
     protected void onMuteAudioButtonClicked(View view) {
-        rtcEngine().muteLocalAudioStream(!view.isActivated());
+        rtcEngine().muteLocalAudioStream(view.isActivated());
         view.setActivated(!view.isActivated());
     }
 
     @Override
     protected void onMuteVideoButtonClicked(View view) {
-        rtcEngine().muteLocalVideoStream(!view.isActivated());
+        rtcEngine().muteLocalVideoStream(view.isActivated());
         view.setActivated(!view.isActivated());
     }
 
