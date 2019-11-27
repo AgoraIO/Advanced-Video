@@ -203,7 +203,7 @@ public class DialerActivity extends BaseActivity implements AGEventHandler {
 
     @Override
     public void onRemoteInvitationCanceled(RemoteInvitation invitation) {
-
+        config().mRemoteInvitation = null;
     }
 
     @Override
