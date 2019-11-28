@@ -27,7 +27,7 @@ In order to keep the screen sharing running properly even in the Launcher or oth
 #### Local Videos
 
 To keep the code simple, the demo does not include any methods to choose local video files from storage. Just assign the **absolute path** of the video when creating a new instance of **"localvideo/src/main/io/agora/advancedvideo/localvideo/LocalVideoCodec"**. Usually files are somewhere in the SD card:
-```
+```Java
 // Note that new versions of Android will not recommend this way, just an example
 private static final String VIDEO_PATH = "/sdcard/my_video.mp4";
 
