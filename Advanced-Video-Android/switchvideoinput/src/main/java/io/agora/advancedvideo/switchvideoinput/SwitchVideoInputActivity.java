@@ -57,8 +57,6 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
 
             mPreviewLayout = layout.findViewById(
                     R.id.switch_video_preview_layout);
-
-            setVideoConfig();
             bindVideoService();
         }
     }
@@ -70,15 +68,6 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
         mPreviewLayout.addView(textureView,
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
-    }
-
-    private void setVideoConfig() {
-        rtcEngine().setVideoEncoderConfiguration(new VideoEncoderConfiguration(
-                Constants.VIDEO_DIMENSIONS[config().getVideoDimenIndex()],
-                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
-                VideoEncoderConfiguration.STANDARD_BITRATE,
-                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_LANDSCAPE
-        ));
     }
 
     private void bindVideoService() {
@@ -223,6 +212,10 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
         Intent intent = new Intent();
         if (type == ExternalVideoInputManager.TYPE_LOCAL_VIDEO) {
             addLocalPreview();
+            // Video dimension should be confirmed by the developers.
+            // The width and height of the video cannot be acquired before
+            // the video is extracted.
+            setVideoConfig(ExternalVideoInputManager.TYPE_LOCAL_VIDEO, 1080, 720);
             intent.putExtra(ExternalVideoInputManager.FLAG_VIDEO_PATH, VIDEO_PATH);
         } else if (type == ExternalVideoInputManager.TYPE_SCREEN_SHARE) {
             removeLocalPreview();
@@ -262,10 +255,34 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
         data.putExtra(ExternalVideoInputManager.FLAG_SCREEN_HEIGHT, metrics.heightPixels);
         data.putExtra(ExternalVideoInputManager.FLAG_SCREEN_DPI, (int) metrics.density);
         data.putExtra(ExternalVideoInputManager.FLAG_FRAME_RATE, DEFAULT_SHARE_FRAME_RATE);
+
+        setVideoConfig(ExternalVideoInputManager.TYPE_SCREEN_SHARE, metrics.widthPixels, metrics.heightPixels);
         try {
             mService.setExternalVideoInput(ExternalVideoInputManager.TYPE_SCREEN_SHARE, data);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setVideoConfig(int sourceType, int width, int height) {
+        VideoEncoderConfiguration.ORIENTATION_MODE mode;
+        switch (sourceType) {
+            case ExternalVideoInputManager.TYPE_LOCAL_VIDEO:
+                mode = VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_LANDSCAPE;
+                break;
+            case ExternalVideoInputManager.TYPE_SCREEN_SHARE:
+                mode = VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT;
+                break;
+            default:
+                mode = VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE;
+                break;
+
+        }
+
+        rtcEngine().setVideoEncoderConfiguration(new VideoEncoderConfiguration(
+                new VideoEncoderConfiguration.VideoDimensions(width, height),
+                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
+                VideoEncoderConfiguration.STANDARD_BITRATE, mode
+        ));
     }
 }
