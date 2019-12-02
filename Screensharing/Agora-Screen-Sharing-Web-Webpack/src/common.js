@@ -1,4 +1,5 @@
 import AgoraRTC from 'agora-rtc-sdk';
+console.log("AgoraRTC SDK VERSION: ", AgoraRTC.VERSION);
 import * as M from 'materialize-css';
 import UAParser from 'ua-parser-js';
 
