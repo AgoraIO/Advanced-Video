@@ -147,9 +147,10 @@ export default class RTCClient {
             video: false,
             screen: true,
             microphoneId: data.microphoneId,
-            cameraId: data.cameraId
+            cameraId: data.cameraId,
+            screenAudio: data.screenAudio
           }
-
+          
           // Your firefox need use support mediaSource at least
           if (isFirefox()) {
             streamSpec.mediaSource = 'window';

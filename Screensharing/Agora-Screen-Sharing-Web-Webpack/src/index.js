@@ -3,6 +3,8 @@ import {getDevices, serializeFormData, validator, screenShareResolutions, isSafa
 import "./assets/style.scss";
 import * as M from 'materialize-css';
 
+let screenAudio = true;
+
 $(() => {
 
   getDevices(function (devices) {
@@ -84,12 +86,17 @@ $(() => {
     rtc.setNetworkQualityAndStreamStats(this.checked);
   });
 
+  $("#enable_audio").on("change", function (e) {
+    e.preventDefault();
+    screenAudio = this.checked;
+  });
+
   $("#join").on("click", function (e) {
     e.preventDefault();
     console.log("join")
     const params = serializeFormData();
     if (validator(params, fields)) {
-      rtc.join(params).then(() => {
+      rtc.join({...params, screenAudio}).then(() => {
         rtc.publish();
       })
     }
