@@ -105,7 +105,7 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
                 SurfaceView surfaceView = RtcEngine.
                         CreateRendererView(SwitchVideoInputActivity.this);
                 rtcEngine().setupRemoteVideo(new VideoCanvas(
-                        surfaceView, VideoCanvas.RENDER_MODE_HIDDEN, uid));
+                        surfaceView, VideoCanvas.RENDER_MODE_FIT, uid));
                 mVideoContainer.addView(surfaceView);
             }
         });
