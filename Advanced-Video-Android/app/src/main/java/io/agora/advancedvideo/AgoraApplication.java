@@ -2,6 +2,7 @@ package io.agora.advancedvideo;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.view.TextureView;
 
 import io.agora.advancedvideo.rtc.AgoraEventHandler;
 import io.agora.advancedvideo.rtc.EngineConfig;
@@ -14,6 +15,8 @@ public class AgoraApplication extends Application {
     private RtcEngine mRtcEngine;
     private EngineConfig mGlobalConfig = new EngineConfig();
     private AgoraEventHandler mHandler = new AgoraEventHandler();
+
+    private TextureView mLocalPreview;
 
     @Override
     public void onCreate() {
@@ -28,6 +31,7 @@ public class AgoraApplication extends Application {
         }
 
         initConfig();
+        initLocalPreview();
     }
 
     private void initConfig() {
@@ -40,6 +44,10 @@ public class AgoraApplication extends Application {
         // mStatsManager.enableStats(showStats);
     }
 
+    private void initLocalPreview() {
+        mLocalPreview = new TextureView(this);
+    }
+
     public RtcEngine rtcEngine() { return mRtcEngine; }
 
     public EngineConfig engineConfig() { return mGlobalConfig; }
@@ -47,6 +55,10 @@ public class AgoraApplication extends Application {
     public void registerEventHandler(EventHandler handler) { mHandler.addHandler(handler); }
 
     public void removeEventHandler(EventHandler handler) { mHandler.removeHandler(handler); }
+
+    public TextureView localPreview() {
+        return mLocalPreview;
+    }
 
     @Override
     public void onTerminate() {

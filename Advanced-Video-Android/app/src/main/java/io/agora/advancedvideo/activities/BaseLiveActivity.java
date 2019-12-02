@@ -17,8 +17,7 @@ import io.agora.rtc.Constants;
 
 @DisplayActivity(
     SubClasses = {
-        "io.agora.advancedvideo.screenshare.ScreenShareActivity",
-        "io.agora.advancedvideo.localvideo.LocalVideoShareActivity",
+        "io.agora.advancedvideo.switchvideoinput.SwitchVideoInputActivity",
         "io.agora.advancedvideo.videoencryption.VideoActivity"
     }
 )
