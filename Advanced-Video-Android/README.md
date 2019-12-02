@@ -42,6 +42,13 @@ Video frame data (stored in ByteBuffer) is extracted from video tracks of packag
 
 To keep consistent, results of the decoder are received by an output Surface which is created from a texture, then we can update and draw to any SurfaceView or TextureView using that texture directly (usually as local preview).
 
+#### Switching between different video inputs
+
+We have provided a sample of switching between different inputs of external videos. Special care about the differences between "video inputs" and "video sources", where "sources" refers to Agora RTC MediaIO interface "IVideoSource" which means the transmission entry of Agora API, while "inputs" are defined as where the video frames are generated (mp4 or screens, etc.). 
+
+In this demo, only one "video source" instance is created in charge of sending video frames, and the frames are obtained from one input at one time but can be switched to another input at any time.
+
+To keep consistent, video frames are sent in a Service. So it continues to send video even if the app goes to background until stopped. An OpenGL worker thread is managed by the Service and the thread is used throughout the application to avoid OpenGL problems. All video inputs will have the same output Surface created in this thread, and frame data is updated from the Surface periodically. The intervals are obtained from the specific video inputs.
 
 ### Audio & Video Customized Packet Encryption Using Raw-data Plugin Interface
 
