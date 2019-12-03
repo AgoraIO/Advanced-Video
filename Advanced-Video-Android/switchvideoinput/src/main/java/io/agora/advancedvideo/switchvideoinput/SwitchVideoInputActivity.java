@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
-import io.agora.advancedvideo.Constants;
 import io.agora.advancedvideo.activities.BaseLiveActivity;
 import io.agora.advancedvideo.externvideosource.ExternalVideoInputManager;
 import io.agora.advancedvideo.externvideosource.ExternalVideoInputService;
@@ -29,10 +28,15 @@ import io.agora.rtc.video.VideoEncoderConfiguration;
 
 public class SwitchVideoInputActivity extends BaseLiveActivity implements View.OnClickListener {
     private static final String TAG = SwitchVideoInputActivity.class.getSimpleName();
-    private static final String VIDEO_PATH = "/sdcard/Android_Runtime_Google_IO_19.mp4";
+    private static final String VIDEO_PATH = "/PATH/TO/VIDEO";
     private static final int PROJECTION_REQ_CODE = 1 << 2;
     private static final int DEFAULT_VIDEO_TYPE = ExternalVideoInputManager.TYPE_SCREEN_SHARE;
     private static final int DEFAULT_SHARE_FRAME_RATE = 15;
+
+    // The developers should defines their video dimension, for the
+    // video info cannot be obtained before the video is extracted.
+    private static final int LOCAL_VIDEO_WIDTH = 1280;
+    private static final int LOCAL_VIDEO_HEIGHT = 720;
 
     private int mCurVideoSource = DEFAULT_VIDEO_TYPE;
     private IExternalVideoInputService mService;
@@ -215,7 +219,8 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
             // Video dimension should be confirmed by the developers.
             // The width and height of the video cannot be acquired before
             // the video is extracted.
-            setVideoConfig(ExternalVideoInputManager.TYPE_LOCAL_VIDEO, 1080, 720);
+            setVideoConfig(ExternalVideoInputManager.TYPE_LOCAL_VIDEO,
+                    LOCAL_VIDEO_WIDTH, LOCAL_VIDEO_HEIGHT);
             intent.putExtra(ExternalVideoInputManager.FLAG_VIDEO_PATH, VIDEO_PATH);
         } else if (type == ExternalVideoInputManager.TYPE_SCREEN_SHARE) {
             removeLocalPreview();
