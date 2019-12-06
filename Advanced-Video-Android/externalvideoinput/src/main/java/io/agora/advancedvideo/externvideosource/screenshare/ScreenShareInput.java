@@ -1,4 +1,4 @@
-package io.agora.advancedvideo.externvideosource;
+package io.agora.advancedvideo.externvideosource.screenshare;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.media.projection.MediaProjectionManager;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
+
+import io.agora.advancedvideo.externvideosource.GLThreadContext;
+import io.agora.advancedvideo.externvideosource.IExternalVideoInput;
 
 public class ScreenShareInput implements IExternalVideoInput {
     private static final String TAG = ScreenShareInput.class.getSimpleName();
@@ -23,8 +26,9 @@ public class ScreenShareInput implements IExternalVideoInput {
     private Intent mIntent;
     private MediaProjection mMediaProjection;
     private VirtualDisplay mVirtualDisplay;
+    private volatile boolean mStopped;
 
-    ScreenShareInput(Context context, int width, int height, int dpi, int framerate, Intent data) {
+    public ScreenShareInput(Context context, int width, int height, int dpi, int framerate, Intent data) {
         mContext = context;
         mSurfaceWidth = width;
         mSurfaceHeight = height;
@@ -52,6 +56,8 @@ public class ScreenShareInput implements IExternalVideoInput {
 
     @Override
     public void onVideoStopped(GLThreadContext context) {
+        mStopped = true;
+
         if (mVirtualDisplay != null) {
             mVirtualDisplay.release();
         }
@@ -59,6 +65,11 @@ public class ScreenShareInput implements IExternalVideoInput {
         if (mMediaProjection != null) {
             mMediaProjection.stop();
         }
+    }
+
+    @Override
+    public boolean isRunning() {
+        return !mStopped;
     }
 
     @Override

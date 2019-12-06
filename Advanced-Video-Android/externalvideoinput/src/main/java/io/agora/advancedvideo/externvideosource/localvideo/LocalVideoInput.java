@@ -1,4 +1,4 @@
-package io.agora.advancedvideo.externvideosource;
+package io.agora.advancedvideo.externvideosource.localvideo;
 
 import android.graphics.SurfaceTexture;
 import android.media.MediaCodec;
@@ -14,6 +14,9 @@ import android.view.TextureView;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+
+import io.agora.advancedvideo.externvideosource.GLThreadContext;
+import io.agora.advancedvideo.externvideosource.IExternalVideoInput;
 
 public class LocalVideoInput implements IExternalVideoInput, TextureView.SurfaceTextureListener {
     private static final String TAG = LocalVideoInput.class.getSimpleName();
@@ -54,8 +57,12 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
             mPreviewSurface = EGL14.EGL_NO_SURFACE;
         }
 
-        mStopped = true;
-        mVideoThread.setStopped(true);
+        mVideoThread.setStopped();
+    }
+
+    @Override
+    public boolean isRunning() {
+        return !mStopped;
     }
 
     @Override
@@ -139,7 +146,7 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
         mLocalSurfaceTexture = null;
-        if (mVideoThread != null && mVideoThread.isAlive()) mVideoThread.setStopped(true);
+        if (mVideoThread != null && mVideoThread.isAlive()) mVideoThread.setStopped();
         return true;
     }
 
@@ -160,8 +167,6 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
         private MediaCodec.BufferInfo mCodecBufferInfo;
 
         private Surface mSurface;
-
-        private volatile boolean mStopped;
         private VideoSync mVideoSync;
 
         LocalVideoThread(String filePath, Surface surface) {
@@ -264,6 +269,8 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
                 }
             }
 
+            Log.i("External", "local video input has been stopped.");
+            setStopped();
             releaseDecoder();
         }
 
@@ -274,8 +281,8 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
 
         }
 
-        void setStopped(boolean stopped) {
-            mStopped = stopped;
+        void setStopped() {
+            mStopped = true;
         }
 
         private void releaseDecoder() {

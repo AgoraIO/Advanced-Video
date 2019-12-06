@@ -6,5 +6,7 @@ interface IExternalVideoInputService {
     // TYPE_SCREEN_SHARE
     // Bundle contains any information that is
     // necessary for this external video input
-    void setExternalVideoInput(int type, in Intent intent);
+    // returns true if the input has been set or
+    // has replaced the current input, false otherwise.
+    boolean setExternalVideoInput(int type, in Intent intent);
 }

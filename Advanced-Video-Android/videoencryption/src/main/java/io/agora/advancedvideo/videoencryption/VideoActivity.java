@@ -128,4 +128,9 @@ public class VideoActivity extends BaseLiveActivity {
         rtcEngine().muteLocalVideoStream(view.isActivated());
         view.setActivated(!view.isActivated());
     }
+
+    @Override
+    protected void onMoreButtonClicked(View view) {
+
+    }
 }

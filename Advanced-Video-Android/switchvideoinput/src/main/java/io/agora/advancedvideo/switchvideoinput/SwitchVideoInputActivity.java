@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.projection.MediaProjectionManager;
+import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.DisplayMetrics;
@@ -13,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
+import java.io.File;
+import java.util.Locale;
 
 import io.agora.advancedvideo.activities.BaseLiveActivity;
 import io.agora.advancedvideo.externvideosource.ExternalVideoInputManager;
@@ -26,11 +30,11 @@ import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
-public class SwitchVideoInputActivity extends BaseLiveActivity implements View.OnClickListener {
+public class SwitchVideoInputActivity extends BaseLiveActivity implements ExternalVideoInputDialog.OnSelectVideoInputListener {
     private static final String TAG = SwitchVideoInputActivity.class.getSimpleName();
-    private static final String VIDEO_PATH = "/PATH/TO/VIDEO";
+    private static final String VIDEO_NAME = "localVideo.mp4";
     private static final int PROJECTION_REQ_CODE = 1 << 2;
-    private static final int DEFAULT_VIDEO_TYPE = ExternalVideoInputManager.TYPE_SCREEN_SHARE;
+    private static final int DEFAULT_VIDEO_TYPE = ExternalVideoInputManager.TYPE_LOCAL_VIDEO;
     private static final int DEFAULT_SHARE_FRAME_RATE = 15;
 
     // The developers should defines their video dimension, for the
@@ -38,11 +42,16 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
     private static final int LOCAL_VIDEO_WIDTH = 1280;
     private static final int LOCAL_VIDEO_HEIGHT = 720;
 
+    private boolean mLocalVideoExists = false;
+    private String mLocalVideoPath;
     private int mCurVideoSource = DEFAULT_VIDEO_TYPE;
     private IExternalVideoInputService mService;
     private VideoInputServiceConnection mServiceConnection;
 
     private RelativeLayout mPreviewLayout;
+
+    private AlertDialog mWarningDialog;
+    private ExternalVideoInputDialog mVideoInputDialog;
 
     @Override
     protected void onInitializeVideo() {
@@ -56,12 +65,10 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
             View layout = inflater.inflate(
                     R.layout.switch_video_broadcaster_layout,
                     mVideoContainer, true);
-            Button switchBtn = layout.findViewById(R.id.switch_video_input_btn);
-            switchBtn.setOnClickListener(this);
-
             mPreviewLayout = layout.findViewById(
                     R.id.switch_video_preview_layout);
             bindVideoService();
+            checkLocalVideo();
         }
     }
 
@@ -69,6 +76,8 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
         // Currently only local video sharing needs
         // a local preview.
         TextureView textureView = application().localPreview();
+
+        mPreviewLayout.removeAllViews();
         mPreviewLayout.addView(textureView,
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -81,16 +90,33 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
+    private void checkLocalVideo() {
+        // If the video file does not exist, the option
+        // will not be selectable
+        File dir = getExternalFilesDir(Environment.DIRECTORY_MOVIES);
+        File videoFile = new File(dir, VIDEO_NAME);
+        mLocalVideoPath = videoFile.getAbsolutePath();
+        mLocalVideoExists = videoFile.exists();
+        if (!mLocalVideoExists) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.alert_no_local_video_title);
+            String format = getResources().getString(R.string.alert_no_local_video_message);
+            String message = String.format(Locale.getDefault(), format, videoFile.getParent());
+            builder.setMessage(message);
+            builder.setPositiveButton(R.string.confirm, null);
+            builder.setCancelable(true);
+            mWarningDialog = builder.create();
+            mWarningDialog.show();
+        }
+    }
+
     private void joinChannel(String channel) {
         rtcEngine().joinChannel(null, channel, null, 0);
     }
 
     @Override
     public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
-        Log.i(TAG, "onFirstRemoteVideoDecoded:" + (uid & 0xFFFFFFFFL));
-        if (mIsBroadcaster) {
-            return;
-        }
+        if (mIsBroadcaster) return;
 
         runOnUiThread(new Runnable() {
             @Override
@@ -106,11 +132,7 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
 
     @Override
     public void onUserOffline(int uid, int reason) {
-        Log.i(TAG, "onUserOffline:" + (uid & 0xFFFFFFFFL));
-        if (mIsBroadcaster) {
-            return;
-        }
-
+        if (mIsBroadcaster) return;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +143,7 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
 
     @Override
     protected void onLeaveButtonClicked(View view) {
-
+        // No special work to do here
     }
 
     @Override
@@ -141,11 +163,31 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
         view.setActivated(!view.isActivated());
     }
 
+    protected void onMoreButtonClicked(View view) {
+        if (!mIsBroadcaster || (mVideoInputDialog != null &&
+                mVideoInputDialog.isShowing())) {
+            return;
+        }
+
+        mVideoInputDialog = new ExternalVideoInputDialog(this, view, this);
+        mVideoInputDialog.setLocalVideoEnabled(mLocalVideoExists);
+        mVideoInputDialog.show();
+    }
+
     @Override
     public void finish() {
         rtcEngine().leaveChannel();
         removeLocalPreview();
         unbindVideoService();
+
+        if (mWarningDialog != null && mWarningDialog.isShowing()) {
+            mWarningDialog.dismiss();
+        }
+
+        if (mVideoInputDialog != null && mVideoInputDialog.isShowing()) {
+            mVideoInputDialog.dismiss();
+        }
+
         super.finish();
     }
 
@@ -168,73 +210,36 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.switch_video_input_btn:
-                switchVideoInput();
-                break;
-        }
-    }
-
-    private void switchVideoInput() {
-        if (mService != null) {
-            int input = nextVideoInput();
-            setVideoInput(input);
-            mCurVideoSource = input;
-        }
-    }
-
-    private int nextVideoInput() {
-        int input = mCurVideoSource;
-        if (input == ExternalVideoInputManager.TYPE_SCREEN_SHARE) {
-            input = ExternalVideoInputManager.TYPE_LOCAL_VIDEO;
-        } else {
-            input += 1;
-        }
-
-        return input;
-    }
-
-    private class VideoInputServiceConnection implements ServiceConnection {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            mService = (IExternalVideoInputService) iBinder;
-            setVideoInput(DEFAULT_VIDEO_TYPE);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            mService = null;
-        }
+    public void onVideoInputSelected(int type) {
+        if (mService == null) return;
+        setVideoInput(type);
     }
 
     private void setVideoInput(int type) {
-        if (mService == null) {
-            return;
-        }
-
         Intent intent = new Intent();
         if (type == ExternalVideoInputManager.TYPE_LOCAL_VIDEO) {
-            addLocalPreview();
             // Video dimension should be confirmed by the developers.
             // The width and height of the video cannot be acquired before
             // the video is extracted.
             setVideoConfig(ExternalVideoInputManager.TYPE_LOCAL_VIDEO,
                     LOCAL_VIDEO_WIDTH, LOCAL_VIDEO_HEIGHT);
-            intent.putExtra(ExternalVideoInputManager.FLAG_VIDEO_PATH, VIDEO_PATH);
+            intent.putExtra(ExternalVideoInputManager.FLAG_VIDEO_PATH, mLocalVideoPath);
+
+            try {
+                if (mService.setExternalVideoInput(type, intent)) {
+                    mCurVideoSource = type;
+                    addLocalPreview();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         } else if (type == ExternalVideoInputManager.TYPE_SCREEN_SHARE) {
             removeLocalPreview();
             // Responds to the screen share request in
             // onActivityResult callback method.
             requestMediaProjection();
-            return;
-        }
+        } else if (type == ExternalVideoInputManager.TYPE_AR_CORE) {
 
-        try {
-            mCurVideoSource = type;
-            mService.setExternalVideoInput(type, intent);
-        } catch (RemoteException e) {
-            e.printStackTrace();
         }
     }
 
@@ -243,6 +248,18 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements View.O
                 getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         Intent intent = mpm.createScreenCaptureIntent();
         startActivityForResult(intent, PROJECTION_REQ_CODE);
+    }
+
+    private class VideoInputServiceConnection implements ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mService = (IExternalVideoInputService) iBinder;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mService = null;
+        }
     }
 
     @Override

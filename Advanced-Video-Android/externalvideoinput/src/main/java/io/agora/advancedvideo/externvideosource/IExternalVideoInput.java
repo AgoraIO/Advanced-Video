@@ -18,6 +18,8 @@ public interface IExternalVideoInput {
      */
     void onVideoStopped(GLThreadContext context);
 
+
+    boolean isRunning();
     /**
      * Called when a complete video frame data is prepared to be
      * processed. This is usually used to draw local preview,

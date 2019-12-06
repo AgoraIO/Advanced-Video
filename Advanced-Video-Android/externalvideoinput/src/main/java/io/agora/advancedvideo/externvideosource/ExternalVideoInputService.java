@@ -19,8 +19,8 @@ public class ExternalVideoInputService extends Service {
         mSourceManager = new ExternalVideoInputManager((AgoraApplication) getApplication());
         mService = new IExternalVideoInputService.Stub() {
             @Override
-            public void setExternalVideoInput(int type, Intent intent) throws RemoteException {
-                mSourceManager.setExternalVideoInput(type, intent);
+            public boolean setExternalVideoInput(int type, Intent intent) throws RemoteException {
+                return mSourceManager.setExternalVideoInput(type, intent);
             }
         };
     }

@@ -98,7 +98,7 @@ public abstract class BaseLiveActivity extends BaseActivity {
     }
 
     public void onMoreClicked(View view) {
-
+        onMoreButtonClicked(view);
     }
 
     public void onPushStreamClicked(View view) {
@@ -122,4 +122,6 @@ public abstract class BaseLiveActivity extends BaseActivity {
     protected abstract void onMuteAudioButtonClicked(View view);
 
     protected abstract void onMuteVideoButtonClicked(View view);
+
+    protected abstract void onMoreButtonClicked(View view);
 }

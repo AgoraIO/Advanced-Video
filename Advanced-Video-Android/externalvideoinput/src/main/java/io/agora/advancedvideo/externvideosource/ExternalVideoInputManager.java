@@ -5,14 +5,13 @@ import android.graphics.SurfaceTexture;
 import android.opengl.EGLSurface;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
-import android.os.Build;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 
-import androidx.annotation.RequiresApi;
-
 import io.agora.advancedvideo.AgoraApplication;
+import io.agora.advancedvideo.externvideosource.localvideo.LocalVideoInput;
+import io.agora.advancedvideo.externvideosource.screenshare.ScreenShareInput;
 import io.agora.advancedvideo.gles.ProgramTextureOES;
 import io.agora.advancedvideo.gles.core.EglCore;
 import io.agora.advancedvideo.gles.core.GlUtil;
@@ -25,6 +24,7 @@ public class ExternalVideoInputManager implements IVideoSource {
 
     public static final int TYPE_LOCAL_VIDEO = 1;
     public static final int TYPE_SCREEN_SHARE = 2;
+    public static final int TYPE_AR_CORE = 3;
 
     public static final String FLAG_VIDEO_PATH = "flag-local-video";
     public static final String FLAG_SCREEN_WIDTH = "screen-width";
@@ -54,7 +54,13 @@ public class ExternalVideoInputManager implements IVideoSource {
         mThread.start();
     }
 
-    void setExternalVideoInput(int type, Intent intent) {
+    boolean setExternalVideoInput(int type, Intent intent) {
+        // Do not reset current input if the target type is
+        // the same as the current which is still running.
+        if (mCurVideoSource != null && mCurVideoSource.isRunning()) {
+            return false;
+        }
+
         IExternalVideoInput input;
         switch (type) {
             case TYPE_LOCAL_VIDEO:
@@ -78,6 +84,7 @@ public class ExternalVideoInputManager implements IVideoSource {
         }
 
         setExternalVideoInput(input);
+        return true;
     }
 
     private void setExternalVideoInput(IExternalVideoInput source) {
@@ -161,16 +168,33 @@ public class ExternalVideoInputManager implements IVideoSource {
             prepare();
 
             while (!mStopped) {
-                if (mCurVideoSource != mNewVideoSource) {
+                if (mCurVideoSource != null && !mCurVideoSource.isRunning()) {
+                    // Current video source has been stopped by other
+                    // mechanisms (video playing has completed, etc).
+                    // A callback method is invoked to do some collect
+                    // or release work.
+                    // Note that we also set the new video source null,
+                    // meaning at meantime, we are not introducing new
+                    // video types.
+                    mCurVideoSource.onVideoStopped(mThreadContext);
+                    mCurVideoSource = null;
+                    mNewVideoSource = null;
+                } else if (mCurVideoSource != mNewVideoSource) {
+                    // Current video input is running, but we now
+                    // introducing a new video type.
+                    // The new video input type may be null, referring
+                    // that we are not using any video.
                     if (mCurVideoSource != null) {
-                        Log.i(TAG, "recycle the old video input");
                         mCurVideoSource.onVideoStopped(mThreadContext);
                     }
 
                     mCurVideoSource = mNewVideoSource;
                     if (mCurVideoSource != null) {
-                        Log.i(TAG, "initialized the new video input");
                         mCurVideoSource.onVideoInitialized(mSurface);
+                    }
+
+                    if (mCurVideoSource == null) {
+                        continue;
                     }
 
                     Size size = mCurVideoSource.onGetFrameSize();
