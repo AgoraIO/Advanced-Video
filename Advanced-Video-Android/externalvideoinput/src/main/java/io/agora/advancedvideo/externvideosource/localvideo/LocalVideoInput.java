@@ -232,9 +232,10 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
                     presentTS = mExtractor.getSampleTime();
                     ByteBuffer[] inputBuffers = mDecoder.getInputBuffers();
                     int size = mExtractor.readSampleData(inputBuffers[inputBufferIndex], 0);
-                    boolean isEndOfStream = false;
 
+                    boolean isEndOfStream = false;
                     if (size == -1) {
+                        Log.i(TAG, "Video has reached the end of stream");
                         isEndOfStream = true;
                         size = 0;
                     }
@@ -302,31 +303,13 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
      * to decoder according to their presentation timestamps
      */
     private class VideoSync {
-        private long mLastTS;
         private long mLastPresent;
         private long mLastWait;
 
         long timeToWait(long presentTS) {
             long diff = (presentTS - mLastPresent) / 1000;
-            if (mLastWait == 0 || mLastTS == 0) {
-                // First sync, take the first presentation
-                // time in milliseconds as the wait time.
-                mLastWait = diff;
-            } else if (diff > 0 && diff <= mLastWait * 1.5) {
-                // Normal diff of the presentation timestamps
-                // between this and the last frames, calculate
-                // the actual wait time.
-                // If the frame is a B-frame, whose presentation
-                // is still too far from now (specifically, more
-                // than 1.5 times of last wait time), use the last
-                // wait time.
-                long next = mLastTS + diff;
-                long stillHave = next - System.currentTimeMillis();
-                mLastWait = stillHave > 0 ? stillHave : mLastWait;
-            }
-
             mLastPresent = presentTS;
-            mLastTS = System.currentTimeMillis();
+            mLastWait = diff > 0 ? diff : mLastWait;
             return mLastWait;
         }
     }
