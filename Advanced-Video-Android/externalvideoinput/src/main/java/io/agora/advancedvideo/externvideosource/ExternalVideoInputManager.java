@@ -39,6 +39,7 @@ public class ExternalVideoInputManager implements IVideoSource {
 
     private AgoraApplication mApplication;
     private ExternalVideoSourceThread mThread;
+    private int mCurInputType;
     private volatile IExternalVideoInput mCurVideoSource;
     private volatile IExternalVideoInput mNewVideoSource;
 
@@ -57,7 +58,8 @@ public class ExternalVideoInputManager implements IVideoSource {
     boolean setExternalVideoInput(int type, Intent intent) {
         // Do not reset current input if the target type is
         // the same as the current which is still running.
-        if (mCurVideoSource != null && mCurVideoSource.isRunning()) {
+        if (mCurInputType == type && mCurVideoSource != null
+                && mCurVideoSource.isRunning()) {
             return false;
         }
 
@@ -84,11 +86,12 @@ public class ExternalVideoInputManager implements IVideoSource {
         }
 
         setExternalVideoInput(input);
+        mCurInputType = type;
         return true;
     }
 
     private void setExternalVideoInput(IExternalVideoInput source) {
-        if (mThread != null && mThread.isAlive()) mThread.pauseThread(true);
+        if (mThread != null && mThread.isAlive()) mThread.pauseThread();
         mNewVideoSource = source;
     }
 
@@ -168,29 +171,21 @@ public class ExternalVideoInputManager implements IVideoSource {
             prepare();
 
             while (!mStopped) {
-                if (mCurVideoSource != null && !mCurVideoSource.isRunning()) {
-                    // Current video source has been stopped by other
-                    // mechanisms (video playing has completed, etc).
-                    // A callback method is invoked to do some collect
-                    // or release work.
-                    // Note that we also set the new video source null,
-                    // meaning at meantime, we are not introducing new
-                    // video types.
-                    mCurVideoSource.onVideoStopped(mThreadContext);
-                    mCurVideoSource = null;
-                    mNewVideoSource = null;
-                } else if (mCurVideoSource != mNewVideoSource) {
+                if (mCurVideoSource != mNewVideoSource) {
+                    Log.i(TAG, "New video input selected");
                     // Current video input is running, but we now
                     // introducing a new video type.
                     // The new video input type may be null, referring
                     // that we are not using any video.
                     if (mCurVideoSource != null) {
                         mCurVideoSource.onVideoStopped(mThreadContext);
+                        Log.i(TAG, "recycle stopped input");
                     }
 
                     mCurVideoSource = mNewVideoSource;
                     if (mCurVideoSource != null) {
                         mCurVideoSource.onVideoInitialized(mSurface);
+                        Log.i(TAG, "initialize new input");
                     }
 
                     if (mCurVideoSource == null) {
@@ -207,6 +202,18 @@ public class ExternalVideoInputManager implements IVideoSource {
                         // because of switching external video sources.
                         mPaused = false;
                     }
+                } else if (mCurVideoSource != null && !mCurVideoSource.isRunning()) {
+                    // Current video source has been stopped by other
+                    // mechanisms (video playing has completed, etc).
+                    // A callback method is invoked to do some collect
+                    // or release work.
+                    // Note that we also set the new video source null,
+                    // meaning at meantime, we are not introducing new
+                    // video types.
+                    Log.i(TAG, "current video input is not running");
+                    mCurVideoSource.onVideoStopped(mThreadContext);
+                    mCurVideoSource = null;
+                    mNewVideoSource = null;
                 }
 
                 if (mPaused || mCurVideoSource == null) {
@@ -249,8 +256,8 @@ public class ExternalVideoInputManager implements IVideoSource {
             release();
         }
 
-        void pauseThread(boolean paused) {
-            mPaused = paused;
+        void pauseThread() {
+            mPaused = true;
         }
 
         void setThreadStopped() {
