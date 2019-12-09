@@ -10,15 +10,13 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
-- task: Gradle@2
-  inputs:
-    workingDirectory: 'Advanced-Video-Android'
-    gradleWrapperFile: 'Advanced-Video-Android/gradlew'
-    gradleOptions: '-Xmx3072m'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug'
-- task: PublishPipelineArtifact@1
-  inputs:
-    path: '$(System.DefaultWorkingDirectory)/Advanced-Video-Android/switchvideoinput/build/outputs'
-    artifact: 'Advanced-Video-Android'
+
+- template: Advanced-Video-Android/azure-templates/module-build-template.yml
+  parameters:
+    moduleRoot: 'Advanced-Video-Android/switchvideoinput'
+    wrapper: 'Advanced-Video-Android/gradlew'
+
+- template: Advanced-Video-Android/azure-templates/module-build-template.yml
+  parameters:
+    moduleRoot: 'Advanced-Video-Android/videoemcryption'
+    wrapper: 'Advanced-Video-Android/gradlew'
