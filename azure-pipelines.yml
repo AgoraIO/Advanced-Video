@@ -13,10 +13,10 @@ steps:
 
 - template: Advanced-Video-Android/azure-templates/module-build-template.yml
   parameters:
-    moduleRoot: 'Advanced-Video-Android/switchvideoinput'
+    module: 'Advanced-Video-Android/switchvideoinput'
     wrapper: 'Advanced-Video-Android/gradlew'
 
 - template: Advanced-Video-Android/azure-templates/module-build-template.yml
   parameters:
-    moduleRoot: 'Advanced-Video-Android/videoemcryption'
+    module: 'Advanced-Video-Android/videoemcryption'
     wrapper: 'Advanced-Video-Android/gradlew'
