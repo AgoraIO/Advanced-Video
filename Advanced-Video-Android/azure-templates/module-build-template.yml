@@ -1,10 +1,6 @@
-parameters:
-  - moduleRoot: ''
-  - wrapper: ''
-
 - task: Gradle@2
   inputs:
-    workingDirectory: ${{parameters.moduleRoot}}
+    workingDirectory: ${{parameters.module}}
     gradleWrapperFile: ${{parameters.wrapper}}
     gradleOptions: '-Xmx3072m'
     publishJUnitResults: false
@@ -13,5 +9,5 @@ parameters:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    path: '$(System.DefaultWorkingDirectory)/${{parameters.moduleRoot}}/build/outputs/apk/debug/*.apk'
+    path: '$(System.DefaultWorkingDirectory)/${{parameters.module}}/build/outputs/apk/debug/*.apk'
     artifact: 'Advanced-Video-Android'
