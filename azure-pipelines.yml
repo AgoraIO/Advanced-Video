@@ -19,5 +19,5 @@ steps:
 
 - template: Advanced-Video-Android/azure-templates/module-build-template.yml
   parameters:
-    module: 'Advanced-Video-Android/videoemcryption'
+    module: 'Advanced-Video-Android/videoencryption'
     wrapper: 'Advanced-Video-Android/gradlew'
