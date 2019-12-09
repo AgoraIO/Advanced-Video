@@ -13,8 +13,12 @@ steps:
 - task: Gradle@2
   inputs:
     workingDirectory: 'Advanced-Video-Android'
-    gradleWrapperFile: 'gradlew'
+    gradleWrapperFile: 'Advanced-Video-Android/gradlew'
     gradleOptions: '-Xmx3072m'
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleDebug'
+- task: PublishPipelineArtifact@1
+  inputs:
+    path: '$(System.DefaultWorkingDirectory)/Advanced-Video-Android/switchvideoinput/build/outputs'
+    artifact: 'Advanced-Video-Android'
