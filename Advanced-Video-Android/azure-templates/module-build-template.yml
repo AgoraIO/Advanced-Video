@@ -2,16 +2,17 @@ parameters:
   module: ''
   wrapper: ''
 
-- task: Gradle@2
-  inputs:
-    workingDirectory: ${{parameters.module}}
-    gradleWrapperFile: ${{parameters.wrapper}}
-    gradleOptions: '-Xmx3072m'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug'
+steps:
+  - task: Gradle@2
+    inputs:
+      workingDirectory: ${{parameters.module}}
+      gradleWrapperFile: ${{parameters.wrapper}}
+      gradleOptions: '-Xmx3072m'
+      publishJUnitResults: false
+      testResultsFiles: '**/TEST-*.xml'
+      tasks: 'assembleDebug'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    path: '$(System.DefaultWorkingDirectory)/${{parameters.module}}/build/outputs/apk/debug/*.apk'
-    artifact: 'Advanced-Video-Android'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      path: '$(System.DefaultWorkingDirectory)/${{parameters.module}}/build/outputs/apk/debug/*.apk'
+      artifact: 'Advanced-Video-Android'
