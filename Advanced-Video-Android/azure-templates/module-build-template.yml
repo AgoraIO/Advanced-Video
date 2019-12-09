@@ -2,8 +2,6 @@ parameters:
   module: ''
   wrapper: ''
 
-echo:
-
 steps:
   - task: Gradle@2
     inputs:
