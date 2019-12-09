@@ -1,3 +1,7 @@
+parameters:
+  module: ''
+  wrapper: ''
+
 - task: Gradle@2
   inputs:
     workingDirectory: ${{parameters.module}}
