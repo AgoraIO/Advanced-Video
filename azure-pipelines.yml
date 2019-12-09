@@ -15,6 +15,7 @@ steps:
   parameters:
     module: 'Advanced-Video-Android/switchvideoinput'
     wrapper: 'Advanced-Video-Android/gradlew'
+  
 
 - template: Advanced-Video-Android/azure-templates/module-build-template.yml
   parameters:
