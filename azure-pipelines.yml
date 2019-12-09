@@ -18,3 +18,7 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleDebug'
+- task: PublishPipelineArtifact@1
+  inputs:
+    path: '$(System.DefaultWorkingDirectory)/Advanced-Video-Android/switchvideoinput/build/outputs'
+    artifact: 'Advanced-Video-Android'
