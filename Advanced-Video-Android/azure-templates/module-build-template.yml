@@ -1,13 +1,15 @@
 parameters:
+  project: ''
   module: ''
-  wrapper: ''
 
 steps:
-  - bash: echo '${{parameters.module}}/build/outputs/apk/debug/${{parameters.module}}-debug.apk'
+  - bash:
+     echo '${{parameters.project}}/${{parameters.module}}/build/outputs/apk/debug/${{parameters.module}}-debug.apk'
+
   - task: Gradle@2
     inputs:
-      workingDirectory: ${{parameters.module}}
-      gradleWrapperFile: ${{parameters.wrapper}}
+      workingDirectory: '${{parameters.project}}/${{parameters.module}}'
+      gradleWrapperFile: '${{parameters.project}}/gradlew'
       gradleOptions: '-Xmx3072m'
       publishJUnitResults: false
       testResultsFiles: '**/TEST-*.xml'
@@ -15,6 +17,6 @@ steps:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      path: '${{parameters.module}}/build/outputs/apk/debug/${{parameters.module}}-debug.apk'
-      artifact: 'Advanced-Video-Android/${{parameters.module}}'
+      path: '${{parameters.project}}/${{parameters.module}}/build/outputs/apk/debug/${{parameters.module}}-debug.apk'
+      artifact: '${{parameters.project}}/${{parameters.module}}'
     continueOnError: true
