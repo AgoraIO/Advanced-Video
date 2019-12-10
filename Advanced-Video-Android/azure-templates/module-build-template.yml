@@ -3,6 +3,7 @@ parameters:
   wrapper: ''
 
 steps:
+  - bash: echo ${{parameters.module}}
   - task: Gradle@2
     inputs:
       workingDirectory: ${{parameters.module}}
@@ -14,6 +15,6 @@ steps:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      path: '$(System.DefaultWorkingDirectory)/${{parameters.module}}/build/outputs/apk/debug/*.apk'
+      path: '${{parameters.module}}/build/outputs/'
       artifact: 'Advanced-Video-Android'
     continueOnError: true
