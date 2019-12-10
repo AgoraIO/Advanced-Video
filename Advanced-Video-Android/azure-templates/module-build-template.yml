@@ -3,9 +3,6 @@ parameters:
   module: ''
 
 steps:
-  - bash:
-     echo '${{parameters.project}}/${{parameters.module}}/build/outputs/apk/debug/${{parameters.module}}-debug.apk'
-
   - task: Gradle@2
     inputs:
       workingDirectory: '${{parameters.project}}/${{parameters.module}}'
