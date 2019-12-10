@@ -25,6 +25,9 @@ class AgoraUploader {
         return boundingSize
     }()
     
+    private static let audioSampleRate: UInt = 48000
+    private static let audioChannels: UInt = 2
+    
     private static let sharedAgoraEngine: AgoraRtcEngineKit = {
         let kit = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: nil)
         kit.setChannelProfile(.liveBroadcasting)
@@ -37,10 +40,10 @@ class AgoraUploader {
                                                          bitrate: AgoraVideoBitrateStandard,
                                                          orientationMode: .adaptative)
         kit.setVideoEncoderConfiguration(videoConfig)
+        kit.setAudioProfile(.musicStandardStereo, scenario: .default)
         
-        AgoraAudioProcessing.registerAudioPreprocessing(kit)
-        kit.setRecordingAudioFrameParametersWithSampleRate(44100, channel: 1, mode: .readWrite, samplesPerCall: 1024)
-        kit.setParameters("{\"che.audio.external_device\":true}")
+        kit.enableExternalAudioSource(withSampleRate: audioSampleRate,
+                                      channelsPerFrame: audioChannels)
         
         kit.muteAllRemoteVideoStreams(true)
         kit.muteAllRemoteAudioStreams(true)
@@ -62,11 +65,11 @@ class AgoraUploader {
         if let orientationAttachment = CMGetAttachment(sampleBuffer, key: RPVideoSampleOrientationKey as CFString, attachmentModeOut: nil) as? NSNumber {
             if let orientation = CGImagePropertyOrientation(rawValue: orientationAttachment.uint32Value) {
                 switch orientation {
-                case .up, .upMirrored:       rotation = 0
-                case .down, .downMirrored:   rotation = 180
-                case .left, .leftMirrored:   rotation = 90
+                case .up,    .upMirrored:    rotation = 0
+                case .down,  .downMirrored:  rotation = 180
+                case .left,  .leftMirrored:  rotation = 90
                 case .right, .rightMirrored: rotation = 270
-                @unknown default:            break
+                default:   break
                 }
             }
         }
@@ -82,11 +85,17 @@ class AgoraUploader {
     }
     
     static func sendAudioAppBuffer(_ sampleBuffer: CMSampleBuffer) {
-        AgoraAudioProcessing.pushAudioAppBuffer(sampleBuffer)
+        AgoraAudioTube.agoraKit(sharedAgoraEngine,
+                                pushAudioCMSampleBuffer: sampleBuffer,
+                                resampleRate: audioSampleRate,
+                                type: .app)
     }
     
     static func sendAudioMicBuffer(_ sampleBuffer: CMSampleBuffer) {
-        AgoraAudioProcessing.pushAudioMicBuffer(sampleBuffer)
+        AgoraAudioTube.agoraKit(sharedAgoraEngine,
+                                pushAudioCMSampleBuffer: sampleBuffer,
+                                resampleRate: audioSampleRate,
+                                type: .mic)
     }
     
     static func stopBroadcast() {

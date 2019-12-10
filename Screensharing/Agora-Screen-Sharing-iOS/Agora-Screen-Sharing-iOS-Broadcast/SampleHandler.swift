@@ -9,7 +9,7 @@
 import ReplayKit
 
 class SampleHandler: RPBroadcastSampleHandler {
-
+    
     override func broadcastStarted(withSetupInfo setupInfo: [String : NSObject]?) {
         
         if let setupInfo = setupInfo, let channel = setupInfo["channelName"] as? String {

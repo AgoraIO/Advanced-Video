@@ -70,6 +70,7 @@ class BroadcastViewController: UIViewController {
         
         let scene = GameScene(size: sceneView.bounds.size)
         scene.scaleMode = .resizeFill
+        scene.loadBackGroundMusic()
         sceneView.presentScene(scene)
     }
     
