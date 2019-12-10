@@ -18,5 +18,5 @@ steps:
   - task: PublishPipelineArtifact@1
     inputs:
       path: '${{parameters.project}}/${{parameters.module}}/build/outputs/apk/debug/${{parameters.module}}-debug.apk'
-      artifact: '${{parameters.project}}/${{parameters.module}}'
+      artifact: '${{parameters.module}}'
     continueOnError: true
