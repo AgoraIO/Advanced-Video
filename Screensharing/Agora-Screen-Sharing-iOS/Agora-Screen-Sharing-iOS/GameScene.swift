@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
@@ -43,6 +44,7 @@ extension CGPoint {
 class GameScene: SKScene {
     
     fileprivate let ship = SKSpriteNode(imageNamed: "spaceship")
+    fileprivate var backgroundPlayer: AVAudioPlayer?
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
@@ -61,6 +63,15 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touchLocation = touches.first?.location(in: self) {
             fireStar(to: touchLocation)
+        }
+    }
+    
+    func loadBackGroundMusic() {
+        if let fileURL = Bundle.main.url(forResource: "space", withExtension: "mp3"),
+            let player = try? AVAudioPlayer(contentsOf: fileURL) {
+            player.numberOfLoops = -1
+            player.play()
+            backgroundPlayer = player
         }
     }
 }
@@ -102,6 +113,7 @@ private extension GameScene {
         let actionMoveDone = SKAction.removeFromParent()
         
         star.run(SKAction.sequence([SKAction.group([actionMove, rotation]), actionMoveDone]))
+        run(SKAction.playSoundFileNamed("shoot.mp3", waitForCompletion: false))
     }
 }
 

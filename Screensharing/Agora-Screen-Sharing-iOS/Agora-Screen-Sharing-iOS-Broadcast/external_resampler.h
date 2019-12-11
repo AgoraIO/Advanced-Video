@@ -7,12 +7,12 @@ public:
   external_resampler();
   ~external_resampler();
 
-  int do_resample(short* in, 
-                  int in_samples, 
-                  int in_channels, 
+  int do_resample(short* in,
+                  int in_samples,
+                  int in_channels,
                   int in_samplerate,
-                  short* out, 
-                  int out_samples, 
+                  short* out,
+                  int out_samples,
                   int out_channels,
                   int out_samplerate);
 
