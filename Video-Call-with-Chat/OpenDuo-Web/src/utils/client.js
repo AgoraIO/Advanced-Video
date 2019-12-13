@@ -42,7 +42,7 @@ class Client {
     //return a promise resolves a remote account name
     requestRemoteAccount() {
         return new Promise((resolve) => {
-            let dialog = $(".remoteAccountModal");
+           let dialog = $(".remoteAccountModal");
             let localAccount = this.localAccount;
 
             dialog.find(".callBtn").off("click").on("click", () => {
