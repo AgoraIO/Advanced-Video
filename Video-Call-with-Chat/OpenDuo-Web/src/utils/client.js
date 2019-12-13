@@ -150,7 +150,7 @@ class Client {
                 //start calling via signal
                 if (remoteAccount !== "") {
                     this.ringCalling(true);
-                    this.rtc.init(channelName, false).then(stream => {
+                    this.rtc.init(channelName, true).then(stream => {
                         this.call(channelName, remoteAccount, true).then(() => {
                             this.ringCalling(false);
                             this.rtc.rtc.publish(stream);
