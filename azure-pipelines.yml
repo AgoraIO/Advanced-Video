@@ -4,19 +4,31 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
 trigger:
-- dev/3.1.0_android
+- master
+- dev/*
 
 pool:
   vmImage: 'macos-latest'
 
-steps:
+variables:
+- group: AgoraKeys
 
-- template: Advanced-Video-Android/azure-templates/module-build-template.yml
+jobs:
+
+- template: Advanced-Video-Android/azure-templates/build-android.yml
   parameters:
     project: 'Advanced-Video-Android'
     module: 'switchvideoinput'
-
-- template: Advanced-Video-Android/azure-templates/module-build-template.yml
+    name: 'SwitchVideoInputAndroid'
+    
+- template: Advanced-Video-Android/azure-templates/build-android.yml
   parameters:
     project: 'Advanced-Video-Android'
     module: 'videoencryption'
+    name: 'VideoEncryptionAndroid'
+
+- template: Advanced-Video-Android/azure-templates/build-android.yml
+  parameters:
+    project: 'Advanced-Video-Android'
+    module: 'customrenderer'
+    name: 'CustomRendererAndroid'
