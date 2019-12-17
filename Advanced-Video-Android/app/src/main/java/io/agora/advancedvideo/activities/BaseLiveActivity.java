@@ -18,7 +18,8 @@ import io.agora.rtc.Constants;
 @DisplayActivity(
     SubClasses = {
         "io.agora.advancedvideo.switchvideoinput.SwitchVideoInputActivity",
-        "io.agora.advancedvideo.videoencryption.VideoActivity"
+        "io.agora.advancedvideo.videoencryption.VideoActivity",
+        "io.agora.advancedvideo.customrenderer.CustomRemoteRenderActivity"
     }
 )
 public abstract class BaseLiveActivity extends BaseActivity {

@@ -1,2 +1,2 @@
-include ':app', ':switchvideoinput', ':videoencryption', ':externalvideoinput'
+include ':app', ':switchvideoinput', ':videoencryption', ':externalvideoinput', ':customrenderer'
 rootProject.name='Advanced-Video-Android'
