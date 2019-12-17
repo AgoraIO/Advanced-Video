@@ -22,7 +22,7 @@ public class AgoraApplication extends Application {
     public void onCreate() {
         super.onCreate();
         try {
-            mRtcEngine = RtcEngine.create(getApplicationContext(), getString(R.string.PRIVATE_APP_ID), mHandler);
+            mRtcEngine = RtcEngine.create(getApplicationContext(), getString(R.string.agora_app_id), mHandler);
             mRtcEngine.setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
             mRtcEngine.enableVideo();
             mRtcEngine.setLogFile(FileUtil.initializeLogFile(this));
