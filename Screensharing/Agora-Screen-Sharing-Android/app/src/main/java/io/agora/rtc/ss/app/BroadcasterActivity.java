@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.Constants;
-import io.agora.rtc.ss.ScreenShare;
+import io.agora.rtc.ss.ScreenSharingClient;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
@@ -25,9 +25,9 @@ public class BroadcasterActivity extends Activity{
     private FrameLayout mFlSS;
     private boolean mSS = false;
     private VideoEncoderConfiguration mVEC;
-    private ScreenShare mSSInstance;
+    private ScreenSharingClient mSSClient;
 
-    private final ScreenShare.IStateListener mListener = new ScreenShare.IStateListener() {
+    private final ScreenSharingClient.IStateListener mListener = new ScreenSharingClient.IStateListener() {
         @Override
         public void onError(int error) {
             Log.e(LOG_TAG, "Screen share service error happened: " + error);
@@ -36,7 +36,7 @@ public class BroadcasterActivity extends Activity{
         @Override
         public void onTokenWillExpire() {
             Log.d(LOG_TAG, "Screen share service token will expire");
-            mSSInstance.renewToken(null); //Replace the token with your valid token
+            mSSClient.renewToken(null); // Replace the token with your valid token
         }
     };
 
@@ -74,8 +74,8 @@ public class BroadcasterActivity extends Activity{
         mFlCam = (FrameLayout) findViewById(R.id.camera_preview);
         mFlSS = (FrameLayout) findViewById(R.id.screen_share_preview);
 
-        mSSInstance = ScreenShare.getInstance();
-        mSSInstance.setListener(mListener);
+        mSSClient = ScreenSharingClient.getInstance();
+        mSSClient.setListener(mListener);
 
         initAgoraEngineAndJoinChannel();
     }
@@ -95,7 +95,7 @@ public class BroadcasterActivity extends Activity{
         RtcEngine.destroy();
         mRtcEngine = null;
         if (mSS) {
-            mSSInstance.stop(getApplicationContext());
+            mSSClient.stop(getApplicationContext());
         }
     }
 
@@ -118,12 +118,12 @@ public class BroadcasterActivity extends Activity{
         button.setSelected(!selected);
 
         if (button.isSelected()) {
-            mSSInstance.start(getApplicationContext(), getResources().getString(R.string.agora_app_id), null,
+            mSSClient.start(getApplicationContext(), getResources().getString(R.string.agora_app_id), null,
                     getResources().getString(R.string.label_channel_name), Constant.SCREEN_SHARE_UID, mVEC);
             button.setText(getResources().getString(R.string.label_stop_sharing_your_screen));
             mSS = true;
         } else {
-            mSSInstance.stop(getApplicationContext());
+            mSSClient.stop(getApplicationContext());
             button.setText(getResources().getString(R.string.label_start_sharing_your_screen));
             mSS = false;
         }

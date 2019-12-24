@@ -28,5 +28,6 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation project(path: ':screensharemodule')
+    implementation project(path: ':screensharing')
+    implementation project(path: ':libagorartc')
 }
