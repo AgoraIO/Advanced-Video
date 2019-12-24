@@ -2,7 +2,6 @@ package io.agora.advancedvideo.switchvideoinput;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -17,8 +16,7 @@ import androidx.annotation.NonNull;
 import io.agora.advancedvideo.externvideosource.ExternalVideoInputManager;
 import io.agora.advancedvideo.utils.WindowUtil;
 
-public class ExternalVideoInputDialog extends Dialog implements View.OnClickListener,
-                                                    DialogInterface.OnShowListener {
+public class ExternalVideoInputDialog extends Dialog implements View.OnClickListener {
 
     public interface OnSelectVideoInputListener {
         /**
@@ -58,8 +56,6 @@ public class ExternalVideoInputDialog extends Dialog implements View.OnClickList
         textView.setOnClickListener(this);
 
         mArrow = findViewById(R.id.video_input_dialog_arrow);
-
-        setOnShowListener(this);
     }
 
     @Override
@@ -88,7 +84,12 @@ public class ExternalVideoInputDialog extends Dialog implements View.OnClickList
     }
 
     @Override
-    public void onShow(DialogInterface dialogInterface) {
+    public void show() {
+        doShow();
+        super.show();
+    }
+
+    private void doShow() {
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.START | Gravity.BOTTOM;
 
@@ -106,11 +107,8 @@ public class ExternalVideoInputDialog extends Dialog implements View.OnClickList
 
         LinearLayout.LayoutParams arrowParams =
                 (LinearLayout.LayoutParams) mArrow.getLayoutParams();
-        int arrowHalf = mArrow.getMeasuredWidth() / 2;
         int refHalf = mReference.getMeasuredWidth() / 2;
-        if (arrowHalf < refHalf) {
-            arrowParams.leftMargin += (refHalf - arrowHalf) + 10;
-        }
+        arrowParams.leftMargin += refHalf / 2;
         mArrow.setLayoutParams(arrowParams);
 
         mLocalVideoText.setEnabled(mLocalVideoEnabled);
