@@ -83,7 +83,7 @@ public class ScreenSharingClient {
             intent.putExtra(Constant.UID, uid);
             intent.putExtra(Constant.WIDTH, vec.dimensions.width);
             intent.putExtra(Constant.HEIGHT, vec.dimensions.height);
-            intent.putExtra(Constant.FRAME_RATE, vec.frameRate);
+            intent.putExtra(Constant.FRAME_RATE, vec.frameRate.getValue());
             intent.putExtra(Constant.BITRATE, vec.bitrate);
             intent.putExtra(Constant.ORIENTATION_MODE, vec.orientationMode.getValue());
             context.bindService(intent, mScreenShareConn, Context.BIND_AUTO_CREATE);
