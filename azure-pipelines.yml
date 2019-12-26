@@ -18,17 +18,17 @@ jobs:
 - template: Advanced-Video-Android/azure-templates/build-android.yml
   parameters:
     project: 'Advanced-Video-Android'
-    module: 'switchvideoinput'
+    module: 'sample-switch-external-video'
     name: 'SwitchVideoInputAndroid'
     
 - template: Advanced-Video-Android/azure-templates/build-android.yml
   parameters:
     project: 'Advanced-Video-Android'
-    module: 'videoencryption'
+    module: 'sample-video-encrypt'
     name: 'VideoEncryptionAndroid'
 
 - template: Advanced-Video-Android/azure-templates/build-android.yml
   parameters:
     project: 'Advanced-Video-Android'
-    module: 'customrenderer'
+    module: 'sample-custom-render'
     name: 'CustomRendererAndroid'
