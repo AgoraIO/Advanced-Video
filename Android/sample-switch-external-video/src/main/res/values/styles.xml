@@ -1,0 +1,25 @@
+<resources>
+    <style name="no_background_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="dialog_text">
+        <item name="android:textColor">@color/dialog_text_color</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/video_input_dialog_item_height</item>
+    </style>
+
+    <style name="dialog_divider">
+        <item name="android:layout_width">@dimen/video_input_dialog_divider_width</item>
+        <item name="android:layout_height">@dimen/video_input_dialog_divider_height</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+</resources>

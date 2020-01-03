@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="@dimen/video_input_dialog_width"
+    android:layout_height="@dimen/video_input_dialog_height">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/video_input_dialog_block_height"
+        android:background="@drawable/choose_video_input_dialog_bg"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/input_local_video"
+            style="@style/dialog_text"/>
+        <View style="@style/dialog_divider"/>
+        <TextView
+            android:id="@+id/input_screen_share"
+            style="@style/dialog_text"/>
+        <View style="@style/dialog_divider"/>
+        <TextView
+            android:id="@+id/input_ar_core"
+            style="@style/dialog_text"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/video_input_dialog_arrow"
+        android:layout_width="@dimen/video_input_dialog_arrow_width"
+        android:layout_height="@dimen/video_input_dialog_arrow_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/down_arrow" />
+</LinearLayout>

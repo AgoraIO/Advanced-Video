@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.agora.advancedvideo.switchvideoinput">
+
+    <!-- Indicates that the app requires ARCore ("AR Required"). Ensures the app is
+     visible only in the Google Play Store on devices that support ARCore.-->
+    <uses-feature android:name="android.hardware.camera.ar" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true">
+
+        <!-- Indicates that the app requires ARCore ("AR Required"). Causes the Google
+           Play Store to download and install Google Play Services for AR when the
+           app is installed. -->
+        <meta-data android:name="com.google.ar.core" android:value="required"/>
+
+        <activity android:name="io.agora.advancedvideo.switchvideoinput.SwitchVideoInputActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+</manifest>
