@@ -9,6 +9,8 @@ jobs:
     displayName: ${{ parameters.mame }}
     pool:
       vmImage: 'macos-latest'
+    variables:
+      - group: AgoraKeys
     steps:
       - script: cd ${{ parameters.project }} && ls && python ci.env.py && echo $(agora.appId)
         env:
