@@ -11,19 +11,21 @@
 
 static external_resampler* resampler;
 int16_t inBuffer[44100];
-int16_t outbuffer[44100];
 int inBufferSamples = 0;
 int outBufferSamples = 0;
 
 @interface AgoraAudioResample ()
 @property (assign, nonatomic) Float64 targetSampleRate;
+@property (assign, nonatomic) int  targetChannels;
+
 @end
 
 @implementation AgoraAudioResample
-- (instancetype)initWithTargetSampleRate:(Float64)targetSampleRate
+- (instancetype)initWithTargetSampleRate:(Float64)targetSampleRate withTargetChannels:(int)targetChannels
 {
     if (self = [super init]) {
         self.targetSampleRate = targetSampleRate;
+        self.targetChannels = targetChannels;
     }
     return self;
 }
@@ -54,7 +56,7 @@ int outBufferSamples = 0;
     
     int inFs = inASBD.mSampleRate;
     int outFs = self.targetSampleRate;
-    if (inFs == outFs) {
+    if (inFs == outFs && inASBD.mChannelsPerFrame == self.targetChannels) {
         completion((unsigned char *)buffer.mData, buffer.mDataByteSize);
         if (blockBuffer) {
             CFRelease(blockBuffer);
@@ -63,28 +65,27 @@ int outBufferSamples = 0;
     }
     
     int inDataSamplesPer10ms = inFs / 100;
-    int outDataSamplesPer10ms = outFs / 100;
+    int outDataSamplesPer10ms = (outFs / 100);
     memcpy(inBuffer + inBufferSamples, buffer.mData, buffer.mDataByteSize);
-    inBufferSamples += buffer.mDataByteSize/2;
+    inBufferSamples += buffer.mDataByteSize / 2;
     
     if (!resampler) {
         resampler = new external_resampler();
     }
     int pPos = 0;
     while (inBufferSamples > inDataSamplesPer10ms) {
+        int outDataSizePer10ms = outDataSamplesPer10ms * 2 * self.targetChannels;
+        short data[outDataSizePer10ms];
         resampler->do_resample(inBuffer + pPos, inDataSamplesPer10ms, buffer.mNumberChannels, inFs,
-                               outbuffer + outBufferSamples, outDataSamplesPer10ms, buffer.mNumberChannels, outFs);
+                               data, outDataSamplesPer10ms ,self.targetChannels, outFs);
         
         pPos += inDataSamplesPer10ms;
         inBufferSamples -= inDataSamplesPer10ms;
-        outBufferSamples += outDataSamplesPer10ms;
+        if (completion) {
+            completion((unsigned char *)data, outDataSizePer10ms);
+        }
     }
     memmove(inBuffer, inBuffer + pPos, sizeof(int16_t) * inBufferSamples);
-    
-    if (completion) {
-        completion((unsigned char *)outbuffer, sizeof(int16_t) * outBufferSamples);
-    }
-    
     outBufferSamples = 0;
     
     if (blockBuffer) {

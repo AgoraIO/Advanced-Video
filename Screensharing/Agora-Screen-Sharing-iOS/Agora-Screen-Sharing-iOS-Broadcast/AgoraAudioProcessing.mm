@@ -165,7 +165,7 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
     static AgoraAudioResample *sharedMicResampler;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedMicResampler = [[AgoraAudioResample alloc] initWithTargetSampleRate:44100];
+        sharedMicResampler = [[AgoraAudioResample alloc] initWithTargetSampleRate:44100 withTargetChannels:2];
     });
     return sharedMicResampler;
 }
@@ -175,7 +175,7 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
     static AgoraAudioResample *sharedAppResampler;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedAppResampler = [[AgoraAudioResample alloc] initWithTargetSampleRate:44100];
+        sharedAppResampler = [[AgoraAudioResample alloc] initWithTargetSampleRate:44100 withTargetChannels:2];
     });
     return sharedAppResampler;
 }

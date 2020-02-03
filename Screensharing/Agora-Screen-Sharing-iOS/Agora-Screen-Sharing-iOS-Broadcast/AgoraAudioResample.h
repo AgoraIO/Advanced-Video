@@ -10,7 +10,7 @@
 #import <CoreMedia/CoreMedia.h>
 
 @interface AgoraAudioResample : NSObject
-- (instancetype)initWithTargetSampleRate:(Float64)targetSampleRate;
+- (instancetype)initWithTargetSampleRate:(Float64)targetSampleRate withTargetChannels:(int)targetChannels;
 - (void)resamplingBuffer:(CMSampleBufferRef)sampleBuffer
               completion:(void (^)(unsigned char *audioFrame, int frameSize))completion;
 @end

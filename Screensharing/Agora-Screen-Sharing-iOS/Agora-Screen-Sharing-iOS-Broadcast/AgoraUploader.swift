@@ -39,7 +39,7 @@ class AgoraUploader {
         kit.setVideoEncoderConfiguration(videoConfig)
         
         AgoraAudioProcessing.registerAudioPreprocessing(kit)
-        kit.setRecordingAudioFrameParametersWithSampleRate(44100, channel: 1, mode: .readWrite, samplesPerCall: 1024)
+        kit.setRecordingAudioFrameParametersWithSampleRate(44100, channel: 2, mode: .readWrite, samplesPerCall: 882)
         kit.setParameters("{\"che.audio.external_device\":true}")
         
         kit.muteAllRemoteVideoStreams(true)
