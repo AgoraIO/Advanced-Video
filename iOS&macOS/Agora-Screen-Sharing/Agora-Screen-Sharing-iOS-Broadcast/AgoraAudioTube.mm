@@ -52,7 +52,6 @@ static NSObject *lock = [[NSObject alloc] init];
 @implementation AgoraAudioTube
 
 + (void)agoraKit:(AgoraRtcEngineKit * _Nonnull)agoraKit pushAudioCMSampleBuffer:(CMSampleBufferRef _Nonnull)sampleBuffer resampleRate:(NSUInteger)resampleRate type:(AudioType)type; {
-    
     @synchronized (lock) {
         [self privateAgoraKit:agoraKit
       pushAudioCMSampleBuffer:sampleBuffer
@@ -145,7 +144,7 @@ static NSObject *lock = [[NSObject alloc] init];
         channels = 2;
     }
     
-    //  ResampleRate
+    // ResampleRate
     if (sampleRate != resampleRate) {
         int inDataSamplesPer10ms = sampleRate / 100;
         int outDataSamplesPer10ms = (int)resampleRate / 100;
@@ -174,10 +173,6 @@ static NSObject *lock = [[NSObject alloc] init];
             appAudioIndex += totalSamples;
             
             int mixIndex = appAudioIndex > micAudioIndex ? micAudioIndex : appAudioIndex;
-            
-            if (mixIndex <= 0 || mixIndex > micAudioIndex || mixIndex > appAudioIndex) {
-                return;
-            }
             
             int16_t pushBuffer[appAudioIndex];
             
