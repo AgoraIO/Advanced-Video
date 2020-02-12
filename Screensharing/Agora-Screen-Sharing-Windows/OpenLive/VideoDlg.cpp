@@ -501,8 +501,8 @@ void CVideoDlg::OnBnClickedScreenshare()
 	UpdateWindow();
 #else
 
-	HWND hMarkWnd = ::GetDesktopWindow();
-	if (::IsWindow(hMarkWnd)) {
+	HWND hMarkWnd = NULL;//::GetDesktopWindow();
+//	if (::IsWindow(hMarkWnd)) {
 
 		CAgoraObject::GetAgoraObject()->SetScreenCaptureEnable(TRUE);
 		AGE_SCREENSHARE_START lpData;
@@ -514,7 +514,7 @@ void CVideoDlg::OnBnClickedScreenshare()
 			pCopyData->lpData = (PVOID)&lpData;
 			pCopyData->cbData = sizeof(lpData);
 			::SendMessage(m_WndScreenShare, WM_COPYDATA, WPARAM(m_hWnd), LPARAM(pCopyData));
-		}
+//		}
 	}
 
 #endif
