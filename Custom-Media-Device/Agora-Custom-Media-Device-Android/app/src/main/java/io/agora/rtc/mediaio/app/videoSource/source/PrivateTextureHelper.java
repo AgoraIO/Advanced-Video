@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.util.Log;
 import android.view.TextureView;
+import android.view.View;
 
 import java.nio.ByteBuffer;
 
@@ -12,6 +13,7 @@ import io.agora.rtc.gl.RendererCommon;
 import io.agora.rtc.mediaio.BaseVideoRenderer;
 import io.agora.rtc.mediaio.IVideoSink;
 import io.agora.rtc.mediaio.MediaIO;
+import io.agora.rtc.utils.ThreadUtils;
 import io.agora.rtc.video.AgoraVideoFrame;
 
 /**
@@ -34,6 +36,13 @@ public class PrivateTextureHelper implements IVideoSink, TextureView.SurfaceText
         mTextureView = view;
         mRender = new BaseVideoRenderer(TAG);
         mRender.setRenderView(mTextureView, this);
+        mTextureView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                ThreadUtils.checkIsOnMainThread();
+                mRender.getEglRender().setLayoutAspectRatio((float)(right - left) / (float)(bottom - top));
+            }
+        });
     }
 
     public void init(EglBase.Context sharedContext) {
