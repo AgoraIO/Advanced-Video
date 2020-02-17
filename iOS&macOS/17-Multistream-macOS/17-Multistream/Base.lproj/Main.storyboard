@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="lex-Es-r5C">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -8,7 +9,7 @@
         <!--Window Controller-->
         <scene sceneID="wSO-P3-DAC">
             <objects>
-                <windowController id="lex-Es-r5C" customClass="MainWindowController" customModule="LargeGroupVideoChat" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="lex-Es-r5C" customClass="MainWindowController" customModule="_7_Multistream" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="nVE-TW-XVf">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="700" height="560"/>
@@ -664,7 +665,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="LargeGroupVideoChat" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="_7_Multistream" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1009" y="-37"/>
@@ -672,7 +673,7 @@
         <!--Main View Controller-->
         <scene sceneID="iaD-eq-bPW">
             <objects>
-                <viewController id="jx8-Gy-aPZ" customClass="MainViewController" customModule="LargeGroupVideoChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jx8-Gy-aPZ" customClass="MainViewController" customModule="_7_Multistream" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="1QP-fr-ns8">
                         <rect key="frame" x="0.0" y="0.0" width="700" height="560"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -726,7 +727,7 @@
                     </view>
                     <connections>
                         <outlet property="roomInputTextField" destination="KoT-nB-JDh" id="3yo-IA-VtO"/>
-                        <segue destination="avk-OB-cSN" kind="custom" identifier="mainToLive" customClass="ReplacementSegue" customModule="LargeGroupVideoChat" customModuleProvider="target" id="VLU-ar-03C"/>
+                        <segue destination="avk-OB-cSN" kind="custom" identifier="mainToLive" customClass="ReplacementSegue" customModule="_7_Multistream" customModuleProvider="target" id="VLU-ar-03C"/>
                     </connections>
                 </viewController>
                 <customObject id="Mnm-9P-e0b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -736,12 +737,12 @@
         <!--Live Room View Controller-->
         <scene sceneID="hao-rW-OUN">
             <objects>
-                <viewController id="avk-OB-cSN" customClass="LiveRoomViewController" customModule="LargeGroupVideoChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="avk-OB-cSN" customClass="LiveRoomViewController" customModule="_7_Multistream" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="n9K-Us-1ii">
                         <rect key="frame" x="0.0" y="0.0" width="700" height="560"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="btH-Mr-27X" customClass="AGEVideoContainer" customModule="LargeGroupVideoChat" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="btH-Mr-27X" customClass="AGEVideoContainer" customModule="AGEVideoLayout">
                                 <rect key="frame" x="0.0" y="0.0" width="700" height="560"/>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qzx-Og-GES">
