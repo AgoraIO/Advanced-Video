@@ -31,6 +31,12 @@ COpenLiveApp::COpenLiveApp()
 	// Place all significant initialization in InitInstance
 }
 
+COpenLiveApp::~COpenLiveApp()
+{
+	CLanguageSet::GetInstance()->CloseInstance();
+	CAgoraObject::GetAgoraObject()->CloseAgoraObject();
+}
+
 
 // The one and only COpenLiveApp object
 

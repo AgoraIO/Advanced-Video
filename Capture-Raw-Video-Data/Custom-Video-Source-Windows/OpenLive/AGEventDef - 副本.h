@@ -103,7 +103,7 @@ typedef struct _AGE_AUDIO_DEVICE_STATE_CHANGED
 
 typedef struct _AGE_NETWORK_QUALITY
 {
-	uid_t uid;  int txQuality; int rxQuality;
+	int quality;
 
 } AGE_NETWORK_QUALITY, *PAGE_NETWORK_QUALITY, *LPAGE_NETWORK_QUALITY;
 
@@ -189,7 +189,8 @@ typedef struct _AGE_REMOTE_VIDEO_STAT
 	int width;
 	int height;
 	int receivedBitrate;
-	int receivedFrameRate;
+	int decoderOutputFrameRate;
+	int rendererOutputFrameRate;
 
 } AGE_REMOTE_VIDEO_STAT, *PAGE_REMOTE_VIDEO_STAT, *LPAGE_REMOTE_VIDEO_STAT;
 
@@ -240,13 +241,5 @@ typedef struct _AGE_APICALL_EXECUTED
 
 #define EID_APICALL_EXECUTED					0x00000020
 
-#define EID_RTMP_STATE_CHANGED					0x00000021
-#define URL_LEN 512
-typedef struct _AGE_RTMP_STATE_DATA
-{
-	char	url[URL_LEN];
-	int		state;
-	int		error;
 
-}AGE_RTMP_STATE_DATA, *PAGE_RTMP_STATE_DATA, *LPAGE_RTMP_STATE_DATA;
 #endif

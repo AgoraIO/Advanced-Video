@@ -166,7 +166,7 @@ public:
 
 	void SetSelfResolution(int nWidth, int nHeight);
 	void GetSelfResolution(int *nWidth, int *nHeight);
-
+	bool IsJoinChannel(){ return bJoinedChannel; }
 	static IRtcEngine *GetEngine();
 	
 	static CString GetSDKVersion();
@@ -223,7 +223,7 @@ private:
 
 	int			m_nCanvasWidth;
 	int			m_nCanvasHeight;
-
+	bool        bJoinedChannel;
 	CAtlMap<UINT, SEI_INFO>	m_mapSEIInfo;
 public:
 	static CAgoraObject *GetAgoraObject(LPCTSTR lpVendorKey = NULL);

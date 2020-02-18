@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "AGEngineEventHandler.h"
 #include "AGEventDef.h"
-#include <string.h>
+
 CAGEngineEventHandler::CAGEngineEventHandler(void)
 {
 }
@@ -55,7 +55,6 @@ void CAGEngineEventHandler::onWarning(int warn, const char* msg)
 
 void CAGEngineEventHandler::onError(int err, const char* msg)
 {
-#if 0
 	LPAGE_ERROR lpData = new AGE_ERROR;
 
 	int nMsgLen = 0;
@@ -75,7 +74,6 @@ void CAGEngineEventHandler::onError(int err, const char* msg)
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_ERROR), (WPARAM)lpData, 0);
-#endif
 
 }
 
@@ -109,12 +107,12 @@ void CAGEngineEventHandler::onAudioVolumeIndication(const AudioVolumeInfo* speak
 
 void CAGEngineEventHandler::onLeaveChannel(const RtcStats& stat)
 {
-	/*LPAGE_LEAVE_CHANNEL lpData = new AGE_LEAVE_CHANNEL;
+	LPAGE_LEAVE_CHANNEL lpData = new AGE_LEAVE_CHANNEL;
 
 	memcpy(&lpData->rtcStat, &stat, sizeof(RtcStats));
 
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_LEAVE_CHANNEL), (WPARAM)lpData, 0);*/
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_LEAVE_CHANNEL), (WPARAM)lpData, 0);
 }
 
 void CAGEngineEventHandler::onRtcStats(const RtcStats& stat)
@@ -125,6 +123,16 @@ void CAGEngineEventHandler::onRtcStats(const RtcStats& stat)
 }
 
 
+void CAGEngineEventHandler::onMediaEngineEvent(int evt)
+{
+	LPAGE_MEDIA_ENGINE_EVENT lpData = new AGE_MEDIA_ENGINE_EVENT;
+
+	lpData->evt = evt;
+
+	if (m_hMainWnd != NULL)
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_MEDIA_ENGINE_EVENT), (WPARAM)lpData, 0);
+
+}
 
 void CAGEngineEventHandler::onAudioDeviceStateChanged(const char* deviceId, int deviceType, int deviceState)
 {
@@ -160,16 +168,14 @@ void CAGEngineEventHandler::onVideoDeviceStateChanged(const char* deviceId, int 
 
 }
 
-void CAGEngineEventHandler::onNetworkQuality(uid_t uid, int txQuality, int rxQuality)
+void CAGEngineEventHandler::onNetworkQuality(int quality)
 {
-	/*LPAGE_NETWORK_QUALITY lpData = new AGE_NETWORK_QUALITY;
+	LPAGE_NETWORK_QUALITY lpData = new AGE_NETWORK_QUALITY;
 
-	lpData->txQuality = txQuality;
-	lpData->uid = uid;
-	lpData->rxQuality = rxQuality;
+	lpData->quality = quality;
 
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_NETWORK_QUALITY), (WPARAM)lpData, 0);*/
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_NETWORK_QUALITY), (WPARAM)lpData, 0);
 
 }
 
@@ -202,7 +208,7 @@ void CAGEngineEventHandler::onFirstRemoteVideoDecoded(uid_t uid, int width, int 
 
 void CAGEngineEventHandler::onFirstRemoteVideoFrame(uid_t uid, int width, int height, int elapsed)
 {
-	/*LPAGE_FIRST_REMOTE_VIDEO_FRAME lpData = new AGE_FIRST_REMOTE_VIDEO_FRAME;
+	LPAGE_FIRST_REMOTE_VIDEO_FRAME lpData = new AGE_FIRST_REMOTE_VIDEO_FRAME;
 
 	lpData->uid = uid;
 	lpData->width = width;
@@ -210,7 +216,7 @@ void CAGEngineEventHandler::onFirstRemoteVideoFrame(uid_t uid, int width, int he
 	lpData->elapsed = elapsed;
 
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_FIRST_REMOTE_VIDEO_FRAME), (WPARAM)lpData, 0);*/
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_FIRST_REMOTE_VIDEO_FRAME), (WPARAM)lpData, 0);
 
 }
 
@@ -228,25 +234,24 @@ void CAGEngineEventHandler::onUserJoined(uid_t uid, int elapsed)
 
 void CAGEngineEventHandler::onUserOffline(uid_t uid, USER_OFFLINE_REASON_TYPE reason)
 {
-	/*LPAGE_USER_OFFLINE lpData = new AGE_USER_OFFLINE;
+	LPAGE_USER_OFFLINE lpData = new AGE_USER_OFFLINE;
 
 	lpData->uid = uid;
 	lpData->reason = reason;
 
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_OFFLINE), (WPARAM)lpData, 0);*/
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_OFFLINE), (WPARAM)lpData, 0);
 }
 
 void CAGEngineEventHandler::onUserMuteAudio(uid_t uid, bool muted)
 {
-/*	LPAGE_USER_MUTE_AUDIO lpData = new AGE_USER_MUTE_AUDIO;
+	LPAGE_USER_MUTE_AUDIO lpData = new AGE_USER_MUTE_AUDIO;
 
 	lpData->uid = uid;
 	lpData->muted = muted;
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_AUDIO), (WPARAM)lpData, 0);
-*/
 
 }
 
@@ -262,13 +267,19 @@ void CAGEngineEventHandler::onUserMuteVideo(uid_t uid, bool muted)
 
 }
 
-void CAGEngineEventHandler::onApiCallExecuted(int err, const char* api, const char* result)
+void CAGEngineEventHandler::onApiCallExecuted(const char* api, int error)
 {
+	LPAGE_APICALL_EXECUTED lpData = new AGE_APICALL_EXECUTED;
+
+	strcpy_s(lpData->api, 128, api);
+	lpData->error = error;
+
+	if (m_hMainWnd != NULL)
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_APICALL_EXECUTED), (WPARAM)lpData, 0);
 }
 
 void CAGEngineEventHandler::onLocalVideoStats(const LocalVideoStats& stats)
 {
-#if 0
 	LPAGE_LOCAL_VIDEO_STAT lpData = new AGE_LOCAL_VIDEO_STAT;
 
 	lpData->sentBitrate = stats.sentBitrate;
@@ -276,7 +287,7 @@ void CAGEngineEventHandler::onLocalVideoStats(const LocalVideoStats& stats)
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_LOCAL_VIDEO_STAT), (WPARAM)lpData, 0);
-#endif
+
 }
 
 void CAGEngineEventHandler::onRemoteVideoStats(const RemoteVideoStats& stats)
@@ -287,9 +298,9 @@ void CAGEngineEventHandler::onRemoteVideoStats(const RemoteVideoStats& stats)
 	lpData->delay = stats.delay;
 	lpData->width = stats.width;
 	lpData->height = stats.height;
-	lpData->receivedFrameRate = stats.decoderOutputFrameRate;
+	lpData->rendererOutputFrameRate = stats.rendererOutputFrameRate;
 	lpData->receivedBitrate = stats.receivedBitrate;
-	lpData->receivedFrameRate = stats.decoderOutputFrameRate;
+	lpData->decoderOutputFrameRate = stats.decoderOutputFrameRate;
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_REMOTE_VIDEO_STAT), (WPARAM)lpData, 0);
@@ -328,28 +339,26 @@ void CAGEngineEventHandler::onUserEnableVideo(uid_t uid, bool enabled)
 
 }
 
-void CAGEngineEventHandler::onStreamPublished(const char *url, int error)
+void CAGEngineEventHandler::onStartRecordingService(int error)
 {
+	if (m_hMainWnd != NULL)
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_START_RCDSRV), 0, 0);
 
 }
 
-void CAGEngineEventHandler::onStreamUnpublished(const char *url)
+void CAGEngineEventHandler::onStopRecordingService(int error)
 {
+	if (m_hMainWnd != NULL)
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_STOP_RCDSRV), 0, 0);
 
 }
 
-void CAGEngineEventHandler::onRtmpStreamingStateChanged(const char *url, RTMP_STREAM_PUBLISH_STATE state, RTMP_STREAM_PUBLISH_ERROR errCode)
+void CAGEngineEventHandler::onRefreshRecordingServiceStatus(int status)
 {
-	LPAGE_RTMP_STATE_DATA lpData = new AGE_RTMP_STATE_DATA;
-	if (strlen(url) > URL_LEN){
-		AfxMessageBox(_T("url is too long, modify the MACRO URL_LEN"));
-		return;
-	}
-	
-	if (m_hMainWnd != NULL){
-		strcpy_s(lpData->url, URL_LEN, url);
-		lpData->state = state;
-		lpData->error = errCode;
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_RTMP_STATE_CHANGED), (WPARAM)lpData, 0);
-	}
+	LPAGE_RCDSRV_STATUS lpData = new AGE_RCDSRV_STATUS;
+
+	lpData->status = status;
+
+	if (m_hMainWnd != NULL)
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_REFREASH_RCDSRV), (WPARAM)lpData, 0);
 }

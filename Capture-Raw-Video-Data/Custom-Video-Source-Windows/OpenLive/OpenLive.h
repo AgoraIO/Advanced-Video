@@ -19,7 +19,7 @@ class COpenLiveApp : public CWinApp
 {
 public:
     COpenLiveApp();
-
+	~COpenLiveApp();
 // Overrides
 public:
 	virtual BOOL InitInstance();

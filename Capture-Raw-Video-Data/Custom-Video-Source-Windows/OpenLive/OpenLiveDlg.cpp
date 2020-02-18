@@ -390,8 +390,8 @@ LRESULT COpenLiveDlg::OnNetworkQuality(WPARAM wParam, LPARAM lParam)
 {
 	LPAGE_NETWORK_QUALITY lpData = (LPAGE_NETWORK_QUALITY)wParam;
 
-	if (m_nNetworkQuality != lpData->quality) {
-		m_nNetworkQuality = lpData->quality;
+	if (m_nNetworkQuality != lpData->rxQuality) {
+		m_nNetworkQuality = lpData->rxQuality;
 		InvalidateRect(CRect(16, 40, 48, 72), TRUE);
 	}
 
