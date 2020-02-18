@@ -240,13 +240,5 @@ typedef struct _AGE_APICALL_EXECUTED
 
 #define EID_APICALL_EXECUTED					0x00000020
 
-#define EID_RTMP_STATE_CHANGED					0x00000021
-#define URL_LEN 512
-typedef struct _AGE_RTMP_STATE_DATA
-{
-	char	url[URL_LEN];
-	int		state;
-	int		error;
 
-}AGE_RTMP_STATE_DATA, *PAGE_RTMP_STATE_DATA, *LPAGE_RTMP_STATE_DATA;
 #endif

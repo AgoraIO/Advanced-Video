@@ -49,8 +49,6 @@ public:
 	
 
 	virtual void onStreamUnpublished(const char *url) override;
-
-	virtual void onRtmpStreamingStateChanged(const char *url, RTMP_STREAM_PUBLISH_STATE state, RTMP_STREAM_PUBLISH_ERROR errCode) override;
 private:
 	HWND		m_hMainWnd;
 };

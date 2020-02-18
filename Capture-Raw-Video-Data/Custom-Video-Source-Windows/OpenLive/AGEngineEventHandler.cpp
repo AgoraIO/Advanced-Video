@@ -337,19 +337,3 @@ void CAGEngineEventHandler::onStreamUnpublished(const char *url)
 {
 
 }
-
-void CAGEngineEventHandler::onRtmpStreamingStateChanged(const char *url, RTMP_STREAM_PUBLISH_STATE state, RTMP_STREAM_PUBLISH_ERROR errCode)
-{
-	LPAGE_RTMP_STATE_DATA lpData = new AGE_RTMP_STATE_DATA;
-	if (strlen(url) > URL_LEN){
-		AfxMessageBox(_T("url is too long, modify the MACRO URL_LEN"));
-		return;
-	}
-	
-	if (m_hMainWnd != NULL){
-		strcpy_s(lpData->url, URL_LEN, url);
-		lpData->state = state;
-		lpData->error = errCode;
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_RTMP_STATE_CHANGED), (WPARAM)lpData, 0);
-	}
-}
