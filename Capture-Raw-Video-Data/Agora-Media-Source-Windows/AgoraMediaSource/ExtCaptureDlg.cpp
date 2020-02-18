@@ -220,7 +220,7 @@ void CExtCaptureDlg::OnBnClickedBtnapplyExtcap()
 
 void CExtCaptureDlg::OnCmbselCameraDevice()
 {
-	TCHAR	szDevicePath[MAX_PATH];
+	TCHAR	szDevicePath[MAX_PATH] = { 0 };
 	SIZE_T	nPathLen = MAX_PATH;
 	int		nSel = m_cmbCamera.GetCurSel();
 
@@ -329,7 +329,7 @@ void CExtCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 	if (!bShow)
 		return;
 
-	TCHAR				szDevicePath[MAX_PATH];
+	TCHAR				szDevicePath[MAX_PATH] = { 0 };
 	SIZE_T				nPathLen = MAX_PATH;
 	CString				strInfo;
 	AGORA_DEVICE_INFO	agDeviceInfo;
@@ -338,6 +338,7 @@ void CExtCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 	m_cmbCamera.ResetContent();
 	m_agVideoCaptureDevice.EnumDeviceList();
 	m_agVideoCaptureDevice.GetCurrentDevice(szDevicePath, &nPathLen);
+
 	for (int nIndex = 0; nIndex < m_agVideoCaptureDevice.GetDeviceCount(); nIndex++) {
 		m_agVideoCaptureDevice.GetDeviceInfo(nIndex, &agDeviceInfo);
 		m_cmbCamera.InsertString(nIndex, agDeviceInfo.szDeviceName);
@@ -346,10 +347,10 @@ void CExtCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 			m_cmbCamera.SetCurSel(nIndex);
 	}
 
-
 	nPathLen = MAX_PATH;
 	m_cmbMicrophone.ResetContent();
 	m_agAudioCaptureDevice.EnumDeviceList();
+	ZeroMemory(szDevicePath, nPathLen);
 	m_agAudioCaptureDevice.GetCurrentDevice(szDevicePath, &nPathLen);
 	for (int nIndex = 0; nIndex < m_agAudioCaptureDevice.GetDeviceCount(); nIndex++) {
 		m_agAudioCaptureDevice.GetDeviceInfo(nIndex, &agDeviceInfo);
