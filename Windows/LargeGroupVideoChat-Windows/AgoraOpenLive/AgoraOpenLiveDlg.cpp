@@ -198,7 +198,7 @@ void CAgoraOpenLiveDlg::InitChildDialog()
 
 	m_dlgEnterChannel.MoveWindow(110, 70, 500, 450, TRUE);
 	m_dlgSetup.MoveWindow(110, 70, 500, 450, TRUE);
-
+	m_dlgEnterChannel.SetCtrlPos();
 	m_dlgEnterChannel.ShowWindow(SW_SHOW);
 	m_lpCurDialog = &m_dlgEnterChannel;
 

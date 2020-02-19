@@ -19,7 +19,7 @@ class CAgoraOpenLiveApp : public CWinApp
 {
 public:
     CAgoraOpenLiveApp();
-
+	~CAgoraOpenLiveApp();
 // Overrides
 public:
 	virtual BOOL InitInstance();

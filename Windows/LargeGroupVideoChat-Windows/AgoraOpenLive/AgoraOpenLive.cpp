@@ -31,7 +31,10 @@ CAgoraOpenLiveApp::CAgoraOpenLiveApp()
 	// Place all significant initialization in InitInstance
 }
 
-
+CAgoraOpenLiveApp::~CAgoraOpenLiveApp()
+{
+	CLanguageSet::GetInstance()->CloseInstance();
+}
 // The one and only CAgoraVideoCallApp object
 
 CAgoraOpenLiveApp theApp;

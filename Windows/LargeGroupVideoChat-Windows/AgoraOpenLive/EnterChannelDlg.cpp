@@ -218,3 +218,16 @@ void CEnterChannelDlg::SetVideoString(LPCTSTR lpVideoString)
 	m_btnSetup.SetWindowText(lpVideoString);
 }
 
+
+void CEnterChannelDlg::SetCtrlPos()
+{
+	CRect ClientRect;
+
+	GetClientRect(&ClientRect);
+	m_ctrChannel.MoveWindow(ClientRect.Width() / 2 - 150, 33, 300, 22, TRUE);
+
+	int height = 36;
+	m_btnJoin.MoveWindow(ClientRect.Width() / 2 - 180, 310, 350, height, TRUE);
+	m_btnTest.MoveWindow(ClientRect.Width() / 2 - 180, 355, 108, height, TRUE);
+	m_btnSetup.MoveWindow(ClientRect.Width() / 2 - 60, 355, 240, height, TRUE);
+}

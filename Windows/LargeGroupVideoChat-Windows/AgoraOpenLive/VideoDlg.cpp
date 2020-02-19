@@ -933,8 +933,11 @@ LRESULT CVideoDlg::OnEIDJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
 	avsInfo.nUID = 0;
 
 	lpAgoraObject->SetAVSInfo(0, &avsInfo);
-
+	delete[] lpData->channel;
+	lpData->channel = NULL;
 	delete lpData;
+	
+	lpData = NULL;
 	return 0;
 }
 
@@ -1078,6 +1081,7 @@ LRESULT CVideoDlg::OnEIDError(WPARAM wParam, LPARAM lParam)
 
 	str.Format(_T("Error:[%d] %s"), lpData->err, lpData->msg);
 	m_dlgChat.AddChatMessage(0, str);
+	delete[] lpData->msg;
 	delete lpData;
 
 	return 0;
