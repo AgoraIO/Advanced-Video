@@ -98,6 +98,7 @@ protected:
 	afx_msg LRESULT OnEIDClientRoleChanged(WPARAM wParam, LPARAM lParam);
 
     afx_msg LRESULT OnWindowShareStart(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam);
 
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 

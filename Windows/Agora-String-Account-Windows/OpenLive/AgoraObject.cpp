@@ -877,52 +877,7 @@ BOOL CAgoraObject::GetSEIInfoByIndex(int nIndex, LPSEI_INFO lpSEIInfo)
 
 BOOL CAgoraObject::EnableSEIPush(BOOL bEnable, COLORREF crBack)
 {
-	CStringA	strBackColor;
-	VideoCompositingLayout layout;
-	int	nRet = 0;
-
-	int nVideoCount = m_mapSEIInfo.GetCount();
-	if (nVideoCount <= 0)
-		return FALSE;
-
-	if (!bEnable) {
-		nRet = m_lpAgoraEngine->clearVideoCompositingLayout();
-		return nRet == 0 ? TRUE : FALSE;
-	}
-
-	VideoCompositingLayout::Region *lpRegion = new VideoCompositingLayout::Region[nVideoCount];
-	memset(lpRegion, 0, sizeof(VideoCompositingLayout::Region)*nVideoCount);
-
-	POSITION pos = m_mapSEIInfo.GetStartPosition();
-	int nIndex = 0;
-
-	while (pos != NULL) {
-		SEI_INFO &seiInfo = m_mapSEIInfo.GetNextValue(pos);
-
-		lpRegion[nIndex].height = seiInfo.nHeight < m_nCanvasHeight ? (seiInfo.nHeight *1.0)/ m_nCanvasHeight : 1;
-		lpRegion[nIndex].width = seiInfo.nWidth < m_nCanvasWidth ? seiInfo.nWidth*1.0 / m_nCanvasWidth : 1;
-		lpRegion[nIndex].uid = seiInfo.nUID;
-		
-		lpRegion[nIndex].x = seiInfo.x < m_nCanvasWidth ? seiInfo.x*1.0 / m_nCanvasWidth : 1;
-		lpRegion[nIndex].y = seiInfo.y < m_nCanvasHeight ? seiInfo.y*1.0 / m_nCanvasHeight : 1;
-		lpRegion[nIndex].renderMode = RENDER_MODE_FIT;
-		lpRegion[nIndex].zOrder = seiInfo.nIndex;
-		lpRegion[nIndex].alpha = 1;
-		nIndex++;
-	}
-
-	strBackColor.Format("#%08X", crBack);
-	layout.backgroundColor = strBackColor;
-	layout.canvasWidth = m_nCanvasWidth;
-	layout.canvasHeight = m_nCanvasHeight;
-	layout.regions = lpRegion;
-	layout.regionCount = nVideoCount;
-	
-	nRet = m_lpAgoraEngine->setVideoCompositingLayout(layout);
-
-	delete[] lpRegion;
-
-	return nRet == 0 ? TRUE : FALSE;
+	return TRUE;
 }
 
 BOOL CAgoraObject::EnableH264Compatible()

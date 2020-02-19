@@ -197,6 +197,7 @@ void CAGEngineEventHandler::onFirstRemoteVideoDecoded(uid_t uid, int width, int 
 
 void CAGEngineEventHandler::onFirstRemoteVideoFrame(uid_t uid, int width, int height, int elapsed)
 {
+#if 0
 	LPAGE_FIRST_REMOTE_VIDEO_FRAME lpData = new AGE_FIRST_REMOTE_VIDEO_FRAME;
 
 	lpData->uid = uid;
@@ -206,7 +207,7 @@ void CAGEngineEventHandler::onFirstRemoteVideoFrame(uid_t uid, int width, int he
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_FIRST_REMOTE_VIDEO_FRAME), (WPARAM)lpData, 0);
-
+#endif
 }
 
 void CAGEngineEventHandler::onUserJoined(uid_t uid, int elapsed)
@@ -234,6 +235,7 @@ void CAGEngineEventHandler::onUserOffline(uid_t uid, USER_OFFLINE_REASON_TYPE re
 
 void CAGEngineEventHandler::onUserMuteAudio(uid_t uid, bool muted)
 {
+#if 0
 	LPAGE_USER_MUTE_AUDIO lpData = new AGE_USER_MUTE_AUDIO;
 
 	lpData->uid = uid;
@@ -241,11 +243,12 @@ void CAGEngineEventHandler::onUserMuteAudio(uid_t uid, bool muted)
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_AUDIO), (WPARAM)lpData, 0);
-
+#endif
 }
 
 void CAGEngineEventHandler::onUserMuteVideo(uid_t uid, bool muted)
 {
+#if 0
 	LPAGE_USER_MUTE_VIDEO lpData = new AGE_USER_MUTE_VIDEO;
 
 	lpData->uid = uid;
@@ -253,7 +256,7 @@ void CAGEngineEventHandler::onUserMuteVideo(uid_t uid, bool muted)
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_VIDEO), (WPARAM)lpData, 0);
-
+#endif
 }
 
 void CAGEngineEventHandler::onApiCallExecuted(int err, const char* api, const char* result)
@@ -271,6 +274,7 @@ void CAGEngineEventHandler::onApiCallExecuted(int err, const char* api, const ch
 
 void CAGEngineEventHandler::onLocalVideoStats(const LocalVideoStats& stats)
 {
+#if 0
 	LPAGE_LOCAL_VIDEO_STAT lpData = new AGE_LOCAL_VIDEO_STAT;
 
 	lpData->sentBitrate = stats.sentBitrate;
@@ -278,7 +282,7 @@ void CAGEngineEventHandler::onLocalVideoStats(const LocalVideoStats& stats)
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_LOCAL_VIDEO_STAT), (WPARAM)lpData, 0);
-
+#endif
 }
 
 void CAGEngineEventHandler::onRemoteVideoStats(const RemoteVideoStats& stats)

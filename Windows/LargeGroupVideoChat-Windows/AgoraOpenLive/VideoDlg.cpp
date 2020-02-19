@@ -105,7 +105,7 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 	
 	ON_BN_CLICKED(ID_IDR_DEVICE, &CVideoDlg::OnBnClickedBtnsetup)
 	ON_BN_CLICKED(ID_IDR_SEIPUSH, &CVideoDlg::OnBnClickedBtSEIPush)
-
+	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &CVideoDlg::OnEIDLeaveChannel)
 	ON_WM_SHOWWINDOW()
     ON_WM_MOVE()
 	ON_WM_TIMER()
@@ -1717,4 +1717,12 @@ LRESULT CVideoDlg::OnWindowShareStart(WPARAM wParam, LPARAM lParam)
     m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
     return 0;
+}
+
+LRESULT CVideoDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
+	delete lpData;
+	lpData = NULL;
+	return 0;
 }

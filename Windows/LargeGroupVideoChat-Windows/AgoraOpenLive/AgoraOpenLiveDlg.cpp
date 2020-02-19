@@ -82,7 +82,7 @@ BEGIN_MESSAGE_MAP(CAgoraOpenLiveDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BTNMIN, &CAgoraOpenLiveDlg::OnBnClickedBtnmin)
     ON_BN_CLICKED(IDC_BTNCLOSE, &CAgoraOpenLiveDlg::OnBnClickedBtnclose)
     ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &CAgoraOpenLiveDlg::OnNetworkQuality)
-
+	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &CAgoraOpenLiveDlg::OnEIDLeaveChannel)
     ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
@@ -410,4 +410,11 @@ void CAgoraOpenLiveDlg::OnClose()
     // TODO:  在此添加消息处理程序代码和/或调用默认值
 
     CDialogEx::OnClose();
+}
+LRESULT CAgoraOpenLiveDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
+	delete lpData;
+	lpData = NULL;
+	return 0;
 }

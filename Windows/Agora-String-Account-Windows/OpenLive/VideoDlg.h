@@ -86,6 +86,7 @@ protected:
 	afx_msg LRESULT OnLocalUserRegistered(WPARAM wParam, LPARAM lParam);
 
 	afx_msg LRESULT OnUserInfoUpdated(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam);
 
 	DECLARE_MESSAGE_MAP()
 
