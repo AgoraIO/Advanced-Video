@@ -75,6 +75,7 @@ BEGIN_MESSAGE_MAP(CProcessScreenShareDlg, CDialogEx)
 	ON_MESSAGE(WM_MSGID(EID_SCREENSHARE_START), OnScreenShareStart)
 	ON_MESSAGE(WM_MSGID(EID_SCREENSHARE_STOP), OnScreenShareStop)
 	ON_MESSAGE(WM_MSGID(EID_SCREENSHARE_CLOSE),OnScreenShareClose)
+	ON_MESSAGE(WM_MSGID(EID_JOINCHANNEL_SUCCESS), &CProcessScreenShareDlg::OnEIDJoinChannelSuccess)
 END_MESSAGE_MAP()
 
 
@@ -289,4 +290,19 @@ inline void CProcessScreenShareDlg::uninitAgoraMedia()
 		m_lpAgoraObject = nullptr;
 		m_lpRtcEngine = nullptr;
 	}
+}
+
+
+
+LRESULT CProcessScreenShareDlg::OnEIDJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_JOINCHANNEL_SUCCESS lpData = (LPAGE_JOINCHANNEL_SUCCESS)wParam;
+
+	delete[] lpData->channel;
+	lpData->channel = NULL;
+	delete lpData;
+	lpData = NULL;
+
+	
+	return 0;
 }

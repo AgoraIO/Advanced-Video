@@ -1,9 +1,9 @@
 #pragma once
 
 #include <atlcoll.h>
-#include "../AgoraSDK/include/IAgoraRtcEngine.h"
-#include "../AgoraSDK/include/IAgoraRtcEngine2.h"
-#include "../AgoraSDK/include/IAgoraMediaEngine.h"
+#include "IAgoraRtcEngine.h"
+#include "IAgoraRtcEngine2.h"
+#include "IAgoraMediaEngine.h"
 
 #include "AGEngineEventHandler.h"
 #include "AGEventDef.h"
@@ -91,7 +91,7 @@ public:
 
 	BOOL EnableLocalVideo(BOOL bEnable = TRUE);
 
-	BOOL EnableScreenCapture(HWND hWnd, int nCapFPS = 15, LPCRECT lpCapRect = NULL, BOOL bEnable = TRUE);
+	BOOL EnableScreenCapture(HWND hWnd, int nCapFPS = 15, LPCRECT lpCapRect = NULL, BOOL bEnable = TRUE, int bitrate = 1000);
 	BOOL IsScreenCaptureEnabled();
 
 	BOOL MuteLocalAudio(BOOL bMuted = TRUE);
@@ -127,7 +127,7 @@ public:
 
 	BOOL LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn = TRUE);
 
-	BOOL SetLogFilter(LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath);
+	BOOL SetLogFilter(agora::LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath);
 
     BOOL SetEncryptionSecret(LPCTSTR lpKey, int nEncryptType = 0);
 

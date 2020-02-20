@@ -38,6 +38,7 @@ protected:
 	afx_msg LRESULT OnScreenShareClose(WPARAM wParam,LPARAM lParam);
 	afx_msg BOOL OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct);
 
+	afx_msg LRESULT OnEIDJoinChannelSuccess(WPARAM wParam, LPARAM lParam);
 private:
 	
 	inline void initAgoraMedia();

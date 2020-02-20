@@ -1,9 +1,9 @@
 #pragma once
 
 #include <atlcoll.h>
-#include "../AgoraSDK/include/IAgoraRtcEngine.h"
-#include "../AgoraSDK/include/IAgoraRtcEngine2.h"
-#include "../AgoraSDK/include/IAgoraMediaEngine.h"
+#include <IAgoraRtcEngine.h>
+#include <IAgoraRtcEngine2.h>
+#include <IAgoraMediaEngine.h>
 
 #include "AGEngineEventHandler.h"
 #include "AGEventDef.h"

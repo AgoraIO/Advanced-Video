@@ -33,12 +33,12 @@
 
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
-#include "../AgoraSDK/include/IAgoraRtcEngine.h"
-#include "../AgoraSDK/include/IAgoraRtcEngine2.h"
+#include "IAgoraRtcEngine.h"
+#include "IAgoraRtcEngine2.h"
 using namespace  agora::util;
 using namespace agora::rtc;
 
-#pragma comment(lib,"../AgoraSDK/lib/agora_rtc_sdk.lib")
+#pragma comment(lib,"agora_rtc_sdk.lib")
 
 #include "FileIO.h"
 extern CFileIO gFileHook;
@@ -50,8 +50,8 @@ extern BOOL gIsSaveDumpPcm;
 #include "commonFun.h"
 #include "AgoraObject.h"
 
-#include "../HookSDK/Include/IAgoraPlayerHook.h"
-#pragma comment(lib,"../HookSDK/lib/agora_playhook_sdk.lib")
+#include "IAgoraPlayerHook.h"
+#pragma comment(lib,"agora_playhook_sdk.lib")
 
 #pragma warning(disable:4800)
 #pragma warning(disable:4244)

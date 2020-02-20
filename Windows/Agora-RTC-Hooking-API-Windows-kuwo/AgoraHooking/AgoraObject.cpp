@@ -375,29 +375,56 @@ BOOL CAgoraObject::EnableLocalVideo(BOOL bEnable /*= TRUE*/)
 	return ret == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable)
+BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable, int nBitrate)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
 	int ret = 0;
 	RtcEngineParameters rep(*m_lpAgoraEngine);
 
-	Rect rcCap;
+	agora::rtc::Rectangle rcCap;
+	ScreenCaptureParameters capParam;
+	capParam.bitrate = nBitrate;
+	capParam.frameRate = nCapFPS;
 
 	if (bEnable) {
-		if (lpCapRect == NULL)
-			ret = rep.startScreenCapture(hWnd, nCapFPS, NULL);
+		if (lpCapRect == NULL){
+			RECT rc;
+			if (hWnd){
+				::GetWindowRect(hWnd, &rc);
+				capParam.dimensions.width = rc.right - rc.left;
+				capParam.dimensions.height = rc.bottom - rc.top;
+				ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
+			}
+			else{
+				GetWindowRect(GetDesktopWindow(), &rc);
+				agora::rtc::Rectangle screenRegion = { rc.left, rc.right, rc.right - rc.left, rc.bottom - rc.top };
+				capParam.dimensions.width = rc.right - rc.left;
+				capParam.dimensions.height = rc.bottom - rc.top;
+				ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
+			}
+			//startScreenCapture(hWnd, nCapFPS, NULL, nBitrate);
+		}
 		else {
-			rcCap.left = lpCapRect->left;
-			rcCap.right = lpCapRect->right;
-			rcCap.top = lpCapRect->top;
-			rcCap.bottom = lpCapRect->bottom;
+			capParam.dimensions.width = lpCapRect->right - lpCapRect->left;
+			capParam.dimensions.height = lpCapRect->bottom - lpCapRect->top;
 
-			ret = rep.startScreenCapture(hWnd, nCapFPS, &rcCap);
+			rcCap.x = lpCapRect->left;
+			rcCap.y = lpCapRect->top;
+			rcCap.width = lpCapRect->right - lpCapRect->left;
+			rcCap.height = lpCapRect->bottom - lpCapRect->top;
+
+			if (hWnd)
+				ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
+			else{
+
+				agora::rtc::Rectangle screenRegion = rcCap;
+				ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
+			}
 		}
 	}
 	else
-		ret = rep.stopScreenCapture();
+		ret = m_lpAgoraEngine->stopScreenCapture();
 
 	if (ret == 0)
 		m_bScreenCapture = bEnable;
@@ -531,7 +558,7 @@ void CAgoraObject::SetWantedRole(CLIENT_ROLE_TYPE role)
 
 BOOL CAgoraObject::SetClientRole(CLIENT_ROLE_TYPE role, LPCSTR lpPermissionKey)
 {
-	int nRet = m_lpAgoraEngine->setClientRole(role, lpPermissionKey);
+	int nRet = m_lpAgoraEngine->setClientRole(role);
 
 	m_nRoleType = role;
 
@@ -542,7 +569,7 @@ BOOL CAgoraObject::SetClientRole(CLIENT_ROLE_TYPE role, LPCSTR lpPermissionKey)
 BOOL CAgoraObject::EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* lpAudioFrameObserver)
 {
 	agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-	mediaEngine.queryInterface(m_lpAgoraEngine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
+	mediaEngine.queryInterface(m_lpAgoraEngine, agora::AGORA_IID_MEDIA_ENGINE);
 
 	int nRet = 0;
 
@@ -560,7 +587,7 @@ BOOL CAgoraObject::EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* l
 BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* lpVideoFrameObserver)
 {
 	agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-	mediaEngine.queryInterface(m_lpAgoraEngine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
+	mediaEngine.queryInterface(m_lpAgoraEngine, agora::AGORA_IID_MEDIA_ENGINE);
 
 	int nRet = 0;
 	AParameter apm(*m_lpAgoraEngine);
@@ -636,7 +663,7 @@ BOOL CAgoraObject::LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn)
 }
 
 
-BOOL CAgoraObject::SetLogFilter(LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath)
+BOOL CAgoraObject::SetLogFilter(agora::LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath)
 {
 	int nRet = 0;
 	RtcEngineParameters rep(*m_lpAgoraEngine);
@@ -931,52 +958,8 @@ BOOL CAgoraObject::GetSEIInfoByIndex(int nIndex, LPSEI_INFO lpSEIInfo)
 
 BOOL CAgoraObject::EnableSEIPush(BOOL bEnable, COLORREF crBack)
 {
-	CStringA	strBackColor;
-	VideoCompositingLayout layout;
-	int	nRet = 0;
 
-	int nVideoCount = m_mapSEIInfo.GetCount();
-	if (nVideoCount <= 0)
-		return FALSE;
-
-	if (!bEnable) {
-		nRet = m_lpAgoraEngine->clearVideoCompositingLayout();
-		return nRet == 0 ? TRUE : FALSE;
-	}
-
-	VideoCompositingLayout::Region *lpRegion = new VideoCompositingLayout::Region[nVideoCount];
-	memset(lpRegion, 0, sizeof(VideoCompositingLayout::Region)*nVideoCount);
-
-	POSITION pos = m_mapSEIInfo.GetStartPosition();
-	int nIndex = 0;
-
-	while (pos != NULL) {
-		SEI_INFO &seiInfo = m_mapSEIInfo.GetNextValue(pos);
-
-		lpRegion[nIndex].height = seiInfo.nHeight < m_nCanvasHeight ? (seiInfo.nHeight *1.0)/ m_nCanvasHeight : 1;
-		lpRegion[nIndex].width = seiInfo.nWidth < m_nCanvasWidth ? seiInfo.nWidth*1.0 / m_nCanvasWidth : 1;
-		lpRegion[nIndex].uid = seiInfo.nUID;
-		
-		lpRegion[nIndex].x = seiInfo.x < m_nCanvasWidth ? seiInfo.x*1.0 / m_nCanvasWidth : 1;
-		lpRegion[nIndex].y = seiInfo.y < m_nCanvasHeight ? seiInfo.y*1.0 / m_nCanvasHeight : 1;
-		lpRegion[nIndex].renderMode = RENDER_MODE_FIT;
-		lpRegion[nIndex].zOrder = seiInfo.nIndex;
-		lpRegion[nIndex].alpha = 1;
-		nIndex++;
-	}
-
-	strBackColor.Format("#%08X", crBack);
-	layout.backgroundColor = strBackColor;
-	layout.canvasWidth = m_nCanvasWidth;
-	layout.canvasHeight = m_nCanvasHeight;
-	layout.regions = lpRegion;
-	layout.regionCount = nVideoCount;
-	
-	nRet = m_lpAgoraEngine->setVideoCompositingLayout(layout);
-
-	delete[] lpRegion;
-
-	return nRet == 0 ? TRUE : FALSE;
+	return TRUE;
 }
 
 BOOL CAgoraObject::EnableH264Compatible()
@@ -1092,7 +1075,7 @@ void CAgoraObject::getPublishParam(AGE_PUBLISH_PARAM &publishParam)
 
 bool CAgoraObject::enablePublish(bool enable /*= true*/)
 {
-	if (enable){
+/*	if (enable){
 		PublisherConfiguration publishparam;
 		publishparam.width = m_publishParam.width;
 		publishparam.height = m_publishParam.height;
@@ -1106,7 +1089,7 @@ bool CAgoraObject::enablePublish(bool enable /*= true*/)
 	else
 	{
 
-	}
+	}*/
 
 	return true;
 }

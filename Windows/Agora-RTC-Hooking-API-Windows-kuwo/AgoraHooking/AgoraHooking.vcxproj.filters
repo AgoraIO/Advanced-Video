@@ -90,6 +90,9 @@
     <ClInclude Include="CicleBuffer.h">
       <Filter>Utilc</Filter>
     </ClInclude>
+    <ClInclude Include="ExtendVideoFrameObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AgoraHooking.cpp">

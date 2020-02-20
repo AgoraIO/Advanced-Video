@@ -401,7 +401,7 @@ LRESULT CAgoraHookingDlg::OnJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
 		char szbuf[256] = { '\0' };
 		sprintf_s(szbuf, "[%s] [%d]", lpData->channel, lpData->uid);
 		::SetWindowTextW(m_hWndTitle, s2cs(szbuf));
-
+		delete[] lpData->channel; lpData->channel = nullptr;
 		delete lpData; lpData = nullptr;
 	}
 
@@ -414,6 +414,7 @@ LRESULT CAgoraHookingDlg::OnRejoinChannelSuccess(WPARAM wParam, LPARAM lParam)
 	if (lpData) {
 
 		CAgoraFormatStr::AgoraWriteLog("Uid: %u Channel: %s RejoinChannelSuccess", lpData->uid, lpData->channel);
+		delete[] lpData->channel; lpData->channel = nullptr;
 		delete lpData; lpData = nullptr;
 	}
 
@@ -429,8 +430,8 @@ LRESULT CAgoraHookingDlg::OnError(WPARAM wParam, LPARAM lParam)
 {
 	LPAGE_ERROR lpData = (LPAGE_ERROR)wParam;
 	if (lpData) {
-		
-		delete lpData; lpData = nullptr;
+		delete[] lpData->msg; lpData->msg = nullptr;
+	    delete lpData; lpData = nullptr;
 	}
 
 	return TRUE;

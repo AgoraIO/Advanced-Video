@@ -296,7 +296,7 @@ inline void CAgoraHookingDlg::initResource()
 	BOOL bEnableRotate = str2int(gConfigHook.getLeftRotate90(m_strInstance));
 	BOOL bEnableRtmp = str2int(gConfigHook.getRtmpSave(m_strInstance));
 	if (bEnableRtmp){
-
+ 
 		int nRtmpWidth = str2int(gConfigHook.getRtmpWidth(m_strInstance));
 		int nRtmpHeight = str2int(gConfigHook.getRtmpHeight(m_strInstance));
 		int nRtmpFps = str2int(gConfigHook.getRtmpFps(m_strInstance));
@@ -411,7 +411,7 @@ LRESULT CAgoraHookingDlg::OnJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
 		if (m_pAssistantBox)
 			m_pAssistantBox->setBoxTitle(s2cs(szbuf));
 #endif
-
+		delete[] lpData->channel; lpData->channel = nullptr;
 		delete lpData; lpData = nullptr;
 	}
 
@@ -424,6 +424,7 @@ LRESULT CAgoraHookingDlg::OnRejoinChannelSuccess(WPARAM wParam, LPARAM lParam)
 	if (lpData) {
 
 		CAgoraFormatStr::AgoraWriteLog("Uid: %u Channel: %s RejoinChannelSuccess", lpData->uid, lpData->channel);
+		delete[] lpData->channel; lpData->channel = nullptr;
 		delete lpData; lpData = nullptr;
 	}
 
@@ -439,7 +440,7 @@ LRESULT CAgoraHookingDlg::OnError(WPARAM wParam, LPARAM lParam)
 {
 	LPAGE_ERROR lpData = (LPAGE_ERROR)wParam;
 	if (lpData) {
-		
+		delete[] lpData->msg; lpData->msg = nullptr;
 		delete lpData; lpData = nullptr;
 	}
 
@@ -473,7 +474,7 @@ LRESULT CAgoraHookingDlg::OnLeaveChannel(WPARAM wParam, LPARAM lParam)
 	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
 	if (lpData) {
 
-		CAgoraFormatStr::AgoraWriteLog("LeaveChannel uid: %u", lpData->rtcStat.users);
+		CAgoraFormatStr::AgoraWriteLog("LeaveChannel uid: %u", lpData->rtcStat.userCount);
 		delete lpData; lpData = nullptr;
 	}
 	return TRUE;
