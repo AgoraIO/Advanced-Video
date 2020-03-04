@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
@@ -23,10 +24,10 @@ import io.agora.rtc.mediaio.IVideoSink;
 import io.agora.rtc.mediaio.IVideoSource;
 import io.agora.rtc.mediaio.app.BaseActivity;
 import io.agora.rtc.mediaio.app.R;
-import io.agora.rtc.mediaio.app.videoSource.source.AgoraLocalVideoSource;
-import io.agora.rtc.mediaio.app.videoSource.source.PrivateTextureHelper;
 import io.agora.rtc.mediaio.app.rtcEngine.AGEventHandler;
 import io.agora.rtc.mediaio.app.rtcEngine.ConstantApp;
+import io.agora.rtc.mediaio.app.videoSource.source.AgoraLocalVideoSource;
+import io.agora.rtc.mediaio.app.videoSource.source.PrivateTextureHelper;
 
 import static io.agora.rtc.mediaio.MediaIO.BufferType.BYTE_ARRAY;
 import static io.agora.rtc.mediaio.MediaIO.BufferType.TEXTURE;
@@ -59,7 +60,6 @@ public class PrivateTextureViewActivity extends BaseActivity implements AGEventH
         setContentView(R.layout.activity_private_texture_view);
         mUsers = new HashMap<>();
         mRemoteTextureView = (TextureView) findViewById(R.id.textureView2);
-        ;
         mRemoteRender = new PrivateTextureHelper(this, mRemoteTextureView);
 
         SeekBarCallBack seekBarCallBack = new SeekBarCallBack();
@@ -79,13 +79,13 @@ public class PrivateTextureViewActivity extends BaseActivity implements AGEventH
     @Override
     protected void onStop() {
         super.onStop();
-        worker().leaveChannel(mChannelName);
-        worker().preview(false, null, 0);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        worker().leaveChannel(mChannelName);
+        worker().preview(false, null, 0);
     }
 
     protected void initUIandEvent() {
@@ -94,22 +94,9 @@ public class PrivateTextureViewActivity extends BaseActivity implements AGEventH
         Intent i = getIntent();
         mChannelName = i.getStringExtra(ConstantApp.ACTION_KEY_ROOM_NAME);
         videoPath = i.getStringExtra(ConstantApp.ACTION_KEY_VIDEO_PATH);
+        mLocalSourceFlag = TextUtils.isEmpty(videoPath);
+        switchSource(null);
         mClientRole = i.getIntExtra(ConstantApp.ACTION_KEY_CROLE, Constants.CLIENT_ROLE_BROADCASTER);
-        mVideoSource = new AgoraLocalVideoSource(this, 640, 480, videoPath);
-        FrameLayout container = (FrameLayout) findViewById(R.id.texture_view_container);
-        if (container.getChildCount() >= 1) {
-            return;
-        }
-        mLocalTextureView = new TextureView(this);
-        container.addView(mLocalTextureView);
-        mRender = new PrivateTextureHelper(this, mLocalTextureView);
-        ((PrivateTextureHelper) mRender).init(((AgoraLocalVideoSource) mVideoSource).getEglContext());
-        ((PrivateTextureHelper) mRender).setBufferType(TEXTURE);
-        ((PrivateTextureHelper) mRender).setPixelFormat(TEXTURE_OES);
-        worker().setVideoSource(mVideoSource);
-
-        worker().setLocalRender(mRender);
-        worker().preview(true, null, 0);
         doConfigEngine(mClientRole);
 
         worker().joinChannel(mChannelName, 0);
@@ -144,6 +131,7 @@ public class PrivateTextureViewActivity extends BaseActivity implements AGEventH
 
     public void onUserOffline(int uid, int reason) {
         Log.d(TAG, "onUserOffline");
+        mUsers.remove(uid);
     }
     //from AGEventHandler end
 
