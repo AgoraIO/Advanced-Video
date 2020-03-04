@@ -15,7 +15,10 @@
 
 本开源项目使用 **C++** 语言
 
-你也可以在这里查看入门版的示例项目：[Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
+## 运行环境
+* VC++ 2013(或更高版本)
+* Windows 7(或更高版本)
+
 
 ## 运行示例程序
 首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 App ID。将 APP_ID宏定义内容改为刚才申请的 App ID
@@ -40,9 +43,6 @@
       请在解决方案资源管理器中选中OpenLive 项目，并右击，在弹出的菜单栏中选择 "设为启动项目"，即可解决。之后重新运行程序即可。
   2. 本开源项目在 debug 模式下运行可能会出现崩溃，请在 release 模式下运行。
 
-## 运行环境
-* VC++ 2013(或更高版本)
-* Windows 7(或更高版本)
 
 ## 联系我们
 

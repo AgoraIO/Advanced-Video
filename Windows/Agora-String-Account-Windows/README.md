@@ -15,9 +15,12 @@ With this sample app, you can:
 
 This demo is written in **C++**
 
-A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
+## Developer Environment Requirements
+* VC++ 2013(or higher)
+* Windows 7(or higher)
 
-## Running the App
+
+## Running the sample program
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. define the APP_ID with your App ID.
 
     #define APP_ID _T("Your App ID")
@@ -36,13 +39,8 @@ Note：
   1. After the program is compiled, if the program "xxx\xxx\xxx\Debug\Language\English.dll" cannot be started when running the program, 
       please select the OpenLive project in the Solution Explorer and right click. In the pop-up menu bar, select "Set as startup project" to solve. Then run the program again.
   2. You may encounter crash when running this demo under debug mode. Please run this demo under release mode.
-  
-## Developer Environment Requirements
-* VC++ 2013(or higher)
-* Windows 7(or higher)
 
 ## Connect Us
-
 
 - For potential issues, you may take a look at our [FAQ](https://docs.agora.io/en/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
