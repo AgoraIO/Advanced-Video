@@ -1,6 +1,6 @@
 # Agora Custom Media Device
 
-*其他语言版本： [简体中文](README.zhCN.md)*
+*其他语言版本： [简体中文](README.zh.md)*
 
 ## Introduction
 
@@ -8,32 +8,55 @@ The Agora-Custom-Media-Device Sample App is an open-source demo that helps you g
 
 With this Sample App, you can:
 
-* Send captured image from custom video source to live video channel
-* Render frames of live video channel with custom video renderer
+- Send captured image from custom video source to live video channel
+- Render frames of live video channel with custom video renderer
 
-## Preparing the Developer Environment
+## Prerequisites
 
-* Ensure that your Xcode version is later than Xcode 9.0 (included)
-* Prepare iOS devices with audio and video functionalities
-* iOS simulators are NOT supported
+- Xcode 10.0+
+- Physical iOS device (iPhone or iPad)
+- iOS simulator is NOT supported
 
-## Running the App
+## Quick Start
 
-1. Create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. 
-2. Download the Sample App.
-3. Fill in the App ID in the *KeyCenter.swift* file of the Sample App:
-   ```
-   static let AppId: String = <#Your App Id#>
-   ```
-4. Download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package.
-   > Custom media device protocols are provided from 2.1.0.
-5. Copy the **AgoraRtcKit.framework** file under the **libs** folder of the SDK to the **../libs** folder in project.
-6. Open **Agora-Custom-Media-Device.xcodeproj**, connect your iPhone／iPad device, set up your development signing and run.
+This section shows you how to prepare, build, and run the sample application.
 
-## Connect Us
+### Obtain an App Id
 
-* You can find full API documents at [Document Center](https://docs.agora.io/en/)
-* You can file bugs about this demo at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
+To build and run the sample application, get an App Id:
+
+1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
+2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
+3. Save the **App Id** from the Dashboard for later use.
+4. Generate a temp **Access Token** (valid for 24 hours) from dashboard page with given channel name, save for later use.
+
+5. Open `Agora-Custom-Media-Device.xcodeproj` and edit the `KeyCenter.swift` file. Update `<#Your App Id#>` with your App Id, and assign the token variable with the temp Access Token generated from dashboard.
+
+    ``` Swift
+    static let AppId: String = <#Your App Id#>
+    // assign token to nil if you have not enabled app certificate
+    static var Token: String? = <#Temp Access Token#>
+    ```
+
+### Integrate the Agora Video SDK
+
+1. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the following files from the SDK `libs` folder into `iOS&macOS/libs/iOS` folder.
+
+    - `AograRtcKit.framework`
+    - `AgoraRtcCryptoLoader.framework`
+    - `libcrypto.a`
+  
+2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
+
+## Contract Us
+
+- For potential issues, you may take a look at our [FAQ](https://docs.agora.io/en/faq) first
+- Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
+- Would like to see how Agora SDK is used in more complicated real use case? Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase)
+- Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
+- You can find full API document at [Document Center](https://docs.agora.io/en/)
+- If you encounter problems during integration, you can ask question in [Developer Forum](https://stackoverflow.com/questions/tagged/agora.io)
+- You can file bugs about this sample at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 

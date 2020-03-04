@@ -1,17 +1,19 @@
-# Agora Screen Sharing iOS
+# 17 Multistream
 
-这个开源示例项目演示了如何使用 Agora视频SDK 和 ReplayKit 来实现 iOS 上的屏幕共享。
+*Read this in other languages: [English](README.md)*
 
-本示例项目中包含以下功能：
+这个开源示例项目演示了如何快速集成Agora视频SDK，实现多人视频连麦直播。
 
-- 作为观众接受视频流
-- 发送屏幕共享视频流
+在这个示例项目中包含了以下功能：
+
+- 加入通话和离开通话
+- 静音和解除静音
+- 播放/禁止播放远端音视频
+- 可支持最多17人视频通话
 
 ## 环境准备
 
 - XCode 10.0 +
-- iOS 10.0 + 真机设备
-- 不支持模拟器
 
 ## 运行示例程序
 
@@ -36,19 +38,15 @@ static var Token: String? = <#Temp Access Token#>
 
 ### 集成 Agora 视频 SDK
 
-1. 在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中**libs**文件夹中的下列文件拷贝到 **iOS&macOS/libs/iOS** 文件夹下。
+1. 在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中**libs**文件夹中的下列文件拷贝到 **iOS&macOS/libs/macOS** 文件夹下。
 
   - AgoraRtcKit.framework
   - AgoraRtcCryptoLoader.framework
   - libcrypto.a
 
-2. 最后使用 Xcode 打开 Agora-Screen-Sharing-iOS.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
+2. pod install，创建 17-Multistream.xcworkspace。
 
-##使用方法
-1. 选择 Broadcaster 进入“游戏界面”；
-2. 点击左下角的开始屏幕共享按钮。如果是 iOS11 则需要输入频道名开始共享，如果是 iOS12+ 则选择 Agora-Screen-Sharing-iOS 组件开始共享；
-3. 使用另一台设备，选择 Audience 进入观众界面；
-4. 观众端需要输入屏幕共享端开始直播时的频道名。如果屏幕共享端是 iOS12+，则输入频道名为 "channel"
+3. 最后使用 Xcode 打开 17-Multistream.xcworkspace，运行本项目。
 
 ## 联系我们
 

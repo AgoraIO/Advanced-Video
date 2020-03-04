@@ -1,16 +1,19 @@
-# Agora Screen Sharing iOS
+# AgoraPluginRawDataAPI for iOS
 
-这个开源示例项目演示了如何使用 Agora视频SDK 和 ReplayKit 来实现 iOS 上的屏幕共享。
+*Read this in other languages: [English](README.md)*
 
-本示例项目中包含以下功能：
+这个示例项目演示了如何使用 Agora 原始数据接口，实现获取音视频数据流的功能。
 
-- 作为观众接受视频流
-- 发送屏幕共享视频流
+在这个示例项目中包含了以下功能：
+
+- 获取本地视频采集数据，其他用户视频数据；
+- 获取本地音频采集数据，其他用户音频数据；
+- 本地视频和远端视频截图功能；
 
 ## 环境准备
 
 - XCode 10.0 +
-- iOS 10.0 + 真机设备
+- iOS 真机设备
 - 不支持模拟器
 
 ## 运行示例程序
@@ -42,13 +45,7 @@ static var Token: String? = <#Temp Access Token#>
   - AgoraRtcCryptoLoader.framework
   - libcrypto.a
 
-2. 最后使用 Xcode 打开 Agora-Screen-Sharing-iOS.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
-
-##使用方法
-1. 选择 Broadcaster 进入“游戏界面”；
-2. 点击左下角的开始屏幕共享按钮。如果是 iOS11 则需要输入频道名开始共享，如果是 iOS12+ 则选择 Agora-Screen-Sharing-iOS 组件开始共享；
-3. 使用另一台设备，选择 Audience 进入观众界面；
-4. 观众端需要输入屏幕共享端开始直播时的频道名。如果屏幕共享端是 iOS12+，则输入频道名为 "channel"
+2. 最后使用 Xcode 打开 Agora-Plugin-Raw-Data-API-iOS-Objective-C.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
 ## 联系我们
 

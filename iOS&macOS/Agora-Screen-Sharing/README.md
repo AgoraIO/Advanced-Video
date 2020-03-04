@@ -6,12 +6,13 @@ This tutorial describes how to add screensharing to your iOS applications using 
 
 With this sample app, you can:
 
-- [Start or Stop Broadcast](#start-or-stop-broadcast)
-- [Start](#start-screenshare) or [Stop](#start-screenshare) Screensharing
+- Start or Stop Broadcast
+- Start or Stop Screensharing
 
 ## Prerequisites
 - Xcode 10.0+
 - Physical iOS 11+ device (iPhone or iPad)
+- iOS simulator is NOT supported
 	
 	**Note:** Use a physical device to run the sample. Some simulators lack the functionality or the performance needed to run the sample.
 
@@ -19,36 +20,42 @@ With this sample app, you can:
 
 This section shows you how to prepare, build, and run the sample application.
 
-- [Create an Account and Obtain an App ID](#create-an-account-and-obtain-an-app-id)
-- [Update and Run the Sample Application](#update-and-run-the-sample-application) 
+### Obtain an App Id
 
+To build and run the sample application, get an App Id:
 
-### Create an Account and Obtain an App ID
-To build and run the sample application, you must obtain an app ID: 
+1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
+2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
+3. Save the **App Id** from the Dashboard for later use.
+4. Generate a temp **Access Token** (valid for 24 hours) from dashboard page with given channel name, save for later use.
 
-1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the sign-up process, you are redirected to the dashboard.
-2. Navigate in the dashboard tree on the left to **Projects** > **Project List**.
-3. Copy the app ID that you obtained from the dashboard into a text file. You will use this when you launch the app.
+5. Open `Agora-Screen-Sharing-iOS.xcodeproj` and edit the `KeyCenter.swift` file. Update `<#Your App Id#>` with your App Id, and assign the token variable with the temp Access Token generated from dashboard.
 
-
-### Update and Run the Sample Application 
-
-1. Open `Agora-Screen-Sharing-iOS.xcodeproj` and fill in the App ID in the *KeyCenter.swift* file of the Sample App:.
-
-	```
+    ``` Swift
     static let AppId: String = <#Your App Id#>
-	```
+    // assign token to nil if you have not enabled app certificate
+    static var Token: String? = <#Temp Access Token#>
+    ```
 
-2. Download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package.
+### Integrate the Agora Video SDK
 
-3. Copy the **AgoraRtcKit.framework** file under the **libs** folder of the SDK to the **../libs** folder in project.
-			
-4. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied, or your project will not run.
+1. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the following files from the SDK `libs` folder into `iOS&macOS/libs/iOS` folder.
 
-## Resources
-- A detailed code walkthrough for this sample is available in [Steps to Create this Sample](./guide.md).
-- Find full API documentation in the [Document Center](https://docs.agora.io/en/)
-- [File bugs about this sample](https://github.com/AgoraIO/Advanced-Video/issues)
+    - `AograRtcKit.framework`
+    - `AgoraRtcCryptoLoader.framework`
+    - `libcrypto.a`
+  
+2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
+
+## Contract Us
+
+- For potential issues, you may take a look at our [FAQ](https://docs.agora.io/en/faq) first
+- Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
+- Would like to see how Agora SDK is used in more complicated real use case? Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase)
+- Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
+- You can find full API document at [Document Center](https://docs.agora.io/en/)
+- If you encounter problems during integration, you can ask question in [Developer Forum](https://stackoverflow.com/questions/tagged/agora.io)
+- You can file bugs about this sample at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
 This software is licensed under the MIT License (MIT). [View the license](LICENSE.md).
