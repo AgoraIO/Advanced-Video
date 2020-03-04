@@ -8,32 +8,38 @@ The small demo contains following features:
 
 - Join/Leave Channel     
 - Start/Stop ScreenSharing
+- Two Process
 
-## Quick Start
+## Developer Environment Requirements
+* VC2013 or higher
+* WIN7 or higher
 
-This section shows you how to prepare, and run the sample application.
+## Run the sample program
+First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. define the APP_ID with your App ID.
 
-### Obtain an App ID
+     #define APP_ID _T("Your App ID")
 
-To build and run the sample application, get an App ID:
-1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
-2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
-3. Save the **App ID** from the Dashboard for later use.
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk** to the "Agora-Screen-Sharing-Windows" folder in project(the old one may be over written).
 
+Finally, Open OpenLive.sln, build the solution and run.
 
-### Install dependencies and integrate the Agora Video SDK
+**Note：**
 
-1. Download the Agora Video SDK from Agora.io SDK. Unzip the downloaded SDK package and copy the sdk to the project folder(the old one may be over written).
-2. Replace the appid in AgoraObject.h
-```
-#define APP_ID _T("Your App ID")
-```
+  1. After the program is compiled, if the program "xxx\xxx\xxx\Debug\Language\English.dll" cannot be started when running the program, 
+      please select the OpenLive project in the Solution Explorer and right click. In the pop-up menu bar, select "Set as active project" to solve. Then run the program again.
+  
+  2. The dll library under the sdk/dll file needs to be placed in the corresponding execution path.
+  
+## Contact us
+- For potential issues, you may take a look at our [FAQ](https://docs.agora.io/en/faq) first
+- Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
+- Would like to see how Agora SDK is used in more complicated real use case? Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase)
+- Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
+- You can find full API document at [Document Center](https://docs.agora.io/en/)
+- If you encounter problems during integration, you can ask question in [Developer Forum](hhttps://stackoverflow.com/questions/tagged/agora.io)
+- You can file bugs about this sample at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
-## Resources
-
-- You can find full API document at [Document Center](https://docs.agora.io/en/Video/API%20Reference/web/index.html)
-- You can file bugs about this demo at [issue](https://github.com/agoraio/Advanced-Video)
 
 ## License
 
-The MIT License (MIT)
+The MIT License (MIT).
