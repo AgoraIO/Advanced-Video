@@ -15,7 +15,9 @@ jobs:
       - group: AgoraKeys
 
     steps:
-      - script: cd 'iOS&macOS' && ls && python ci_macos_env.py
+      - script: cd 'iOS&macOS/scripts' && chmod +x sdkdownload.sh && ./sdkdownload.sh ${{ parameters.sdkurl }} libs/macOS
+        
+      - script: cd 'iOS&macOS/scripts' && ls && python ci_macos_env.py
         env:
           AGORA_APP_ID: $(agora.appId)
           SDK_URL: ${{ parameters.sdkurl }}

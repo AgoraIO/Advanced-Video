@@ -11,8 +11,8 @@ pool:
   vmImage: 'macos-latest'
 
 variables:
-  iOSRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_iOS_v2_9_1_FULL.zip'
-  MacRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Mac_v2_9_1_FULL.zip'
+  iOSRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_iOS_v3_0_0_FULL.zip?_ga=2.79185814.368877217.1583320605-5559409.1503304822'
+  MacRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Mac_v3_0_0_FULL.zip?_ga=2.78400662.368877217.1583320605-5559409.1503304822'
 
 jobs:
 
@@ -44,7 +44,7 @@ jobs:
 - template: iOS&macOS/build-template/build-ios.yml
   parameters:
     displayName: 'AgoraPluginRawDataAPIiOSObjectiveC'
-    workingDirectory: 'iOS&macOS/Agora-Plugin-Raw-Data-API-iOS-Objective-C'
+    workingDirectory: 'iOS&macOS/Agora-Plugin-Raw-Data-API-Objective-C'
     scheme: 'Agora-Plugin-Raw-Data-API-iOS-Objective-C'
     sdkurl: $(iOSRTCSDK)
     
