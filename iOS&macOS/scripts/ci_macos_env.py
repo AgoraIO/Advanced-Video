@@ -5,6 +5,11 @@ import os
 
 def main():
     
+    appId = ""
+       if "AGORA_APP_ID" in os.environ:
+           appId = os.environ["AGORA_APP_ID"]
+    token = ""
+    
     # KeyCenter.swift
     f = open("../shared/Swift/KeyCenter.swift", 'r+')
     content = f.read()
