@@ -17,7 +17,7 @@ jobs:
     steps:
       - script: cd iOS&macOS/scripts && chmod +x sdkdownload.sh && ./sdkdownload.sh ${{ parameters.sdkurl }} libs/iOS
     
-      - script: cd 'iOS&macOS' && ls && python ci_ios_env.py && ls
+      - script: cd 'iOS&macOS/scripts' && ls && python ci_ios_env.py && ls
         env:
           AGORA_APP_ID: $(agora.appId)
 
