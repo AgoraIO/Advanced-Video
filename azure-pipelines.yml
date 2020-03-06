@@ -44,7 +44,7 @@ jobs:
 - template: iOS&macOS/build-template/build-ios.yml
   parameters:
     displayName: 'AgoraPluginRawDataAPIiOSObjectiveC'
-    workingDirectory: 'iOS&macOS/Agora-Plugin-Raw-Data-API-iOS-Objective-C'
+    workingDirectory: 'iOS&macOS/Agora-Plugin-Raw-Data-API-Objective-C'
     scheme: 'Agora-Plugin-Raw-Data-API-iOS-Objective-C'
     sdkurl: $(iOSRTCSDK)
     
