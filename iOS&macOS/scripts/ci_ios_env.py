@@ -4,40 +4,6 @@ import re
 import os
 
 def main():
-#    SDK_URL = ""
-#    if "SDK_URL" in os.environ:
-#        SDK_URL = os.environ["SDK_URL"]
-#    
-#    TARGET_LIBS_ZIP = "agora_sdk.zip"
-#    TARGET_INTERNAL_FOLDER = "agora_sdk"
-#    ZIP_STRUCTURE_FOLDER = "Agora_Native_SDK_for_iOS_VOICE/libs"
-#    FRAMEWORK_NAME = "AgoraRtcKit.framework"
-#    CRY_NAME = "AgoraRtcCryptoLoader.framework"
-#    LIBS_FOLDER = "libs/iOS"
-#    
-#    rm = "rm -r " + TARGET_LIBS_ZIP
-#    os.system(rm)
-#    
-#    rm = "rm -r " + TARGET_INTERNAL_FOLDER
-#    os.system(rm)
-#    
-#    rm = "rm -r " + LIBS_FOLDER + "/" + FRAMEWORK_NAME
-#    os.system(rm)
-#    
-#    rm = "rm -r " + LIBS_FOLDER + "/" + CRY_NAME
-#    os.system(rm)
-#    
-#    wget = "wget -q " + SDK_URL + " -O " + TARGET_LIBS_ZIP
-#    os.system(wget)
-#    
-#    unzip = "unzip -q " + TARGET_LIBS_ZIP + " -d " + TARGET_INTERNAL_FOLDER
-#    os.system(unzip)
-#    
-#    mv = "mv -f " + TARGET_INTERNAL_FOLDER + "/" + ZIP_STRUCTURE_FOLDER + "/" + FRAMEWORK_NAME + " \"" + LIBS_FOLDER +"\""
-#    os.system(mv)
-#    
-#    mv = "mv -f " + TARGET_INTERNAL_FOLDER + "/" + ZIP_STRUCTURE_FOLDER + "/" + CRY_NAME + " \"" + LIBS_FOLDER +"\""
-#    os.system(mv)
 
     appId = ""
     if "AGORA_APP_ID" in os.environ:

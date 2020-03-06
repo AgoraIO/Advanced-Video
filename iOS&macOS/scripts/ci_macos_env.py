@@ -6,7 +6,7 @@ import os
 def main():
     
     # KeyCenter.swift
-    f = open("./shared/Swift/KeyCenter.swift", 'r+')
+    f = open("../shared/Swift/KeyCenter.swift", 'r+')
     content = f.read()
     appString = "\"" + appId + "\""
     tokenString = "\"" + token + "\""
@@ -17,7 +17,7 @@ def main():
     f.truncate()
     
     # KeyCenter.m
-    f = open("./shared/Objective-C/KeyCenter.m", 'r+')
+    f = open("../shared/Objective-C/KeyCenter.m", 'r+')
     content = f.read()
     appString = "@\"" + appId + "\""
     tokenString = "@\"" + token + "\""
