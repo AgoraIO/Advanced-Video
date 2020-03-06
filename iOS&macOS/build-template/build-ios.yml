@@ -15,7 +15,7 @@ jobs:
       - group: AgoraKeys
 
     steps:
-      - script: cd iOS&macOS/scripts && chmod +x sdkdownload.sh && ./sdkdownload.sh ${{ parameters.sdkurl }} libs/iOS
+      - script: cd 'iOS&macOS/scripts' && chmod +x sdkdownload.sh && ./sdkdownload.sh ${{ parameters.sdkurl }} libs/iOS
     
       - script: cd 'iOS&macOS/scripts' && ls && python ci_ios_env.py && ls
         env:
