@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Input Switching</string>
+
+    <string name="alert_no_local_video_title">Local Video Not Found</string>
+    <string name="alert_no_local_video_message">Local video share will not be accessible.\n Please copy your MP4 video file to %s and change the name as localvideo.mp4.</string>
+
+    <string name="confirm">Confirm</string>
+
+    <string-array name="video_input_array">
+        <item>Local Video</item>
+        <item>Screen Share</item>
+        <item>AR</item>
+    </string-array>
+</resources>
