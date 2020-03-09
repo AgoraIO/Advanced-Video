@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="video_input_dialog_width">120dp</dimen>
+    <dimen name="video_input_dialog_block_height">146dp</dimen>
+    <dimen name="video_input_dialog_height">160dp</dimen>
+    <dimen name="video_input_dialog_item_height">48dp</dimen>
+    <dimen name="video_input_dialog_divider_height">1dp</dimen>
+    <dimen name="video_input_dialog_divider_width">110dp</dimen>
+    <dimen name="video_input_dialog_arrow_width">28dp</dimen>
+    <dimen name="video_input_dialog_arrow_height">14dp</dimen>
+</resources>

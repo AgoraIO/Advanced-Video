@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">视频源切换</string>
+
+    <string name="alert_no_local_video_title">未找到本地视频源</string>
+    <string name="alert_no_local_video_message">本地视频源不可用，请将MP4视频文件拷贝到 %s/ 并且命名为 localvideo.mp4.</string>
+
+    <string name="confirm">确认</string>
+
+    <string-array name="video_input_array">
+        <item>本地视频</item>
+        <item>屏幕分享</item>
+        <item>AR</item>
+    </string-array>
+</resources>

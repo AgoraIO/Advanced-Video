@@ -1,0 +1,2 @@
+include ':lib-component', ':sample-switch-external-video', ':sample-video-encrypt', ':lib-external-video', ':sample-custom-render'
+rootProject.name='Advanced-Video-Android'
