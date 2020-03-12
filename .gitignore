@@ -5,3 +5,4 @@ node_modules
 .DS_Store
 sdk.log
 sdk_1.log
+.idea
