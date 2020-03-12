@@ -134,7 +134,7 @@ export default function IndexCard () {
   return (
     <Box flex="1" display="flex" alignItems="center" justifyContent="flex-start" flexDirection="column">
       <Link to="/setting" className='setting-btn' />
-      <a href="https://github.com/AgoraIO/Advanced-Video/tree/master/17-Multistream" className="github" />
+      <a href="https://github.com/AgoraIO/Advanced-Video/tree/master/Web/17-Multistream" className="github" />
       <Box marginTop="92" flex="1" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
         <FormControl className={clsx(classes.input, classes.grid)}>
           <InputLabel htmlFor="channelName">Room Name</InputLabel>
