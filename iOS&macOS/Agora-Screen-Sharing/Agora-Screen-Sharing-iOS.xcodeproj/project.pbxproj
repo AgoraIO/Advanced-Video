@@ -31,6 +31,7 @@
 		A718449423C2E555008EA50E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718449223C2E54D008EA50E /* Accelerate.framework */; };
 		A718449523C2EA2A008EA50E /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79A7DE823B1E58C00335021 /* AgoraRtcKit.framework */; };
 		A718449723C2EC88008EA50E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A718449623C2EC88008EA50E /* README.md */; };
+		A725D6E8241F26FB0040C835 /* AgoraAudioProcessing.mm in Sources */ = {isa = PBXBuildFile; fileRef = A725D6E7241F26FB0040C835 /* AgoraAudioProcessing.mm */; };
 		A773BCC32408C080003ECBFD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718449223C2E54D008EA50E /* Accelerate.framework */; };
 		A773BCC52408C086003ECBFD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A773BCC42408C086003ECBFD /* AVFoundation.framework */; };
 		A773BCC72408C08B003ECBFD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A773BCC62408C08B003ECBFD /* AudioToolbox.framework */; };
@@ -129,6 +130,9 @@
 		A70E3D34239E4C7100B7F68C /* shoot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shoot.mp3; sourceTree = "<group>"; };
 		A718449223C2E54D008EA50E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		A718449623C2EC88008EA50E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A725D6E5241F26FB0040C835 /* AgoraAudioCriticalSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgoraAudioCriticalSection.h; sourceTree = "<group>"; };
+		A725D6E6241F26FB0040C835 /* AgoraAudioProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgoraAudioProcessing.h; sourceTree = "<group>"; };
+		A725D6E7241F26FB0040C835 /* AgoraAudioProcessing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AgoraAudioProcessing.mm; sourceTree = "<group>"; };
 		A773BCC42408C086003ECBFD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A773BCC62408C08B003ECBFD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A773BCC82408C091003ECBFD /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -243,6 +247,9 @@
 				07A67FD71F3073170051AD0D /* AgoraUploader.swift */,
 				A7FE1CE42397693700DF14A9 /* AgoraAudioTube.h */,
 				A7FE1CE52397693700DF14A9 /* AgoraAudioTube.mm */,
+				A725D6E6241F26FB0040C835 /* AgoraAudioProcessing.h */,
+				A725D6E7241F26FB0040C835 /* AgoraAudioProcessing.mm */,
+				A725D6E5241F26FB0040C835 /* AgoraAudioCriticalSection.h */,
 				A79A7DEC23B1E5B100335021 /* Supporting Files */,
 			);
 			path = "Agora-Screen-Sharing-iOS-Broadcast";
@@ -476,6 +483,7 @@
 				A79A7DDB23B1E10200335021 /* KeyCenter.swift in Sources */,
 				07A67FDB1F3073170051AD0D /* AgoraUploader.swift in Sources */,
 				07A67FB81F3071420051AD0D /* SampleHandler.swift in Sources */,
+				A725D6E8241F26FB0040C835 /* AgoraAudioProcessing.mm in Sources */,
 				A7FE1CE62397693700DF14A9 /* AgoraAudioTube.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

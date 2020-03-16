@@ -40,10 +40,14 @@ class AgoraUploader {
                                                          bitrate: AgoraVideoBitrateStandard,
                                                          orientationMode: .adaptative)
         kit.setVideoEncoderConfiguration(videoConfig)
-        kit.setAudioProfile(.musicStandardStereo, scenario: .default)
         
-        kit.enableExternalAudioSource(withSampleRate: audioSampleRate,
-                                      channelsPerFrame: audioChannels)
+        kit.setAudioProfile(.musicStandardStereo, scenario: .default)
+        AgoraAudioProcessing.registerAudioPreprocessing(kit)
+        kit.setRecordingAudioFrameParametersWithSampleRate(Int(audioSampleRate),
+                                                           channel: Int(audioChannels),
+                                                           mode: .readWrite,
+                                                           samplesPerCall: 1024)
+        kit.setParameters("{\"che.audio.external_device\":true}")
         
         kit.muteAllRemoteVideoStreams(true)
         kit.muteAllRemoteAudioStreams(true)
