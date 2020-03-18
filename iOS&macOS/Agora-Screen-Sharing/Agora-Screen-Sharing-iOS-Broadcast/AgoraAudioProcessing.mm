@@ -14,12 +14,12 @@
 #import "AgoraAudioProcessing.h"
 #import "AgoraAudioCriticalSection.h"
 
-static const int kAudioBufferPoolSize = 500000;
+static const int kAudioBufferPoolSize = 48000 * 8;
 static unsigned char mRecordingAudioAppPool[kAudioBufferPoolSize];
 static int mRecordingAppBufferBytes = 0;
 static CriticalSectionWrapper *CritSect = CriticalSectionWrapper::CreateCriticalSection();
 
-void pushAudioAppFrame(unsigned char *inAudioFrame, int frameSize)
+void pushAudioAppFrame(unsigned char *inAudioFrame, int64_t frameSize)
 {
     CriticalSectionScoped lock(CritSect);
     
@@ -99,7 +99,7 @@ static AgoraAudioFrameObserver s_audioFrameObserver;
     }
 }
 
-+ (void)pushAudioFrame:(unsigned char *)inAudioFrame withFrameSize:(int)frameSize
++ (void)pushAudioFrame:(unsigned char *)inAudioFrame withFrameSize:(int64_t)frameSize
 {
     pushAudioAppFrame(inAudioFrame, frameSize);
 }
