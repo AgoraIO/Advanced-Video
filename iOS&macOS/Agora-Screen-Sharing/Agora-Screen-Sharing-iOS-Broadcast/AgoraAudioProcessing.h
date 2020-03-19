@@ -12,5 +12,5 @@
 @interface AgoraAudioProcessing : NSObject
 + (void)registerAudioPreprocessing:(AgoraRtcEngineKit*) kit;
 + (void)deregisterAudioPreprocessing:(AgoraRtcEngineKit*) kit;
-+ (void)pushAudioFrame:(unsigned char *)inAudioFrame withFrameSize:(int)frameSize;
++ (void)pushAudioFrame:(unsigned char *)inAudioFrame withFrameSize:(int64_t)frameSize;
 @end

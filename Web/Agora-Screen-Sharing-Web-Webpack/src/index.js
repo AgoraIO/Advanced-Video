@@ -34,12 +34,6 @@ $(() => {
       }).open()
     }
   })
-
-  const setSync = (func) => {
-    setTimeout(() => {
-        func()
-    }, 0)
-  }
   
   // if (isSafari()) {
   //   Toast.error("Safari not support screen sharing")
