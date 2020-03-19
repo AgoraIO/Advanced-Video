@@ -81,13 +81,78 @@ export default class RTCClient {
     })
   }
 
-  join (data) {
-    return new Promise((resolve, reject) => {    
-      if (this._joined) {
-        Toast.error("Your already joined");
+  createScreenStream (data) {
+    if (this._joined) {
+      Toast.error("Your already joined");
+      return;
+    }
+
+    // create local stream
+    const streamSpec = {
+      streamID: this._params.uid,
+      audio: false,
+      video: false,
+      screen: true,
+      microphoneId: data.microphoneId,
+      cameraId: data.cameraId,
+      screenAudio: data.screenAudio
+    }
+    
+    // Your firefox need use support mediaSource at least
+    if (isFirefox()) {
+      streamSpec.mediaSource = 'window';
+    } else if (!isCompatibleChrome()) {
+      // before chrome 72 need install chrome extensions
+      // You can download screen share plugin here https://chrome.google.com/webstore/detail/agora-web-screensharing/minllpmhdgpndnkomcoccfekfegnlikg
+      streamSpec.extensionId = 'minllpmhdgpndnkomcoccfekfegnlikg';
+    }
+
+    this._localStream = AgoraRTC.createStream(streamSpec);
+
+    // init local stream
+    this._localStream.init(() => {
+      console.log("init local stream success");
+      // play stream with html element id "local_stream"
+      this._localStream.play("local_stream", {fit: "cover"})
+
+      // run callback
+      // resolve();
+    }, (err) =>  {
+      
+      Toast.error("stream init failed, please open console see more detail")
+      console.error("init local stream failed ", err);
+
+      if (isFirefox()) {
+        console.error('Failed to start screen sharing, maybe firefox not support mediaSource, please upgrade your firefox to latest version')
         return;
       }
-    
+      if (!isCompatibleChrome()) {
+        console.error('Failed to start screen sharing, maybe chrome extension was not installed properly, you can get it from https://chrome.google.com/webstore/detail/minllpmhdgpndnkomcoccfekfegnlikg');
+        return;
+      }
+    })
+ 
+    // set screen sharing video resolution
+    if (data.screenShareResolution != 'default') {
+      this._localStream.setScreenProfile(data.screenShareResolution);
+      console.log("set screen profile", data.screenShareResolution);
+    }
+
+    // Occurs when sdk emit error 
+    this._localStream.on("error", (evt) => {
+      Toast.error("error", JSON.stringify([evt]))
+    })
+
+    // Occurs when a you stop screen sharing
+    this._localStream.on("stopScreenSharing", (evt) => {
+      this._localStream.stop();
+      this._showProfile = false;
+      Toast.notice("stop screen sharing")
+    })
+  }
+
+  join (data) {
+    return new Promise((resolve, reject) => {    
       /**
        * A class defining the properties of the config parameter in the createClient method.
        * Note:
@@ -139,67 +204,6 @@ export default class RTCClient {
               this._updateVideoInfo();
             }, 0);
           }
-    
-          // create local stream
-          const streamSpec = {
-            streamID: this._params.uid,
-            audio: false,
-            video: false,
-            screen: true,
-            microphoneId: data.microphoneId,
-            cameraId: data.cameraId,
-            screenAudio: data.screenAudio
-          }
-          
-          // Your firefox need use support mediaSource at least
-          if (isFirefox()) {
-            streamSpec.mediaSource = 'window';
-          } else if (!isCompatibleChrome()) {
-            // before chrome 72 need install chrome extensions
-            // You can download screen share plugin here https://chrome.google.com/webstore/detail/agora-web-screensharing/minllpmhdgpndnkomcoccfekfegnlikg
-            streamSpec.extensionId = 'minllpmhdgpndnkomcoccfekfegnlikg';
-          }
-
-          this._localStream = AgoraRTC.createStream(streamSpec);
-
-          // set screen sharing video resolution
-          if (data.screenShareResolution != 'default') {
-            this._localStream.setScreenProfile(data.screenShareResolution);
-            console.log("set screen profile", data.screenShareResolution);
-          }
-       
-          // Occurs when sdk emit error 
-          this._localStream.on("error", (evt) => {
-            Toast.error("error", JSON.stringify([evt]))
-          })
-
-          // Occurs when a you stop screen sharing
-          this._localStream.on("stopScreenSharing", (evt) => {
-            this._localStream.stop();
-            this._showProfile = false;
-            Toast.notice("stop screen sharing")
-          })
-    
-          // init local stream
-          this._localStream.init(() => {
-            console.log("init local stream success");
-            // play stream with html element id "local_stream"
-            this._localStream.play("local_stream", {fit: "cover"})
-    
-            // run callback
-            resolve();
-          }, (err) =>  {
-            Toast.error("stream init failed, please open console see more detail")
-            console.error("init local stream failed ", err);
-            if (isFirefox()) {
-              console.error('Failed to start screen sharing, maybe firefox not support mediaSource, please upgrade your firefox to latest version')
-              return;
-            }
-            if (!isCompatibleChrome()) {
-              console.error('Failed to start screen sharing, maybe chrome extension was not installed properly, you can get it from https://chrome.google.com/webstore/detail/minllpmhdgpndnkomcoccfekfegnlikg');
-              return;
-            }
-          })
         }, function(err) {
           Toast.error("client join failed, please open console see more detail")
           console.error("client join failed", err)
