@@ -4,8 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
 trigger:
-- master
-- dev/*
+#- master
+#- dev/*
+- 3.0.0
 
 pool:
   vmImage: 'macos-latest'
@@ -13,6 +14,9 @@ pool:
 variables:
   iOSRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_iOS_v3_0_0_FULL.zip?_ga=2.79185814.368877217.1583320605-5559409.1503304822'
   MacRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Mac_v3_0_0_FULL.zip?_ga=2.78400662.368877217.1583320605-5559409.1503304822'
+  WindowsRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Windows(x86)_v3_0_0_FULL.zip'
+  ConnectionName: sbd021
+  RepoName: sbd021
 
 jobs:
 
@@ -68,3 +72,68 @@ jobs:
     workingDirectory: 'iOS&macOS/Agora-Video-With-ARKit'
     scheme: 'Agora-Video-With-ARKit'
     sdkurl: $(iOSRTCSDK)
+
+#Windows Demo
+- template: Windows/cicd/templates/build-Windows.yml
+  parameters:
+    displayName: 'AgoraStringAccountWindows'
+    workingDirectory: 'Windows/Agora-String-Account-Windows'
+    scheme: 'Agora-String-Account-Windows'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'OpenLive.sln'
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+
+- template: Windows/cicd/templates/build-Windows.yml
+  parameters:
+    displayName: 'LargeGroupVideoChatWindows'
+    workingDirectory: 'Windows/LargeGroupVideoChat-Windows'
+    scheme: 'LargeGroupVideoChat-Windowss'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'AgoraOpenLive.sln'
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+
+- template: Windows/cicd/templates/build-Windows.yml
+  parameters:
+    displayName: 'AgoraScreenSharingWindows'
+    workingDirectory: 'Windows/Agora-Screen-Sharing-Windows'
+    scheme: 'Agora-Screen-Sharing-Windows'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'OpenLive.sln'
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+
+#hook demo
+- template: Windows/cicd/templates/build-Windows-Extend.yml
+  parameters:
+    displayName: 'AgoraRTCHookingAPIWindows'
+    workingDirectory: 'Windows/Agora-RTC-Hooking-API-Windows'
+    scheme: 'Agora-RTC-Hooking-API-Windows'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'AgoraHooking.sln'
+    downloadGithubSDK: HookSDK.zip
+    connectionName: $(ConnectionName)
+    userRepository: $(RepoName)/Advanced-Video
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+
+- template: Windows/cicd/templates/build-Windows-Extend.yml
+  parameters:
+    displayName: 'AgoraRTCHookingAPIWindowskuwo'
+    workingDirectory: 'Windows/Agora-RTC-Hooking-API-Windows-kuwo'
+    scheme: 'Agora-RTC-Hooking-API-Windows-kuwo'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'AgoraHooking.sln'
+    downloadGithubSDK: HookSDK.zip
+    connectionName: $(ConnectionName)
+    userRepository: $(RepoName)/Advanced-Video
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+
+- template: Windows/cicd/templates/build-Windows-Extend.yml
+  parameters:
+    displayName: 'AgoraRTCHookingAPIWindowsyingyonghuyu'
+    workingDirectory: 'Windows/Agora-RTC-Hooking-API-Windows-yingyonghuyu'
+    scheme: 'Agora-RTC-Hooking-API-Windows-yingyonghuyu'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'AgoraHooking.sln'
+    downloadGithubSDK: HookSDK.zip
+    connectionName: $(ConnectionName)
+    userRepository: $(RepoName)/Advanced-Video
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
