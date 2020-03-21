@@ -20,7 +20,7 @@ The video frames are usually in the forms of I420, NV21 or texture. Here we take
 
 There is another reference project [grafika](https://github.com/google/grafika) from Google where this project's idea of maintaining OpenGLES contexts comes from.
 
-To held distinguish between MediaIO video sources and the videos from different sources, we define the video frames from screen sharing or local videos as inputs. 
+To help distinguish between MediaIO video sources and the videos from different sources, we define the video frames from screen sharing or local videos as inputs. 
 
 #### Screen Share
 
@@ -35,10 +35,6 @@ To keep the code simple, the demo requires the users to copy an .mp4 video file 
 Video frame data (stored in ByteBuffer) is extracted from video tracks of packaged media files (.mp4 files) using [MediaExtractor](https://developer.android.com/reference/android/media/MediaExtractor), then the frame data is sent to a decoder [MediaCodec](https://developer.android.com/reference/android/media/MediaCodec) at the pace of the frame's presentation time.
 
 To keep consistent, results of the decoder are received by an output Surface which is created from a texture, then we can update and draw to any SurfaceView or TextureView using that texture directly (usually as local preview).
-
-#### Augmented Reality
-Not implemented yet.
-
 
 #### Switching between different video inputs
 
