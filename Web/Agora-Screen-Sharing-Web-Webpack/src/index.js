@@ -34,11 +34,11 @@ $(() => {
       }).open()
     }
   })
-
-  if (isSafari()) {
-    Toast.error("Safari not support screen sharing")
-    $("#join").prop("disabled", true)
-  }
+  
+  // if (isSafari()) {
+  //   Toast.error("Safari not support screen sharing")
+  //   $("#join").prop("disabled", true)
+  // }
 
   const modal = M.Modal.init($("#warn")[0]);
 
@@ -95,8 +95,10 @@ $(() => {
     e.preventDefault();
     console.log("join")
     const params = serializeFormData();
+    let temp = {...params, screenAudio}
     if (validator(params, fields)) {
-      rtc.join({...params, screenAudio}).then(() => {
+      rtc.createScreenStream(temp)
+      rtc.join(temp).then(() => {
         rtc.publish();
       })
     }
