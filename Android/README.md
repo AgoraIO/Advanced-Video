@@ -2,59 +2,51 @@
 
 *English | [中文](README.zh.md)*
 
-This demo will give examples of how to use Agora Video SDK combined with Android framework APIs, as well as potential scenarios that applies audio & video modules.
-
-## Configuration
-
 ## Modules
 
 ### Customized Video Sources and Video Rendering
 
-Agora Video SDK provides MediaIO interfaces which can be used to define videos from sources other than captured by Agora SDK itself. This facilitates developers when they have their own video sources available (from other devices, for example), but it needs controlling of the whole life cycles of video sources.
+MediaIO is a set of interfaces which developers can use to feed video frames to Agora SDK when there's video sources other than system default ones (external video device, capture module, etc) needed. Using this will require developers to maintain the whole capture/rendering life cycles themselves.
 
-This project exemplifies two kinds of external video sources (compared to videos captured by Agora SDK) and how to push them into the pipeline of Agora SDK APIs. Besides, it shows the way that you may choose to render videos.
+This sample has provided two examples using different external video inputs (screenshare and media files), to demonstrate ways to switch, capture and rendering video in your own project. Developers may choose the way that best fits to his scenario.
 
-Refer to [this page](https://docs.agora.io/en/Video/custom_video_android?platform=Android) for the explanation of how to use MediaIO sources and rendering interfaces.
+Developers may refer to [this page](https://docs.agora.io/en/Video/custom_video_android?platform=Android) for further details of MediaIO Apis.
 
-The video frames are usually in the forms of I420, NV21 or texture. Here we take textures as an example of how to maintain the OpenGL context appropriately for both video sources and rendering. 
+In real world there are different video frame formats like i420, NV21, texture etc. In this sample we used texture to capture/render video. It also shows how to maintain an OpenGL context in your project.
 
-There is another reference project [grafika](https://github.com/google/grafika) from Google where this project's idea of maintaining OpenGLES contexts comes from.
+The way how we manages OpenGL context is inspired by [grafika](https://github.com/google/grafika), please go to corresponding project page if you have interest to know more.
 
-To help distinguish between MediaIO video sources and the videos from different sources, we define the video frames from screen sharing or local videos as inputs. 
+In the description text and source code mentioned below, we use term `source` to refer to any external source in MediaIO (which is different from Agora SDK's capture module); while we use `video input` to refer to non MediaIO source such as Camera/Screen Share/Media files. 
 
 #### Screen Share
 
-Screen Sharing is one of the features introduced in API 21, so the minimum level should be equal to or higher than that.
+Screen Share is a feature introduced in Android 5.0. Therefore the `min sdk level` of your project shall not be lower than 21.
 
-In order to keep the screen sharing running properly even in the Launcher or other Apps, and to insure it is not killed by the system unexpectedly, the media projection is created and started in another foreground Service. Do not forget to show a notification, especially when the target is Android Oreo or later.
+In most use cases screen share feature may need to stay running in background. To prevent from being killed by system, developers need to put it running in a Foreground service. Note developers are required to register notifications to system for Foreground Service in order to know its running status.
 
 #### Local Videos
 
-To keep the code simple, the demo requires the users to copy an .mp4 video file to the app-owned video folder. Developers can implement in any way of finding a video file.
+This project **does not** provide a .mp4 file by default, developers need to provide one and put it in correct application path. 
 
-Video frame data (stored in ByteBuffer) is extracted from video tracks of packaged media files (.mp4 files) using [MediaExtractor](https://developer.android.com/reference/android/media/MediaExtractor), then the frame data is sent to a decoder [MediaCodec](https://developer.android.com/reference/android/media/MediaCodec) at the pace of the frame's presentation time.
-
-To keep consistent, results of the decoder are received by an output Surface which is created from a texture, then we can update and draw to any SurfaceView or TextureView using that texture directly (usually as local preview).
+We use [MediaExtractor](https://developer.android.com/reference/android/media/MediaExtractor) to extract ByteBuffer from static media files. The extracted ByteBuffer will be sent to [MediaCodec](ttps://developer.android.com/reference/android/media/MediaCodec) with certain interval (e.g. frame playback timestamp). The decoded result is rendered to a pre-configured Surface (generated by texture), for rendering or further processing.
 
 #### Switching between different video inputs
 
-We have provided a sample of switching between different inputs of external videos. Special care about the differences between "video inputs" and "video sources", where "sources" refers to Agora RTC MediaIO interface "IVideoSource" which means the transmission entry of Agora API, while "inputs" are defined as where the video frames are generated (mp4 or screens, etc.). 
+This project has created an abstract layer called `video input` to process video frames from external approach. The layer will ultimately generate a texture, while the video input can be switched at any time w/o letting Agora SDK know.
 
-Only one video input instance is created in charge of generating video frames, and the frames are obtained from one input at one time but can be switched to another input at any time.
-
-To keep consistent, video frames are sent in a Service. So it continues to send video even if the app goes to background until stopped. An OpenGL worker thread is managed by the Service and the thread is used throughout the application to avoid OpenGL problems. All video inputs will have the same output Surface created in this thread, and frame data is updated from the Surface periodically. The intervals are obtained from the specific video inputs.
+There is also an OpenGL session maintained in this project's foreground service, in which it processes/send/render the texture. In this way we have an OpenGL context which is easy to maintain.
 
 ### Audio & Video Customized Packet Encryption Using Raw-data Plugin Interface
 
-Go to [Raw Audio Data](https://docs.agora.io/en/Video/raw_data_audio_android?platform=Android) and [Raw Video Data](https://docs.agora.io/en/Video/raw_data_video_android?platform=Android) for the descriptions of using audio & video raw data. 
+Refer to [Raw Audio Data](https://docs.agora.io/en/Video/raw_data_audio_android?platform=Android) and [Raw Video Data](https://docs.agora.io/en/Video/raw_data_video_android?platform=Android) for how to use audio & video raw data features. 
 
-Packet encryption is one of the specific applications of audio & video raw data interface. Developers can choose to perform any transformation of raw data on the sending side, and do the inverse to recover data on the receiving side.
+Packet encryption is one of the common use case of using audio & video raw data interface. Developers can choose to perform any transformation of raw data on the sending side, and do the inverse to recover data on the receiving side.
 
 Note that this project only provides C++ raw data interface. There are also Java layer interfaces before, but the video interfaces have been removed from earlier SDK releases for performance concerns. The Java audio interfaces are still usable, but C++ interfaces are recommended for the same reason.
 
 The App's compiled library name should start with a pre-defined prefix like **"libapm-xxx.so"**, RTC engine will search in the library directory .so files of names of this form as Agora plugins and load the libraries during the plugin manager initialization phase.
 
-Plugins use header files which are in the SDK downloaded zip files but not a part of JCenter dependency. The headers are submitted along with the project right now, but if Agora SDK dependency needs to be upgraded, the headers might as well. Once necessary, we suggest that developers download the latest SDK version and replace those headers. Or rather, download and copy the whole SDK instead of introducing from JCenter.  
+Plugins use header files which are in the SDK downloaded zip files but not a part of JCenter dependency. The headers are submitted along with the project right now, but developers will need to upgrade the header files if SDK dependencies are upgraded.
 
 
 ## Prerequisites

@@ -1,3 +1,5 @@
+.vscode
+.project
 .DS_Store
 AgoraRtcEngineKit.framework
 xcuserdata
