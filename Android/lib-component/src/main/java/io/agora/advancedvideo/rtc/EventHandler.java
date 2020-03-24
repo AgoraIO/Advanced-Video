@@ -17,6 +17,8 @@ public interface EventHandler {
 
     void onLastmileProbeResult(IRtcEngineEventHandler.LastmileProbeResult result);
 
+    void onRemoteVideoStateChanged(int uid, int state, int reason, int elapsed);
+
     void onLocalVideoStats(IRtcEngineEventHandler.LocalVideoStats stats);
 
     void onRtcStats(IRtcEngineEventHandler.RtcStats stats);
@@ -26,5 +28,4 @@ public interface EventHandler {
     void onRemoteVideoStats(IRtcEngineEventHandler.RemoteVideoStats stats);
 
     void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats);
-
 }

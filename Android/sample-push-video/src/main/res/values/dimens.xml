@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="remote_preview_width">120dp</dimen>
+    <dimen name="remote_preview_height">160dp</dimen>
+    <dimen name="remote_preview_margin_top">112dp</dimen>
+    <dimen name="remote_preview_margin_end">24dp</dimen>
+</resources>

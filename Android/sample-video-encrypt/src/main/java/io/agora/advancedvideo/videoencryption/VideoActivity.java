@@ -36,11 +36,11 @@ public class VideoActivity extends BaseLiveActivity {
 
     private void initView() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        View layout = inflater.inflate(R.layout.activity_video, mVideoContainer, false);
-        mVideoContainer.addView(layout);
+        View layout = inflater.inflate(R.layout.activity_video, videoContainer, false);
+        videoContainer.addView(layout);
 
-        mLocalPreview = mVideoContainer.findViewById(R.id.local_preview_layout);
-        mRemotePreview = mVideoContainer.findViewById(R.id.remote_preview_layout);
+        mLocalPreview = videoContainer.findViewById(R.id.local_preview_layout);
+        mRemotePreview = videoContainer.findViewById(R.id.remote_preview_layout);
     }
 
     private void setVideoConfig() {
