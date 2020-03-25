@@ -40,7 +40,6 @@ class VideoChatViewController: UIViewController {
     
     func initializeAgoraEngine() {
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppID, delegate: self)
-        agoraKit.setParameters("{\"rtc.user_account_server_list\":[\"58.211.82.170\"]}")
     }
 
     func setupVideo() {
