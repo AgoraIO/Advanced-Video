@@ -4,9 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
 trigger:
-#- master
-#- dev/*
-- 3.0.0
+- master
+- dev/*
+- release/3.0.0
 
 pool:
   vmImage: 'macos-latest'
@@ -16,7 +16,7 @@ variables:
   MacRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Mac_v3_0_0_FULL.zip?_ga=2.78400662.368877217.1583320605-5559409.1503304822'
   WindowsRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Windows(x86)_v3_0_0_FULL.zip'
   ConnectionName: sbd021
-  RepoName: sbd021
+  RepoName: AgoraIO
 
 jobs:
 
