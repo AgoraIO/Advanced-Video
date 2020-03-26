@@ -33,6 +33,12 @@ jobs:
     project: 'Android'
     module: 'sample-custom-render'
     name: 'CustomRendererAndroid'
+    
+ - template: Android/azure-templates/build-android.yml
+  parameters:
+    project: 'Android'
+    module: 'sample-push-video'
+    name: 'PushVideo'
 
 - template: iOS&macOS/build-template/build-ios.yml
   parameters:
