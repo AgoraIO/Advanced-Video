@@ -2,6 +2,48 @@
 
 *[English](README.md) | 中文*
 
+## 模块
+
+### 自定义视频源
+
+默认情况下，Agora SDK 会启动视频模块，负责视频的采集和后续的处理。 SDK 同时还提供了 MediaIO 接口，可以将第三方的视频源传给 Agora SDK 进行传输。 这就需要开发者需要具备一定的技术能力，自行维护采集和渲染的生命周期。
+
+Demo 包含两个外部视频源示例代码（屏幕分享和本地视频），为开发者提供了将自定义视频源发送到 SDK 的参考方案。 不同项目要结合实际情况进行选择。
+
+关于 MediaIO 视频源接口的使用，请参考[此页](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android)
+
+通常视频帧的格式是 i420, NV21 或 texture。很多情况下，开发者需要自己创建和管理 OpenGL 线程。Demo 维护 OpenGL 线程维护的思路来自 [grafika](https://github.com/google/grafika) 项目，如果您不熟悉或者想深入了解这个项目请移步其主页。
+
+一下的段落以及项目代码中，我们将第三方视频源定义为外部视频源（即 `external`），而由 Agora SDK 视频模块采集的视频可视为内部源； 而不同的外部视频源（比如上述屏幕分享和视频文件）被称为视频输入源 `video input`。
+
+#### 屏幕分享
+
+屏幕分享功能是 Android 5.0 引入的，所以项目的 min sdk level 不应小于21。
+
+屏幕分享功能大多要求能够后台运行，为了避免分享程序不会被系统强杀，需要将其跑在一个 foreground service 中。 Android OREO 及后续版本要求同时向系统注册一个通知，以便于用户知晓应用的运行情况。
+
+#### 视频文件
+
+Demo 不提供 .mp4 视频文件，使用者应自行拷贝所需的视频文件到应用私有路径下并重命名为：`storage/emulated/0/Android/data/io.agora.advancedvideo.switchvideoinput/files/Movies/localvideo.mp4`
+
+使用 [MediaExtractor](https://developer.android.com/reference/android/media/MediaExtractor) 从 .mp4 文件中将视频帧解压出来（通常格式为 ByteBuffer），以一定的频率（比如帧的播放时间戳）发送到 [MediaCodec](https://developer.android.com/reference/android/media/MediaCodec) 解码器， 解码的结果被绘制到一个预先设置的 Surface 中（由 texture 生成），继而进行本地渲染或者视频发送。
+
+#### 视频输入源的切换
+
+同一时间只有一个视频输入源在工作，视频输入源可以随时以 SDK 无感知的方式进行切换。 视频帧在 foreground service 的 OpenGL 线程里进行处理、发送和渲染（通常指的是本地渲染），因此可以进行后台的采集和发送。 
+
+### 使用 Agora SDK 的裸数据插件接口进行视频包的自定义加密
+
+关于裸数据接口的使用，请参考文档：[音频裸数据](https://docs.agora.io/cn/Video/raw_data_audio_android?platform=Android) 和 [视频裸数据](https://docs.agora.io/cn/Video/raw_data_video_android?platform=Android)
+
+包加密是音视频裸数据接口的应用场景之一，开发者可以在数据发送之前对音视频的网络数据包进行自定义处理，并在接收端执行逆向操作以恢复原始数据。
+
+需要注意的是，由于性能等方面的考量，视频只有 C++ 裸数据的接口可以使用；目前仅有音频的裸数据可以使用 Java 接口。在对性能有一定要求的场合，仍然推荐使用 C++ 的接口。
+
+C++ 裸数据接口的代码需要编译成以 **"libamp-xxx.so"** 的形式命名的动态库文件。 Agora RTC 引擎会在插件初始化阶段寻找这些文件并加载。
+
+在 JCenter（maven） 上发布的 sdk 是没有 C++ 裸数据接口的头文件的。当前 demo 里已经上传了相关头文件，但后续的 SDK 版本可能对其进行修改，到时开发者需自行到 Agora 下载页进行下载和覆盖更新。
+
 ## 运行示例程序
 
 这个段落主要讲解了如何编译和运行实例程序。
