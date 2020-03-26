@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import java.io.IOException;
@@ -40,10 +41,9 @@ public class VideoPushActivity extends BaseLiveActivity
     private float[] mTransform = new float[16];
     private float[] mMVPMatrix = new float[16];
     private boolean mMVPMatrixInit = false;
-    private byte[] mBuffer = new byte[DEFAULT_CAPTURE_WIDTH * DEFAULT_CAPTURE_HEIGHT * 3 / 2];
 
     private Camera mCamera;
-    private int mFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
+    private int mFacing = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private boolean mPreviewing = false;
     private int mSurfaceWidth;
     private int mSurfaceHeight;
@@ -55,6 +55,8 @@ public class VideoPushActivity extends BaseLiveActivity
     private int mRemoteTop;
     private int mRemoteEnd;
 
+    private ImageView mAudioMuteImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,8 @@ public class VideoPushActivity extends BaseLiveActivity
 
     @Override
     protected void onInitializeVideo() {
+        mAudioMuteImage = findViewById(R.id.live_btn_mute_audio);
+
         if (mIsBroadcaster) {
             setupLocalPreview();
         }
@@ -84,7 +88,6 @@ public class VideoPushActivity extends BaseLiveActivity
         ));
 
         rtcEngine().setExternalVideoSource(true, true, true);
-        rtcEngine().muteLocalAudioStream(true);
         rtcEngine().joinChannel(null, config().getChannelName(), null, 0);
     }
 
@@ -97,10 +100,6 @@ public class VideoPushActivity extends BaseLiveActivity
                 videoContainer.addView(textureView, 0);
             }
         });
-    }
-
-    private void removeLocalPreview() {
-        videoContainer.removeViewAt(0);
     }
 
     private void setupRemotePreview(final int uid) {
@@ -172,17 +171,31 @@ public class VideoPushActivity extends BaseLiveActivity
 
     @Override
     protected void onSwitchCameraButtonClicked(View view) {
-
+        switchCamera();
     }
 
     @Override
     protected void onMuteAudioButtonClicked(View view) {
-
+        if (mIsBroadcaster) {
+            rtcEngine().muteLocalAudioStream(view.isActivated());
+            view.setActivated(!view.isActivated());
+        }
     }
 
     @Override
     protected void onMuteVideoButtonClicked(View view) {
+        rtcEngine().muteLocalVideoStream(view.isActivated());
+        view.setActivated(!view.isActivated());
 
+        if (view.isActivated()) {
+            rtcEngine().setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
+            mAudioMuteImage.setActivated(true);
+            rtcEngine().muteLocalAudioStream(false);
+        } else {
+            rtcEngine().setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
+            mAudioMuteImage.setActivated(false);
+            rtcEngine().muteLocalAudioStream(true);
+        }
     }
 
     @Override
@@ -215,7 +228,7 @@ public class VideoPushActivity extends BaseLiveActivity
             mCamera = Camera.open(mFacing);
 
             // It is assumed to capture images of resolution 640x480.
-            // During development, it should be set the most suitable
+            // During development, it should be the most suitable
             // supported resolution that best fits the scenario.
             Camera.Parameters parameters = mCamera.getParameters();
             parameters.setPreviewSize(DEFAULT_CAPTURE_WIDTH, DEFAULT_CAPTURE_HEIGHT);

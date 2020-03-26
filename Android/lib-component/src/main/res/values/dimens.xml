@@ -69,7 +69,7 @@
     <dimen name="role_block_corner">14dp</dimen>
     <dimen name="role_block_margin_top">28dp</dimen>
     <dimen name="role_block_icon_width">137dp</dimen>
-    <dimen name="role_block_content_width">120dp</dimen>
+    <dimen name="role_block_content_width">128dp</dimen>
     <dimen name="role_block_content_margin_right">32dp</dimen>
     <dimen name="role_block_hint_margin_top">6dp</dimen>
 </resources>
