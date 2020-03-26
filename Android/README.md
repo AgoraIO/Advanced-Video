@@ -12,13 +12,13 @@ Two kinds of custom video source (screenshare and media file) are implemented as
 
 Refer to [this page](https://docs.agora.io/en/Video/custom_video_android?platform=Android) for the details of using MediaIO interfaces.
 
-Video frames are usually in the formats of I420, NV21 or texture, and in some circumstances, it is necessary for developers to create their own OpenGL threads. The idea of maintaining OpenGL contexts in this sample comes from [grafika] project. Refer to the page for further information if you are are not familiar or interested to know more.
+Video frames are usually in the formats of I420, NV21 or texture, and in some circumstances, it is necessary for developers to create their own OpenGL threads. The idea of maintaining OpenGL contexts in this sample comes from [grafika](https://github.com/google/grafika) project. Refer to the page for further information if you are not familiar or interested to know more.
 
 In the following paragraphs and the source code, custom video sources are defined as `external`,  while we consider the video captured by SDK video module as the `internal` source. One external video source may come from different types of `Input`,  like screen share or .mp4 files as mentioned above.
 
 #### Screen Share
 
-Screen Sharing is one of the features introduced in Android 5.0, the minimum level should not be less than 21.
+Screen Sharing is one of the features introduced in Android 5.0, the project minimum SDK level should not be less than 21.
 
 In most cases, screen share applications are required to stay running in the background. To prevent from being killed unexpectedly by the system, MediaProjection is created and started in a foreground service. Remember to send a system notification for the foreground service, particularly on Android Oreo and above.
 
@@ -33,11 +33,11 @@ The decoded frames are rendered to an output Surface which is created from a pre
 
 #### <h2 id="switching"> Switching between different video inputs </h2>
 
-Only one video input instance is created in charge of generating video frames, and the frames are obtained from one input at one time but can be switched to another input at any time and SDK is not aware.
+Only one video input instance is created in charge of generating video frames, and the frames from one input can be switched to another at any time and SDK is not aware.
 
-Video frames are sent in a Service. The video input continues to send video even if the app goes to background until stopped. 
+Video frames are sent in a service. The video input continues to send video even if the app goes to background until stopped. 
 
-An OpenGL worker thread is managed by the Service. All video inputs have the same output Surface, and frame data is obtained from the Surface periodically.
+An OpenGL worker thread is managed by the service. All video inputs have the same output Surface, and frame data is obtained from the Surface periodically.
 
 ### Audio & Video Customized Packet Encryption Using Raw-data Plugin Interface
 
@@ -56,7 +56,7 @@ Plugins use header files which exist in the downloaded SDK zip archives but not 
 
 Besides MediaIO interface, push interface is also an Agora SDK feature that helps consume external video sources. For more details, please refer to [Push Interface](https://docs.agora.io/en/Interactive%20Broadcast/custom_video_android?platform=Android#customize-video-source).
 
-In this demo, we pay attention to show the way push interface is used and ignore many trivial details in production like background running and threading. If you are not certain how to implement, please refer to the [external switching demo](#switching).
+In this demo, we pay attention to show the way push interface is used and ignore details like background running and threading. If you are not certain how to implement, refer to the [external switching demo](#switching).
 
 ## Prerequisites
 
