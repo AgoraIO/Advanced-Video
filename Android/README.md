@@ -56,7 +56,7 @@ Plugins use header files which exist in the downloaded SDK zip archives but not 
 
 Besides MediaIO interface, push interface is also an Agora SDK feature that helps consume external video sources. For more details, please refer to [Push Interface](https://docs.agora.io/en/Interactive%20Broadcast/custom_video_android?platform=Android#customize-video-source).
 
-In this demo, we pay attention to show the way push interface is used and ignore details like background running and threading. If you are not certain how to implement, refer to the [external switching demo](#switching).
+In this demo, we focus on how push interface is used and ignore details like background running and threading. If you are not certain how to implement, refer to the [external switching demo](#switching).
 
 ## Prerequisites
 

@@ -44,6 +44,13 @@ C++ 裸数据接口的代码需要编译成以 **"libamp-xxx.so"** 的形式命�
 
 在 JCenter（maven） 上发布的 sdk 是没有 C++ 裸数据接口的头文件的。当前 demo 里已经上传了相关头文件，但后续的 SDK 版本可能对其进行修改，到时开发者需自行到 Agora 下载页进行下载和覆盖更新。
 
+### Push 接口
+
+除了 MediaIO interface, push 接口也同样用来发送第三方视频源. 更多细节请参考 [Push Interface](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E9%A2%91%E9%87%87%E9%9B%86).
+
+
+在这个 demo 中，我们关注的是 push 接口的实现，忽略了如后台运行和异步多线程等。如果想了解这些细节，请参考 [视频输入源的切换](#switching)
+
 ## 运行示例程序
 
 这个段落主要讲解了如何编译和运行实例程序。
