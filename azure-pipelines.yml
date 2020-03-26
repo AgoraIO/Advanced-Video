@@ -34,7 +34,7 @@ jobs:
     module: 'sample-custom-render'
     name: 'CustomRendererAndroid'
     
- - template: Android/azure-templates/build-android.yml
+- template: Android/azure-templates/build-android.yml
   parameters:
     project: 'Android'
     module: 'sample-push-video'
