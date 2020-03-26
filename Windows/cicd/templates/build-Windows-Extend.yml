@@ -29,6 +29,7 @@ jobs:
       - powershell: Windows/cicd/script/downloadsdk.ps1 "${{ parameters.sdkurl }}"
       - task: DownloadGitHubRelease@0
         inputs: 
+          connection: ''
           userRepository: ${{ parameters.userRepository }}
           defaultVersionType: 'latest'
           version: 'hooksdk'
