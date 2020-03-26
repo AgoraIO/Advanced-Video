@@ -28,7 +28,7 @@ Demo 不提供 .mp4 视频文件，使用者应自行拷贝所需的视频文件
 
 使用 [MediaExtractor](https://developer.android.com/reference/android/media/MediaExtractor) 从 .mp4 文件中将视频帧解压出来（保存到 ByteBuffer），以一定的频率（比如帧的播放时间戳）发送到 [MediaCodec](https://developer.android.com/reference/android/media/MediaCodec) 解码器， 解码的结果被绘制到一个预先设置的 Surface 中（由 texture 生成），继而进行本地渲染或者视频发送。
 
-#### <h2 id="switching"> 视频输入源的切换 </h2>
+#### <h4 id="switching"> 视频输入源的切换 </h4>
 
 同一时间只有一个视频输入源在工作，视频输入源可以随时以 SDK 无感知的方式进行切换。 视频帧在 foreground service 的 OpenGL 线程里进行处理、发送和渲染（通常指的是本地渲染），因此可以进行后台的采集和发送。 
 
