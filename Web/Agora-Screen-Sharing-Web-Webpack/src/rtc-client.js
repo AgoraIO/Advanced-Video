@@ -118,7 +118,25 @@ export default class RTCClient {
       // run callback
       // resolve();
     }, (err) =>  {
-      
+      this._client.leave(() => {
+        while (this._remoteStreams.length > 0) {
+          const stream = this._remoteStreams.shift();
+          const id = stream.getId()
+          stream.stop();
+          removeView(id);
+        }
+        this._localStream = null;
+        this._remoteStreams = [];
+        this._client = null;
+        console.log("client leaves channel success");
+        this._published = false;
+        this._joined = false;
+        Toast.notice("cancel success")
+        Toast.notice("leave success")
+      }, (err) => {
+        console.log("channel leave failed");
+        console.error(err);
+      })
       Toast.error("stream init failed, please open console see more detail")
       console.error("init local stream failed ", err);
 
@@ -145,9 +163,9 @@ export default class RTCClient {
 
     // Occurs when a you stop screen sharing
     this._localStream.on("stopScreenSharing", (evt) => {
-      this._localStream.stop();
-      this._showProfile = false;
       Toast.notice("stop screen sharing")
+      this.leave()
+      this._showProfile = false;
     })
   }
 
