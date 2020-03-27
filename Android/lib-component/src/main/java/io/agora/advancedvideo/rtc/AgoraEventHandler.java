@@ -37,6 +37,13 @@ public class AgoraEventHandler extends IRtcEngineEventHandler {
     }
 
     @Override
+    public void onRemoteVideoStateChanged(int uid, int state, int reason, int elapsed) {
+        for (EventHandler handler : mHandler) {
+            handler.onRemoteVideoStateChanged(uid, state, reason, elapsed);
+        }
+    }
+
+    @Override
     public void onUserJoined(int uid, int elapsed) {
         for (EventHandler handler : mHandler) {
             handler.onUserJoined(uid, elapsed);
