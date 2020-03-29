@@ -110,8 +110,6 @@ private extension LiveRoomViewController {
         rtcEngine.setLocalPublishFallbackOption(.audioOnly)
         rtcEngine.setRemoteSubscribeFallbackOption(.audioOnly)
         
-        #warning("no need")
-        rtcEngine.muteAllRemoteAudioStreams(true)
         rtcEngine.enableWebSdkInteroperability(true)
         
         rtcEngine.startPreview()
