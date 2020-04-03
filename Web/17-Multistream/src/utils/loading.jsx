@@ -1,6 +1,6 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles(theme => ({
   progress: {
@@ -13,16 +13,16 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: '#666666',
+    background: '#666666'
   }
-}));
+}))
 
 export default function CircularLoading () {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.container}>
       <CircularProgress className={classes.progress} />
     </div>
-  );
+  )
 }

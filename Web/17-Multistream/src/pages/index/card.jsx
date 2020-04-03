@@ -1,13 +1,20 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import IndexCard from './index-card';
-import SettingsCard from './settings-card';
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import Box from '@material-ui/core/Box'
+import Card from '@material-ui/core/Card'
+import IndexCard from './index-card'
+import SettingsCard from './settings-card'
+
 const useStyles = makeStyles(theme => ({
   fontStyle: {
+    color: '#9ee2ff'
+  },
+  bottomStyle: {
     color: '#9ee2ff',
+    position: 'absolute',
+    bottom: '20px',
+    alignSelf: 'center'
   },
   item: {
     flex: 1,
@@ -15,27 +22,30 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center'
   },
   coverLeft: {
-    background: `linear-gradient(to bottom, #307AFF, 50%, #46cdff)`,
+    background: 'linear-gradient(to bottom, #307AFF, 50%, #46cdff)',
     alignItems: 'center',
     flex: 1,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    position: 'relative'
   },
   coverContent: {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    color: '#fff',
+    color: '#fff'
   },
   coverRight: {
     position: 'relative',
     flex: 1,
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   container: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   card: {
     display: 'flex',
@@ -48,26 +58,26 @@ const useStyles = makeStyles(theme => ({
   input: {
     maxWidth: '250px',
     minWidth: '250px',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   grid: {
-    margin: '0 !important',
+    margin: '0 !important'
   },
   button: {
     height: '44px',
     width: '260px',
     '&:hover': {
-      backgroundColor: '#307AFF',
+      backgroundColor: '#307AFF'
     },
     margin: theme.spacing(1),
     marginTop: '33px',
     backgroundColor: '#44a2fc',
     borderRadius: '30px'
   }
-}));
+}))
 
-export default function CardPage() {
-  const classes = useStyles();
+export default function CardPage () {
+  const classes = useStyles()
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center">
@@ -84,7 +94,7 @@ export default function CardPage() {
                   <Box className="large-font">17</Box>
                   <Box textAlign="center" fontWeight="fontWeightRegular" fontSize="h4.fontSize">Multistream</Box>
                 </Box>
-                <Box textAlign="center" fontWeight="fontWeightRegular" className={classes.fontStyle} fontSize="h7.fontSize">Powered by Agora.io</Box>
+                <Box textAlign="center" fontWeight="fontWeightRegular" className={classes.bottomStyle} fontSize="h7.fontSize">Powered by Agora.io</Box>
               </div>
             </div>
           </div>

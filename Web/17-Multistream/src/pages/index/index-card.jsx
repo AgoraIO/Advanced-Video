@@ -1,27 +1,28 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import {useGlobalState, useGlobalMutation} from '../../utils/container';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import Box from '@material-ui/core/Box';
-import Radio from '@material-ui/core/Radio';
-import Button from '@material-ui/core/Button';
-import useRouter from '../../utils/use-router';
-import {Link} from 'react-router-dom';
+import React from 'react'
+import clsx from 'clsx'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { useGlobalState, useGlobalMutation } from '../../utils/container'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Input from '@material-ui/core/Input'
+import Box from '@material-ui/core/Box'
+import Radio from '@material-ui/core/Radio'
+import Button from '@material-ui/core/Button'
+import useRouter from '../../utils/use-router'
+import { Link } from 'react-router-dom'
+import AgoraRTC from 'agora-rtc-sdk'
 
 const CustomRadio = withStyles({
   root: {
     color: '#999999',
     '&$checked': {
-      color: '#44A2FC',
+      color: '#44A2FC'
     },
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit'
     }
-  },
-})(({children, ...props}) => {
+  }
+})(({ children, ...props }) => {
   return (
     <div className="role-item">
       <div className={`icon-${props.value}-${props.checked ? 'active' : 'inactive'}`}></div>
@@ -33,16 +34,22 @@ const CustomRadio = withStyles({
         <Box flex="1" className={`role-name-${props.checked ? 'active' : 'inactive'}`}>{props.value}</Box>
       </div>
     </div>
-  );
-});
+  )
+})
 
 const useStyles = makeStyles(theme => ({
   fontStyle: {
+    color: '#9ee2ff'
+  },
+  bottomStyle: {
     color: '#9ee2ff',
+    position: 'absolute',
+    bottom: '20px',
+    alignSelf: 'center'
   },
   midItem: {
     marginTop: '1rem',
-    marginBottom: '6rem',
+    marginBottom: '6rem'
   },
   item: {
     flex: 1,
@@ -50,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center'
   },
   coverLeft: {
-    background: `linear-gradient(to bottom, #307AFF, 50%, #46cdff)`,
+    background: 'linear-gradient(to bottom, #307AFF, 50%, #46cdff)',
     alignItems: 'center',
     flex: 1,
     display: 'flex',
@@ -60,12 +67,12 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    color: '#fff',
+    color: '#fff'
   },
   container: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   card: {
     display: 'flex',
@@ -78,20 +85,20 @@ const useStyles = makeStyles(theme => ({
   input: {
     maxWidth: '250px',
     minWidth: '250px',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   grid: {
-    margin: '0 !important',
+    margin: '0 !important'
   },
   button: {
     lineHeight: '21px',
-    color:'rgba(255,255,255,1)',
+    color: 'rgba(255,255,255,1)',
     fontSize: '17px',
     textTransform: 'none',
     height: '44px',
     width: '260px',
     '&:hover': {
-      backgroundColor: '#82C2FF',
+      backgroundColor: '#82C2FF'
     },
     margin: theme.spacing(1),
     marginTop: '33px',
@@ -103,32 +110,24 @@ const useStyles = makeStyles(theme => ({
     fontSize: '14px',
     // display: 'flex',
     alignItems: 'center',
-    paddingRight: '5px',
+    paddingRight: '5px'
   }
-}));
+}))
 
 export default function IndexCard () {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const routerCtx = useRouter();
-  const stateCtx = useGlobalState();
-  const mutationCtx = useGlobalMutation();
+  const routerCtx = useRouter()
+  const stateCtx = useGlobalState()
+  const mutationCtx = useGlobalMutation()
 
   const handleClick = () => {
     if (!stateCtx.config.channelName) {
-      mutationCtx.toastError(`You need enter the topic`)
-      return;
+      mutationCtx.toastError('You need enter the topic')
+      return
     }
 
-    mutationCtx.startLoading();
-    routerCtx.history.push({pathname: `/meeting/${stateCtx.config.channelName}`});
-  }
-
-  const handleChange = (evt) => {
-    const {value} = evt.target;
-    mutationCtx.updateConfig({
-      host: value === 'host'
-    });
+    routerCtx.history.push({ pathname: `/meeting/${stateCtx.config.channelName}/host` })
   }
 
   return (
@@ -141,10 +140,17 @@ export default function IndexCard () {
           <Input
             id="channelName"
             name="channelName"
-            defaultValue={stateCtx.config.channelName}
+            value={stateCtx.config.channelName}
             onChange={(evt) => {
-              mutationCtx.updateConfig({channelName: evt.target.value})
-            }}/>
+              const PATTERN = /^[a-zA-Z0-9!#$%&()+\-:;<=.>?@[\]^_{}|~,\s]{1,64}$/
+              const value = PATTERN.test(evt.target.value)
+              if (value && evt.target.value.length < 64) {
+                mutationCtx.updateConfig({ channelName: evt.target.value })
+              } else {
+                mutationCtx.updateConfig({ channelName: '' })
+              }
+            }}
+          />
         </FormControl>
         <FormControl className={classes.grid}>
           <Button onClick={handleClick} variant="contained" color="primary" className={classes.button}>
@@ -152,6 +158,7 @@ export default function IndexCard () {
           </Button>
         </FormControl>
       </Box>
+      <Box textAlign="center" fontWeight="fontWeightRegular" className={classes.bottomStyle} style={{ color: 'grey' }} fontSize="h7.fontSize">Web SDK Version: {AgoraRTC.VERSION}</Box>
     </Box>
   )
 }
