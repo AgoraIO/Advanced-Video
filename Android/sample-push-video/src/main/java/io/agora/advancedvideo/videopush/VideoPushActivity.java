@@ -88,7 +88,7 @@ public class VideoPushActivity extends BaseLiveActivity
         ));
 
         rtcEngine().setExternalVideoSource(true, true, true);
-        rtcEngine().joinChannel(null, config().getChannelName(), null, 0);
+        rtcEngine().joinChannel(token(), config().getChannelName(), null, 0);
     }
 
     private void setupLocalPreview() {

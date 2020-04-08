@@ -110,7 +110,7 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements Extern
     }
 
     private void joinChannel(String channel) {
-        rtcEngine().joinChannel(null, channel, null, 0);
+        rtcEngine().joinChannel(token(), channel, null, 0);
     }
 
     @Override

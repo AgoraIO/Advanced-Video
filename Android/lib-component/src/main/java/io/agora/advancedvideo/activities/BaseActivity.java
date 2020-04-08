@@ -9,6 +9,7 @@ import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 
 import io.agora.advancedvideo.AgoraApplication;
+import io.agora.advancedvideo.R;
 import io.agora.advancedvideo.rtc.EngineConfig;
 import io.agora.advancedvideo.rtc.EventHandler;
 import io.agora.advancedvideo.utils.WindowUtil;
@@ -72,6 +73,8 @@ public abstract class BaseActivity extends AppCompatActivity implements EventHan
     protected EngineConfig config() {
         return application().engineConfig();
     }
+
+    protected String token() {return getString(R.string.agora_access_token);}
 
     protected void registerRtcEventHandler(EventHandler handler) {
         application().registerEventHandler(handler);
