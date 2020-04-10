@@ -27,36 +27,4 @@ jobs:
     downloadGithubSDK: HookSDK.zip
     sdkVersion: '3_0_0'
     sdkFolderVersion: '3.0.0'
-    Machine: x86 
-
-- template: Windows/cicd/templates/build-Windows-Hook.yml
-  parameters:
-    displayName: 'AgoraRTCHookingAPIWindowskuwo'
-    workingDirectory: 'Windows/Agora-RTC-Hooking-API-Windows-kuwo'
-    scheme: 'Agora-RTC-Hooking-API-Windows-kuwo'
-    sdkurl: $(WindowsRTCSDK)
-    solutionName: 'AgoraHooking.sln'
-    downloadGithubSDK: HookSDK.zip
-    sdkVersion: '3_0_0'
-    sdkFolderVersion: '3.0.0'
-    Machine: x86 
-
-- template: Windows/cicd/templates/build-Windows-Hook.yml
-  parameters:
-    displayName: 'AgoraRTCHookingAPIWindowsyingyonghuyu'
-    workingDirectory: 'Windows/Agora-RTC-Hooking-API-Windows-yingyonghuyu'
-    scheme: 'Agora-RTC-Hooking-API-Windows-yingyonghuyu'
-    sdkurl: $(WindowsRTCSDK)
-    solutionName: 'AgoraHooking.sln'
-    downloadGithubSDK: HookSDK.zip
-
-- template: Windows/cicd/templates/build-Windows-dshow.yml
-  parameters:
-    displayName: 'AgoraMediaSourceWindows'
-    workingDirectory: 'Windows/Agora-Media-Source-Windows'
-    scheme: 'Agora-Media-Source-Windows'
-    sdkurl: $(WindowsRTCSDK)
-    solutionName: 'AgoraMediaSource.sln'
-    sdkVersion: '3_0_0'
-    sdkFolderVersion: '3.0.0'
     Machine: x86
