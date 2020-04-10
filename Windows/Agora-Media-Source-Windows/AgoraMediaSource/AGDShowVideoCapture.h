@@ -2,17 +2,11 @@
 
 #include <atlbase.h>
 #include <atlcoll.h>
-
-#include <DShow.h>
-#include <Dvdmedia.h>
-
-#include "DShow/qedit.h"
-
 #include "IAGDShowDevice.h"
-
-
+#include "capture-filter.hpp"
+#include <vector>
 class CAGDShowVideoCapture
-	: public IDShowCaptureDevice
+    : public IDShowCaptureDevice
 {
 public:
 	CAGDShowVideoCapture();
@@ -26,7 +20,7 @@ public:
 	virtual BOOL GetDeviceInfo(int nIndex, LPAGORA_DEVICE_INFO lpDeviceInfo);
 
 	virtual BOOL OpenDevice(int nIndex);
-	virtual BOOL OpenDevice(LPCTSTR lpDevicePath);
+	
 	virtual BOOL GetCurrentDevice(LPTSTR lpDevicePath, SIZE_T *nDevicePathLen);
 	virtual void CloseDevice();
 
@@ -35,32 +29,46 @@ public:
 	virtual BOOL SelectMediaCap(int nIndex);
 	virtual int GetSelectedMediaCap() { return m_nCapSelected; };
 
-	virtual BOOL GetCaptureBuffer(SIZE_T *nBlockSize, SIZE_T *nBlockCount, SIZE_T *nAlign);
-	virtual BOOL SetCaptureBuffer(SIZE_T nBlockSize, SIZE_T nBlockCount, SIZE_T nAlign);
-
-	virtual BOOL CaptureControl(int nControlCode = DEVICE_START);
-	virtual BOOL SetGrabberCallback(ISampleGrabberCB *lpGrabber, long lSampleType);
-
-	BOOL GetVideoCap(int nIndex, VIDEOINFOHEADER *lpVideoInfo);
-	BOOL GetCurrentVideoCap(VIDEOINFOHEADER *lpVideoInfo);
-
-	static void FreeMediaType(AM_MEDIA_TYPE *lpAMMediaType);
-
+    virtual BOOL GetVideoCap(int nIndex, VIDEOINFOHEADER *lpVideoInfo);
+    virtual BOOL GetCurrentVideoCap(VIDEOINFOHEADER *lpVideoInfo);
+   
+    virtual BOOL GetCurrentMediaType(AM_MEDIA_TYPE **pMediaType);
+    virtual BOOL CreateCaptureFilter();
+    virtual BOOL Start();
+    virtual void Stop();
+   
+    virtual BOOL GetAudioCap(int nIndex, WAVEFORMATEX *lpWaveInfo) { return FALSE; }
+    virtual BOOL GetCurrentAudioCap(WAVEFORMATEX *lpWaveInfo) { return FALSE; }
+private:
+    BOOL ConnectFilters();
+    BOOL ConnectPins(const GUID &category, const GUID &type,
+        IBaseFilter *filter, IBaseFilter *capture);
+    BOOL OpenDevice(LPCTSTR lpDevicePath, LPCTSTR lpDeviceName);
+    void GetDeviceName(LPTSTR deviceName, SIZE_T *nDeviceLen);
+    void Receive(bool video, IMediaSample *sample);
 protected:
 	BOOL FindPin(IPin **ppInputPin, IPin **ppOutputPin);
 
 private:
 	TCHAR						m_szActiveDeviceID[MAX_PATH];
 	CAtlList<AGORA_DEVICE_INFO> m_listDeviceInfo;
-
 	VIDEO_STREAM_CONFIG_CAPS	m_vscStreamCfgCaps;
 	int							m_nCapSelected;
 
 private:
-	ISampleGrabberCB				*m_lpSampleGrabberCB;
+	
+    CComPtr<IGraphBuilder>     		 m_ptrGraphBuilder;//filter graph
+    CComPtr<ICaptureGraphBuilder2>   m_ptrCaptureGraphBuilder2;//filter graph manager
+    CComPtr<IMediaControl>           control;
+    CComPtr<CaptureFilter>           videoCapture;
+    AM_MEDIA_TYPE*                   curMT     = nullptr;
+    BITMAPINFOHEADER*                bmiHeader = nullptr;
+    bool                             active    = false;
+    CString     filterName;
 
-	CComPtr<IGraphBuilder>			m_ptrGraphBuilder;
-	CComPtr<ISampleGrabber>			m_ptrSampleGrabber;
-	CComPtr<ICaptureGraphBuilder2>	m_ptrCaptureGraphBuilder2;
+    LPBYTE		m_lpYUVBuffer = nullptr;
+    LPBYTE		m_lpY = nullptr;
+    LPBYTE		m_lpU = nullptr;
+    LPBYTE		m_lpV = nullptr;
 };
 

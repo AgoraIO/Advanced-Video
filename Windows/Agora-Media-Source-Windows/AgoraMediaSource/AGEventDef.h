@@ -101,13 +101,13 @@ typedef struct _AGE_AUDIO_DEVICE_STATE_CHANGED
 #define EID_AUDIO_DEVICE_STATE_CHANGED		0x0000000C
 
 
-typedef struct _AGE_LASTMILE_QUALITY
+typedef struct _AGE_NETWORK_QUALITY
 {
-	int quality;
+	uid_t uid;  int txQuality; int rxQuality;
 
-} AGE_LASTMILE_QUALITY, *PAGE_LASTMILE_QUALITY, *LPAGE_LASTMILE_QUALITY;
+} AGE_NETWORK_QUALITY, *PAGE_NETWORK_QUALITY, *LPAGE_NETWORK_QUALITY;
 
-#define EID_LASTMILE_QUALITY					0x0000000D
+#define EID_NETWORK_QUALITY					0x0000000D
 
 typedef struct _AGE_FIRST_LOCAL_VIDEO_FRAME
 {
@@ -240,15 +240,26 @@ typedef struct _AGE_APICALL_EXECUTED
 
 #define EID_APICALL_EXECUTED					0x00000020
 
+
+
 typedef struct _AGE_STREAM_MESSAGE
 {
-    uid_t       uid;
-    int         streamId;
-    char        *data;
-    size_t      length;
+	uid_t       uid;
+	int         streamId;
+	char        *data;
+	size_t      length;
 
 } AGE_STREAM_MESSAGE, *PAGE_STREAM_MESSAGE, *LPAGE_STREAM_MESSAGE;
 
 #define EID_STREAM_MESSAGE                  0x00000021
+
+
+typedef struct _AGE_LASTMILE_QUALITY
+{
+	int quality;
+
+} AGE_LASTMILE_QUALITY, *PAGE_LASTMILE_QUALITY, *LPAGE_LASTMILE_QUALITY;
+
+#define EID_LASTMILE_QUALITY					0x00000022
 
 #endif

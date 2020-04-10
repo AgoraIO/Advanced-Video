@@ -22,7 +22,7 @@ public:
     void CleanEncryptionSecret();
 
 	void ExtCaptureControl(BOOL bEnable);
-
+    HWND GetDeviceHwnd() { return m_dlgDevice.GetSafeHwnd(); }
 // 对话框数据
 	enum { IDD = IDD_ENTERCHANNEL_DIALOG };
 

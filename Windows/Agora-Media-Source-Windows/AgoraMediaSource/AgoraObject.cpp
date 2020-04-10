@@ -204,7 +204,6 @@ BOOL CAgoraObject::JoinChannel(LPCTSTR lpChannelName, UINT nUID)
 {
 	int nRet = 0;
 
-//	m_lpAgoraEngine->setVideoProfile(VIDEO_PROFILE_720P);
 #ifdef UNICODE
 	CHAR szChannelName[128];
 
@@ -392,43 +391,6 @@ BOOL CAgoraObject::EnableEchoTest(BOOL bEnable)
 	return ret == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate)
-{
-    FRAME_RATE fps = agora::rtc::FRAME_RATE_FPS_15;
-    if (nFrameRate <= 1)
-    {
-        fps = agora::rtc::FRAME_RATE_FPS_1;
-    }
-    else if (nFrameRate <= 7)
-    {
-        fps = agora::rtc::FRAME_RATE_FPS_7;
-    }
-    else if (nFrameRate <= 10)
-    {
-        fps = agora::rtc::FRAME_RATE_FPS_10;
-    }
-    else if (nFrameRate <= 15)
-    {
-        fps = agora::rtc::FRAME_RATE_FPS_15;
-    }
-    else if (nFrameRate <= 24)
-    {
-        fps = agora::rtc::FRAME_RATE_FPS_24;
-    }
-    else if (nFrameRate <= 30)
-    {
-        fps = agora::rtc::FRAME_RATE_FPS_30;
-    }
-    else
-    {
-        fps = agora::rtc::FRAME_RATE_FPS_60;
-    }
-
-    VideoEncoderConfiguration encCfg(nWidth, nHeight, fps, nBitRate, ORIENTATION_MODE_ADAPTIVE);
-    m_lpAgoraEngine->setVideoEncoderConfiguration(encCfg);
-    return TRUE;
-}
-
 BOOL CAgoraObject::SetAudioProfileEx(int nSampleRate, int nChannels, int nSamplesPerCall)
 {
 	RtcEngineParameters rep(*m_lpAgoraEngine);
@@ -475,7 +437,7 @@ BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* l
 		nRet = mediaEngine->registerVideoFrameObserver(NULL);
 		apm->setParameters("{\"che.video.local.camera_index\":0}");
 	}
-
+    isExtenalCaptureVideo = bEnable;
 	return nRet == 0 ? TRUE : FALSE;
 }
 
@@ -499,7 +461,7 @@ BOOL CAgoraObject::LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn)
 	return nRet == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::SetLogFilter(UINT logFilterType, LPCTSTR lpLogPath)
+BOOL CAgoraObject::SetLogFilter(agora::LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath)
 {
 	int nRet = 0;
 	RtcEngineParameters rep(*m_lpAgoraEngine);

@@ -2,28 +2,40 @@
 #include "ExtendVideoFrameObserver.h"
 
 
+VIDEO_BUFFER		buffer;
 CExtendVideoFrameObserver::CExtendVideoFrameObserver()
 {
-	m_lpImageBuffer = new BYTE[0x800000];
+	m_lpImageBuffer = new BYTE[VIDEO_BUF_SIZE];
 }
 
 
 CExtendVideoFrameObserver::~CExtendVideoFrameObserver()
 {
-	delete[] m_lpImageBuffer;
+    if (m_lpImageBuffer) {
+        delete[] m_lpImageBuffer;
+        m_lpImageBuffer = nullptr;
+    }
 }
 
 bool CExtendVideoFrameObserver::onCaptureVideoFrame(VideoFrame& videoFrame)
 {
-	SIZE_T nBufferSize = 0x800000;
+    int bufSize = videoFrame.width*videoFrame.height * 3 / 2;
+    
+    int timestamp = GetTickCount();
+    if (CAgVideoBuffer::GetInstance()->readBuffer(m_lpImageBuffer, bufSize, timestamp)) {
+        memcpy_s(buffer.m_lpImageBuffer, bufSize, m_lpImageBuffer, bufSize);
+        buffer.timestamp = timestamp;
+    }
+    else
+        OutputDebugString(L"readBuffer failed");
 
-	BOOL bSuccess = CVideoPackageQueue::GetInstance()->PopVideoPackage(m_lpImageBuffer, &nBufferSize);
+	/*BOOL bSuccess = CVideoPackageQueue::GetInstance()->PopVideoPackage(m_lpImageBuffer, &nBufferSize);
 	if (!bSuccess)
-		return false;
+		return false;*/
 
-	m_lpY = m_lpImageBuffer;
-	m_lpU = m_lpImageBuffer + videoFrame.height*videoFrame.width;
-	m_lpV = m_lpImageBuffer + 5 * videoFrame.height*videoFrame.width / 4;
+	m_lpY = buffer.m_lpImageBuffer;
+	m_lpU = buffer.m_lpImageBuffer + videoFrame.height*videoFrame.width;
+	m_lpV = buffer.m_lpImageBuffer + 5 * videoFrame.height*videoFrame.width / 4;
 
 	memcpy_s(videoFrame.yBuffer, videoFrame.height*videoFrame.width, m_lpY, videoFrame.height*videoFrame.width);
 	videoFrame.yStride = videoFrame.width;

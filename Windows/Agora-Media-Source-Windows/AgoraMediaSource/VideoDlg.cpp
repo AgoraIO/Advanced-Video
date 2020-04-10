@@ -51,6 +51,7 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 
 	ON_MESSAGE(WM_WINDOWSHARE, &CVideoDlg::OnWindowShareStart)
 	ON_MESSAGE(WM_DESKTOPSHARE, &CVideoDlg::OnDesktopShareStart)
+    ON_MESSAGE(WM_MSGID(EID_AUDIO_VOLUME_INDICATION), &CVideoDlg::OnEIDAudioVolumeIndication)
 
 	ON_MESSAGE(WM_MSGID(EID_JOINCHANNEL_SUCCESS), &CVideoDlg::OnEIDJoinChannelSuccess)
 	ON_MESSAGE(WM_MSGID(EID_REJOINCHANNEL_SUCCESS), &CVideoDlg::OnEIDReJoinChannelSuccess)
@@ -65,8 +66,10 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 	ON_MESSAGE(WM_MSGID(EID_STOP_RCDSRV), &CVideoDlg::OnStopRecordingService)
 
     ON_MESSAGE(WM_MSGID(EID_STREAM_MESSAGE), &CVideoDlg::OnStreamMessage)
-
-
+    ON_MESSAGE(WM_MSGID(EID_USER_JOINED), &CVideoDlg::OnEIDUserJoined)
+    ON_MESSAGE(WM_MSGID(EID_AUDIO_QUALITY), &CVideoDlg::OnEIDAudioQuality)
+      
+    
 	ON_BN_CLICKED(IDC_BTNMIN_VIDEO, &CVideoDlg::OnBnClickedBtnmin)
 	ON_BN_CLICKED(IDC_BTNCLOSE_VIDEO, &CVideoDlg::OnBnClickedBtnclose)
 	ON_BN_CLICKED(IDC_BTNRSTO_VIDEO, &CVideoDlg::OnBnClickedBtnrest)
@@ -83,16 +86,12 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
     ON_BN_CLICKED(ID_IDR_DEVICE, &CVideoDlg::OnBnClickedBtnsetup)
     ON_BN_CLICKED(ID_IDR_FILTER, &CVideoDlg::OnBnClickedBtnfilter)
 
-//	ON_BN_CLICKED(IDC_BTNWHITEBOARD_VIDEO, &CVideoDlg::OnBnCliekedBtnWhiteBoard)
-//	ON_BN_CLICKED(IDC_BTNCLOSEWB_VIDEO, &CVideoDlg::OnBnCliekedBtnCloseWhiteBoard)
 
 	ON_BN_CLICKED(IDC_BTNSCR_VIDEO, &CVideoDlg::OnBnClickedBtnfullscr)
 	
 	ON_BN_CLICKED(ID_SCRSHARE_DESKTOPSHARE, &CVideoDlg::OnBnClickedScreenshare)
 	ON_BN_CLICKED(ID_SCRSHARE_WINDOWSHARE, &CVideoDlg::OnBnClickedWindowshare)
 
-//	ON_BN_CLICKED(ID_WHITEBOARD_HOSTMODE, &CVideoDlg::OnBnClickedHostMode)
-//	ON_BN_CLICKED(ID_WHITEBOARD_GUESTMODE, &CVideoDlg::OnBnClickedGuestMode)
 	ON_WM_SHOWWINDOW()
     ON_WM_MOVE()
 END_MESSAGE_MAP()
@@ -349,8 +348,7 @@ void CVideoDlg::OnBnClickedBtnmin()
 
 void CVideoDlg::OnBnClickedBtnclose()
 {
-	GetParent()->SendMessage(WM_LEAVECHANNEL, 0, 0);
-
+	
 	m_listWndInfo.RemoveAll();
     m_dlgChat.ShowWindow(SW_HIDE);
     m_dlgDevice.ShowWindow(SW_HIDE);
@@ -369,6 +367,7 @@ void CVideoDlg::OnBnClickedBtnclose()
     m_dlgChat.ShowWindow(SW_HIDE);
     m_dlgChat.ClearHistory();
     m_btnMessage.SwitchButtonStatus(CAGButton::AGBTN_NORMAL);
+    GetParent()->SendMessage(WM_LEAVECHANNEL, 0, 0);
 
 	CDialogEx::OnOK();
 }
@@ -700,7 +699,10 @@ LRESULT CVideoDlg::OnEIDJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
 	m_listWndInfo.RemoveAll();
 	CAgoraObject::GetAgoraObject()->SetSelfUID(lpData->uid);
 
+	delete[] lpData->channel;
+	lpData->channel = NULL;
 	delete lpData;
+	lpData = NULL;
 	return 0;
 }
 
@@ -709,8 +711,10 @@ LRESULT CVideoDlg::OnEIDReJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
 	LPAGE_REJOINCHANNEL_SUCCESS lpData = (LPAGE_REJOINCHANNEL_SUCCESS)wParam;
 
 	m_listWndInfo.RemoveAll();
-	delete lpData;
-
+    delete[] lpData->channel;
+    lpData->channel = NULL;
+    delete lpData;
+    lpData = NULL;
 	return 0;
 }
 
@@ -722,7 +726,7 @@ LRESULT CVideoDlg::OnEIDFirstLocalFrame(WPARAM wParam, LPARAM lParam)
 		ShowVideo1();
 
 	delete lpData;
-
+    lpData = NULL;
 	return 0;
 }
 
@@ -753,7 +757,7 @@ LRESULT CVideoDlg::OnEIDFirstRemoteFrameDecoded(WPARAM wParam, LPARAM lParam)
 	RebindVideoWnd();
 
 	delete lpData;
-
+    lpData = NULL;
 	return 0;
 }
 
@@ -762,8 +766,8 @@ LRESULT CVideoDlg::OnEIDUserJoined(WPARAM wParam, LPARAM lParam)
     CString str;
     LPAGE_USER_JOINED lpData = (LPAGE_USER_JOINED)wParam;
 
-    str.Format(_T("%d joined the channel"), lpData->uid);
-    MessageBox(str);
+	delete lpData;
+	lpData = NULL;
 	return 0;
 }
 
@@ -783,7 +787,7 @@ LRESULT CVideoDlg::OnEIDUserOffline(WPARAM wParam, LPARAM lParam)
 	}
 
 	delete lpData;
-
+    lpData = nullptr;
 	return 0;
 }
 
@@ -819,7 +823,7 @@ LRESULT CVideoDlg::OnRemoteVideoStat(WPARAM wParam, LPARAM lParam)
 	}
 
 	delete lpData;
-
+    lpData = NULL;
 	return 0;
 }
 
@@ -895,12 +899,12 @@ void CVideoDlg::InitCtrls()
 	m_btnShow.Create(NULL, WS_VISIBLE | WS_CHILD, CRect(0, 0, 1, 1), this, IDC_BTNSCR_VIDEO);
 	
 	for (int nIndex = 0; nIndex < 4; nIndex++){
-		m_wndVideo[nIndex].Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + nIndex);
+		m_wndVideo[nIndex].Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + nIndex);
 		m_wndVideo[nIndex].SetBackImage(IDB_BACKGROUND_VIDEO, 96, 96, RGB(0x44, 0x44, 0x44));
 		m_wndVideo[nIndex].SetFaceColor(RGB(0x58, 0x58, 0x58));
 	}
 
-	m_wndLocal.Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + 4);
+	m_wndLocal.Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + 4);
 	m_wndLocal.SetBackImage(IDB_BACKGROUND_VIDEO, 96, 96, RGB(0x44, 0x44, 0x44));
 	m_wndLocal.SetFaceColor(RGB(0x58, 0x58, 0x58));
 	m_wndLocal.SetUID(0);
@@ -1210,8 +1214,6 @@ LRESULT CVideoDlg::OnDesktopShareStart(WPARAM wParam, LPARAM lParam)
 
 	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, lpDesktopShareParam->nFPS, &rcRegion, TRUE);
 	//	Sleep(1000);
-	//	CAgoraObject::GetAgoraObject()->SetVideoProfileEx(lpDesktopShareParam->nWidth, lpDesktopShareParam->nHeight, lpDesktopShareParam->nFPS, lpDesktopShareParam->nBitrate);
-
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	return 0;
@@ -1240,4 +1242,20 @@ void CVideoDlg::OnMove(int x, int y)
     if (::IsWindow(m_dlgChat.GetSafeHwnd()) && m_dlgChat.IsWindowVisible()){
         m_dlgChat.MoveWindow(&rcChatBox);
     }
+}
+
+LRESULT CVideoDlg::OnEIDAudioQuality(WPARAM wParam, LPARAM lParam)
+{
+    LPAGE_AUDIO_QUALITY lpData = new AGE_AUDIO_QUALITY;
+
+    delete lpData;
+    lpData = nullptr;
+    return 0;
+}
+
+LRESULT CVideoDlg::OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam)
+{
+    ::PostMessage(m_dlgDevice.GetSafeHwnd(), WM_MSGID(EID_AUDIO_VOLUME_INDICATION), wParam, 0);
+
+    return 0;
 }
