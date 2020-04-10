@@ -25,7 +25,6 @@ jobs:
     sdkurl: $(WindowsRTCSDK)
     solutionName: 'AgoraHooking.sln'
     downloadGithubSDK: HookSDK.zip
-    userRepository: $(RepoName)/Advanced-Video
     sdkVersion: '3_0_0'
     sdkFolderVersion: '3.0.0'
     Machine: x86 
@@ -38,7 +37,6 @@ jobs:
     sdkurl: $(WindowsRTCSDK)
     solutionName: 'AgoraHooking.sln'
     downloadGithubSDK: HookSDK.zip
-    userRepository: $(RepoName)/Advanced-Video
     sdkVersion: '3_0_0'
     sdkFolderVersion: '3.0.0'
     Machine: x86 
@@ -51,7 +49,14 @@ jobs:
     sdkurl: $(WindowsRTCSDK)
     solutionName: 'AgoraHooking.sln'
     downloadGithubSDK: HookSDK.zip
-    userRepository: $(RepoName)/Advanced-Video
+
+- template: Windows/cicd/templates/build-Windows-dshow.yml
+  parameters:
+    displayName: 'AgoraMediaSourceWindows'
+    workingDirectory: 'Windows/Agora-Media-Source-Windows'
+    scheme: 'Agora-Media-Source-Windows'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'AgoraMediaSource.sln'
     sdkVersion: '3_0_0'
     sdkFolderVersion: '3.0.0'
     Machine: x86
