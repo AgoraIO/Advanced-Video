@@ -52,7 +52,7 @@ jobs:
       - task: CopyFiles@2
         inputs:
           sourceFolder: 'HookSDK'
-          targetFolder: ${{ parameters.workingDirectory }}
+          targetFolder: ${{ parameters.workingDirectory }}/HookSDK
 
       - script: cd ${{ parameters.workingDirectory }} && ls
       - script: ls       
