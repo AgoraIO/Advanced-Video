@@ -25,7 +25,7 @@ public class CustomRemoteRenderActivity extends BaseLiveActivity {
     }
 
     private void joinChannel() {
-        rtcEngine().joinChannel(null, config().getChannelName(), null, 0);
+        rtcEngine().joinChannel(token(), config().getChannelName(), null, 0);
     }
 
     @Override
