@@ -46,7 +46,8 @@ BEGIN_MESSAGE_MAP(CAgoraMediaSourceDlg, CDialogEx)
 	ON_MESSAGE(WM_GONEXT, &CAgoraMediaSourceDlg::OnNextPage)
 	ON_MESSAGE(WM_JOINCHANNEL, &CAgoraMediaSourceDlg::OnJoinChannel)
 	ON_MESSAGE(WM_LEAVECHANNEL, &CAgoraMediaSourceDlg::OnLeaveChannel)
-	
+    ON_MESSAGE(WM_MSGID(EID_AUDIO_VOLUME_INDICATION), &CAgoraMediaSourceDlg::OnEIDAudioVolumeIndication)
+
 	ON_BN_CLICKED(IDC_BTNMIN, &CAgoraMediaSourceDlg::OnBnClickedBtnmin)
 	ON_BN_CLICKED(IDC_BTNCLOSE, &CAgoraMediaSourceDlg::OnBnClickedBtnclose)
 
@@ -104,12 +105,22 @@ BOOL CAgoraMediaSourceDlg::OnInitDialog()
     m_ftDes.CreateFont(15, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
     m_ftPhone.CreateFont(15, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 
+    CString strAppid;
 	if (_tcslen(APP_ID) == 0) {
-		MessageBox(_T("Please define your own APP_ID in source code"), _T("information"), MB_OK | MB_ICONINFORMATION);
-		::PostQuitMessage(0);
-	}
+        CString appid = m_agConfig.GetAppid();
+        if (appid.IsEmpty()) {
+            m_agConfig.SetAppid(_T(""));
+            ShellExecute(NULL, _T("open"), m_agConfig.GetFilePath(), NULL, NULL, SW_SHOW);
 
-	m_lpAgoraObject = CAgoraObject::GetAgoraObject(APP_ID);
+            MessageBox(_T("Please define your own APP_ID in source code"), _T("information"), MB_OK | MB_ICONINFORMATION);
+            ::PostQuitMessage(0);
+        }
+
+        strAppid = m_agConfig.GetAppid();
+    }
+    else
+        strAppid = APP_ID;
+	m_lpAgoraObject = CAgoraObject::GetAgoraObject(strAppid);
 	m_lpRtcEngine = CAgoraObject::GetEngine();
     m_lpAgoraObject->EnableVideo(TRUE);
     m_lpAgoraObject->SetLogFilePath(NULL);
@@ -320,8 +331,11 @@ LRESULT CAgoraMediaSourceDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	vc.view = m_dlgVideo.GetLocalVideoWnd();
 	vc.renderMode = RENDER_MODE_TYPE::RENDER_MODE_FIT;
 
-    m_nVideoSolution = m_dlgSetup.GetVideoSolution();
-    lpRtcEngine->setVideoProfile((VIDEO_PROFILE_TYPE)m_nVideoSolution, m_dlgSetup.IsWHSwap());
+    if (!CAgoraObject::GetAgoraObject()->IsExternalCaptureVideo()) {
+        m_nVideoSolution = m_dlgSetup.GetVideoSolution();
+        lpRtcEngine->setVideoProfile((VIDEO_PROFILE_TYPE)m_nVideoSolution, m_dlgSetup.IsWHSwap());
+    }
+  
     lpAgoraObject->EnableVideo(TRUE);
 
 	m_dlgVideo.SetWindowText(strChannelName);
@@ -342,6 +356,7 @@ LRESULT CAgoraMediaSourceDlg::OnLeaveChannel(WPARAM wParam, LPARAM lParam)
     m_dlgEnterChannel.CleanEncryptionSecret();
 
 	m_dlgEnterChannel.ExtCaptureControl(FALSE);
+    CAgoraObject::GetAgoraObject()->SetMsgHandlerWnd(GetSafeHwnd());
 
 	return 0;
 }
@@ -357,4 +372,12 @@ LRESULT CAgoraMediaSourceDlg::OnLastmileQuality(WPARAM wParam, LPARAM lParam)
 
 	delete lpData;
 	return 0;
+}
+
+
+LRESULT CAgoraMediaSourceDlg::OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam)
+{
+    ::PostMessage(m_dlgEnterChannel.GetDeviceHwnd(), WM_MSGID(EID_AUDIO_VOLUME_INDICATION), wParam, 0);
+
+    return 0;
 }

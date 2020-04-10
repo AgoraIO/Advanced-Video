@@ -153,3 +153,19 @@ BOOL CAGConfig::IsAutoSaveEnabled()
 
 	return (_ttoi(strSaveSetting) == 1) ? TRUE : FALSE;
 }
+
+CString CAGConfig::GetAppid()
+{
+    CString appid;
+
+    ::GetPrivateProfileString(_T("VideoConfig"), _T("AppID"), _T(""), appid.GetBuffer(MAX_PATH), MAX_PATH, m_szConfigFile);
+
+    appid.ReleaseBuffer();
+
+    return appid;
+}
+
+void CAGConfig::SetAppid(CString appid)
+{
+    ::WritePrivateProfileString(_T("VideoConfig"), _T("AppID"), appid.GetBuffer(0), m_szConfigFile);
+}

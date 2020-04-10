@@ -133,3 +133,14 @@ jobs:
     downloadGithubSDK: HookSDK.zip
     userRepository: $(RepoName)/Advanced-Video
     sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+
+- template: cicd/templates/build-Windows-dshow.yml
+  parameters:
+    displayName: 'AgoraMediaSourceWindows'
+    workingDirectory: 'Windows/Agora-Media-Source-Windows'
+    scheme: 'Agora-Media-Source-Windows'
+    sdkurl: $(WindowsRTCSDK)
+    solutionName: 'AgoraMediaSource.sln'
+    sdkVersion: '3_0_0'
+    sdkFolderVersion: '3.0.0'
+    Machine: x86

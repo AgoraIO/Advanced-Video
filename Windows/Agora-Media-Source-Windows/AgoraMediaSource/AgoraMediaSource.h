@@ -19,11 +19,11 @@ class CAgoraMediaSourceApp : public CWinApp
 {
 public:
 	CAgoraMediaSourceApp();
-
+    ~CAgoraMediaSourceApp();
 // Overrides
 public:
 	virtual BOOL InitInstance();
-
+    virtual int ExitInstance();
 // Implementation
 
 	DECLARE_MESSAGE_MAP()

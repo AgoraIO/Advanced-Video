@@ -1,31 +1,29 @@
 #pragma once
 #include "AGComboBox.h"
 #include "AGButton.h"
-#include "AGDShowAudioCapture.h"
-#include "AGAudioCapture.h"
+//#include "AGDShowAudioCapture.h"
+//#include "AGAudioCapture.h"
 
 #include "AGDShowVideoCapture.h"
-#include "AGVideoCapture.h"
+//#include "AGVideoCapture.h"
 
-#include "AGAudioCapture.h"
-#include "XAudioPlayout.h"
+//#include "AGAudioCapture.h"
+//#include "XAudioPlayout.h"
 
 #include "ExtendVideoFrameObserver.h"
-#include "ExtendAudioFrameObserver.h"
-#include "StreamingVoiceContext.h"
 
 #include "afxwin.h"
 
 // CExtCaptureDlg ¶Ô»°¿ò
 
-typedef struct _PLAYOUT_THREAD_PARAM
+/*typedef struct _PLAYOUT_THREAD_PARAM
 {
 	HANDLE		hExitEvent;
 
 	IXAudio2VoiceCallback	*lpXAudioVoiceContext;
 	IXAudio2SourceVoice		*lpXAudioSourceVoice;
 
-} PLAYOUT_THREAD_PARAM, *PPLAYOUT_THREAD_PARAM, *LPPLAYOUT_THREAD_PARAM;
+} PLAYOUT_THREAD_PARAM, *PPLAYOUT_THREAD_PARAM, *LPPLAYOUT_THREAD_PARAM;*/
 
 
 class CExtCaptureDlg : public CDialogEx
@@ -40,8 +38,7 @@ public:
 	enum { IDD = IDD_EXTCAP_DIALOG };
 
 	BOOL VideoCaptureControl(BOOL bStart);
-	BOOL AudioCaptureControl(BOOL bStart);
-
+	
 	BOOL IsExtVideoCapEnabled() const { return m_ckExtVideoCapture.GetCheck(); };
 	BOOL IsExtAudioCapEnabled() const { return m_ckExtAudioCapture.GetCheck(); };
 
@@ -93,22 +90,11 @@ private:
 
 private:
 	CAGDShowVideoCapture	m_agVideoCaptureDevice;
-	CAGVideoCapture			m_agVideoCapture;
-
-	CAGDShowAudioCapture	m_agAudioCaptureDevice;
-	CAGAudioCapture			m_agAudioCapture;
-
-	CXAudioPlayout			m_agXAudioPlayoutDevice;
-
+	//CAGVideoCapture			m_agVideoCapture;
 	CExtendVideoFrameObserver	m_exCapVideoFrameObserver;
-	CExtendAudioFrameObserver	m_exCapAudioFrameObserver;
-	StreamingVoiceContext		m_exCapVoiceContext;
 
 	HANDLE						m_hExitPlayEvent;
-	PLAYOUT_THREAD_PARAM		m_playThreadParam;
 
-private:
-	static UINT PlayoutThread(LPVOID lParam);
-	 
-
+public:
+    CButton m_chkPushVideoFrame;
 };
