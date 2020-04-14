@@ -5,12 +5,13 @@
 ## 模块
 
 ### 自定义视频源
+Demo 可以参考 [sample-custom-render](https://github.com/AgoraIO/Advanced-Video/tree/master/Android/sample-custom-render) 文件夹。
 
 默认 Agora SDK 会启动视频模块进行的采集和后续的处理。同时 SDK 也提供了 MediaIO 接口，可以将第三方的视频源传给 Agora SDK 进行传输。 这就需要开发者具备一定的技术能力，自行维护采集和渲染的生命周期。
 
 Demo 包含两个外部视频源的示例代码（屏幕分享和本地视频），提供一个发送自定义视频源的参考方案。不同项目要结合实际情况选择实现方案。
 
-关于 MediaIO 视频源接口的使用，请参考[此页](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android)
+关于 MediaIO 视频源接口的使用，请参考[此页](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android)。
 
 通常视频帧的格式为 i420, NV21 或 texture。很多情况下开发者需要创建和管理 OpenGL 线程。Demo 维护 OpenGL 线程维护的思路来自 [grafika](https://github.com/google/grafika) 项目，如果您不熟悉或者想深入了解这个项目请移步其主页。
 
@@ -28,11 +29,13 @@ Demo 不提供 .mp4 视频文件，使用者应自行拷贝所需的视频文件
 
 使用 [MediaExtractor](https://developer.android.com/reference/android/media/MediaExtractor) 从 .mp4 文件中将视频帧解压出来（保存到 ByteBuffer），以一定的频率（比如帧的播放时间戳）发送到 [MediaCodec](https://developer.android.com/reference/android/media/MediaCodec) 解码器， 解码的结果被绘制到一个预先设置的 Surface 中（由 texture 生成），继而进行本地渲染或者视频发送。
 
-#### <h4 id="switching"> 视频输入源的切换 </h4>
+### <h4 id="switching"> 视频输入源的切换 </h4>
+Demo 可以参考 [sample-switch-external-video](https://github.com/AgoraIO/Advanced-Video/tree/master/Android/sample-switch-external-video) 文件夹。
 
 同一时间只有一个视频输入源在工作，视频输入源可以随时以 SDK 无感知的方式进行切换。 视频帧在 foreground service 的 OpenGL 线程里进行处理、发送和渲染（通常指的是本地渲染），因此可以进行后台的采集和发送。 
 
 ### 使用 Agora SDK 的裸数据插件接口进行视频包的自定义加密
+Demo 可以参考 [sample-video-encrypt](https://github.com/AgoraIO/Advanced-Video/tree/master/Android/sample-video-encrypt) 文件夹。
 
 关于裸数据接口的使用，请参考文档：[音频裸数据](https://docs.agora.io/cn/Video/raw_data_audio_android?platform=Android) 和 [视频裸数据](https://docs.agora.io/cn/Video/raw_data_video_android?platform=Android)
 
@@ -45,8 +48,9 @@ C++ 裸数据接口的代码需要编译成以 **"libamp-xxx.so"** 的形式命�
 在 JCenter（maven） 上发布的 sdk 是没有 C++ 裸数据接口的头文件的。当前 demo 里已经上传了相关头文件，但后续的 SDK 版本可能对其进行修改，到时开发者需自行到 Agora 下载页进行下载和覆盖更新。
 
 ### Push 接口
+Demo 可以参考 [sample-push-video](https://github.com/AgoraIO/Advanced-Video/tree/master/Android/sample-push-video) 文件夹。
 
-除了 MediaIO interface, push 接口也同样用来发送第三方视频源. 更多细节请参考 [Push Interface](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E9%A2%91%E9%87%87%E9%9B%86).
+除了 MediaIO interface, push 接口也同样用来发送第三方视频源. 更多细节请参考 [Push Interface](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E9%A2%91%E9%87%87%E9%9B%86)。
 
 
 在这个 demo 中，我们关注的是 push 接口的实现，忽略了如后台运行和异步多线程等。如果想了解这些细节，请参考 [视频输入源的切换](#switching)
