@@ -20,7 +20,8 @@ import io.agora.rtc.Constants;
         "io.agora.advancedvideo.switchvideoinput.SwitchVideoInputActivity",
         "io.agora.advancedvideo.videoencryption.VideoActivity",
         "io.agora.advancedvideo.customrenderer.CustomRemoteRenderActivity" ,
-        "io.agora.advancedvideo.videopush.VideoPushActivity"
+        "io.agora.advancedvideo.videopush.VideoPushActivity",
+        "io.agora.advancedvideo.rawdatasample.RawDataActivity"
     }
 )
 public abstract class BaseLiveActivity extends BaseActivity {

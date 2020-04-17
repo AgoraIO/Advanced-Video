@@ -1,2 +1,2 @@
-include ':lib-component', ':sample-switch-external-video', ':sample-video-encrypt', ':lib-external-video', ':sample-custom-render', ':sample-push-video'
-rootProject.name='Advanced-Video-Android'
+include ':lib-component', ':sample-switch-external-video', ':sample-video-encrypt', ':lib-external-video', ':sample-custom-render', ':sample-push-video', ':lib-raw-data', ':sample-raw-data'
+rootProject.name = 'Advanced-Video-Android'
