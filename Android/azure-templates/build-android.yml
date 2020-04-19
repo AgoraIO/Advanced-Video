@@ -20,7 +20,7 @@ jobs:
         inputs:
           workingDirectory: ${{ parameters.project }}/${{ parameters.module }}
           gradleWrapperFile: ${{ parameters.project }}/gradlew
-          gradleOptions: '-Xmx3072m'
+          gradleOptions: '-Xmx3072m --stacktrace'
           publishJUnitResults: false
           testResultsFiles: '**/TEST-*.xml'
           tasks: 'assembleDebug'
