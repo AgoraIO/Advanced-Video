@@ -7,7 +7,7 @@
 #include "LogoDlg.h"
 #include "AgoraMediaSourceDlg.h"
 #include "EnterChannelDlg.h"
-
+#include <crtdbg.h>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -31,7 +31,12 @@ CAgoraMediaSourceApp::CAgoraMediaSourceApp()
 	// Place all significant initialization in InitInstance
 }
 
+CAgoraMediaSourceApp::~CAgoraMediaSourceApp()
+{
 
+    CLanguageSet::GetInstance()->CloseInstance();
+    CAgoraObject::GetAgoraObject()->CloseAgoraObject();
+}
 // The one and only CAgoraVideoCallApp object
 
 CAgoraMediaSourceApp theApp;
@@ -71,10 +76,8 @@ BOOL CAgoraMediaSourceApp::InitInstance()
 	// TODO: You should modify this string to be something appropriate
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	CAgoraObject::EnableWhiteboardVer(TRUE);
-	CAgoraObject::EnableWhiteboardFeq(TRUE);
 	::CoInitialize(NULL);
-
+   
 	INT_PTR nResponse = 0;
 	CLogoDlg Logo;
 
@@ -83,7 +86,7 @@ BOOL CAgoraMediaSourceApp::InitInstance()
 
 	m_pMainWnd = &avcDlg;
 	nResponse = avcDlg.DoModal();
-
+    
 	if (nResponse == IDOK)
 	{
 		// TODO: Place code here to handle when the dialog is
@@ -111,3 +114,10 @@ BOOL CAgoraMediaSourceApp::InitInstance()
 	return FALSE;
 }
 
+int CAgoraMediaSourceApp::ExitInstance()
+{
+    CoUninitialize();
+
+    CWinApp::ExitInstance();
+    return 0;
+}

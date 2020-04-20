@@ -23,6 +23,10 @@ public:
     BOOL SetSolution(int nIndex);
     int GetSolution();
 
+    CString GetAppid();
+    void SetAppid(CString appid);
+
+    CString GetFilePath() {return m_szConfigFile;}
 private:
 	TCHAR m_szConfigFile[MAX_PATH];
 };

@@ -207,7 +207,7 @@ void CEnterChannelDlg::OnBnClickedBtnjoinChannel()
 		CAgoraObject::GetAgoraObject()->SetEncryptionSecret(strKey, m_cmbEncType.GetCurSel());
 	
 	m_dlgExtCapture.VideoCaptureControl(TRUE);
-	m_dlgExtCapture.AudioCaptureControl(TRUE);
+	//m_dlgExtCapture.AudioCaptureControl(TRUE);
 	
 	GetParent()->SendMessage(WM_JOINCHANNEL, 0, 0);
 }
@@ -244,7 +244,6 @@ void CEnterChannelDlg::ExtCaptureControl(BOOL bEnable)
 {
 
 	m_dlgExtCapture.VideoCaptureControl(bEnable);
-	m_dlgExtCapture.AudioCaptureControl(bEnable);
 }
 
 void CEnterChannelDlg::OnBnClickedBtnextcapChannel()

@@ -5,9 +5,9 @@
 #include "AGEngineEventHandler.h"
 
 #include "ExtendVideoFrameObserver.h"
-#include "ExtendAudioFrameObserver.h"
 
-#define AVC_VER _T("V1.13.0, Build234, 09/11/2019, SDK2.9.0")
+
+#define AVC_VER _T("V1.13.0, Build234, 09/11/2017, SDK1.13.0")
 
 using namespace agora::media;
 // 引擎标记位
@@ -77,15 +77,14 @@ public:
 	BOOL EnableEchoTest(BOOL bEnable = TRUE);
 	BOOL IsEchoTesting() { return m_bEchoTest; };
 
-	BOOL SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate);
 	BOOL SetAudioProfileEx(int nSampleRate, int nChannels, int nSamplesPerCall);
 
 	BOOL EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* lpAudioFrameObserver);
 	BOOL EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* lpVideoFrameObserver);
-
+    BOOL IsExternalCaptureVideo() { return isExtenalCaptureVideo; }
 	BOOL LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn = TRUE);
 
-	BOOL SetLogFilter(UINT logFilterType, LPCTSTR lpLogPath);
+	BOOL SetLogFilter(agora::LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath);
 
     BOOL SetEncryptionSecret(LPCTSTR lpKey, int nEncryptType = 0);
 
@@ -121,7 +120,7 @@ private:
 	BOOL		m_bEchoTest;
 
 	BOOL		m_bScreenCapture;
-
+    BOOL        isExtenalCaptureVideo;
 //	int			m_nCodecType;
 
 public:

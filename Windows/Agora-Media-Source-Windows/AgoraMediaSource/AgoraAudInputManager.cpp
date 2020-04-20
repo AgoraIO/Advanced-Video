@@ -147,16 +147,13 @@ void CAgoraAudInputManager::TestAudInputDevice(HWND hMsgWnd, BOOL bTestOn)
 		return;
 
 	if (bTestOn && !m_bTestingOn) {
-		m_hOldMsgWnd = CAgoraObject::GetAgoraObject()->GetMsgHandlerWnd();
-		CAgoraObject::GetAgoraObject()->SetMsgHandlerWnd(hMsgWnd);
-
+	
 		IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
 		RtcEngineParameters rep(*lpRtcEngine);
-		rep.enableAudioVolumeIndication(1000, 10);
+		rep.enableAudioVolumeIndication(1000, 10, false);
 		(*m_ptrDeviceManager)->startRecordingDeviceTest(1000);
 	}
 	else if (!bTestOn && m_bTestingOn){
-		CAgoraObject::GetAgoraObject()->SetMsgHandlerWnd(m_hOldMsgWnd);
 		(*m_ptrDeviceManager)->stopRecordingDeviceTest();
 	}
 
