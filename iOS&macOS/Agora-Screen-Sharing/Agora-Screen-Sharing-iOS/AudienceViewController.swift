@@ -154,8 +154,7 @@ private extension AudienceViewController {
 }
 
 extension AudienceViewController: AgoraRtcEngineDelegate {
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+    func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
         let userSession = videoSession(ofUid: Int64(uid))
         rtcEngine.setupRemoteVideo(userSession.canvas)
     }
