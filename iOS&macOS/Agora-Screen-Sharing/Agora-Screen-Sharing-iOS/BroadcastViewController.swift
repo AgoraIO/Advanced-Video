@@ -96,7 +96,7 @@ class BroadcastViewController: UIViewController {
     
     func loadRtcEngine() {
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId,
-                                                  delegate: nil)
+                                                  delegate: self)
         agoraKit.setChannelProfile(.liveBroadcasting)
         agoraKit.setClientRole(.broadcaster)
         agoraKit.joinChannel(byToken: nil, channelId: "channel", info: nil, uid: 0, joinSuccess: nil)
@@ -189,5 +189,11 @@ extension BroadcastViewController: RPBroadcastActivityViewControllerDelegate {
                 })
             }
         }
+    }
+}
+
+extension BroadcastViewController: AgoraRtcEngineDelegate {
+    func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteAudioFrameOfUid uid: UInt, elapsed: Int) {
+        agoraKit.muteRemoteAudioStream(9, mute: true)
     }
 }
