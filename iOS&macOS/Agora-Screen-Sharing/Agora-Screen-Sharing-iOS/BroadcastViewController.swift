@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import ReplayKit
+import AgoraRtcKit
 
 class BroadcastViewController: UIViewController {
 
@@ -31,13 +32,16 @@ class BroadcastViewController: UIViewController {
             let frame = CGRect(x: 0, y:view.frame.size.height - 60, width: 60, height: 60)
             let systemBroadcastPicker = RPSystemBroadcastPickerView(frame: frame)
             systemBroadcastPicker.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
+            systemBroadcastPicker.showsMicrophoneButton = false
 
-            if let url = Bundle.main.url(forResource: "Agora-Screen-Sharing-iOS-Broadcast", withExtension: "appex", subdirectory: "PlugIns") {
+            if let url = Bundle.main.url(forResource: "Agora-Screen-Sharing-iOS-Broadcast",
+                                         withExtension: "appex",
+                                         subdirectory: "PlugIns") {
                 if let bundle = Bundle(url: url) {
                     systemBroadcastPicker.preferredExtension = bundle.bundleIdentifier
                 }
             }
-
+            
             return systemBroadcastPicker
         }
         else {
@@ -50,9 +54,12 @@ class BroadcastViewController: UIViewController {
         }
     }()
     
+    private var agoraKit: AgoraRtcEngineKit!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(broadcastButton)
+        loadRtcEngine()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +90,16 @@ class BroadcastViewController: UIViewController {
                 stopReplayKitBroadcasting()
             }
         }
+        
+        agoraKit.leaveChannel(nil)
+    }
+    
+    func loadRtcEngine() {
+        agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId,
+                                                  delegate: nil)
+        agoraKit.setChannelProfile(.liveBroadcasting)
+        agoraKit.setClientRole(.broadcaster)
+        agoraKit.joinChannel(byToken: nil, channelId: "channel", info: nil, uid: 0, joinSuccess: nil)
     }
     
     @objc func doBroadcastPressed(_ sender: UIButton) {
