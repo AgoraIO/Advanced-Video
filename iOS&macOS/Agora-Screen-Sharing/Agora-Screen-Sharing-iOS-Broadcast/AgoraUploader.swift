@@ -11,6 +11,17 @@ import CoreMedia
 import ReplayKit
 
 class AgoraUploader {
+    enum Channel {
+        case out, joining, joined
+        
+        var isJoined: Bool {
+            switch self {
+            case .joined: return true
+            default:      return false
+            }
+        }
+    }
+    
     private static let videoDimension : CGSize = {
         let screenSize = UIScreen.main.currentMode!.size
         var boundingSize = CGSize(width: 720, height: 1280)
@@ -27,6 +38,8 @@ class AgoraUploader {
     
     private static let audioSampleRate: UInt = 48000
     private static let audioChannels: UInt = 2
+    private static var channel: String = ""
+    static var channelState: Channel = .out
     
     private static let sharedAgoraEngine: AgoraRtcEngineKit = {
         let kit = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: nil)
@@ -42,13 +55,7 @@ class AgoraUploader {
         kit.setVideoEncoderConfiguration(videoConfig)
         
         kit.setAudioProfile(.musicStandardStereo, scenario: .default)
-        AgoraAudioProcessing.registerAudioPreprocessing(kit)
-        kit.setRecordingAudioFrameParametersWithSampleRate(Int(audioSampleRate),
-                                                           channel: Int(audioChannels),
-                                                           mode: .readWrite,
-                                                           samplesPerCall: 1024)
-        kit.setParameters("{\"che.audio.external_device\":true}")
-        
+    
         kit.muteAllRemoteVideoStreams(true)
         kit.muteAllRemoteAudioStreams(true)
         
@@ -56,10 +63,34 @@ class AgoraUploader {
     }()
     
     static func startBroadcast(to channel: String) {
-        sharedAgoraEngine.joinChannel(byToken: nil, channelId: channel, info: nil, uid: 0, joinSuccess: nil)
+        self.channel = channel
+    }
+    
+    static func joinRtcChannel() {
+        sharedAgoraEngine.joinChannel(byToken: nil, channelId: channel, info: nil, uid: 9) { (_, _, _) in
+            channelState = .joined
+        }
+        channelState = .joining
+    }
+    
+    static func setupAudioFormatWith(sampleBuffer: CMSampleBuffer) {
+        guard let format = CMSampleBufferGetFormatDescription(sampleBuffer) else {
+            return
+        }
+        
+        guard let description = CMAudioFormatDescriptionGetStreamBasicDescription(format) else {
+            return
+        }
+        
+        sharedAgoraEngine.enableExternalAudioSource(withSampleRate: UInt(description.pointee.mSampleRate),
+                                                    channelsPerFrame: UInt(description.pointee.mChannelsPerFrame))
     }
     
     static func sendVideoBuffer(_ sampleBuffer: CMSampleBuffer) {
+        guard channelState.isJoined else {
+            return
+        }
+        
         guard let videoFrame = CMSampleBufferGetImageBuffer(sampleBuffer)
              else {
             return
@@ -89,17 +120,13 @@ class AgoraUploader {
     }
     
     static func sendAudioAppBuffer(_ sampleBuffer: CMSampleBuffer) {
-        AgoraAudioTube.agoraKit(sharedAgoraEngine,
-                                pushAudioCMSampleBuffer: sampleBuffer,
-                                resampleRate: audioSampleRate,
-                                type: .app)
+        guard let _ = CMSampleBufferGetDataBuffer(sampleBuffer) else {
+            return
+        }
+        sharedAgoraEngine.pushExternalAudioFrameSampleBuffer(sampleBuffer)
     }
     
     static func sendAudioMicBuffer(_ sampleBuffer: CMSampleBuffer) {
-        AgoraAudioTube.agoraKit(sharedAgoraEngine,
-                                pushAudioCMSampleBuffer: sampleBuffer,
-                                resampleRate: audioSampleRate,
-                                type: .mic)
     }
     
     static func stopBroadcast() {

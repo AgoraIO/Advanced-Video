@@ -35,6 +35,20 @@ class SampleHandler: RPBroadcastSampleHandler {
     
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with sampleBufferType: RPSampleBufferType) {
         DispatchQueue.main.async {
+            switch AgoraUploader.channelState {
+            case .out:
+                if sampleBufferType == .audioApp {
+                    AgoraUploader.setupAudioFormatWith(sampleBuffer: sampleBuffer)
+                    AgoraUploader.joinRtcChannel()
+                } else {
+                    return
+                }
+            case .joining:
+                return
+            case .joined:
+                break
+            }
+            
             switch sampleBufferType {
             case .video:
                 AgoraUploader.sendVideoBuffer(sampleBuffer)
