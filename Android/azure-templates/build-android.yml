@@ -20,6 +20,7 @@ jobs:
         inputs:
           workingDirectory: ${{ parameters.project }}/${{ parameters.module }}
           gradleWrapperFile: ${{ parameters.project }}/gradlew
+          options: '--stacktrace'
           gradleOptions: '-Xmx3072m'
           publishJUnitResults: false
           testResultsFiles: '**/TEST-*.xml'
