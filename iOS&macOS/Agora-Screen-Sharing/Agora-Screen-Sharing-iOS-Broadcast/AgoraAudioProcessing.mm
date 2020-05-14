@@ -50,7 +50,7 @@ public:
         if (mRecordingAppBufferBytes >= bytes) {
             memcpy(audioFrame.buffer, mRecordingAudioAppPool, bytes);
             mRecordingAppBufferBytes -= bytes;
-            memcpy(mRecordingAudioAppPool, mRecordingAudioAppPool+bytes, mRecordingAppBufferBytes);
+            memmove(mRecordingAudioAppPool, mRecordingAudioAppPool+bytes, mRecordingAppBufferBytes);
         }
         
         return true;
