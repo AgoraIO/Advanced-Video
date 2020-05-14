@@ -13,6 +13,8 @@
 
 #pragma mark - Audio Buffer
 const int bufferSamples = 48000 * 8;
+size_t dataPointerSize = bufferSamples;
+int16_t dataPointer[bufferSamples];
 int16_t appAudio[bufferSamples];
 int16_t micAudio[bufferSamples];
 int64_t appAudioIndex = 0;
@@ -107,8 +109,7 @@ static NSObject *lock = [[NSObject alloc] init];
     CMAudioFormatDescriptionRef format = CMSampleBufferGetFormatDescription(sampleBuffer);
     const AudioStreamBasicDescription *description = CMAudioFormatDescriptionGetStreamBasicDescription(format);
     
-    size_t dataPointerSize = bufferSamples;
-    int16_t dataPointer[dataPointerSize];
+    memset(dataPointer, 0, sizeof(int16_t) * bufferSamples);
     
     err = CMBlockBufferCopyDataBytes(audioBuffer,
                                      0,
