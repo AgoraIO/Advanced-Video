@@ -32,6 +32,8 @@
 		A725D6E8241F26FB0040C835 /* AgoraAudioProcessing.mm in Sources */ = {isa = PBXBuildFile; fileRef = A725D6E7241F26FB0040C835 /* AgoraAudioProcessing.mm */; };
 		A7584B6224869BCE0088FACB /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79A7DE823B1E58C00335021 /* AgoraRtcKit.framework */; };
 		A7584B6324869BCE0088FACB /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A79A7DE823B1E58C00335021 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7584B7D2486A6F60088FACB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718449223C2E54D008EA50E /* Accelerate.framework */; };
+		A7584B7E2486A6FF0088FACB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718449223C2E54D008EA50E /* Accelerate.framework */; };
 		A79A7DDA23B1E0F700335021 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79A7DD923B1E0F700335021 /* KeyCenter.swift */; };
 		A79A7DDB23B1E10200335021 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79A7DD923B1E0F700335021 /* KeyCenter.swift */; };
 		A7FE1CE62397693700DF14A9 /* AgoraAudioTube.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7FE1CE52397693700DF14A9 /* AgoraAudioTube.mm */; };
@@ -144,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7584B6224869BCE0088FACB /* AgoraRtcKit.framework in Frameworks */,
+				A7584B7E2486A6FF0088FACB /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7584B7D2486A6F60088FACB /* Accelerate.framework in Frameworks */,
 				A718449523C2EA2A008EA50E /* AgoraRtcKit.framework in Frameworks */,
 				38AEB69A2269FE5600C3ADD8 /* libios_resampler.a in Frameworks */,
 			);
