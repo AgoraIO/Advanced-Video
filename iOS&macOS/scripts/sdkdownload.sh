@@ -27,7 +27,7 @@ do
 done
 
 #copy
-DESTINATION=${FILE_PATH}/../../${COPY_TO}
+DESTINATION=${FILE_PATH}/../${COPY_TO}
 
 echo DESTINATION ${DESTINATION}
 
