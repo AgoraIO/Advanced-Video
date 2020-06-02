@@ -65,7 +65,13 @@ private extension LiveRoomViewController {
         rtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
         rtcEngine.setChannelProfile(.liveBroadcasting)
         rtcEngine.enableVideo()
-        rtcEngine.setVideoProfile(videoProfile, swapWidthAndHeight: false)
+        
+        let videoConfiguration =
+            AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
+                                           frameRate: .fps15,
+                                           bitrate: AgoraVideoBitrateCompatible,
+                                           orientationMode: .adaptative)
+        rtcEngine.setVideoEncoderConfiguration(videoConfiguration)
         rtcEngine.setClientRole(.broadcaster)
         
         rtcEngine.setVideoSource(customCamera)

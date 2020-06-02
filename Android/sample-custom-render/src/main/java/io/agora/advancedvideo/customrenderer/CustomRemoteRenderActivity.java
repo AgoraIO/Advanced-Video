@@ -46,7 +46,7 @@ public class CustomRemoteRenderActivity extends BaseLiveActivity {
                 surfaceView.setZOrderOnTop(false);
                 surfaceView.setBufferType(MediaIO.BufferType.BYTE_BUFFER);
                 surfaceView.setPixelFormat(MediaIO.PixelFormat.I420);
-                mVideoContainer.addView(surfaceView);
+                videoContainer.addView(surfaceView);
                 rtcEngine().setRemoteRenderMode(uid, VideoCanvas.RENDER_MODE_HIDDEN);
                 rtcEngine().setRemoteVideoRenderer(uid, surfaceView);
             }
@@ -72,7 +72,7 @@ public class CustomRemoteRenderActivity extends BaseLiveActivity {
                 surfaceView.setZOrderOnTop(false);
                 rtcEngine().setupLocalVideo(new VideoCanvas(
                         surfaceView, VideoCanvas.RENDER_MODE_HIDDEN, 0));
-                mVideoContainer.addView(surfaceView);
+                videoContainer.addView(surfaceView);
             }
         });
     }
@@ -88,8 +88,8 @@ public class CustomRemoteRenderActivity extends BaseLiveActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mVideoContainer.getChildCount() > 0) {
-                    mVideoContainer.removeAllViews();
+                if (videoContainer.getChildCount() > 0) {
+                    videoContainer.removeAllViews();
                 }
             }
         });

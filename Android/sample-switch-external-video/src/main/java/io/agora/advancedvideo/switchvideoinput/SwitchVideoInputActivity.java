@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.TextureView;
@@ -64,7 +63,7 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements Extern
             LayoutInflater inflater = LayoutInflater.from(this);
             View layout = inflater.inflate(
                     R.layout.switch_video_broadcaster_layout,
-                    mVideoContainer, true);
+                    videoContainer, true);
             mPreviewLayout = layout.findViewById(
                     R.id.switch_video_preview_layout);
             bindVideoService();
@@ -125,7 +124,7 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements Extern
                         CreateRendererView(SwitchVideoInputActivity.this);
                 rtcEngine().setupRemoteVideo(new VideoCanvas(
                         surfaceView, VideoCanvas.RENDER_MODE_FIT, uid));
-                mVideoContainer.addView(surfaceView);
+                videoContainer.addView(surfaceView);
             }
         });
     }
@@ -136,7 +135,7 @@ public class SwitchVideoInputActivity extends BaseLiveActivity implements Extern
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mVideoContainer.removeAllViews();
+                videoContainer.removeAllViews();
             }
         });
     }

@@ -19,11 +19,12 @@ import io.agora.rtc.Constants;
     SubClasses = {
         "io.agora.advancedvideo.switchvideoinput.SwitchVideoInputActivity",
         "io.agora.advancedvideo.videoencryption.VideoActivity",
-        "io.agora.advancedvideo.customrenderer.CustomRemoteRenderActivity"
+        "io.agora.advancedvideo.customrenderer.CustomRemoteRenderActivity" ,
+        "io.agora.advancedvideo.videopush.VideoPushActivity"
     }
 )
 public abstract class BaseLiveActivity extends BaseActivity {
-    protected RelativeLayout mVideoContainer;
+    protected RelativeLayout videoContainer;
 
     protected ImageView mMuteAudioBtn;
     protected ImageView mMuteVideoBtn;
@@ -63,7 +64,7 @@ public abstract class BaseLiveActivity extends BaseActivity {
         rtcEngine().setBeautyEffectOptions(beautyBtn.isActivated(),
                 io.agora.advancedvideo.Constants.DEFAULT_BEAUTY_OPTIONS);
 
-        mVideoContainer = findViewById(R.id.live_video_container);
+        videoContainer = findViewById(R.id.live_video_container);
         onInitializeVideo();
     }
 
