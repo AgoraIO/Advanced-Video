@@ -17,15 +17,24 @@
 		075589781D7967CB004B0DEA /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589761D7967CB004B0DEA /* VideoSession.swift */; };
 		075589A61D7D44C8004B0DEA /* ReplacementSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589A51D7D44C8004B0DEA /* ReplacementSegue.swift */; };
 		384C9AF62181965E00921076 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 384C9AF52181965E00921076 /* README.md */; };
-		A773BCA42408BDEF003ECBFD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DA13312181A12C0091F5CD /* Accelerate.framework */; };
-		A773BCA52408BDF5003ECBFD /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DA13332181A13F0091F5CD /* VideoToolbox.framework */; };
-		A773BCA62408BDFD003ECBFD /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DA13372181A1670091F5CD /* CoreWLAN.framework */; };
-		A773BCA72408BE03003ECBFD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DA13352181A1560091F5CD /* libc++.tbd */; };
-		A773BCA82408BE0B003ECBFD /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C401E9E1ABD00C3583C /* libresolv.tbd */; };
-		A773BCA92408BE16003ECBFD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F282E7A1FF4F8E100D8F573 /* SystemConfiguration.framework */; };
+		A7584B5C24869B9A0088FACB /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79A7DE023B1E24400335021 /* AgoraRtcKit.framework */; };
+		A7584B5D24869B9A0088FACB /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A79A7DE023B1E24400335021 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A79A7DDF23B1E17500335021 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79A7DDE23B1E17500335021 /* KeyCenter.swift */; };
-		A79A7DE223B1E25100335021 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79A7DE023B1E24400335021 /* AgoraRtcKit.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A7584B5E24869B9A0088FACB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A7584B5D24869B9A0088FACB /* AgoraRtcKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		071CE22D1D79362D00B82401 /* 17-Multistream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "17-Multistream.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,13 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A773BCA72408BE03003ECBFD /* libc++.tbd in Frameworks */,
-				A773BCA52408BDF5003ECBFD /* VideoToolbox.framework in Frameworks */,
-				A773BCA42408BDEF003ECBFD /* Accelerate.framework in Frameworks */,
-				A773BCA82408BE0B003ECBFD /* libresolv.tbd in Frameworks */,
-				A79A7DE223B1E25100335021 /* AgoraRtcKit.framework in Frameworks */,
-				A773BCA62408BDFD003ECBFD /* CoreWLAN.framework in Frameworks */,
-				A773BCA92408BE16003ECBFD /* SystemConfiguration.framework in Frameworks */,
+				A7584B5C24869B9A0088FACB /* AgoraRtcKit.framework in Frameworks */,
 				0565F321D90292467D84D0CF /* Pods_17_Multistream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +156,7 @@
 				071CE22A1D79362D00B82401 /* Frameworks */,
 				071CE22B1D79362D00B82401 /* Resources */,
 				4FE84A8C36E21A90D51BA956 /* [CP] Embed Pods Frameworks */,
+				A7584B5E24869B9A0088FACB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
