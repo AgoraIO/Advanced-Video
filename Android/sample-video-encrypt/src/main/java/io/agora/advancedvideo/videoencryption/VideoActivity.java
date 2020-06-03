@@ -31,7 +31,7 @@ public class VideoActivity extends BaseLiveActivity {
         initView();
         setVideoConfig();
         setupLocalVideo();
-        rtcEngine().joinChannel(null, config().getChannelName(), null, 0);
+        rtcEngine().joinChannel(token(), config().getChannelName(), null, 0);
     }
 
     private void initView() {

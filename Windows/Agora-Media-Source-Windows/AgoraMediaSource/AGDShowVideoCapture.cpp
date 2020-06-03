@@ -1,73 +1,85 @@
 #include "stdafx.h"
 #include "AGDShowVideoCapture.h"
-#include "DShowPinHelper.h"
+#include "DShowHelper.h"
+#include "AgVideoBuffer.h"
+#include "libYUV/libyuv.h"
+#include <Dvdmedia.h>
+#ifdef DEBUG
+#pragma comment(lib, "yuv.lib")
+#pragma comment(lib, "jpeg-static.lib")
+#else
+#pragma comment(lib, "yuv.lib")
+#pragma comment(lib, "jpeg-static.lib")
+#endif
 
+using namespace libyuv;
+#define MAX_VIDEO_BUFFER_SIZE (4*1920*1080*4) //4K RGBA max size
 CAGDShowVideoCapture::CAGDShowVideoCapture()
-	: m_ptrGraphBuilder(NULL)
-	, m_ptrSampleGrabber(NULL)
-	, m_ptrCaptureGraphBuilder2(NULL)
-	, m_lpSampleGrabberCB(NULL)
+	: m_ptrGraphBuilder(nullptr)
+	, m_ptrCaptureGraphBuilder2(nullptr)
 	, m_nCapSelected(-1)
 {
 	memset(m_szActiveDeviceID, 0, MAX_PATH*sizeof(TCHAR));
+    m_lpYUVBuffer = new BYTE[MAX_VIDEO_BUFFER_SIZE];
+    filterName = L"Video Filter";
 }
 
 
 CAGDShowVideoCapture::~CAGDShowVideoCapture()
 {
-	Close();
+    Close();
+    if (m_lpYUVBuffer) {
+        delete[] m_lpYUVBuffer;
+        m_lpYUVBuffer = nullptr;
+    }
 }
 
 BOOL CAGDShowVideoCapture::Create()
 {
 	HRESULT			hResult = S_OK;
+    BOOL bRet = FALSE;
+    do {
+        if (S_OK != CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER
+            , IID_IFilterGraph, (void**)&m_ptrGraphBuilder))
+            break;
+       
+        if (S_OK != CoCreateInstance(CLSID_CaptureGraphBuilder2, NULL, CLSCTX_INPROC_SERVER
+            , IID_ICaptureGraphBuilder2, (void**)&m_ptrCaptureGraphBuilder2))
+            break;
 
-	hResult = m_ptrGraphBuilder.CoCreateInstance(CLSID_FilterGraph);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
+        if (S_OK != m_ptrCaptureGraphBuilder2->SetFiltergraph(m_ptrGraphBuilder))
+            break;
 
-	hResult = m_ptrSampleGrabber.CoCreateInstance(CLSID_SampleGrabber);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
+        if (S_OK != m_ptrGraphBuilder->QueryInterface(IID_IMediaControl, (void**)&control))
+            break;
 
-	hResult = m_ptrCaptureGraphBuilder2.CoCreateInstance(CLSID_CaptureGraphBuilder2);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
-
-	hResult = m_ptrCaptureGraphBuilder2->SetFiltergraph(m_ptrGraphBuilder);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	hResult = m_ptrSampleGrabber->SetBufferSamples(TRUE);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
-
-	hResult = m_ptrSampleGrabber->SetOneShot(FALSE);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
-
-	CComQIPtr<IBaseFilter, &IID_IBaseFilter> ptrGrabberFilter(m_ptrSampleGrabber);
-	hResult = m_ptrGraphBuilder->AddFilter(ptrGrabberFilter, L"Grabber");
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
-
-	return TRUE;
+        bRet = TRUE;
+    } while (false);
+	return bRet;
 }
 
 void CAGDShowVideoCapture::Close()
 {
-	CloseDevice();
+    CComPtr<IEnumFilters>     filterEnum = nullptr;
+    HRESULT                  hr;
 
-	m_ptrGraphBuilder = NULL;
-	m_ptrSampleGrabber = NULL;
-	m_ptrCaptureGraphBuilder2 = NULL;
+    if (!m_ptrGraphBuilder)
+        return;
+
+    hr = m_ptrGraphBuilder->EnumFilters(&filterEnum);
+    if (FAILED(hr))
+        return;
+
+    CComPtr<IBaseFilter> filter = nullptr;
+    while (filterEnum->Next(1, &filter, nullptr) == S_OK) {
+        m_ptrGraphBuilder->RemoveFilter(filter);
+        filterEnum->Reset();
+        filter.Release();
+    }
+
+    m_ptrGraphBuilder.Release();
+    m_ptrCaptureGraphBuilder2.Release();
+  
 }
 
 BOOL CAGDShowVideoCapture::EnumDeviceList()
@@ -75,16 +87,16 @@ BOOL CAGDShowVideoCapture::EnumDeviceList()
 	HRESULT		hResult = S_OK;
 
 	CComVariant		var;
-	WCHAR			*wszDevicePath = NULL;
+	WCHAR			*wszDevicePath = nullptr;
 
-	CComPtr<ICreateDevEnum>		ptrCreateDevEnum = NULL;
-	CComPtr<IEnumMoniker>		ptrEnumMoniker = NULL;
-	CComPtr<IMoniker>			ptrMoniker = NULL;
-	CComPtr<IPropertyBag>		ptrPropertyBag = NULL;
-
+    CComPtr<ICreateDevEnum>     ptrCreateDevEnum = nullptr;
+    CComPtr<IEnumMoniker>       ptrEnumMoniker   = nullptr;
+    CComPtr<IMoniker>    	    ptrMoniker       = nullptr;
+   
 	AGORA_DEVICE_INFO			agDeviceInfo;
 
-	hResult = ptrCreateDevEnum.CoCreateInstance(CLSID_SystemDeviceEnum);
+	hResult = CoCreateInstance(CLSID_SystemDeviceEnum, NULL,
+        CLSCTX_INPROC_SERVER, IID_ICreateDevEnum, (void**)&ptrCreateDevEnum);
 	if (FAILED(hResult))
 		return FALSE;
 
@@ -94,53 +106,57 @@ BOOL CAGDShowVideoCapture::EnumDeviceList()
 
 	m_listDeviceInfo.RemoveAll();
 
-	do {
-		ptrMoniker = NULL;
-		hResult = ptrEnumMoniker->Next(1, &ptrMoniker, NULL);
-		if (hResult != S_OK)
-			break;
+    do {
 
-		ptrPropertyBag = NULL;
-		hResult = ptrMoniker->BindToStorage(NULL, NULL, IID_IPropertyBag, (void**)(&ptrPropertyBag));
-		if (hResult != S_OK)
-			break;
+        hResult = ptrEnumMoniker->Next(1, &ptrMoniker, nullptr);
+        if (hResult != S_OK)
+            break;
+        IBaseFilter*  filter;
+        if (SUCCEEDED(ptrMoniker->BindToObject(NULL, 0, IID_IBaseFilter,
+            (void**)&filter))) {
+            CComPtr<IPropertyBag>       ptrPropertyBag = nullptr;
 
-		memset(&agDeviceInfo, 0, sizeof(AGORA_DEVICE_INFO));
+            hResult = ptrMoniker->BindToStorage(nullptr, nullptr, IID_IPropertyBag, (void**)(&ptrPropertyBag));
+            if (hResult != S_OK)
+                break;
 
-		var.Clear();
-		hResult = ptrPropertyBag->Read(L"FriendlyName", &var, NULL);
-		if (SUCCEEDED(hResult)){
+            memset(&agDeviceInfo, 0, sizeof(AGORA_DEVICE_INFO));
+
+            var.Clear();
+            hResult = ptrPropertyBag->Read(L"FriendlyName", &var, nullptr);
+
+
+
+            if (SUCCEEDED(hResult)) {
 #ifdef UNICODE
-			_tcscpy_s(agDeviceInfo.szDeviceName, var.bstrVal);
+                _tcscpy_s(agDeviceInfo.szDeviceName, var.bstrVal);
 #else
-			::WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, agDeviceInfo.szDeviceName, MAX_PATH, NULL, NULL);
+                ::WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, agDeviceInfo.szDeviceName, MAX_PATH, nullptr, nullptr);
 #endif
-		}
+            }
+            var.Clear();
+            hResult = ptrPropertyBag->Read(_T("DevicePath"), &var, nullptr);
+            if (SUCCEEDED(hResult)) {
+                _tcscpy_s(agDeviceInfo.szDevicePath, var.bstrVal);
+            }
 
-		hResult = ptrMoniker->GetDisplayName(NULL, NULL, &wszDevicePath);
-		if (SUCCEEDED(hResult)){
-#ifdef UNICODE
-			_tcscpy_s(agDeviceInfo.szDevicePath, wszDevicePath);
-#else
-			::WideCharToMultiByte(CP_ACP, 0, wszDevicePath, -1, agDeviceInfo.szDevicePath, MAX_PATH, NULL, NULL);
-#endif
-			::CoTaskMemFree(wszDevicePath);
-		}
+            m_listDeviceInfo.AddTail(agDeviceInfo);
+        }
+        if (ptrMoniker)
+            ptrMoniker.Release();
 
-		m_listDeviceInfo.AddTail(agDeviceInfo);
-
-	} while (TRUE);
+    } while (TRUE);
 
 	return TRUE;
 }
 
 BOOL CAGDShowVideoCapture::GetDeviceInfo(int nIndex, LPAGORA_DEVICE_INFO lpDeviceInfo)
 {
-	ATLASSERT(lpDeviceInfo != NULL);
+	ATLASSERT(lpDeviceInfo != nullptr);
 	ATLASSERT(nIndex >= 0 && nIndex < static_cast<int>(m_listDeviceInfo.GetCount()));
 
 	POSITION pos = m_listDeviceInfo.FindIndex(nIndex);
-	if (pos == NULL)
+	if (pos == nullptr)
 		return FALSE;
 
 	AGORA_DEVICE_INFO &agDeviceInfo = m_listDeviceInfo.GetAt(pos);
@@ -155,57 +171,30 @@ BOOL CAGDShowVideoCapture::OpenDevice(int nIndex)
 
 	m_nCapSelected = -1;
 	POSITION pos = m_listDeviceInfo.FindIndex(nIndex);
-	if (pos == NULL)
+	if (pos == nullptr)
 		return FALSE;
 
 	LPCTSTR	lpDevicePath = m_listDeviceInfo.GetAt(pos).szDevicePath;
 
-	return OpenDevice(lpDevicePath);
+	return OpenDevice(lpDevicePath, m_listDeviceInfo.GetAt(pos).szDeviceName);
+
 }
 
-BOOL CAGDShowVideoCapture::OpenDevice(LPCTSTR lpDevicePath)
+BOOL CAGDShowVideoCapture::OpenDevice(LPCTSTR lpDevicePath, LPCTSTR lpDeviceName)
 {
-	ULONG		ulEaten = 0;
-	HRESULT		hResult = S_OK;
+    HRESULT		         hResult = S_OK;
+    IBaseFilter*         filter  = nullptr;
+    if (CDShowHelper::GetDeviceFilter(CLSID_VideoInputDeviceCategory, lpDeviceName, lpDevicePath,&filter)) {
+        hResult = m_ptrGraphBuilder->AddFilter(filter, filterName);
+        ATLASSERT(SUCCEEDED(hResult));
+        if (hResult != S_OK)
+            return FALSE;
 
-	CComPtr<IBindCtx>		lpBindCtx = NULL;
-	CComPtr<IMoniker>		ptrMoniker = NULL;
-	CComPtr<IBaseFilter>	ptrSourceFilter = NULL;
+        _tcscpy_s(m_szActiveDeviceID, MAX_PATH, lpDevicePath); 
+        SelectMediaCap(0);
+    }
 
-	m_nCapSelected = -1;
-	ATLASSERT(_tcslen(m_szActiveDeviceID) == 0);
-
-	hResult = ::CreateBindCtx(0, &lpBindCtx);
-	if (hResult != S_OK)
-		return FALSE;
-
-#ifdef UNICODE
-	hResult = ::MkParseDisplayName(lpBindCtx, lpDevicePath, &ulEaten, &ptrMoniker);
-#else
-	WCHAR wszDeviceID[128];
-	memset(wszDeviceID, 0, 128 * sizeof(WCHAR));
-	::MultiByteToWideChar(CP_ACP, 0, lpDevicePath, -1, wszDeviceID, 128);
-	hResult = ::MkParseDisplayName(lpBindCtx, wszDeviceID, &ulEaten, &ptrMoniker);
-#endif
-
-	if (hResult != S_OK)
-		return FALSE;
-
-	hResult = ptrMoniker->BindToObject(0, 0, IID_IBaseFilter, (void **)&ptrSourceFilter);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
-	
-	hResult = m_ptrGraphBuilder->AddFilter(ptrSourceFilter, L"Source");
-	ATLASSERT(SUCCEEDED(hResult));
-	if (hResult != S_OK)
-		return FALSE;
-
-	_tcscpy_s(m_szActiveDeviceID, MAX_PATH, lpDevicePath);
-
-	SelectMediaCap(0);
-
-	return TRUE;
+    return false;
 }
 
 BOOL CAGDShowVideoCapture::GetCurrentDevice(LPTSTR lpDevicePath, SIZE_T *nDevicePathLen)
@@ -227,40 +216,27 @@ BOOL CAGDShowVideoCapture::GetCurrentDevice(LPTSTR lpDevicePath, SIZE_T *nDevice
 
 void CAGDShowVideoCapture::CloseDevice()
 {
-	CComPtr<IBaseFilter>	ptrSourceFilter = NULL;
-
-	ATLASSERT(_tcslen(m_szActiveDeviceID) > 0);
-	if (_tcslen(m_szActiveDeviceID) == 0)
-		return;
-
-	CaptureControl(DEVICE_STOP);
-	HRESULT hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrSourceFilter);
-
-	if (SUCCEEDED(hResult)) {
-		m_ptrGraphBuilder->RemoveFilter(ptrSourceFilter);
-		m_nCapSelected = -1;
-	}
-
-	memset(m_szActiveDeviceID, 0, MAX_PATH*sizeof(TCHAR));
-}
-
-BOOL CAGDShowVideoCapture::SetGrabberCallback(ISampleGrabberCB *lpGrabber, long lSampleType)
-{
-	HRESULT hResult = m_ptrSampleGrabber->SetCallback(lpGrabber, lSampleType);
-
-	return SUCCEEDED(hResult);
+    HRESULT               hResult = S_OK;
+    CComPtr<IBaseFilter>  ptrCaptureFilter = nullptr;
+    hResult = m_ptrGraphBuilder->FindFilterByName(filterName, &ptrCaptureFilter);
+    ATLASSERT(SUCCEEDED(hResult));
+    if (FAILED(hResult))
+        return;
+    m_ptrGraphBuilder->RemoveFilter(ptrCaptureFilter);
+    
+    ZeroMemory(m_szActiveDeviceID, MAX_PATH * sizeof(TCHAR));
 }
 
 int CAGDShowVideoCapture::GetMediaCapCount()
 {
-	int		nCount = 0;
-	int		nSize = 0;
+	int		nCount  = 0;
+	int		nSize   = 0;
 	HRESULT hResult = S_OK;
 
-	CComPtr<IBaseFilter>			ptrCaptureFilter = NULL;
-	CComPtr<IAMStreamConfig>		ptrStreamConfig = NULL;
+    CComPtr<IBaseFilter>			ptrCaptureFilter = nullptr;
+    CComPtr<IAMStreamConfig>		ptrStreamConfig  = nullptr;
 
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrCaptureFilter);
+	hResult = m_ptrGraphBuilder->FindFilterByName(filterName, &ptrCaptureFilter);
 	ATLASSERT(SUCCEEDED(hResult));
 	if (FAILED(hResult))
 		return 0;
@@ -274,7 +250,7 @@ int CAGDShowVideoCapture::GetMediaCapCount()
 	ATLASSERT(SUCCEEDED(hResult));
 	if (FAILED(hResult))
 		return 0;
-
+  
 	return nCount;
 }
 
@@ -284,10 +260,10 @@ BOOL CAGDShowVideoCapture::GetMediaCap(int nIndex, AM_MEDIA_TYPE **ppMediaType, 
 	int		nCapSize = 0;
 	HRESULT hResult = S_OK;
 
-	CComPtr<IBaseFilter>			ptrCaptureFilter = NULL;
-	CComPtr<IAMStreamConfig>		ptrStreamConfig = NULL;
+    CComPtr<IBaseFilter>			ptrCaptureFilter = nullptr;
+    CComPtr<IAMStreamConfig>		ptrStreamConfig  = nullptr;
 
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrCaptureFilter);
+	hResult = m_ptrGraphBuilder->FindFilterByName(filterName, &ptrCaptureFilter);
 	ATLASSERT(SUCCEEDED(hResult));
 	if (FAILED(hResult))
 		return FALSE;
@@ -310,8 +286,60 @@ BOOL CAGDShowVideoCapture::GetMediaCap(int nIndex, AM_MEDIA_TYPE **ppMediaType, 
 	ATLASSERT(SUCCEEDED(hResult));
 	if (FAILED(hResult))
 		return FALSE;
-
+   
 	return TRUE;
+}
+
+
+BOOL CAGDShowVideoCapture::SelectMediaCap(int nIndex)
+{
+    return TRUE;
+    int		nCount = 0;
+    int		nSize = 0;
+    HRESULT hResult = S_OK;
+
+    AM_MEDIA_TYPE	*lpMediaType = NULL;
+
+    CComPtr<IBaseFilter>			ptrCaptureFilter = nullptr;
+    CComPtr<IAMStreamConfig>		ptrStreamConfig  = nullptr;
+
+    hResult = m_ptrGraphBuilder->FindFilterByName(filterName, &ptrCaptureFilter);
+    ATLASSERT(SUCCEEDED(hResult));
+    if (FAILED(hResult))
+        return FALSE;
+
+    hResult = m_ptrCaptureGraphBuilder2->FindInterface(&PIN_CATEGORY_CAPTURE, &MEDIATYPE_Video, ptrCaptureFilter, IID_IAMStreamConfig, (void**)&ptrStreamConfig);
+    ATLASSERT(SUCCEEDED(hResult));
+    if (FAILED(hResult))
+        return FALSE;
+
+    hResult = ptrStreamConfig->GetNumberOfCapabilities(&nCount, &nSize);
+    ATLASSERT(SUCCEEDED(hResult));
+    if (FAILED(hResult))
+        return FALSE;
+
+    ATLASSERT(nIndex >= 0 && nIndex < nCount);
+    if (nIndex < 0 || nIndex >= nCount)
+        nIndex = 0;
+
+    ATLASSERT(nSize <= sizeof(VIDEO_STREAM_CONFIG_CAPS));
+
+    do {
+        hResult = ptrStreamConfig->GetStreamCaps(nIndex, &lpMediaType, reinterpret_cast<BYTE*>(&m_vscStreamCfgCaps));
+        ATLASSERT(SUCCEEDED(hResult));
+        if (FAILED(hResult))
+            break;
+
+        hResult = ptrStreamConfig->SetFormat(lpMediaType);
+        ATLASSERT(SUCCEEDED(hResult));
+        if (FAILED(hResult))
+            break;
+
+    } while (FALSE);
+
+    CDShowHelper::FreeMediaType(lpMediaType);
+    
+    return SUCCEEDED(hResult);
 }
 
 BOOL CAGDShowVideoCapture::GetVideoCap(int nIndex, VIDEOINFOHEADER *lpVideoInfo)
@@ -341,7 +369,7 @@ BOOL CAGDShowVideoCapture::GetVideoCap(int nIndex, VIDEOINFOHEADER *lpVideoInfo)
 	else
 		bSuccess = FALSE;
 
-	FreeMediaType(lpAMMediaType);
+    CDShowHelper::FreeMediaType(lpAMMediaType);
 
 	return bSuccess;
 }
@@ -352,10 +380,10 @@ BOOL CAGDShowVideoCapture::GetCurrentVideoCap(VIDEOINFOHEADER *lpVideoInfo)
 	HRESULT			hResult = S_OK;
 	AM_MEDIA_TYPE	*lpAMMediaType = NULL;
 
-	CComPtr<IBaseFilter>			ptrCaptureFilter = NULL;
-	CComPtr<IAMStreamConfig>		ptrStreamConfig = NULL;
+    CComPtr<IBaseFilter>			ptrCaptureFilter = nullptr;
+    CComPtr<IAMStreamConfig>		ptrStreamConfig  = nullptr;
 
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrCaptureFilter);
+	hResult = m_ptrGraphBuilder->FindFilterByName(filterName, &ptrCaptureFilter);
 	ATLASSERT(SUCCEEDED(hResult));
 	if (FAILED(hResult))
 		return FALSE;
@@ -387,216 +415,238 @@ BOOL CAGDShowVideoCapture::GetCurrentVideoCap(VIDEOINFOHEADER *lpVideoInfo)
 	else
 		bSuccess = FALSE;
 
-	FreeMediaType(lpAMMediaType);
+    CDShowHelper::FreeMediaType(lpAMMediaType);
 
 	return bSuccess;
 }
 
-BOOL CAGDShowVideoCapture::SelectMediaCap(int nIndex)
+BOOL CAGDShowVideoCapture::CreateCaptureFilter()
 {
-	int		nCount = 0;
-	int		nSize = 0;
-	HRESULT hResult = S_OK;
+    if (videoCapture) {
+        m_ptrGraphBuilder->RemoveFilter(videoCapture);
+        videoCapture.Release();
+    }
 
-	AM_MEDIA_TYPE	*lpMediaType = NULL;
+    AM_MEDIA_TYPE*  mt = nullptr;
+    if (GetCurrentMediaType(&mt)) {
+        PinCaptureInfo info;
+        info.callback = [this](IMediaSample *s) {Receive(true, s); };
+        info.expectedMajorType = mt->majortype;
+        info.expectedSubType   = mt->subtype;
+        videoCapture = new CaptureFilter(info);
 
-	CComPtr<IBaseFilter>		ptrCaptureFilter = NULL;
-	CComPtr<IAMStreamConfig>	ptrStreamConfig = NULL;
-
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrCaptureFilter);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	hResult = m_ptrCaptureGraphBuilder2->FindInterface(&PIN_CATEGORY_CAPTURE, &MEDIATYPE_Video, ptrCaptureFilter, IID_IAMStreamConfig, (void**)&ptrStreamConfig);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	hResult = ptrStreamConfig->GetNumberOfCapabilities(&nCount, &nSize);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	ATLASSERT(nIndex >= 0 && nIndex < nCount);
-	if (nIndex < 0 || nIndex >= nCount)
-		nIndex = 0;
-
-	ATLASSERT(nSize <= sizeof(VIDEO_STREAM_CONFIG_CAPS));
-
-	do {
-		hResult = ptrStreamConfig->GetStreamCaps(nIndex, &lpMediaType, reinterpret_cast<BYTE*>(&m_vscStreamCfgCaps));
-		ATLASSERT(SUCCEEDED(hResult));
-		if (FAILED(hResult))
-			break;
-
-		hResult = ptrStreamConfig->SetFormat(lpMediaType);
-		ATLASSERT(SUCCEEDED(hResult));
-		if (FAILED(hResult))
-			break;
-
-		hResult = m_ptrSampleGrabber->SetMediaType(lpMediaType);
-		ATLASSERT(SUCCEEDED(hResult));
-		if (FAILED(hResult))
-			break;
-
-		m_nCapSelected = nIndex;
-
-	} while (FALSE);
-
-	FreeMediaType(lpMediaType);
-
-	return SUCCEEDED(hResult);
+        bmiHeader = CDShowHelper::GetBitmapInfoHeader(*mt);
+       // CVideoPackageQueue::GetInstance()->SetVideoFormat(bmiHeader);
+        HRESULT hr = m_ptrGraphBuilder->AddFilter(videoCapture, L"Video Capture Filter");
+        if (SUCCEEDED(hr))
+            return TRUE;
+        CDShowHelper::FreeMediaType(mt);
+    }
+    return FALSE;
 }
 
-BOOL CAGDShowVideoCapture::GetCaptureBuffer(SIZE_T *nBlockSize, SIZE_T *nBlockCount, SIZE_T *nAlign)
+BOOL CAGDShowVideoCapture::Start()
 {
-	HRESULT							hResult = S_OK;
-	CComPtr<IBaseFilter>			ptrCaptureFilter = NULL;
-	CComPtr<IAMBufferNegotiation>	ptrBufferNegotiation = NULL;
-
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrCaptureFilter);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	hResult = m_ptrCaptureGraphBuilder2->FindInterface(&PIN_CATEGORY_CAPTURE, &MEDIATYPE_Video, ptrCaptureFilter, IID_IAMBufferNegotiation, (void**)&ptrBufferNegotiation);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	ALLOCATOR_PROPERTIES alcProper;
-
-	memset(&alcProper, 0, sizeof(ALLOCATOR_PROPERTIES));
-	hResult = ptrBufferNegotiation->GetAllocatorProperties(&alcProper);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	*nBlockSize = alcProper.cbBuffer;
-	*nBlockCount = alcProper.cBuffers;
-	*nAlign = alcProper.cbAlign;
-
-	return TRUE;
+    if (ConnectFilters()) {
+        control->Run();
+        active = true;
+        return TRUE;
+    }
+    return FALSE;
 }
 
-BOOL CAGDShowVideoCapture::SetCaptureBuffer(SIZE_T nBlockSize, SIZE_T nBlockCount, SIZE_T nAlign)
+void CAGDShowVideoCapture::Stop()
 {
-	HRESULT							hResult = S_OK;
-	CComPtr<IBaseFilter>			ptrCaptureFilter = NULL;
-	CComPtr<IAMBufferNegotiation>	ptrBufferNegotiation = NULL;
-
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrCaptureFilter);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	hResult = m_ptrCaptureGraphBuilder2->FindInterface(&PIN_CATEGORY_CAPTURE, &MEDIATYPE_Video, ptrCaptureFilter, IID_IAMBufferNegotiation, (void**)&ptrBufferNegotiation);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	ALLOCATOR_PROPERTIES alcProper;
-
-	alcProper.cbBuffer = nBlockSize;
-	alcProper.cBuffers = nBlockCount;
-	alcProper.cbAlign = nAlign;
-	alcProper.cbPrefix = 0;
-
-	hResult = ptrBufferNegotiation->SuggestAllocatorProperties(&alcProper);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	return TRUE;
+    if (active) {
+        control->Stop();
+        active = false;
+    }
+       
 }
 
-BOOL CAGDShowVideoCapture::CaptureControl(int nControlCode)
+void CAGDShowVideoCapture::GetDeviceName(LPTSTR deviceName, SIZE_T *nDeviceLen)
 {
-	CComPtr<IPin> ptrInputPin = NULL;
-	CComPtr<IPin> ptrOutputPin = NULL;
-
-	CComQIPtr<IMediaControl, &IID_IMediaControl> ptrControl(m_ptrGraphBuilder);
-
-	FindPin(&ptrInputPin, &ptrOutputPin);
-
-	HRESULT hResult = S_OK;
-	
-	switch (nControlCode)
-	{
-	case DEVICE_START:
-		hResult = m_ptrGraphBuilder->Connect(ptrInputPin, ptrOutputPin);
-		ATLASSERT(SUCCEEDED(hResult));
-		if (FAILED(hResult))
-			return FALSE;
-
-		hResult = ptrControl->Run();
-		break;
-	case DEVICE_STOP:
-		hResult = ptrControl->Stop();
-		ATLASSERT(SUCCEEDED(hResult));
-		if (FAILED(hResult))
-			return FALSE;
-
-		hResult = m_ptrGraphBuilder->Disconnect(ptrInputPin);
-		hResult = m_ptrGraphBuilder->Disconnect(ptrOutputPin);
-		break;
-	default:
-		ATLASSERT(FALSE);
-		break;
-	}
-
-	ATLASSERT(SUCCEEDED(hResult));
-
-	return hResult == S_OK ? TRUE : FALSE;
+    for (int i = 0; i < m_listDeviceInfo.GetCount(); ++i) {
+        POSITION pos = m_listDeviceInfo.FindIndex(i);
+        AGORA_DEVICE_INFO &agDeviceInfo = m_listDeviceInfo.GetAt(pos);
+        if (_tcscmp(m_szActiveDeviceID, agDeviceInfo.szDevicePath) == 0) {
+            *nDeviceLen = _tcslen(agDeviceInfo.szDeviceName);
+            _tcscpy_s(deviceName, *nDeviceLen + 1, agDeviceInfo.szDeviceName);
+            
+            break;
+        }
+    }
 }
 
-BOOL CAGDShowVideoCapture::FindPin(IPin **ppInputPin, IPin **ppOutputPin)
+BOOL CAGDShowVideoCapture::ConnectFilters()
 {
-	HRESULT hResult = S_OK;
-
-	CComPtr<IBaseFilter> ptrCaptureFilter = NULL;
-	CComPtr<IBaseFilter> ptrSourceFilter = NULL;
-	CDShowPinHelper	pinHelper;
-
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Grabber", &ptrCaptureFilter);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	hResult = m_ptrGraphBuilder->FindFilterByName(L"Source", &ptrSourceFilter);
-	ATLASSERT(SUCCEEDED(hResult));
-	if (FAILED(hResult))
-		return FALSE;
-
-	if (pinHelper.Open(ptrSourceFilter)) {
-		pinHelper.FindUnconnectedPin(PIN_DIRECTION::PINDIR_OUTPUT, ppOutputPin);
-		pinHelper.Close();
-	}
-
-	if (pinHelper.Open(ptrCaptureFilter)) {
-		pinHelper.FindUnconnectedPin(PIN_DIRECTION::PINDIR_INPUT, ppInputPin);
-		pinHelper.Close();
-	}
-
-	return TRUE;
+    CComPtr<IBaseFilter>	filter = nullptr;
+    HRESULT hResult = m_ptrGraphBuilder->FindFilterByName(filterName, &filter);
+    TCHAR deviceName[MAX_PATH] = { 0 };
+    SIZE_T len = 0;
+    GetDeviceName(deviceName, &len);
+    if (SUCCEEDED(hResult) && filter && videoCapture) {
+        bool success = ConnectPins(PIN_CATEGORY_CAPTURE,
+            MEDIATYPE_Video, filter,
+            videoCapture);
+        return TRUE;
+    }
+       
+    return FALSE;
 }
 
-void CAGDShowVideoCapture::FreeMediaType(AM_MEDIA_TYPE *lpAMMediaType)
+BOOL CAGDShowVideoCapture::ConnectPins(const GUID &category, const GUID &type,
+    IBaseFilter *filter, IBaseFilter *capture)
 {
-	if (lpAMMediaType == NULL)
-		return;
+    HRESULT hr = S_OK;
+    CComPtr<IPin>   filterPin  = nullptr;
+    CComPtr<IPin>   capturePin = nullptr;
 
-	if (lpAMMediaType->cbFormat != 0) {
-		::CoTaskMemFree((PVOID)lpAMMediaType->pbFormat);
-		lpAMMediaType->cbFormat = 0;
-		lpAMMediaType->pbFormat = NULL;
-	}
+    if (!CDShowHelper::GetFilterPin(filter, type, category, PINDIR_OUTPUT, &filterPin)) {
+        OutputDebugString(L"Failed to find pin");
+        return FALSE;
+    }
 
-	if (lpAMMediaType->pUnk != NULL) {
-		lpAMMediaType->pUnk->Release();
-		lpAMMediaType->pUnk = NULL;
-	}
+    if (!CDShowHelper::GetPinByName(capture, PINDIR_INPUT, nullptr, &capturePin)) {
+        OutputDebugString(L"Failed to find capture pin");
+        return FALSE;
+    }
+    OutputDebugString(L"ConnectDirect\n");
+    hr = m_ptrGraphBuilder->ConnectDirect(filterPin, capturePin, nullptr);
+    if (FAILED(hr)) {
+        OutputDebugString(L"failed to connect pins");
+        return FALSE;
+    }
 
-	::CoTaskMemFree(lpAMMediaType);
+    return TRUE;
+}
+
+BOOL CAGDShowVideoCapture::GetCurrentMediaType(AM_MEDIA_TYPE **lpAMMediaType)
+{
+    BOOL			bSuccess = FALSE;
+    HRESULT			hResult = S_OK;
+
+    CComPtr<IBaseFilter>			ptrCaptureFilter = nullptr;
+    CComPtr<IAMStreamConfig>		ptrStreamConfig = nullptr;
+
+    hResult = m_ptrGraphBuilder->FindFilterByName(filterName, &ptrCaptureFilter);
+    ATLASSERT(SUCCEEDED(hResult));
+    if (FAILED(hResult))
+        return FALSE;
+
+    hResult = m_ptrCaptureGraphBuilder2->FindInterface(&PIN_CATEGORY_CAPTURE, &MEDIATYPE_Video, ptrCaptureFilter, IID_IAMStreamConfig, (void**)&ptrStreamConfig);
+    ATLASSERT(SUCCEEDED(hResult));
+    if (FAILED(hResult))
+        return FALSE;
+
+    hResult = ptrStreamConfig->GetFormat(lpAMMediaType);
+    ATLASSERT(SUCCEEDED(hResult));
+    if (FAILED(hResult))
+        return FALSE;
+
+    return TRUE;
+}
+
+void CAGDShowVideoCapture::Receive(bool video, IMediaSample *sample)
+{
+    BYTE *pBuffer;
+    AM_MEDIA_TYPE* mt;
+    if (!sample)
+        return;
+   
+    int size = sample->GetActualDataLength();
+    if (!size)
+        return;
+
+    if (FAILED(sample->GetPointer(&pBuffer)))
+        return;
+    long long startTime, stopTime;
+    bool hasTime = SUCCEEDED(sample->GetTime(&startTime, &stopTime));
+   
+
+#ifdef DEBUG
+    HANDLE hFile = INVALID_HANDLE_VALUE;
+    DWORD  dwBytesWritten = 0;
+
+    switch (bmiHeader->biCompression)
+    {
+    case 0x00000000:	// RGB24
+        hFile = ::CreateFile(_T("d:\\pictest\\test.rgb24"), GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        break;
+    case MAKEFOURCC('I', '4', '2', '0'):	// I420
+        hFile = ::CreateFile(_T("d:\\pictest\\test.i420"), GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        break;
+    case MAKEFOURCC('Y', 'U', 'Y', '2'):	// YUY2
+        hFile = ::CreateFile(_T("d:\\pictest\\test.yuy2"), GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        break;
+    case MAKEFOURCC('M', 'J', 'P', 'G'):	// MJPEG
+        hFile = ::CreateFile(_T("d:\\pictest\\test.jpeg"), GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        break;
+    case MAKEFOURCC('U', 'Y', 'V', 'Y'):	// UYVY
+        hFile = ::CreateFile(_T("d:\\pictest\\test.uyvy"), GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        break;
+    default:
+        break;
+    }
+
+    if (hFile != INVALID_HANDLE_VALUE) {
+        ::WriteFile(hFile, pBuffer, size, &dwBytesWritten, NULL);
+        ::CloseHandle(hFile);
+    }
+#endif
+    m_lpY = m_lpYUVBuffer;
+    m_lpU = m_lpY + bmiHeader->biWidth*bmiHeader->biHeight;
+    m_lpV = m_lpU + bmiHeader->biWidth*bmiHeader->biHeight / 4;
+    switch (bmiHeader->biCompression)
+    {
+    case 0x00000000:	// RGB24
+        RGB24ToI420(pBuffer, bmiHeader->biWidth * 3,
+            m_lpY, bmiHeader->biWidth,
+            m_lpU, bmiHeader->biWidth / 2,
+            m_lpV, bmiHeader->biWidth / 2,
+            bmiHeader->biWidth, -bmiHeader->biHeight);
+        break;
+    case MAKEFOURCC('I', '4', '2', '0'):	// I420
+        memcpy_s(m_lpYUVBuffer, 0x800000, pBuffer, size);
+        break;
+    case MAKEFOURCC('Y', 'U', 'Y', '2'):	// YUY2
+        YUY2ToI420(pBuffer, bmiHeader->biWidth * 2,
+            m_lpY, bmiHeader->biWidth,
+            m_lpU, bmiHeader->biWidth / 2,
+            m_lpV, bmiHeader->biWidth / 2,
+            bmiHeader->biWidth, bmiHeader->biHeight);
+        break;
+    case MAKEFOURCC('M', 'J', 'P', 'G'):	// MJPEG
+         MJPGToI420(pBuffer, size,
+            m_lpY, bmiHeader->biWidth,
+            m_lpU, bmiHeader->biWidth / 2,
+            m_lpV, bmiHeader->biWidth / 2,
+            bmiHeader->biWidth, bmiHeader->biHeight,
+            bmiHeader->biWidth, bmiHeader->biHeight);
+        break;
+    case MAKEFOURCC('U', 'Y', 'V', 'Y'):	// UYVY
+       UYVYToI420(pBuffer, bmiHeader->biWidth,
+            m_lpY, bmiHeader->biWidth,
+            m_lpU, bmiHeader->biWidth / 2,
+            m_lpV, bmiHeader->biWidth / 2,
+            bmiHeader->biWidth, bmiHeader->biHeight);
+        break;
+    default:
+        ATLASSERT(FALSE);
+        break;
+    }
+    SIZE_T nYUVSize = bmiHeader->biWidth*bmiHeader->biHeight * 3 / 2;
+    if (!CAgVideoBuffer::GetInstance()->writeBuffer(m_lpYUVBuffer, nYUVSize, GetTickCount())) {
+        OutputDebugString(L"CAgVideoBuffer::GetInstance()->writeBuffer failed.");
+        return;
+    }
+#ifdef DEBUG
+    hFile = ::CreateFile(_T("d:\\pictest\\trans.i420"), GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+    if (hFile != INVALID_HANDLE_VALUE) {
+        ::WriteFile(hFile, m_lpYUVBuffer, nYUVSize, &dwBytesWritten, NULL);
+        ::CloseHandle(hFile);
+    }
+
+#endif
 }

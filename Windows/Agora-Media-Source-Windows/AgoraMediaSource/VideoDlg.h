@@ -95,7 +95,8 @@ protected:
 	afx_msg LRESULT OnApiCallExecuted(WPARAM wParam, LPARAM lParam);
 	
     afx_msg LRESULT OnStreamMessage(WPARAM wParam, LPARAM lParam);
-
+    afx_msg LRESULT OnEIDAudioQuality(WPARAM wParam, LPARAM lParam);
+    afx_msg LRESULT OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 
 protected:

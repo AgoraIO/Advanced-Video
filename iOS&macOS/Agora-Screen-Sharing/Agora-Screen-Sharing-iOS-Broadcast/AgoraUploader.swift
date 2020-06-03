@@ -104,5 +104,6 @@ class AgoraUploader {
     
     static func stopBroadcast() {
         sharedAgoraEngine.leaveChannel(nil)
+        AgoraRtcEngineKit.destroy()
     }
 }

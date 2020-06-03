@@ -135,5 +135,5 @@ Or use `Gradle` to build and run.
 - You can file bugs about this sample at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 
-## Licence
+## License
 The MIT License (MIT).

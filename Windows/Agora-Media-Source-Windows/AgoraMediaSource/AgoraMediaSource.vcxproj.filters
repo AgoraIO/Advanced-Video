@@ -41,14 +41,8 @@
     <Filter Include="ExtCapture\AgoraObserver">
       <UniqueIdentifier>{3d94dbc4-9820-4508-b459-3471600f48e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ExtCapture\BufferQueue">
-      <UniqueIdentifier>{9e013d63-b21c-4aa9-ad26-4b0bf8b40d41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ExtCapture\DirectShow">
       <UniqueIdentifier>{e5f61a05-987b-4799-bc8b-a23ae24d07b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ExtCapture\YUVTrans">
-      <UniqueIdentifier>{2fcdda08-02e2-41b1-a35e-c948857744f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,47 +139,8 @@
     <ClInclude Include="AGDesktopCaptureDlg.h">
       <Filter>UI\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendAudioFrameObserver.h">
-      <Filter>ExtCapture\AgoraObserver</Filter>
-    </ClInclude>
     <ClInclude Include="ExtendVideoFrameObserver.h">
       <Filter>ExtCapture\AgoraObserver</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioCapturePackageQueue.h">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioPlayPackageQueue.h">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="BufferQueue.h">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="VideoPackageQueue.h">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="AGAudioCapture.h">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="AGDShowAudioCapture.h">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="AGDShowVideoCapture.h">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="AGVideoCapture.h">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="XAudioPlayout.h">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="DShowPinHelper.h">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="IAGDShowDevice.h">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="StreamingVoiceContext.h">
-      <Filter>ExtCapture\DirectShow</Filter>
     </ClInclude>
     <ClInclude Include="AgoraMediaSource.h">
       <Filter>App</Filter>
@@ -196,8 +151,17 @@
     <ClInclude Include="ExtCaptureDlg.h">
       <Filter>UI\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="YUVTrans.h">
-      <Filter>ExtCapture\YUVTrans</Filter>
+    <ClInclude Include="AGDShowVideoCapture.h">
+      <Filter>ExtCapture\DirectShow</Filter>
+    </ClInclude>
+    <ClInclude Include="capture-filter.hpp">
+      <Filter>ExtCapture\DirectShow</Filter>
+    </ClInclude>
+    <ClInclude Include="DShowHelper.h">
+      <Filter>ExtCapture\DirectShow</Filter>
+    </ClInclude>
+    <ClInclude Include="AgVideoBuffer.h">
+      <Filter>ExtCapture\DirectShow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -282,41 +246,8 @@
     <ClCompile Include="AGDesktopCaptureDlg.cpp">
       <Filter>UI\Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendAudioFrameObserver.cpp">
-      <Filter>ExtCapture\AgoraObserver</Filter>
-    </ClCompile>
     <ClCompile Include="ExtendVideoFrameObserver.cpp">
       <Filter>ExtCapture\AgoraObserver</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioCapturePackageQueue.cpp">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioPlayPackageQueue.cpp">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClCompile>
-    <ClCompile Include="BufferQueue.cpp">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClCompile>
-    <ClCompile Include="VideoPackageQueue.cpp">
-      <Filter>ExtCapture\BufferQueue</Filter>
-    </ClCompile>
-    <ClCompile Include="AGAudioCapture.cpp">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClCompile>
-    <ClCompile Include="AGDShowAudioCapture.cpp">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClCompile>
-    <ClCompile Include="AGDShowVideoCapture.cpp">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClCompile>
-    <ClCompile Include="AGVideoCapture.cpp">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClCompile>
-    <ClCompile Include="XAudioPlayout.cpp">
-      <Filter>ExtCapture\DirectShow</Filter>
-    </ClCompile>
-    <ClCompile Include="DShowPinHelper.cpp">
-      <Filter>ExtCapture\DirectShow</Filter>
     </ClCompile>
     <ClCompile Include="AgoraMediaSource.cpp">
       <Filter>App</Filter>
@@ -327,8 +258,17 @@
     <ClCompile Include="ExtCaptureDlg.cpp">
       <Filter>UI\Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="YUVTrans.cpp">
-      <Filter>ExtCapture\YUVTrans</Filter>
+    <ClCompile Include="AGDShowVideoCapture.cpp">
+      <Filter>ExtCapture\DirectShow</Filter>
+    </ClCompile>
+    <ClCompile Include="capture-filter.cpp">
+      <Filter>ExtCapture\DirectShow</Filter>
+    </ClCompile>
+    <ClCompile Include="DShowHelper.cpp">
+      <Filter>ExtCapture\DirectShow</Filter>
+    </ClCompile>
+    <ClCompile Include="AgVideoBuffer.cpp">
+      <Filter>ExtCapture\DirectShow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

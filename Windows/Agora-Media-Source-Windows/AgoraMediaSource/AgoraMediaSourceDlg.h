@@ -8,7 +8,7 @@
 #include "EnterChannelDlg.h"
 #include "SetupDlg.h"
 #include "VideoDlg.h"
-
+#include "AGConfig.h"
 // CAgoraVideoCallDlg dialog
 class CAgoraMediaSourceDlg : public CDialogEx
 {
@@ -44,7 +44,7 @@ protected:
 	afx_msg LRESULT OnLeaveChannel(WPARAM wParam, LPARAM lParam);
 
 	afx_msg LRESULT OnLastmileQuality(WPARAM wParam, LPARAM lParam);
-
+    afx_msg LRESULT OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam);
 
 	DECLARE_MESSAGE_MAP()
 
@@ -79,4 +79,5 @@ private:	// data
     int     m_nVideoSolution;
 
 	int     m_nLastmileQuality;
+    CAGConfig m_agConfig;
 };
