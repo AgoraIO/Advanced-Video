@@ -19,9 +19,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var endCallButton: UIButton!
     @IBOutlet weak var speakerButton: UIButton!
     
-    @IBOutlet weak var remoteVideoView: UIView!
-    @IBOutlet weak var localVideoView: UIView!
-    
     private var session: String {
         get {
             return phoneNumberTextField?.text ?? ""
@@ -54,7 +51,6 @@ class ViewController: UIViewController {
             incomingCallButton.isHidden = isCallActive
             endCallButton.isHidden = !isCallActive
             speakerButton.isHidden = !isCallActive
-            localVideoView.isHidden = !isCallActive
         }
     }
     
@@ -65,15 +61,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .voiceChat, options: [.allowBluetooth])
+        
         callCenter.delegate = self
         
-        rtcEngine.setChannelProfile(.communication)
-        
-        let canvas = AgoraRtcVideoCanvas()
-        canvas.uid = 0
-        canvas.view = localVideoView
-        canvas.renderMode = .hidden
-        rtcEngine.setupLocalVideo(canvas)
+        rtcEngine.setChannelProfile(.liveBroadcasting)
+        rtcEngine.setClientRole(.broadcaster)
     }
     
     @IBAction func doMutePressed(_ sender: UIButton) {
@@ -108,28 +101,9 @@ extension ViewController {
 }
 
 private extension ViewController {
-    func startSession(_ session: String) {
-        isCallActive = true
-        
-        try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord,
-                                                         mode: AVAudioSession.Mode.voiceChat,
-                                                         options: [.mixWithOthers, .allowBluetooth])
-        
-        rtcEngine.setAudioSessionOperationRestriction(.configureSession)
-        rtcEngine.setParameters("{\"che.audio.use.callkit\":true}")
-        
-        rtcEngine.startPreview()
+    func joinSession() {
+        rtcEngine.setAudioSessionOperationRestriction(.all)
         rtcEngine.joinChannel(byToken: nil, channelId: session, info: nil, uid: 0, joinSuccess: nil)
-    }
-    
-    func enableMedia(_ enable: Bool) {
-        if enable {
-            rtcEngine.enableAudio()
-            rtcEngine.enableVideo()
-        } else {
-            rtcEngine.disableAudio()
-            rtcEngine.disableVideo()
-        }
     }
     
     func muteAudio(_ mute: Bool) {
@@ -144,22 +118,17 @@ private extension ViewController {
     func stopSession() {
         isCallActive = false
         audioOutputRouting = nil
-        remoteVideoView.isHidden = true
-        
         rtcEngine.leaveChannel(nil)
-        rtcEngine.stopPreview()
     }
 }
 
 extension ViewController: CallCenterDelegate {
     func callCenter(_ callCenter: CallCenter, startCall session: String) {
-        enableMedia(false)
-        startSession(session)
+        isCallActive = true
     }
     
     func callCenter(_ callCenter: CallCenter, answerCall session: String) {
-        enableMedia(true)
-        startSession(session)
+        isCallActive = true
         callCenter.setCallConnected(of: session)
     }
     
@@ -176,36 +145,18 @@ extension ViewController: CallCenterDelegate {
     }
     
     func callCenterDidActiveAudioSession(_ callCenter: CallCenter) {
-        enableMedia(true)
+        print("Audiosession did active")
+        joinSession()
     }
 }
 
 extension ViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        let canvas = AgoraRtcVideoCanvas()
-        canvas.uid = uid
-        canvas.view = remoteVideoView
-        canvas.renderMode = .hidden
-        engine.setupRemoteVideo(canvas)
-        
-        remoteUid = uid
-        remoteVideoView.isHidden = false
+        print("remote user \(uid) did join room")
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        if uid == remoteUid {
-            remoteVideoView.isHidden = true
-        }
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioRouteChanged routing: AgoraAudioOutputRouting) {
-        print("didAudioRouteChanged : \(routing.rawValue)")
-        if audioOutputRouting == nil && routing == .earpiece {
-            rtcEngine.setEnableSpeakerphone(true)
-        }
-        else {
-            audioOutputRouting = routing;
-        }
+        print("remote user \(uid) did left")
     }
 }
 

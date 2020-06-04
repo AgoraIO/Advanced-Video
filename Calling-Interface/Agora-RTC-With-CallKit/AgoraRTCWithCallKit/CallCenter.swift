@@ -29,7 +29,7 @@ class CallCenter: NSObject {
     private static var providerConfiguration: CXProviderConfiguration {
         let appName = "AgoraRTCWithCallKit"
         let providerConfiguration = CXProviderConfiguration(localizedName: appName)
-        providerConfiguration.supportsVideo = true
+        providerConfiguration.supportsVideo = false
         providerConfiguration.maximumCallsPerCallGroup = 1
         providerConfiguration.maximumCallGroups = 1
         providerConfiguration.supportedHandleTypes = [.phoneNumber]
@@ -58,7 +58,7 @@ class CallCenter: NSObject {
         let callUpdate = CXCallUpdate()
         callUpdate.remoteHandle = CXHandle(type: .phoneNumber, value: session)
         callUpdate.localizedCallerName = session
-        callUpdate.hasVideo = true
+        callUpdate.hasVideo = false
         callUpdate.supportsDTMF = false
         
         let uuid = pairedUUID(of: session)
@@ -74,7 +74,7 @@ class CallCenter: NSObject {
         let handle = CXHandle(type: .phoneNumber, value: session)
         let uuid = pairedUUID(of: session)
         let startCallAction = CXStartCallAction(call: uuid, handle: handle)
-        startCallAction.isVideo = true
+        startCallAction.isVideo = false
         
         let transaction = CXTransaction(action: startCallAction)
         controller.request(transaction) { (error) in
@@ -125,7 +125,7 @@ extension CallCenter: CXProviderDelegate {
         
         let callUpdate = CXCallUpdate()
         callUpdate.remoteHandle = action.handle
-        callUpdate.hasVideo = true
+        callUpdate.hasVideo = false
         callUpdate.localizedCallerName = session
         callUpdate.supportsDTMF = false
         provider.reportCall(with: action.callUUID, updated: callUpdate)

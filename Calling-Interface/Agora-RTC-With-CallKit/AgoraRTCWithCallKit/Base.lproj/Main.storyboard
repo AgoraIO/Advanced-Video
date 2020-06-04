@@ -16,18 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NmF-nn-boR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3bn-zr-1iD">
-                                <rect key="frame" x="243" y="107.99999999999999" width="96" height="170.66666666666663"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="3bn-zr-1iD" secondAttribute="height" multiplier="9:16" id="MWd-oM-Irt"/>
-                                    <constraint firstAttribute="width" constant="96" id="OCc-Lw-nTm"/>
-                                </constraints>
-                            </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" placeholder="Input phone number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bMf-1f-cYX">
                                 <rect key="frame" x="36" y="56" width="303" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -97,20 +85,14 @@
                             <constraint firstItem="GPY-O7-BcQ" firstAttribute="leading" secondItem="Jj2-ZS-YyE" secondAttribute="trailing" constant="24" id="3gn-yQ-T9Q"/>
                             <constraint firstItem="idw-EV-Uqn" firstAttribute="leading" secondItem="GPY-O7-BcQ" secondAttribute="leading" id="DdS-Wo-UeZ"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="leading" secondItem="eje-Nn-OVA" secondAttribute="leading" id="ETn-dM-Mc5"/>
-                            <constraint firstAttribute="trailing" secondItem="NmF-nn-boR" secondAttribute="trailing" id="I8P-rw-AE8"/>
-                            <constraint firstItem="NmF-nn-boR" firstAttribute="top" secondItem="5Z7-i2-Ezl" secondAttribute="top" id="KTs-XT-Reg"/>
-                            <constraint firstItem="NmF-nn-boR" firstAttribute="leading" secondItem="5Z7-i2-Ezl" secondAttribute="leading" id="L19-DV-ihS"/>
                             <constraint firstItem="bMf-1f-cYX" firstAttribute="top" secondItem="GDu-sL-B5c" secondAttribute="top" constant="12" id="ODG-gg-ccC"/>
                             <constraint firstItem="idw-EV-Uqn" firstAttribute="top" secondItem="GPY-O7-BcQ" secondAttribute="top" id="RI9-wq-AeN"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="top" secondItem="GWe-o5-DXq" secondAttribute="top" id="Rgf-On-sFw"/>
-                            <constraint firstAttribute="bottom" secondItem="NmF-nn-boR" secondAttribute="bottom" id="WKL-em-NQh"/>
                             <constraint firstItem="GWe-o5-DXq" firstAttribute="width" secondItem="Jj2-ZS-YyE" secondAttribute="width" id="XXo-fK-brF"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="top" secondItem="eje-Nn-OVA" secondAttribute="top" id="YWv-C7-xev"/>
                             <constraint firstItem="GDu-sL-B5c" firstAttribute="trailing" secondItem="bMf-1f-cYX" secondAttribute="trailing" constant="36" id="frW-qo-jII"/>
                             <constraint firstItem="bMf-1f-cYX" firstAttribute="leading" secondItem="GDu-sL-B5c" secondAttribute="leading" constant="36" id="iMC-NB-Gi9"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="centerX" secondItem="GDu-sL-B5c" secondAttribute="centerX" id="jGS-BW-Hmf"/>
-                            <constraint firstItem="GDu-sL-B5c" firstAttribute="trailing" secondItem="3bn-zr-1iD" secondAttribute="trailing" constant="36" id="jR2-Kg-SPJ"/>
-                            <constraint firstItem="3bn-zr-1iD" firstAttribute="top" secondItem="bMf-1f-cYX" secondAttribute="bottom" constant="18" id="o9i-w8-K7v"/>
                             <constraint firstItem="GPY-O7-BcQ" firstAttribute="top" secondItem="Jj2-ZS-YyE" secondAttribute="top" id="yuU-b8-AqK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GDu-sL-B5c"/>
@@ -119,11 +101,9 @@
                     <connections>
                         <outlet property="endCallButton" destination="eje-Nn-OVA" id="X37-li-3yg"/>
                         <outlet property="incomingCallButton" destination="GPY-O7-BcQ" id="pkz-nU-NKf"/>
-                        <outlet property="localVideoView" destination="3bn-zr-1iD" id="Ib2-CS-y5R"/>
                         <outlet property="muteAudioButton" destination="GWe-o5-DXq" id="geJ-ca-DTJ"/>
                         <outlet property="outgoingCallButton" destination="Jj2-ZS-YyE" id="DQA-oK-PrI"/>
                         <outlet property="phoneNumberTextField" destination="bMf-1f-cYX" id="Qi6-kW-Ma6"/>
-                        <outlet property="remoteVideoView" destination="NmF-nn-boR" id="KM0-YI-hv1"/>
                         <outlet property="speakerButton" destination="idw-EV-Uqn" id="pne-yf-tGH"/>
                     </connections>
                 </viewController>
