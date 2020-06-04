@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0772B0552017316B00C542B7 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0772B0542017316B00C542B7 /* AgoraRtcEngineKit.framework */; };
 		0772B06320173E8600C542B7 /* CallCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0772B06220173E8600C542B7 /* CallCenter.swift */; };
 		0772B11E2018379E00C542B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0772B11D2018379E00C542B7 /* AVFoundation.framework */; };
 		0772B120201837A500C542B7 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0772B11F201837A500C542B7 /* VideoToolbox.framework */; };
@@ -21,11 +20,26 @@
 		077ACABB2010886500212563 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 077ACAB92010886500212563 /* LaunchScreen.storyboard */; };
 		077ACB132011CEE500212563 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077ACB122011CEE500212563 /* ViewController.swift */; };
 		3802EF20225CBFC80065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF1F225CBFC70065A2E1 /* CoreML.framework */; };
+		38EE2E502488EB5100B52B28 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EE2E4E2488EB4600B52B28 /* AgoraRtcKit.framework */; };
+		38EE2E512488EB5100B52B28 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 38EE2E4E2488EB4600B52B28 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A730EEFC20FC7533003174AD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A730EEFB20FC7533003174AD /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		38EE2E522488EB5100B52B28 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				38EE2E512488EB5100B52B28 /* AgoraRtcKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		0772B0542017316B00C542B7 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		0772B06220173E8600C542B7 /* CallCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCenter.swift; sourceTree = "<group>"; };
 		0772B11D2018379E00C542B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0772B11F201837A500C542B7 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -43,6 +57,7 @@
 		077ACABC2010886500212563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		077ACB122011CEE500212563 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3802EF1F225CBFC70065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		38EE2E4E2488EB4600B52B28 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A730EEFB20FC7533003174AD /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38EE2E502488EB5100B52B28 /* AgoraRtcKit.framework in Frameworks */,
 				3802EF20225CBFC80065A2E1 /* CoreML.framework in Frameworks */,
 				A730EEFC20FC7533003174AD /* Accelerate.framework in Frameworks */,
 				0772B12A2018387800C542B7 /* SystemConfiguration.framework in Frameworks */,
@@ -59,7 +75,6 @@
 				0772B124201837C900C542B7 /* libstdc++.tbd in Frameworks */,
 				0772B120201837A500C542B7 /* VideoToolbox.framework in Frameworks */,
 				0772B11E2018379E00C542B7 /* AVFoundation.framework in Frameworks */,
-				0772B0552017316B00C542B7 /* AgoraRtcEngineKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +122,7 @@
 				0772B06220173E8600C542B7 /* CallCenter.swift */,
 				077ACAB02010886500212563 /* AppDelegate.swift */,
 				077ACAB42010886500212563 /* Main.storyboard */,
-				0772B0542017316B00C542B7 /* AgoraRtcEngineKit.framework */,
+				38EE2E4E2488EB4600B52B28 /* AgoraRtcKit.framework */,
 				077ACAB72010886500212563 /* Assets.xcassets */,
 				077ACAB92010886500212563 /* LaunchScreen.storyboard */,
 				077ACABC2010886500212563 /* Info.plist */,
@@ -125,6 +140,7 @@
 				077ACAA92010886500212563 /* Sources */,
 				077ACAAA2010886500212563 /* Frameworks */,
 				077ACAAB2010886500212563 /* Resources */,
+				38EE2E522488EB5100B52B28 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -147,7 +163,8 @@
 				TargetAttributes = {
 					077ACAAC2010886500212563 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						LastSwiftMigration = 1150;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -335,8 +352,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 48TB6ZZL5S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -347,7 +365,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraRTCWithCallKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2019;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -356,8 +375,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (TH5SJ72C94)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 48TB6ZZL5S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -368,7 +388,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraRTCWithCallKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2019;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

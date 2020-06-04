@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tKO-b5-TRv">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tKO-b5-TRv">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,15 +13,15 @@
             <objects>
                 <viewController id="tKO-b5-TRv" customClass="ViewController" customModule="AgoraRTCWithCallKit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Z7-i2-Ezl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NmF-nn-boR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3bn-zr-1iD">
-                                <rect key="frame" x="243" y="68" width="96" height="170.5"/>
+                                <rect key="frame" x="243" y="107.99999999999999" width="96" height="170.66666666666663"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="3bn-zr-1iD" secondAttribute="height" multiplier="9:16" id="MWd-oM-Irt"/>
@@ -32,23 +29,22 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" placeholder="Input phone number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bMf-1f-cYX">
-                                <rect key="frame" x="36" y="20" width="303" height="30"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="36" y="56" width="303" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="tKO-b5-TRv" id="MvY-OP-Mbt"/>
                                 </connections>
                             </textField>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWe-o5-DXq">
-                                <rect key="frame" x="97.5" y="611" width="44" height="44"/>
+                                <rect key="frame" x="97.666666666666671" y="722" width="44.000000000000014" height="44"/>
                                 <state key="normal" image="btn_mute"/>
                                 <connections>
                                     <action selector="doMutePressed:" destination="tKO-b5-TRv" eventType="touchUpInside" id="iHx-e7-iIV"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eje-Nn-OVA">
-                                <rect key="frame" x="165" y="611" width="44" height="44"/>
+                                <rect key="frame" x="165.66666666666666" y="722" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="KZ5-hY-Zbo"/>
                                     <constraint firstAttribute="height" constant="44" id="kxE-u8-bjX"/>
@@ -59,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jj2-ZS-YyE">
-                                <rect key="frame" x="165.5" y="611" width="44" height="44"/>
+                                <rect key="frame" x="165.66666666666666" y="722" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="m48-sl-IIc"/>
                                     <constraint firstAttribute="width" constant="44" id="nSF-h6-g1c"/>
@@ -70,7 +66,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPY-O7-BcQ">
-                                <rect key="frame" x="233.5" y="611" width="44" height="44"/>
+                                <rect key="frame" x="233.66666666666666" y="722" width="43.999999999999972" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="Gkp-Pz-rzl"/>
                                     <constraint firstAttribute="height" constant="44" id="wE0-WL-m3P"/>
@@ -81,7 +77,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idw-EV-Uqn">
-                                <rect key="frame" x="233.5" y="611" width="44" height="44"/>
+                                <rect key="frame" x="233.66666666666666" y="722" width="43.999999999999972" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="9ZG-gb-wqu"/>
                                     <constraint firstAttribute="height" constant="44" id="XA1-Wn-OZV"/>
@@ -104,7 +100,7 @@
                             <constraint firstAttribute="trailing" secondItem="NmF-nn-boR" secondAttribute="trailing" id="I8P-rw-AE8"/>
                             <constraint firstItem="NmF-nn-boR" firstAttribute="top" secondItem="5Z7-i2-Ezl" secondAttribute="top" id="KTs-XT-Reg"/>
                             <constraint firstItem="NmF-nn-boR" firstAttribute="leading" secondItem="5Z7-i2-Ezl" secondAttribute="leading" id="L19-DV-ihS"/>
-                            <constraint firstItem="bMf-1f-cYX" firstAttribute="top" secondItem="GDu-sL-B5c" secondAttribute="top" id="ODG-gg-ccC"/>
+                            <constraint firstItem="bMf-1f-cYX" firstAttribute="top" secondItem="GDu-sL-B5c" secondAttribute="top" constant="12" id="ODG-gg-ccC"/>
                             <constraint firstItem="idw-EV-Uqn" firstAttribute="top" secondItem="GPY-O7-BcQ" secondAttribute="top" id="RI9-wq-AeN"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="top" secondItem="GWe-o5-DXq" secondAttribute="top" id="Rgf-On-sFw"/>
                             <constraint firstAttribute="bottom" secondItem="NmF-nn-boR" secondAttribute="bottom" id="WKL-em-NQh"/>

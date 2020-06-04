@@ -196,7 +196,7 @@ extension CallCenter {
     
     func currentCall(of uuid: UUID) -> CXCall? {
         let calls = controller.callObserver.calls
-        if let index = calls.index(where: {$0.uuid == uuid}) {
+        if let index = calls.firstIndex(where: {$0.uuid == uuid}) {
             return calls[index]
         } else {
             return nil
