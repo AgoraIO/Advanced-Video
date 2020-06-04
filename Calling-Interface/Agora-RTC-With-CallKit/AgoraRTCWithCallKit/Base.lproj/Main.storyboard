@@ -64,18 +64,10 @@
                                     <action selector="doCallInPressed:" destination="tKO-b5-TRv" eventType="touchUpInside" id="7RS-sT-NJG"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idw-EV-Uqn">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZF-VF-x19" customClass="MPVolumeView">
                                 <rect key="frame" x="233.66666666666666" y="722" width="43.999999999999972" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="9ZG-gb-wqu"/>
-                                    <constraint firstAttribute="height" constant="44" id="XA1-Wn-OZV"/>
-                                </constraints>
-                                <state key="normal" image="btn_speaker_blue"/>
-                                <state key="highlighted" image="btn_speaker"/>
-                                <connections>
-                                    <action selector="doSpeakerPressed:" destination="tKO-b5-TRv" eventType="touchUpInside" id="ABs-7X-d9I"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -83,16 +75,18 @@
                             <constraint firstItem="GDu-sL-B5c" firstAttribute="bottom" secondItem="Jj2-ZS-YyE" secondAttribute="bottom" constant="12" id="3Rz-Sd-ieJ"/>
                             <constraint firstItem="GWe-o5-DXq" firstAttribute="height" secondItem="Jj2-ZS-YyE" secondAttribute="height" id="3dZ-WJ-ciI"/>
                             <constraint firstItem="GPY-O7-BcQ" firstAttribute="leading" secondItem="Jj2-ZS-YyE" secondAttribute="trailing" constant="24" id="3gn-yQ-T9Q"/>
-                            <constraint firstItem="idw-EV-Uqn" firstAttribute="leading" secondItem="GPY-O7-BcQ" secondAttribute="leading" id="DdS-Wo-UeZ"/>
+                            <constraint firstItem="GPY-O7-BcQ" firstAttribute="bottom" secondItem="VZF-VF-x19" secondAttribute="bottom" id="DQg-Ix-GUh"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="leading" secondItem="eje-Nn-OVA" secondAttribute="leading" id="ETn-dM-Mc5"/>
                             <constraint firstItem="bMf-1f-cYX" firstAttribute="top" secondItem="GDu-sL-B5c" secondAttribute="top" constant="12" id="ODG-gg-ccC"/>
-                            <constraint firstItem="idw-EV-Uqn" firstAttribute="top" secondItem="GPY-O7-BcQ" secondAttribute="top" id="RI9-wq-AeN"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="top" secondItem="GWe-o5-DXq" secondAttribute="top" id="Rgf-On-sFw"/>
                             <constraint firstItem="GWe-o5-DXq" firstAttribute="width" secondItem="Jj2-ZS-YyE" secondAttribute="width" id="XXo-fK-brF"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="top" secondItem="eje-Nn-OVA" secondAttribute="top" id="YWv-C7-xev"/>
                             <constraint firstItem="GDu-sL-B5c" firstAttribute="trailing" secondItem="bMf-1f-cYX" secondAttribute="trailing" constant="36" id="frW-qo-jII"/>
                             <constraint firstItem="bMf-1f-cYX" firstAttribute="leading" secondItem="GDu-sL-B5c" secondAttribute="leading" constant="36" id="iMC-NB-Gi9"/>
+                            <constraint firstItem="GPY-O7-BcQ" firstAttribute="top" secondItem="VZF-VF-x19" secondAttribute="top" id="irO-9S-DZb"/>
                             <constraint firstItem="Jj2-ZS-YyE" firstAttribute="centerX" secondItem="GDu-sL-B5c" secondAttribute="centerX" id="jGS-BW-Hmf"/>
+                            <constraint firstItem="GPY-O7-BcQ" firstAttribute="leading" secondItem="VZF-VF-x19" secondAttribute="leading" id="uKe-u6-0mX"/>
+                            <constraint firstItem="GPY-O7-BcQ" firstAttribute="trailing" secondItem="VZF-VF-x19" secondAttribute="trailing" id="uaI-ju-uVB"/>
                             <constraint firstItem="GPY-O7-BcQ" firstAttribute="top" secondItem="Jj2-ZS-YyE" secondAttribute="top" id="yuU-b8-AqK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GDu-sL-B5c"/>
@@ -104,7 +98,7 @@
                         <outlet property="muteAudioButton" destination="GWe-o5-DXq" id="geJ-ca-DTJ"/>
                         <outlet property="outgoingCallButton" destination="Jj2-ZS-YyE" id="DQA-oK-PrI"/>
                         <outlet property="phoneNumberTextField" destination="bMf-1f-cYX" id="Qi6-kW-Ma6"/>
-                        <outlet property="speakerButton" destination="idw-EV-Uqn" id="pne-yf-tGH"/>
+                        <outlet property="volumeView" destination="VZF-VF-x19" id="aGc-xq-VJg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nDm-Gk-bcQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -117,7 +111,5 @@
         <image name="btn_callOut" width="40" height="40"/>
         <image name="btn_endcall" width="40" height="40"/>
         <image name="btn_mute" width="40" height="40"/>
-        <image name="btn_speaker" width="40" height="40"/>
-        <image name="btn_speaker_blue" width="40" height="40"/>
     </resources>
 </document>

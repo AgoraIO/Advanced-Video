@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 import AgoraRtcKit
 
 class ViewController: UIViewController {
@@ -17,7 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var outgoingCallButton: UIButton!
     @IBOutlet weak var incomingCallButton: UIButton!
     @IBOutlet weak var endCallButton: UIButton!
-    @IBOutlet weak var speakerButton: UIButton!
+    @IBOutlet weak var volumeView: MPVolumeView!
     
     private var session: String {
         get {
@@ -33,13 +34,14 @@ class ViewController: UIViewController {
     
     private var audioOutputRouting: AgoraAudioOutputRouting? {
         didSet {
-            speakerButton?.setImage(isSpeakerEnabled ? #imageLiteral(resourceName: "btn_speaker_blue") : #imageLiteral(resourceName: "btn_speaker"), for: .normal)
-            speakerButton?.setImage(isSpeakerEnabled ? #imageLiteral(resourceName: "btn_speaker") : #imageLiteral(resourceName: "btn_speaker_blue"), for: .highlighted)
+            updateVolumeView(withSpeakerOn: isSpeakerOn)
         }
     }
     
-    private var isSpeakerEnabled: Bool {
+    private var isSpeakerOn: Bool {
         return audioOutputRouting == .speakerphone
+            || audioOutputRouting == .loudspeaker
+            || audioOutputRouting == .headsetBluetooth
     }
     
     private var isCallActive = false {
@@ -50,23 +52,30 @@ class ViewController: UIViewController {
             outgoingCallButton.isHidden = isCallActive
             incomingCallButton.isHidden = isCallActive
             endCallButton.isHidden = !isCallActive
-            speakerButton.isHidden = !isCallActive
+            volumeView.isHidden = !isCallActive
         }
     }
     
     private lazy var callCenter = CallCenter(delegate: self)
-    private lazy var rtcEngine: AgoraRtcEngineKit = AgoraRtcEngineKit.sharedEngine(withAppId: <#Your AppId#>, delegate: self)
-    fileprivate var remoteUid: UInt = 0
-    
+    private lazy var rtcEngine: AgoraRtcEngineKit = {
+        let engine = AgoraRtcEngineKit.sharedEngine(withAppId: <#Your AppId#>, delegate: self)
+        engine.setChannelProfile(.liveBroadcasting)
+        engine.setClientRole(.broadcaster)
+        return engine
+    }()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .voiceChat, options: [.allowBluetooth])
+        volumeView.showsRouteButton = true
+        volumeView.showsVolumeSlider = false
+        volumeView.setRouteButtonImage(#imageLiteral(resourceName: "btn_speaker"), for: .normal)
         
-        callCenter.delegate = self
-        
-        rtcEngine.setChannelProfile(.liveBroadcasting)
-        rtcEngine.setClientRole(.broadcaster)
+        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .voiceChat, options: [.allowBluetoothA2DP])
+    }
+    
+    func updateVolumeView(withSpeakerOn isSpeakerOn: Bool) {
+        volumeView.setRouteButtonImage(isSpeakerOn ? #imageLiteral(resourceName: "btn_speaker_blue") : #imageLiteral(resourceName: "btn_speaker"), for: .normal)
     }
     
     @IBAction func doMutePressed(_ sender: UIButton) {
@@ -83,10 +92,6 @@ class ViewController: UIViewController {
     
     @IBAction func doEndCallPressed(_ sender: UIButton) {
         callCenter.endCall(of: session)
-    }
-    
-    @IBAction func doSpeakerPressed(_ sender: UIButton) {
-        setEnableSpeakerphone(!isSpeakerEnabled)
     }
 }
 
@@ -157,6 +162,10 @@ extension ViewController: AgoraRtcEngineDelegate {
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         print("remote user \(uid) did left")
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioRouteChanged routing: AgoraAudioOutputRouting) {
+        audioOutputRouting = routing
     }
 }
 

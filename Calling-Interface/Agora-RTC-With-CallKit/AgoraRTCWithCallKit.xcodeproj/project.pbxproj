@@ -22,6 +22,7 @@
 		3802EF20225CBFC80065A2E1 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3802EF1F225CBFC70065A2E1 /* CoreML.framework */; };
 		38EE2E502488EB5100B52B28 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EE2E4E2488EB4600B52B28 /* AgoraRtcKit.framework */; };
 		38EE2E512488EB5100B52B28 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 38EE2E4E2488EB4600B52B28 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		38EE2E542488FEB400B52B28 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EE2E532488FEB400B52B28 /* MediaPlayer.framework */; };
 		A730EEFC20FC7533003174AD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A730EEFB20FC7533003174AD /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		077ACB122011CEE500212563 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3802EF1F225CBFC70065A2E1 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		38EE2E4E2488EB4600B52B28 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
+		38EE2E532488FEB400B52B28 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A730EEFB20FC7533003174AD /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 				0772B124201837C900C542B7 /* libstdc++.tbd in Frameworks */,
 				0772B120201837A500C542B7 /* VideoToolbox.framework in Frameworks */,
 				0772B11E2018379E00C542B7 /* AVFoundation.framework in Frameworks */,
+				38EE2E542488FEB400B52B28 /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +87,7 @@
 		0772B11C2018379E00C542B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38EE2E532488FEB400B52B28 /* MediaPlayer.framework */,
 				3802EF1F225CBFC70065A2E1 /* CoreML.framework */,
 				A730EEFB20FC7533003174AD /* Accelerate.framework */,
 				0772B1292018387800C542B7 /* SystemConfiguration.framework */,
