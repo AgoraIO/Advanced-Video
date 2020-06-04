@@ -115,7 +115,7 @@ private extension ViewController {
                                                          mode: AVAudioSession.Mode.voiceChat,
                                                          options: [.mixWithOthers, .allowBluetooth])
         
-        rtcEngine.setAudioSessionOperationRestriction(.configureSession)
+        rtcEngine.setAudioSessionOperationRestriction(.all)
         rtcEngine.setParameters("{\"che.audio.use.callkit\":true}")
         
         rtcEngine.startPreview()
