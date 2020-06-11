@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         volumeView.showsVolumeSlider = false
         volumeView.setRouteButtonImage(#imageLiteral(resourceName: "btn_speaker"), for: .normal)
         
-        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .voiceChat, options: [.allowBluetoothA2DP])
+        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .voiceChat, options: [.allowBluetooth, .allowBluetoothA2DP])
     }
     
     func updateVolumeView(withSpeakerOn isSpeakerOn: Bool) {
