@@ -272,7 +272,7 @@ inline void CProcessScreenShareDlg::initAgoraMedia()
 	m_lpAgoraObject->EnableLastmileTest(FALSE);
 	
 	m_lpAgoraObject->SetChannelProfile(TRUE);
-    m_lpAgoraObject->SetClientRole(CLIENT_ROLE_TYPE::CLIENT_ROLE_BROADCASTER);
+        m_lpAgoraObject->SetClientRole(CLIENT_ROLE_TYPE::CLIENT_ROLE_BROADCASTER);
 	m_lpAgoraObject->MuteAllRemoteAudio(TRUE);
 	m_lpAgoraObject->MuteAllRemoteVideo(TRUE);
 }
