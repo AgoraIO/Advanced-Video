@@ -21,7 +21,7 @@ Demo包含以下功能:
 
     #define APP_ID _T("Your App ID")
 
-然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **sdk** 复制到本项目的 "Agora-Screen-Sharing-Windows” 文件夹下。
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **sdk(3.0.1以前)** 复制到本项目的 "Agora-Screen-Sharing-Windows” 文件夹下。从3.0.1开始，需要创建sdk，sdk/include,sdk/lib,sdk/dll，把对应的文件拷贝到对应的文件夹下面。
 
 最后使用 VC++2013 打开 OpenLive.sln，编译整个解决方案
 

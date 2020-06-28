@@ -19,7 +19,7 @@ First, create a developer account at [Agora.io](https://dashboard.agora.io/signi
 
      #define APP_ID _T("Your App ID")
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk** to the "Agora-Screen-Sharing-Windows" folder in project(the old one may be over written).
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk(before 3.0.1)** to the "Agora-Screen-Sharing-Windows" folder in project(the old one may be over written). Since 3.0.1, you need to create sdk folder, sdk/include sdk/lib sdk/dll, and copy files to corresponding folders.
 
 Finally, Open OpenLive.sln, build the solution and run.
 
