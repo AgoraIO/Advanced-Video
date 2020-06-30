@@ -10,10 +10,10 @@ Sample applications are provided for Android, iOS, macOS, Web, and Windows.
 
 Project Folder Name|Platform|Description
 ---|---|---
-[Andorid](./Advanced-Video/Android)|Android|Android advanced features including custom video sources, switch video inputs, customized packet encryption, push interface
-[iOS&macOS](./Advanced-Video/iOS&macOS)|iOS & macOS|iOS & macOS advanced features including large group video chat, custom media device, raw data API, screen sharing, video source, AR kit.
-[Windows](./Advanced-Video/Windows)|Windows|Windows advanced features including media source, screen sharing, string account, large group video chat.
-[Web](./Advanced-Video/Web)|Web|Web advanced features including custom video source, screen sharing, large group video chat, remote control.
+[Andorid](./Android)|Android|Android advanced features including custom video sources, switch video inputs, customized packet encryption, push interface
+[iOS&macOS](./iOS&macOS)|iOS & macOS|iOS & macOS advanced features including large group video chat, custom media device, raw data API, screen sharing, video source, AR kit.
+[Windows](./Windows)|Windows|Windows advanced features including media source, screen sharing, string account, large group video chat.
+[Web](./Web)|Web|Web advanced features including custom video source, screen sharing, large group video chat, remote control.
 
 ## Contact Us
 

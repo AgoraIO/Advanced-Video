@@ -10,10 +10,10 @@
 
 项目文件夹名称|平台|描述
 ---|---|---
-[Andorid](./Advanced-Video/Android)|Android|Android 平台：自定义视频源、视频输入源切换、视频包自定义加密、Push接口等
-[iOS&macOS](./Advanced-Video/iOS&macOS)|iOS & macOS|iOS & macOS 平台：多人视频连麦直播，自定义视频采集和渲染，屏幕共享，AR连麦直播等
-[Windows](./Advanced-Video/Windows)|Windows|Windows 平台：使用裸数据功能，使用dshow进行视频采集，多人视频连麦，屏幕共享，string id使用
-[Web](./Advanced-Video/Web)|Web|Web 平台：多人视频连麦，视频音频自采集，屏幕共享，远程控制桌面
+[Andorid](./Android)|Android|Android 平台：自定义视频源、视频输入源切换、视频包自定义加密、Push接口等
+[iOS&macOS](./iOS&macOS)|iOS & macOS|iOS & macOS 平台：多人视频连麦直播，自定义视频采集和渲染，屏幕共享，AR连麦直播等
+[Windows](./Windows)|Windows|Windows 平台：使用裸数据功能，使用dshow进行视频采集，多人视频连麦，屏幕共享，string id使用
+[Web](./Web)|Web|Web 平台：多人视频连麦，视频音频自采集，屏幕共享，远程控制桌面
 
 ## 联系我们
 
