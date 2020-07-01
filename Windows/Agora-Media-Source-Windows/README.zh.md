@@ -20,7 +20,7 @@
 
 你也可以在这里查看入门版的示例项目：[Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
 
-##准备DShow和libyuv依赖库
+## 准备DShow和libyuv依赖库
 
 下载 [依赖库](https://github.com/AgoraIO/Advanced-Audio/releases/download/DShow/ThirdParty.zip)
 解压 Thirdparty.zip, 拷贝 Dshow和libyuv文件夹到sln所在文件夹。
@@ -52,13 +52,15 @@
 
 ## 联系我们
 
-- 如果你遇到了困难，可以先参阅[常见问题](https://docs.agora.io/cn/faq)
-- 如果你想了解更多官方示例，可以参考[官方SDK示例](https://github.com/AgoraIO)
-- 如果你想了解声网SDK在复杂场景下的应用，可以参考[官方场景案例](https://github.com/AgoraIO-usecase)
-- 如果你想了解声网的一些社区开发者维护的项目，可以查看[社区](https://github.com/AgoraIO-Community)
+- 如果你遇到了困难，可以先参阅 [常见问题](https://docs.agora.io/cn/faq)
+- 如果你想了解更多官方示例，可以参考 [官方SDK示例](https://github.com/AgoraIO)
+- 如果你想了解声网SDK在复杂场景下的应用，可以参考 [官方场景案例](https://github.com/AgoraIO-usecase)
+- 如果你想了解声网的一些社区开发者维护的项目，可以查看 [社区](https://github.com/AgoraIO-Community)
 - 完整的 API 文档见 [文档中心](https://docs.agora.io/cn/)
 - 若遇到问题需要开发者帮助，你可以到 [开发者社区](https://rtcdeveloper.com/) 提问
-- 如果发现了示例代码的 bug，欢迎提交[issue](https://github.com/AgoraIO/Advanced-Video/issues)
+- 如果需要售后技术支持, 你可以在 [Agora Dashboard](https://dashboard.agora.io) 提交工单
+- 如果发现了示例代码的 bug，欢迎提交 [issue](https://github.com/AgoraIO/Advanced-Video/issues)
+
 
 
 ## 代码许可

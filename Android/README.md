@@ -31,7 +31,7 @@ Video frame data (stored in ByteBuffer) is extracted from .mp4 files using [Medi
 The decoded frames are rendered to an output Surface which is created from a pre-configured texture, then the texture can be used to draw local preview and be fed to SDK.
 
 
-#### <h2 id="switching"> Switching between different video inputs </h2>
+#### Switching between different video inputs
 
 Only one video input instance is created in charge of generating video frames, and the frames from one input can be switched to another at any time and SDK is not aware.
 
@@ -115,8 +115,6 @@ Copy from SDK|Copy to Project Folder
 **x86** folder|**/lib-component/src/main/jniLibs** folder
 **armeabi-v7a** folder|**/lib-component/src/main/jniLibs** folder
 
-    
-
 ### Run the Application
 
 Open project with Android Studio, connect your Android device, build and run.
@@ -124,9 +122,9 @@ Open project with Android Studio, connect your Android device, build and run.
 Or use `Gradle` to build and run.
 
 
-## Contract Us
+## Contact Us
 
-- For potential issues, take a look at our [FAQ](https://docs.agora.io/cn/faq) first
+- For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
 - Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated real use case
 - Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)

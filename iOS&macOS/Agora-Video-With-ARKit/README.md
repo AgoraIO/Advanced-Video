@@ -56,14 +56,14 @@ This sample application requires two devices and works in conjunction with the [
 
 3. On a different device, launch the [OpenLive](https://github.com/AgoraIO/OpenLive-iOS) sample application using the app ID and join the channel `agoraar` as a broadcaster. The virtual display screen from the previous step displays the video broadcast sent from this [OpenLive](https://github.com/AgoraIO/OpenLive-iOS) application.
 
-## Contract Us
+## Contact Us
 
-- For potential issues, you may take a look at our [FAQ](https://docs.agora.io/en/faq) first
+- For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
-- Would like to see how Agora SDK is used in more complicated real use case? Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase)
+- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated real use case
 - Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
-- You can find full API document at [Document Center](https://docs.agora.io/en/)
-- If you encounter problems during integration, you can ask question in [Developer Forum](https://stackoverflow.com/questions/tagged/agora.io)
+- You can find full API documentation at [Document Center](https://docs.agora.io/en/)
+- If you encounter problems during integration, you can ask question in [Stack Overflow](https://stackoverflow.com/questions/tagged/agora.io)
 - You can file bugs about this sample at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 ## License
