@@ -20,7 +20,7 @@
 
 你也可以在这里查看入门版的示例项目：[Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
 
-##准备DShow和libyuv依赖库
+## 准备DShow和libyuv依赖库
 
 下载 [依赖库](https://github.com/AgoraIO/Advanced-Audio/releases/download/DShow/ThirdParty.zip)
 解压 Thirdparty.zip, 拷贝 Dshow和libyuv文件夹到sln所在文件夹。

@@ -21,7 +21,7 @@
 你也可以在这里查看入门版的示例项目：[Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
 
 
-##安装Directx SDK
+## 安装Directx SDK
 
 需要下载并安装[directx sdk 2010 June](https://www.microsoft.com/en-us/download/confirmation.aspx?id=6812)。安装之后需要重新启动。
 
