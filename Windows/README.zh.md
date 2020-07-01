@@ -6,11 +6,11 @@
 
 项目文件夹名称|描述
 ---|---
-[Agora-Media-Source-Windows](./Advanced-Video/Windows/Agora-Media-Source-Windows/)|如何使用  Agora 视频裸数据功能，使用 dshow 进行视频采集，传给 SDK 进行多人视频通话
-[Agora-RTC-Hooking-API-Windows](./Advanced-Video/Windows/Agora-RTC-Hooking-API-Windows)|The current demo is mainly written for heroes
-[Agora-Screen-Sharing-Windows](./Advanced-Video/Windows/Agora-Screen-Sharing-Windows)|展示如何同时传输摄像头和桌面共享两路视频流
-[Agora-String-Account-Windows](./Advanced-Video/Windows/Agora-String-Account-Windows)|演示了如何使用Agora SDK string id
-[LargeGroupVideoChat-Windows](./Advanced-Video/Windows/LargeGroupVideoChat-Windows)|演示了如何快速集成Agora视频SDK实现多人视频连麦（17人）
+[Agora-Media-Source-Windows](./Agora-Media-Source-Windows/)|如何使用  Agora 视频裸数据功能，使用 dshow 进行视频采集，传给 SDK 进行多人视频通话
+[Agora-RTC-Hooking-API-Windows](./Agora-RTC-Hooking-API-Windows)|The current demo is mainly written for heroes
+[Agora-Screen-Sharing-Windows](./Agora-Screen-Sharing-Windows)|展示如何同时传输摄像头和桌面共享两路视频流
+[Agora-String-Account-Windows](./Agora-String-Account-Windows)|演示了如何使用Agora SDK string id
+[LargeGroupVideoChat-Windows](./LargeGroupVideoChat-Windows)|演示了如何快速集成Agora视频SDK实现多人视频连麦（17人）
 
 ## 联系我们
 

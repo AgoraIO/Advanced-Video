@@ -6,11 +6,11 @@
 
 项目文件夹名称|描述
 ---|---
-[17-Multistream](./Advanced-Video/Web/17-Multistream)|如何快速集成 Agora 视频 SDK 实现17人视频直播
-[Agora-Custom-VideoSource-Web-Webpack](./Advanced-Video/Web/Agora-Custom-VideoSource-Web-Webpack)|如何快速集成 Agora 视频 SDK 实现视频音频自采集 
-[Agora-Screen-Sharing-Web-Webpack](./Advanced-Video/Web/Agora-Screen-Sharing-Web-Webpack)|如何快速集成 Agora 视频 SDK 并实现屏幕共享
-[LargeGroupVideoChat-Web-Webpack](./Advanced-Video/Web/LargeGroupVideoChat-Web-Webpack)|演示了如何快速集成 Agora 视频 SDK
-[Remote-Control-Web](./Advanced-Video/Web/Remote-Control-Web)|利用 AgoraRTCSDK 和 AgoraRTMSDK 实现浏览器远程控制桌面的一个 Demo
+[17-Multistream](./17-Multistream)|如何快速集成 Agora 视频 SDK 实现17人视频直播
+[Agora-Custom-VideoSource-Web-Webpack](./Agora-Custom-VideoSource-Web-Webpack)|如何快速集成 Agora 视频 SDK 实现视频音频自采集 
+[Agora-Screen-Sharing-Web-Webpack](./Agora-Screen-Sharing-Web-Webpack)|如何快速集成 Agora 视频 SDK 并实现屏幕共享
+[LargeGroupVideoChat-Web-Webpack](./LargeGroupVideoChat-Web-Webpack)|演示了如何快速集成 Agora 视频 SDK
+[Remote-Control-Web](./Remote-Control-Web)|利用 AgoraRTCSDK 和 AgoraRTMSDK 实现浏览器远程控制桌面的一个 Demo
 
 ## 联系我们
 

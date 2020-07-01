@@ -6,11 +6,11 @@ Agora provides a set of sample applications demonstrating how to get advanced vi
 
 Project Folder Name|Description
 ---|---
-[Agora-Media-Source-Windows](./Advanced-Video/Windows/Agora-Media-Source-Windows/)|An open-source demo show how to use IVideoFrameObserver::onCaptureVideoFrame
-[Agora-RTC-Hooking-API-Windows](./Advanced-Video/Windows/Agora-RTC-Hooking-API-Windows)|The current demo is mainly written for heroes
-[Agora-Screen-Sharing-Windows](./Advanced-Video/Windows/Agora-Screen-Sharing-Windows)|How to streaming camera video and screen sharing simultaneously using the Agora sample app
-[Agora-String-Account-Windows](./Advanced-Video/Windows/Agora-String-Account-Windows)|How to use Agora SDK string id
-[LargeGroupVideoChat-Windows](./Advanced-Video/Windows/LargeGroupVideoChat-Windows)|Get large group video chat integrated directly into your windows applications using the Agora Video SDK.
+[Agora-Media-Source-Windows](./Agora-Media-Source-Windows/)|An open-source demo show how to use IVideoFrameObserver::onCaptureVideoFrame
+[Agora-RTC-Hooking-API-Windows](./Agora-RTC-Hooking-API-Windows)|The current demo is mainly written for heroes
+[Agora-Screen-Sharing-Windows](./Agora-Screen-Sharing-Windows)|How to streaming camera video and screen sharing simultaneously using the Agora sample app
+[Agora-String-Account-Windows](./Agora-String-Account-Windows)|How to use Agora SDK string id
+[LargeGroupVideoChat-Windows](./LargeGroupVideoChat-Windows)|Get large group video chat integrated directly into your windows applications using the Agora Video SDK.
 
 ## Contact Us
 

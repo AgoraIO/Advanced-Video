@@ -6,11 +6,11 @@ Agora provides a set of sample applications demonstrating how to get advanced vi
 
 Project Folder Name|Description
 ---|---
-[17-Multistream](./Advanced-Video/Web/17-Multistream)|How to quickly create a live app using Agora Web SDK, implement 17 person live
-[Agora-Custom-VideoSource-Web-Webpack](./Advanced-Video/Web/Agora-Custom-VideoSource-Web-Webpack)|How to quickly create Custom Video Source 
-[Agora-Screen-Sharing-Web-Webpack](./Advanced-Video/Web/Agora-Screen-Sharing-Web-Webpack)|How to quickly create ScreenSharing 
-[LargeGroupVideoChat-Web-Webpack](./Advanced-Video/Web/LargeGroupVideoChat-Web-Webpack)|How to quickly create Custom Video Source using the Agora sample app
-[Remote-Control-Web](./Advanced-Video/Web/Remote-Control-Web)|A web based remote control demo, built on AgoraRTCSDK and AgoraRTMSDK
+[17-Multistream](./17-Multistream)|How to quickly create a live app using Agora Web SDK, implement 17 person live
+[Agora-Custom-VideoSource-Web-Webpack](./Agora-Custom-VideoSource-Web-Webpack)|How to quickly create Custom Video Source 
+[Agora-Screen-Sharing-Web-Webpack](./Agora-Screen-Sharing-Web-Webpack)|How to quickly create ScreenSharing 
+[LargeGroupVideoChat-Web-Webpack](./LargeGroupVideoChat-Web-Webpack)|How to quickly create Custom Video Source using the Agora sample app
+[Remote-Control-Web](./Remote-Control-Web)|A web based remote control demo, built on AgoraRTCSDK and AgoraRTMSDK
 
 ## Contact Us
 
