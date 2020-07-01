@@ -6,13 +6,13 @@
 
 项目文件夹名称|描述
 ---|---
-[17-Multistream](./Advanced-Video/iOS&macOS/17-Multistream)|如何在 iOS 平台快速集成 Agora 视频 SDK 现多人视频聊天
-[17-Multistream-macOS](./Advanced-Video/iOS&macOS/17-Multistream-macOS)|如何在 macOS 平台快速集成 Agora 视频 SDK 现多人视频聊天
-[Agora-Custom-Media-Device](./Advanced-Video/iOS&macOS/Agora-Custom-Media-Device)|如何使用 Agora 视频 SDK 实现自定义视频采集和渲染
-[Agora-Plugin-Raw-Data-API-Objective-C](./Advanced-Video/iOS&macOS/Agora-Plugin-Raw-Data-API-Objective-C)|如何使用 Agora 原始数据接口，实现获取音视频数据流的功能
-[Agora-Screen-Sharing](./Advanced-Video/iOS&macOS/Agora-Screen-Sharing)|如何使用 Agora 视频 SDK 和 ReplayKit 来实现 iOS 上的屏幕共享
-[Agora-Video-Source](./Advanced-Video/iOS&macOS/Agora-Video-Source)|如何使用自采集的摄像头数据，并通过 Agora 视频 SDK 实现视频通话
-[Agora-Video-With-ARKit](./Advanced-Video/iOS&macOS/Agora-Video-With-ARKit)|如何结合 Agora 视频 SDK 和 ARKit ，实现 AR 场景下的视频连麦直播
+[17-Multistream](./17-Multistream)|如何在 iOS 平台快速集成 Agora 视频 SDK 现多人视频聊天
+[17-Multistream-macOS](./17-Multistream-macOS)|如何在 macOS 平台快速集成 Agora 视频 SDK 现多人视频聊天
+[Agora-Custom-Media-Device](./Agora-Custom-Media-Device)|如何使用 Agora 视频 SDK 实现自定义视频采集和渲染
+[Agora-Plugin-Raw-Data-API-Objective-C](./Agora-Plugin-Raw-Data-API-Objective-C)|如何使用 Agora 原始数据接口，实现获取音视频数据流的功能
+[Agora-Screen-Sharing](./Agora-Screen-Sharing)|如何使用 Agora 视频 SDK 和 ReplayKit 来实现 iOS 上的屏幕共享
+[Agora-Video-Source](./Agora-Video-Source)|如何使用自采集的摄像头数据，并通过 Agora 视频 SDK 实现视频通话
+[Agora-Video-With-ARKit](./Agora-Video-With-ARKit)|如何结合 Agora 视频 SDK 和 ARKit ，实现 AR 场景下的视频连麦直播
 
 ## 联系我们
 

@@ -6,13 +6,13 @@ Agora provides a set of sample applications demonstrating how to get advanced vi
 
 Project Folder Name|Description
 ---|---
-[17-Multistream](./Advanced-Video/iOS&macOS/17-Multistream)|Get a large group video chat using the Agora Video SDK on iOS
-[17-Multistream-macOS](./Advanced-Video/iOS&macOS/17-Multistream-macOS)|Get a large group video chat using the Agora Video SDK on macOS
-[Agora-Custom-Media-Device](./Advanced-Video/iOS&macOS/Agora-Custom-Media-Device)|Get live video chat integrated into your applications with custom media devices
-[Agora-Plugin-Raw-Data-API-Objective-C](./Advanced-Video/iOS&macOS/Agora-Plugin-Raw-Data-API-Objective-C)|Show you how to call Agora Raw Data API and Screenshot API of Objective C
-[Agora-Screen-Sharing](./Advanced-Video/iOS&macOS/Agora-Screen-Sharing)|How to add screensharing to your iOS applications using the Agora Video SDK
-[Agora-Video-Source](./Advanced-Video/iOS&macOS/Agora-Video-Source)|Use external video source with Agora Video SDK to start a video chat
-[Agora-Video-With-ARKit](./Advanced-Video/iOS&macOS/Agora-Video-With-ARKit)|Integrate live video chat functionality from the Agora Video SDK using an iOS ARKit sample application
+[17-Multistream](./17-Multistream)|Get a large group video chat using the Agora Video SDK on iOS
+[17-Multistream-macOS](./17-Multistream-macOS)|Get a large group video chat using the Agora Video SDK on macOS
+[Agora-Custom-Media-Device](./Agora-Custom-Media-Device)|Get live video chat integrated into your applications with custom media devices
+[Agora-Plugin-Raw-Data-API-Objective-C](./Agora-Plugin-Raw-Data-API-Objective-C)|Show you how to call Agora Raw Data API and Screenshot API of Objective C
+[Agora-Screen-Sharing](./Agora-Screen-Sharing)|How to add screensharing to your iOS applications using the Agora Video SDK
+[Agora-Video-Source](./Agora-Video-Source)|Use external video source with Agora Video SDK to start a video chat
+[Agora-Video-With-ARKit](./Agora-Video-With-ARKit)|Integrate live video chat functionality from the Agora Video SDK using an iOS ARKit sample application
 
 
 ## Contact Us
