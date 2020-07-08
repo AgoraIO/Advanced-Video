@@ -36,7 +36,7 @@ First, create a developer account at [Agora.io](https://dashboard.agora.io/signi
 
      #define APP_ID _T("Your App ID")
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk** to the "AgoraMediaSource" folder in project(the old one may be over written).
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the files under **libs\include**, to the project folder **Agora-Media-Source-Windows-dx2010\sdk\include** （create if not exist）. Then copy the **dll** file and **lib** file under **libs\x86**, to **sdk\dll** and **sdk\lib** respectively.
 
 Finally, Open AgoraMediaSource.sln, build the solution and run.
 

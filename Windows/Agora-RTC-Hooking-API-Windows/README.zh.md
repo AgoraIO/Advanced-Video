@@ -36,7 +36,7 @@
         LoginUid=111
 
 
-2. 然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，.解压后将其中的 **sdk** 复制到本项目目录下（并覆盖原有旧目录）"Agora-RTC-Hooking-API-Windows"文件夹。
+2. 然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，解压后将 **libs\include** 中的文件，复制到 **Agora-RTC-Hooking-API-Windows** 下的 **sdk\include** 文件夹下（如无该文件夹需新建）。并将 **libs\x86** 下的 **dll** 和 **lib** 文件分别复制到 **sdk\dll** 和 **sdk\lib** 文件夹下。
 
 3. 然后， 需要下载Hook sdk，并把相关文件拷贝到 HookSDK目录下面
 
