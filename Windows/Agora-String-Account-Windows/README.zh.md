@@ -35,7 +35,7 @@
 
     #define APP_ID _T("Your App ID")
 
-然后在 [Agora.io SDK](https://docs.agora.io/cn/Agora%20Platform/downloads) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **sdk** 复制到本项目的 "AgoraMediaSource” 文件夹下。
+然后在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将 **libs\include** 中的文件，复制到 **Agora-String-Account-Windows** 下的 **sdk\include** 文件夹下（如无该文件夹需新建）。并将 **libs\x86** 下的 **dll** 和 **lib** 文件分别复制到 **sdk\dll** 和 **sdk\lib** 文件夹下。
 
 最后使用 VC++2013 打开 AgoraMediaSource.sln，编译整个解决方案
 
