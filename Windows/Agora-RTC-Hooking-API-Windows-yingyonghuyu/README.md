@@ -40,7 +40,7 @@ ChannelName=baluoteliz
 LoginUid=111
 
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk** to the "Agora-RTC-Hooking-API-Windows" folder in project(the old one may be over written).Then, you need to download Dll of the Hook Module and place the relevant folder on the HookSDK.
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the files under **libs\include**, to the project folder **Agora-RTC-Hooking-API-Windows-yingyonghuyu\sdk\include** （create if not exist）. Then copy the **dll** file and **lib** file under **libs\x86**, to **sdk\dll** and **sdk\lib** respectively.Then, you need to download Dll of the Hook Module and place the relevant folder on the HookSDK.
 
 Finally, Open AgoraHooking.sln, build the solution and run.
 
