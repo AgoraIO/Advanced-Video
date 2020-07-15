@@ -165,12 +165,14 @@ void CExtCaptureDlg::OnBnClickedBtnconfirmExtcap()
 void CExtCaptureDlg::OnBnClickedBtnapplyExtcap()
 {
     if (m_cmbCamera.GetCount() >0 &&  m_ckExtVideoCapture.GetCheck()) {
+        m_agVideoCaptureDevice.SelectMediaCap(m_cmbCamCap.GetCurSel());
         m_agVideoCaptureDevice.CreateCaptureFilter();
         VIDEOINFOHEADER videoInfo;
         m_agVideoCaptureDevice.GetCurrentVideoCap(&videoInfo);
         VideoEncoderConfiguration config;
         config.dimensions.width = videoInfo.bmiHeader.biWidth;
         config.dimensions.height = videoInfo.bmiHeader.biHeight;
+        CAgVideoBuffer::GetInstance()->resetVideoBuffer(videoInfo.bmiHeader.biWidth, videoInfo.bmiHeader.biHeight);
         CAgoraObject::GetEngine()->setVideoEncoderConfiguration(config);
     }
     else {
@@ -297,6 +299,7 @@ BOOL CExtCaptureDlg::VideoCaptureControl(BOOL bStart)
     else {
         CAgoraObject::GetAgoraObject()->EnableExtendVideoCapture(FALSE, NULL);
          m_agVideoCaptureDevice.Stop();
+
     }
     return TRUE;
 }

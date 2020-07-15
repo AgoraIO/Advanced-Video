@@ -126,7 +126,7 @@ void CAGDesktopCaptureDlg::OnPaint()
 
 void CAGDesktopCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	CRect rcRegion;
 	DESKTOP_SHARE_PARAM deskShareParam;
 	int nFPS = m_dlgCapSet.GetCaptureFPS();
@@ -147,7 +147,7 @@ void CAGDesktopCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 
 	//	CDialogEx::OnRButtonDown(nFlags, point);
 	m_dlgCapSet.ShowWindow(SW_HIDE);
@@ -156,7 +156,7 @@ void CAGDesktopCaptureDlg::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	m_bMouseLDown = TRUE;
 	m_ptStart = point;
 
@@ -167,7 +167,7 @@ void CAGDesktopCaptureDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	m_bMouseLDown = FALSE;
 	m_ptEnd = point;
 
@@ -180,7 +180,7 @@ void CAGDesktopCaptureDlg::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CAGDesktopCaptureDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	CRect		rcMarkWnd;
 
 	if (m_bMouseLDown) {
@@ -199,7 +199,7 @@ void CAGDesktopCaptureDlg::OnMouseMove(UINT nFlags, CPoint point)
 }
 BOOL CAGDesktopCaptureDlg::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	CDC dcBuffer;
 	dcBuffer.CreateCompatibleDC(pDC);
 	dcBuffer.SelectObject(&m_bmpDesktop);

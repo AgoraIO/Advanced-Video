@@ -271,7 +271,7 @@ BOOL CDeviceDlg::PreTranslateMessage(MSG* pMsg)
 
 void CDeviceDlg::OnBnClickedBtncancelDevice()
 {
-	// TODO:  在此添加控件通知处理程序代码
+	// TODO:  
 	m_agAudioin.TestAudInputDevice(NULL, FALSE);
 	m_slkAudInTest.SetWindowText(LANG_STR("IDS_DEVICE_BTNTEST"));
 
@@ -287,7 +287,7 @@ void CDeviceDlg::OnBnClickedBtncancelDevice()
 
 void CDeviceDlg::OnBnClickedBtnconfirmDevice()
 {
-	// TODO:  在此添加控件通知处理程序代码
+	// TODO:  
 	int		nCurSel = 0;
 	CString strDeviceName;
 	CString strDeviceID;
@@ -335,7 +335,7 @@ LRESULT CDeviceDlg::OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam)
 
 void CDeviceDlg::OnStnClickedSlkainDevice()
 {
-    // TODO:  在此添加控件通知处理程序代码
+    // TODO:  
     if (m_agAudioin.IsTesting()) {
         m_agAudioin.TestAudInputDevice(NULL, FALSE);
         m_slkAudInTest.SetWindowText(LANG_STR("IDS_DEVICE_BTNTEST"));

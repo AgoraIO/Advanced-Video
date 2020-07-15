@@ -251,7 +251,7 @@ void CVideoDlg::AdjustSizeVideoMulti(int cx, int cy)
 
 void CVideoDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 
 	CDialogEx::OnMouseMove(nFlags, point);
 }
@@ -333,7 +333,7 @@ void CVideoDlg::OnPaint()
 
 LRESULT CVideoDlg::OnNcHitTest(CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	LRESULT lResult = CDialogEx::OnNcHitTest(point);
 	if (lResult == HTCLIENT && ::GetAsyncKeyState(MK_LBUTTON) < 0)
 		lResult = HTCAPTION;

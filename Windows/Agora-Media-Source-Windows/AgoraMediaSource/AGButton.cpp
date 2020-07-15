@@ -267,7 +267,7 @@ void CAGButton::DrawFrame(LPDRAWITEMSTRUCT lpDrawItemStruct, UINT nStat)
 
 void CAGButton::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	if (!m_bHover){
 		m_bHover = TRUE;
 		Invalidate(FALSE);
@@ -291,7 +291,7 @@ void CAGButton::OnMouseMove(UINT nFlags, CPoint point)
 
 void CAGButton::OnMouseLeave()
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
+	// TODO:  
 	m_bHover = FALSE;
 	m_bMouseTrack = FALSE;
 	Invalidate(FALSE);
@@ -301,7 +301,7 @@ void CAGButton::OnMouseLeave()
 
 BOOL CAGButton::OnEraseBkgnd(CDC* pDC)
 {
-    // TODO:  在此添加消息处理程序代码和/或调用默认值
+    // TODO:  
 
     return TRUE;
 //    return CButton::OnEraseBkgnd(pDC);

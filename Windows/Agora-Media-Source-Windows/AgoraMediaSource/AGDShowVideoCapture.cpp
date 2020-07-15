@@ -293,7 +293,6 @@ BOOL CAGDShowVideoCapture::GetMediaCap(int nIndex, AM_MEDIA_TYPE **ppMediaType, 
 
 BOOL CAGDShowVideoCapture::SelectMediaCap(int nIndex)
 {
-    return TRUE;
     int		nCount = 0;
     int		nSize = 0;
     HRESULT hResult = S_OK;

@@ -52,3 +52,11 @@ bool CAgVideoBuffer::readBuffer(BYTE* buffer, int bufsize, int& ts)
     ts = timestamp;
     return true;
 }
+
+void CAgVideoBuffer::resetVideoBuffer(int width, int height)
+{
+    int size = width * height;
+    memset(videoBuffer, 0, size);
+    memset(videoBuffer + size, 128, size / 4);
+    memset(videoBuffer + size * 5 / 4, 128, size / 4);
+}

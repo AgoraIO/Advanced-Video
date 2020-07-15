@@ -13,6 +13,7 @@ public:
     bool writeBuffer(BYTE* buffer, int bufsize, int ts);
     bool readBuffer(BYTE* buffer, int bufsize, int& ts);
 
+    void resetVideoBuffer(int width, int height);
     static CAgVideoBuffer* GetInstance();
 private:
     static BYTE videoBuffer[VIDEO_BUF_SIZE];
