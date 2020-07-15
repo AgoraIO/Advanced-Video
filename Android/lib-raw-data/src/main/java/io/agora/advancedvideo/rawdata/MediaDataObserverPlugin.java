@@ -20,7 +20,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Created by yt on 2018/2/1/001.
  */
-public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallback {
+public class MediaDataObserverPlugin implements
+        MediaPreProcessing.IAudioFrameObserver,
+        MediaPreProcessing.IVideoFrameObserver {
 
     private final CopyOnWriteArrayList<MediaDataVideoObserver> videoObserverList = new CopyOnWriteArrayList<>();
     private final CopyOnWriteArrayList<MediaDataAudioObserver> audioObserverList = new CopyOnWriteArrayList<>();
@@ -29,7 +31,6 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     private static final int AUDIO_DEFAULT_BUFFER_SIZE = 2048;
 
     public ByteBuffer byteBufferCapture = ByteBuffer.allocateDirect(VIDEO_DEFAULT_BUFFER_SIZE);
-    public ByteBuffer byteBufferRender = ByteBuffer.allocateDirect(VIDEO_DEFAULT_BUFFER_SIZE);
     public ByteBuffer byteBufferAudioRecord = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
     public ByteBuffer byteBufferAudioPlay = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
     public ByteBuffer byteBufferBeforeAudioMix = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
@@ -45,14 +46,45 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     private String renderFilePath = null;
     private int renderVideoShotUid;
 
-    public static MediaDataObserverPlugin the() {
+    public static synchronized MediaDataObserverPlugin the() {
         if (myAgent == null) {
-            synchronized (MediaDataObserverPlugin.class) {
-                if (myAgent == null)
-                    myAgent = new MediaDataObserverPlugin();
-            }
+            myAgent = new MediaDataObserverPlugin();
         }
         return myAgent;
+    }
+
+    public static synchronized void release() {
+        MediaPreProcessing.release();
+        myAgent = null;
+    }
+
+    public void registerAVRawDataObserver(long rtcEngineNativeHandle, boolean isAudioRegister, boolean isVideoRegister) {
+        if (isAudioRegister) {
+            MediaPreProcessing.registerAudioFrameObserver(this, rtcEngineNativeHandle);
+            MediaPreProcessing.setAudioRecordByteBuffer(byteBufferAudioRecord);
+            MediaPreProcessing.setAudioPlayByteBuffer(byteBufferAudioPlay);
+            MediaPreProcessing.setBeforeAudioMixByteBuffer(byteBufferBeforeAudioMix);
+            MediaPreProcessing.setAudioMixByteBuffer(byteBufferAudioMix);
+        }
+        if (isVideoRegister) {
+            MediaPreProcessing.registerVideoFrameObserver(this, rtcEngineNativeHandle);
+            MediaPreProcessing.setVideoCaptureByteBuffer(byteBufferCapture);
+        }
+    }
+
+    public void unRegisterAVRawDataObserver(long rtcEngineNativeHandle, boolean isAudioUnRegister, boolean isVideoUnRegister) {
+        if (isAudioUnRegister) {
+            MediaPreProcessing.unRegisterAudioFrameObserver(rtcEngineNativeHandle);
+            byteBufferAudioRecord.clear();
+            byteBufferAudioPlay.clear();
+            byteBufferBeforeAudioMix.clear();
+            byteBufferAudioMix.clear();
+        }
+        if (isVideoUnRegister) {
+            MediaPreProcessing.unRegisterVideoFrameObserver(rtcEngineNativeHandle);
+            byteBufferCapture.clear();
+            decodeBufferList.clear();
+        }
     }
 
     public void addVideoObserver(MediaDataVideoObserver observer) {
@@ -98,11 +130,6 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
         }
 
         MediaPreProcessing.setVideoDecodeByteBuffer(uid, null);
-    }
-
-    public void removeAllBuffer() {
-        decodeBufferList.removeAll(decodeBufferList);
-        releaseBuffer();
     }
 
     @Override
@@ -287,12 +314,12 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     }
 
     public void releaseBuffer() {
-        byteBufferCapture.clear();
-        byteBufferRender.clear();
         byteBufferAudioRecord.clear();
         byteBufferAudioPlay.clear();
         byteBufferBeforeAudioMix.clear();
         byteBufferAudioMix.clear();
+        byteBufferCapture.clear();
+        decodeBufferList.clear();
     }
 
 }

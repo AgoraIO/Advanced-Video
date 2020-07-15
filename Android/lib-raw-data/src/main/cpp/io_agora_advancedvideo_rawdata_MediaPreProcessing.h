@@ -9,11 +9,33 @@ extern "C" {
 #endif
 /*
  * Class:     io_agora_advancedvideo_rawdata_MediaPreProcessing
- * Method:    setCallback
- * Signature: (Lio/agora/advancedvideo/rawdata/MediaPreProcessing/ProgressCallback;)V
+ * Method:    registerAudioFrameObserver
+ * Signature: (Lio/agora/advancedvideo/rawdata/MediaPreProcessing/IAudioFrameObserver;)V
  */
-JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_setCallback
-  (JNIEnv *, jclass, jobject);
+JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_registerAudioFrameObserver
+  (JNIEnv *, jclass, jobject, jlong);
+
+/*
+ * Class:     io_agora_advancedvideo_rawdata_MediaPreProcessing
+ * Method:    unRegisterAudioFrameObserver
+ */
+JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_unRegisterAudioFrameObserver
+  (JNIEnv *env, jclass clazz, jlong rtc_engine_native_handle);
+
+/*
+ * Class:     io_agora_advancedvideo_rawdata_MediaPreProcessing
+ * Method:    registerVideoFrameObserver
+ * Signature: (Lio/agora/advancedvideo/rawdata/MediaPreProcessing/IVideoFrameObserver;)V
+ */
+JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_registerVideoFrameObserver
+  (JNIEnv *env, jclass clazz, jobject observer, jlong rtc_engine_native_handle);
+
+/*
+ * Class:     io_agora_advancedvideo_rawdata_MediaPreProcessing
+ * Method:    unRegisterVideoFrameObserver
+ */
+JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_unRegisterVideoFrameObserver
+  (JNIEnv *env, jclass clazz, jlong rtc_engine_native_handle);
 
 /*
  * Class:     io_agora_advancedvideo_rawdata_MediaPreProcessing
@@ -65,10 +87,10 @@ JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_se
 
 /*
  * Class:     io_agora_advancedvideo_rawdata_MediaPreProcessing
- * Method:    releasePoint
+ * Method:    release
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_releasePoint
+JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_release
   (JNIEnv *, jclass);
 
 #ifdef __cplusplus

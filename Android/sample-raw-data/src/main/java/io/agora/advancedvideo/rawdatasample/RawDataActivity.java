@@ -13,7 +13,6 @@ import io.agora.advancedvideo.activities.BaseLiveActivity;
 import io.agora.advancedvideo.rawdata.MediaDataAudioObserver;
 import io.agora.advancedvideo.rawdata.MediaDataObserverPlugin;
 import io.agora.advancedvideo.rawdata.MediaDataVideoObserver;
-import io.agora.advancedvideo.rawdata.MediaPreProcessing;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
@@ -30,20 +29,18 @@ public class RawDataActivity extends BaseLiveActivity implements MediaDataVideoO
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mediaDataObserverPlugin = MediaDataObserverPlugin.the();
-        MediaPreProcessing.setCallback(mediaDataObserverPlugin);
-        MediaPreProcessing.setVideoCaptureByteBuffer(mediaDataObserverPlugin.byteBufferCapture);
+        mediaDataObserverPlugin.registerAVRawDataObserver(rtcEngine().getNativeHandle(), false, true);
         mediaDataObserverPlugin.addVideoObserver(this);
     }
 
     @Override
     public void onDestroy() {
-        rtcEngine().leaveChannel();
-        if (mediaDataObserverPlugin != null) {
-            mediaDataObserverPlugin.removeVideoObserver(this);
-            mediaDataObserverPlugin.removeAllBuffer();
-        }
-        MediaPreProcessing.releasePoint();
         super.onDestroy();
+        if (mediaDataObserverPlugin != null) {
+            mediaDataObserverPlugin.unRegisterAVRawDataObserver(rtcEngine().getNativeHandle(), false, true);
+            mediaDataObserverPlugin.removeVideoObserver(this);
+        }
+        rtcEngine().leaveChannel();
     }
 
     @Override

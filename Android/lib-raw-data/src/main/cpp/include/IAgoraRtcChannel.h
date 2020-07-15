@@ -147,7 +147,7 @@ public:
      Reasons why the user is offline:
 
      - Leave the channel: When the user/host leaves the channel, the user/host sends a goodbye message. When the message is received, the SDK assumes that the user/host leaves the channel.
-     - Drop offline: When no data packet of the user or host is received for a certain period of time, the SDK assumes that the user/host drops offline. Unreliable network connections may lead to false detections, so we recommend using a signaling system for more reliable offline detection.
+     - Drop offline: When no data packet of the user or host is received for a certain period of time, the SDK assumes that the user/host drops offline. Unreliable network connections may lead to false detections, so we recommend using the Agora RTM SDK for more reliable offline detection.
 
      @param rtcChannel IChannel
      @param uid User ID of the user leaving the channel or going offline.
@@ -161,11 +161,11 @@ public:
     /** Occurs when the SDK cannot reconnect to Agora's edge server 10 seconds after its connection to the server is interrupted.
 
      The SDK triggers this callback when it cannot connect to the server 10 seconds after calling the \ref IChannel::joinChannel "joinChannel" method, whether or not it is in the channel.
+     
+     This callback is different from \ref agora::rtc::IRtcEngineEventHandler::onConnectionInterrupted "onConnectionInterrupted":
 
-     This callback is different from \ref agora::rtc::IChannelEventHandler::onConnectionInterrupted "onConnectionInterrupted":
-
-     - The SDK triggers the \ref agora::rtc::IChannelEventHandler::onConnectionInterrupted "onConnectionInterrupted" callback when it loses connection with the server for more than four seconds after it successfully joins the channel.
-     - The SDK triggers the \ref agora::rtc::IChannelEventHandler::onConnectionLost "onConnectionLost" callback when it loses connection with the server for more than 10 seconds, whether or not it joins the channel.
+     - The SDK triggers the `onConnectionInterrupted` callback when it loses connection with the server for more than four seconds after it successfully joins the channel.
+     - The SDK triggers the `onConnectionLost` callback when it loses connection with the server for more than 10 seconds, whether or not it joins the channel.
 
      If the SDK fails to rejoin the channel 20 minutes after being disconnected from Agora's edge server, the SDK stops rejoining the channel.
      
@@ -178,7 +178,7 @@ public:
 
      After a token is specified by calling the \ref IChannel::joinChannel "joinChannel" method, if the SDK losses connection with the Agora server due to network issues, the token may expire after a certain period of time and a new token may be required to reconnect to the server.
 
-     This callback notifies the application to generate a new token. Call the \ref IChannel::renewToken "renewToken" method to renew the token.
+     This callback notifies the app to generate a new token and call `joinChannel` to rejoin the channel with the new token.
      
      @param rtcChannel IChannel
      */
@@ -213,7 +213,7 @@ public:
 
      @param rtcChannel IChannel
      @param uid User ID. The network quality of the user with this @p uid is reported. If @p uid is 0, the local network quality is reported.
-     @param txQuality Uplink transmission quality rating of the user in terms of the transmission bitrate, packet loss rate, average RTT (Round-Trip Time), and jitter of the uplink network. @p txQuality is a quality rating helping you understand how well the current uplink network conditions can support the selected VideoEncoderConfiguration. For example, a 1000 Kbps uplink network may be adequate for video frames with a resolution of 640 &times; 480 and a frame rate of 15 fps in the Live-broadcast profile, but may be inadequate for resolutions higher than 1280 &times; 720. See #QUALITY_TYPE.
+     @param txQuality Uplink transmission quality rating of the user in terms of the transmission bitrate, packet loss rate, average RTT (Round-Trip Time), and jitter of the uplink network. @p txQuality is a quality rating helping you understand how well the current uplink network conditions can support the selected VideoEncoderConfiguration. For example, a 1000 Kbps uplink network may be adequate for video frames with a resolution of 640 * 480 and a frame rate of 15 fps in the Live-broadcast profile, but may be inadequate for resolutions higher than 1280 * 720. See #QUALITY_TYPE.
      @param rxQuality Downlink network quality rating of the user in terms of the packet loss rate, average RTT, and jitter of the downlink network. See #QUALITY_TYPE.
      */
     virtual void onNetworkQuality(IChannel *rtcChannel, uid_t uid, int txQuality, int rxQuality) {
@@ -238,7 +238,7 @@ public:
     }
     /** Reports the statistics of the audio stream from each remote user/host.
 
-     This callback replaces the \ref agora::rtc::IChannelEventHandler::onAudioQuality "onAudioQuality" callback.
+     This callback replaces the \ref agora::rtc::IRtcEngineEventHandler::onAudioQuality "onAudioQuality" callback.
 
      The SDK triggers this callback once every two seconds for each remote user/host. If a channel includes multiple remote users, the SDK triggers this callback as many times.
 
@@ -250,17 +250,18 @@ public:
         (void)stats;
     }
     /** Occurs when the remote audio state changes.
-     *
-     * This callback indicates the state change of the remote audio stream.
-     * 
-     * @param rtcChannel IChannel
-     * @param uid ID of the remote user whose audio state changes.
-     * @param state State of the remote audio. See #REMOTE_AUDIO_STATE.
-     * @param reason The reason of the remote audio state change.
-     * See #REMOTE_AUDIO_STATE_REASON.
-     * @param elapsed Time elapsed (ms) from the local user calling the
-     * \ref IChannel::joinChannel "joinChannel" method until the SDK
-     * triggers this callback.
+     
+      This callback indicates the state change of the remote audio stream.
+      @note This callback does not work properly when the number of users (in the Communication profile) or broadcasters (in the Live-broadcast profile) in the channel exceeds 17.
+      
+      @param rtcChannel IChannel
+      @param uid ID of the remote user whose audio state changes.
+      @param state State of the remote audio. See #REMOTE_AUDIO_STATE.
+      @param reason The reason of the remote audio state change.
+      See #REMOTE_AUDIO_STATE_REASON.
+      @param elapsed Time elapsed (ms) from the local user calling the
+      \ref IChannel::joinChannel "joinChannel" method until the SDK
+      triggers this callback.
      */
     virtual void onRemoteAudioStateChanged(IChannel *rtcChannel, uid_t uid, REMOTE_AUDIO_STATE state, REMOTE_AUDIO_STATE_REASON reason, int elapsed) {
         (void)rtcChannel;
@@ -271,14 +272,14 @@ public:
     }
     /** Reports which user is the loudest speaker.
 
-    If the user enables the audio volume indication by calling the \ref IChannel::enableAudioVolumeIndication(int, int, bool) "enableAudioVolumeIndication" method, this callback returns the @p uid of the active speaker detected by the audio volume detection module of the SDK.
+    If the user enables the audio volume indication by calling the \ref IRtcEngine::enableAudioVolumeIndication(int, int, bool) "enableAudioVolumeIndication" method, this callback returns the @p uid of the active speaker detected by the audio volume detection module of the SDK.
 
     @note
-    - To receive this callback, you need to call the \ref IChannel::enableAudioVolumeIndication(int, int, bool) "enableAudioVolumeIndication" method.
+    - To receive this callback, you need to call the \ref IRtcEngine::enableAudioVolumeIndication(int, int, bool) "enableAudioVolumeIndication" method.
     - This callback returns the user ID of the user with the highest voice volume during a period of time, instead of at the moment.
     
     @param rtcChannel IChannel
-    @param uid User ID of the active speaker. A @p uid of 0 represents the local user.
+    @param uid User ID of the active speaker. A `uid` of 0 represents the local user.
     */
     virtual void onActiveSpeaker(IChannel *rtcChannel, uid_t uid) {
         (void)rtcChannel;
@@ -300,15 +301,17 @@ public:
         (void)rotation;
     }
     /** Occurs when the remote video state changes.
-     * 
-     * @param rtcChannel IChannel
-     * @param uid ID of the remote user whose video state changes.
-     * @param state State of the remote video. See #REMOTE_VIDEO_STATE.
-     * @param reason The reason of the remote video state change. See
-     * #REMOTE_VIDEO_STATE_REASON.
-     * @param elapsed Time elapsed (ms) from the local user calling the
-     * \ref agora::rtc::IChannel::joinChannel "joinChannel" method until the
-     * SDK triggers this callback.
+      
+     @note This callback does not work properly when the number of users (in the Communication profile) or broadcasters (in the Live-broadcast profile) in the channel exceeds 17.
+     
+     @param rtcChannel IChannel
+     @param uid ID of the remote user whose video state changes.
+     @param state State of the remote video. See #REMOTE_VIDEO_STATE.
+     @param reason The reason of the remote video state change. See
+     #REMOTE_VIDEO_STATE_REASON.
+     @param elapsed Time elapsed (ms) from the local user calling the
+     \ref agora::rtc::IChannel::joinChannel "joinChannel" method until the
+     SDK triggers this callback.
      */
     virtual void onRemoteVideoStateChanged(IChannel *rtcChannel, uid_t uid, REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed) {
         (void)rtcChannel;
@@ -416,12 +419,25 @@ public:
         (void)uid;
         (void)status;
     }
+    /** Occurs when the published media stream falls back to an audio-only stream due to poor network conditions or switches back to the video after the network conditions improve.
+
+    If you call \ref IRtcEngine::setLocalPublishFallbackOption "setLocalPublishFallbackOption" and set *option* as #STREAM_FALLBACK_OPTION_AUDIO_ONLY, the SDK triggers this callback when the published stream falls back to audio-only mode due to poor uplink conditions, or when the audio stream switches back to the video after the uplink network condition improves.
+
+    @param rtcChannel IChannel
+    @param isFallbackOrRecover Whether the published stream falls back to audio-only or switches back to the video:
+    - true: The published stream falls back to audio-only due to poor network conditions.
+    - false: The published stream switches back to the video after the network conditions improve.
+    */
+    virtual void onLocalPublishFallbackToAudioOnly(IChannel *rtcChannel, bool isFallbackOrRecover) {
+        (void)rtcChannel;
+        (void)isFallbackOrRecover;
+    }
     /** Occurs when the remote media stream falls back to audio-only stream
      * due to poor network conditions or switches back to the video stream
      * after the network conditions improve.
      *
      * If you call
-     * \ref IChannel::setRemoteSubscribeFallbackOption
+     * \ref IRtcEngine::setRemoteSubscribeFallbackOption
      * "setRemoteSubscribeFallbackOption" and set
      * @p option as #STREAM_FALLBACK_OPTION_AUDIO_ONLY, the SDK triggers this
      * callback when the remote media stream falls back to audio-only mode due
@@ -506,7 +522,7 @@ public:
      - In situations requiring high security: Set it as the token generated at your server. For details, see [Generate a token](https://docs.agora.io/en/Agora%20Platform/token?platfor%20*%20m=All%20Platforms#get-a-token).
      @param info (Optional) Additional information about the channel. This parameter can be set as null. Other users in the channel do not receive this information.
      @param uid The user ID. A 32-bit unsigned integer with a value ranging from 1 to (232-1). This parameter must be unique. If `uid` is not assigned (or set as `0`), the SDK assigns a `uid` and reports it in the \ref agora::rtc::IChannelEventHandler::onJoinChannelSuccess "onJoinChannelSuccess" callback. The app must maintain this user ID.
-     @param options The channel media options: ChannelMediaOptions.
+     @param options The channel media options: \ref agora::rtc::ChannelMediaOptions::ChannelMediaOptions "ChannelMediaOptions"
 
      @return 
      - 0: Success.
@@ -523,8 +539,8 @@ public:
 
      After the user successfully joins the channel, the SDK triggers the following callbacks:
 
-     - The local client: \ref agora::rtc::IChannelEventHandler::onLocalUserRegistered "onLocalUserRegistered" and \ref agora::rtc::IChannelEventHandler::onJoinChannelSuccess "onJoinChannelSuccess" .
-     The remote client: \ref agora::rtc::IChannelEventHandler::onUserJoined "onUserJoined" and \ref agora::rtc::IChannelEventHandler::onUserInfoUpdated "onUserInfoUpdated" , if the user joining the channel is in the Communication profile, or is a BROADCASTER in the Live Broadcast profile.
+     - The local client: \ref agora::rtc::IRtcEngineEventHandler::onLocalUserRegistered "onLocalUserRegistered" and \ref agora::rtc::IChannelEventHandler::onJoinChannelSuccess "onJoinChannelSuccess" .
+     - The remote client: \ref agora::rtc::IChannelEventHandler::onUserJoined "onUserJoined" and \ref agora::rtc::IRtcEngineEventHandler::onUserInfoUpdated "onUserInfoUpdated" , if the user joining the channel is in the Communication profile, or is a BROADCASTER in the Live Broadcast profile.
 
      @note To ensure smooth communication, use the same parameter type to identify the user. For example, if a user joins the channel with a user ID, then ensure all the other users use the user ID too. The same applies to the user account.
      If a user joins the channel with the Agora Web SDK, ensure that the uid of the user is set to the same parameter type.
@@ -532,18 +548,13 @@ public:
      @param token The token generated at your server:
      - For low-security requirements: You can use the temporary token generated at Console. For details, see [Get a temporary toke](https://docs.agora.io/en/Voice/token?platform=All%20Platforms#get-a-temporary-token).
      - For high-security requirements: Set it as the token generated at your server. For details, see [Get a token](https://docs.agora.io/en/Voice/token?platform=All%20Platforms#get-a-token).
-     @param channelId The channel name. The maximum length of this parameter is 64 bytes. Supported character scopes are:
-      The 26 lowercase English letters: a to z.
-     - The 26 uppercase English letters: A to Z.
-     - The 10 numbers: 0 to 9.
-     - The space.
-     - "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
      @param userAccount The user account. The maximum length of this parameter is 255 bytes. Ensure that you set this parameter and do not set it as null. Supported character scopes are:
-     - The 26 lowercase English letters: a to z.
-     - The 26 uppercase English letters: A to Z.
-     - The 10 numbers: 0 to 9.
-     - The space.
-     - "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
+     - All lowercase English letters: a to z.
+     - All uppercase English letters: A to Z.
+     - All numeric characters: 0 to 9.
+     - The space character.
+     - Punctuation characters and other symbols, including: "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
+     @param options The channel media options: \ref agora::rtc::ChannelMediaOptions::ChannelMediaOptions “ChannelMediaOptions”.
 
      @return
      - 0: Success.
@@ -612,9 +623,9 @@ public:
     /** Retrieves the current call ID.
 
      When a user joins a channel on a client, a `callId` is generated to identify the call from the client. 
-     Feedback methods, such as \ref IChannel::rate "rate" and \ref IChannel::complain "complain", must be called after the call ends to submit feedback to the SDK.
+     Feedback methods, such as \ref IRtcEngine::rate "rate" and \ref IRtcEngine::complain "complain", must be called after the call ends to submit feedback to the SDK.
 
-     The \ref `rate` and `complain` methods require the `callId` parameter retrieved from the `getCallId` method during a call. `callId` is passed as an argument into the `rate` and `complain` methods after the call ends.
+     The `rate` and `complain` methods require the `callId` parameter retrieved from the `getCallId` method during a call. `callId` is passed as an argument into the `rate` and `complain` methods after the call ends.
 
      @param callId The current call ID.
 
@@ -728,7 +739,7 @@ public:
     virtual int setClientRole(CLIENT_ROLE_TYPE role) = 0;
     /** Prioritizes a remote user's stream.
 
-     Use this method with the \ref IChannel::setRemoteSubscribeFallbackOption "setRemoteSubscribeFallbackOption" method. 
+     Use this method with the \ref IRtcEngine::setRemoteSubscribeFallbackOption "setRemoteSubscribeFallbackOption" method. 
      If the fallback function is enabled for a subscribed stream, the SDK ensures the high-priority user gets the best possible stream quality.
 
      @note The Agora SDK supports setting `serPriority` as high for one user only.
@@ -748,7 +759,7 @@ public:
      such as Battle Royale games.
 
      @note
-     - For this method to work, enable stereo panning for remote users by calling the \ref agora::rtc::IChannel::enableSoundPositionIndication "enableSoundPositionIndication" method before joining a channel.
+     - For this method to work, enable stereo panning for remote users by calling the \ref agora::rtc::IRtcEngine::enableSoundPositionIndication "enableSoundPositionIndication" method before joining a channel.
      - This method requires hardware support. For the best sound positioning, we recommend using a stereo speaker.
 
      @param uid The ID of the remote user.
@@ -763,14 +774,14 @@ public:
      - 0: Success.
      - < 0: Failure.
      */
-    virtual int setRemoteVoicePosition(int uid, double pan, double gain) = 0;
+    virtual int setRemoteVoicePosition(uid_t uid, double pan, double gain) = 0;
     /** Updates the display mode of the video view of a remote user.
 
      After initializing the video view of a remote user, you can call this method to update its rendering and mirror modes. 
      This method affects only the video view that the local user sees.
 
      @note
-     - Call this method after calling the \ref IChannel::setupRemoteVideo "setupRemoteVideo" method to initialize the remote video view.
+     - Call this method after calling the \ref agora::rtc::IRtcEngine::setupRemoteVideo "setupRemoteVideo" method to initialize the remote video view.
      - During a call, you can call this method as many times as necessary to update the display mode of the video view of a remote user.
 
      @param userId The ID of the remote user.
@@ -784,7 +795,14 @@ public:
      - < 0: Failure.
      */
     virtual int setRemoteRenderMode(uid_t userId, RENDER_MODE_TYPE renderMode, VIDEO_MIRROR_MODE_TYPE mirrorMode) = 0;
-    /** Stops/Resumes receiving all remote users' audio streams by default.
+    /** Sets whether to receive all remote audio streams by default. 
+     
+     You can call this method either before or after joining a channel. If you call `setDefaultMuteAllRemoteAudioStreams (true)` after joining a channel, the remote audio streams of all subsequent users are not received.
+
+     @note If you want to resume receiving the audio stream, call \ref agora::rtc::IChannel::muteRemoteAudioStream "muteRemoteAudioStream (false)", 
+     and specify the ID of the remote user whose audio stream you want to receive. 
+     To receive the audio streams of multiple remote users, call `muteRemoteAudioStream (false)` as many times. 
+     Calling `setDefaultMuteAllRemoteAudioStreams (false)` resumes receiving the audio streams of subsequent users only.
 
      @param mute Sets whether to receive/stop receiving all remote users' audio streams by default:
      - true:  Stops receiving all remote users' audio streams by default.
@@ -795,7 +813,18 @@ public:
      - < 0: Failure.
      */
     virtual int setDefaultMuteAllRemoteAudioStreams(bool mute) = 0;
-    /** Stops/Resumes receiving all remote users' video streams by default.
+    /** Sets whether to receive all remote video streams by default. 
+     
+     You can call this method either before or after joining a channel. If you 
+     call `setDefaultMuteAllRemoteVideoStreams (true)` after joining a channel, 
+     the remote video streams of all subsequent users are not received.
+
+     @note If you want to resume receiving the video stream, call 
+     \ref agora::rtc::IChannel::muteRemoteVideoStream "muteRemoteVideoStream (false)", 
+     and specify the ID of the remote user whose video stream you want to receive. 
+     To receive the video streams of multiple remote users, call `muteRemoteVideoStream (false)` 
+     as many times. Calling `setDefaultMuteAllRemoteVideoStreams (false)` resumes 
+     receiving the video streams of subsequent users only.
 
      @param mute Sets whether to receive/stop receiving all remote users' video streams by default:
      - true: Stop receiving all remote users' video streams by default.
@@ -819,7 +848,7 @@ public:
     virtual int muteAllRemoteAudioStreams(bool mute) = 0;
     /** Adjust the playback volume of the specified remote user.
 
-     After joining a channel, call \ref agora::rtc::IChannel::adjustPlaybackSignalVolume "adjustPlaybackSignalVolume" to adjust the playback volume of different remote users, 
+     After joining a channel, call \ref agora::rtc::IRtcEngine::adjustPlaybackSignalVolume "adjustPlaybackSignalVolume" to adjust the playback volume of different remote users, 
      or adjust multiple times for one remote user.
      
      @note
@@ -828,7 +857,7 @@ public:
      - This method can only adjust the playback volume of one specified remote user at a time. If you want to adjust the playback volume of several remote users, 
      call the method multiple times, once for each remote user.
 
-     @param uid The user ID, which should be the same as the `uid` of \ref agora::rtc::IChannel::joinChannel "joinChannel"
+     @param userId The user ID, which should be the same as the `uid` of \ref agora::rtc::IChannel::joinChannel "joinChannel"
      @param volume The playback volume of the voice. The value ranges from 0 to 100:
      - 0: Mute.
      - 100: Original volume.
@@ -841,7 +870,7 @@ public:
     /** Stops/Resumes receiving a specified remote user's audio stream.
 
 	 @note If you called the \ref agora::rtc::IChannel::muteAllRemoteAudioStreams "muteAllRemoteAudioStreams" method and set `mute` as `true` to stop 
-     receiving all remote users' audio streams, call the m`uteAllRemoteAudioStreams` method and set `mute` as `false` before calling this method. 
+     receiving all remote users' audio streams, call the `muteAllRemoteAudioStreams` method and set `mute` as `false` before calling this method. 
      The `muteAllRemoteAudioStreams` method sets all remote audio streams, while the `muteRemoteAudioStream` method sets a specified remote audio stream.
 
 	 @param userId The user ID of the specified remote user sending the audio.
@@ -882,18 +911,21 @@ public:
      - < 0: Failure.
      */
     virtual int muteRemoteVideoStream(uid_t userId, bool mute) = 0;
-    /** Sets the remote user's video stream type received by the local user when the remote user sends dual streams.
+    /** Sets the stream type of the remote video.
 
-     This method allows the application to adjust the corresponding video-stream type based on the size of the video window to reduce the bandwidth and resources.
+     Under limited network conditions, if the publisher has not disabled the dual-stream mode using 
+     \ref agora::rtc::IRtcEngine::enableDualStreamMode "enableDualStreamMode" (false), 
+     the receiver can choose to receive either the high-quality video stream (the high resolution, and high bitrate video stream) or 
+     the low-video stream (the low resolution, and low bitrate video stream).
 
-     - If the remote user enables the dual-stream mode by calling the \ref agora::rtc::IChannel::enableDualStreamMode "enableDualStreamMode" method, 
-     the SDK receives the high-stream video by default.
-     - If the dual-stream mode is not enabled, the SDK receives the high-stream video by default.
+     By default, users receive the high-quality video stream. Call this method if you want to switch to the low-video stream. 
+     This method allows the app to adjust the corresponding video stream type based on the size of the video window to 
+     reduce the bandwidth and resources.
 
-     The method result returns in the \ref agora::rtc::IChannelEventHandler::onApiCallExecuted "onApiCallExecuted" callback. 
-     The SDK receives the high-stream video by default to reduce the bandwidth. If needed, users may use this method to switch to the low-stream video.
-     By default, the aspect ratio of the low-stream video is the same as the high-stream video. Once the resolution of the high-stream video is set, 
-     the system automatically sets the resolution, frame rate, and bitrate of the low-stream video.
+     The aspect ratio of the low-video stream is the same as the high-quality video stream. Once the resolution of the high-quality video 
+     stream is set, the system automatically sets the resolution, frame rate, and bitrate of the low-video stream.
+
+     The method result returns in the \ref agora::rtc::IRtcEngineEventHandler::onApiCallExecuted "onApiCallExecuted" callback.
 
      @param userId The ID of the remote user sending the video stream.
      @param streamType  Sets the video-stream type. See #REMOTE_VIDEO_STREAM_TYPE.
@@ -902,14 +934,20 @@ public:
      - < 0: Failure.
      */
     virtual int setRemoteVideoStreamType(uid_t userId, REMOTE_VIDEO_STREAM_TYPE streamType) = 0;
-    /** Sets the default video-stream type for the video received by the local user when the remote user sends dual streams.
+    /** Sets the default stream type of remote videos.
 
-     - If the dual-stream mode is enabled by calling the \ref agora::rtc::IChannel::enableDualStreamMode "enableDualStreamMode" method, 
-     the user receives the high-stream video by default. The `setRemoteDefaultVideoStreamType` method allows the application to adjust the corresponding video-stream type according to the size of the video window, reducing the bandwidth and resources.
-     - If the dual-stream mode is not enabled, the user receives the high-stream video by default.
+     Under limited network conditions, if the publisher has not disabled the dual-stream mode using 
+     \ref agora::rtc::IRtcEngine::enableDualStreamMode "enableDualStreamMode" (false), 
+     the receiver can choose to receive either the high-quality video stream (the high resolution, and high bitrate video stream) or 
+     the low-video stream (the low resolution, and low bitrate video stream).
 
-     The result after calling this method is returned in the \ref agora::rtc::IChannelEventHandler::onApiCallExecuted "onApiCallExecuted" callback. 
-     The Agora SDK receives the high-stream video by default to reduce the bandwidth. If needed, users can switch to the low-stream video through this method.
+     By default, users receive the high-quality video stream. Call this method if you want to switch to the low-video stream. 
+     This method allows the app to adjust the corresponding video stream type based on the size of the video window to 
+     reduce the bandwidth and resources. The aspect ratio of the low-video stream is the same as the high-quality video stream.
+      Once the resolution of the high-quality video 
+     stream is set, the system automatically sets the resolution, frame rate, and bitrate of the low-video stream.
+
+     The method result returns in the \ref agora::rtc::IRtcEngineEventHandler::onApiCallExecuted "onApiCallExecuted" callback.
 
      @param streamType Sets the default video-stream type. See #REMOTE_VIDEO_STREAM_TYPE.
 
@@ -952,8 +990,9 @@ public:
      A failed \ref agora::rtc::IChannel::sendStreamMessage "sendStreamMessage" method call triggers 
      the \ref agora::rtc::IChannelEventHandler::onStreamMessageError "onStreamMessage" callback on the remote client.
 
-     @note This method applies only to the Communication profile or to the hosts in the Live-broadcast profile. 
-     If an audience in the Live-broadcast profile calls this method, the audience may be switched to a host.
+     @note 
+     - This method applies only to the Communication profile or to the hosts in the Live-broadcast profile. If an audience in the Live-broadcast profile calls this method, the audience may be switched to a host.
+     - Ensure that you have created the data stream using \ref agora::rtc::IChannel::createDataStream "createDataStream" before calling this method.
 
      @param  streamId  The ID of the sent data stream, returned in the \ref IChannel::createDataStream "createDataStream" method.
      @param data The sent data.
@@ -965,16 +1004,16 @@ public:
      */
     virtual int sendStreamMessage(int streamId, const char* data, size_t length) = 0;
     /** Publishes the local stream to a specified CDN live RTMP address.  (CDN live only.)
-
-     The SDK returns the result of this method call in the \ref IChannelEventHandler::onStreamPublished "onStreamPublished" callback.
-
+     
+     The SDK returns the result of this method call in the \ref IRtcEngineEventHandler::onStreamPublished "onStreamPublished" callback.
+    
      The \ref agora::rtc::IChannel::addPublishStreamUrl "addPublishStreamUrl" method call triggers 
      the \ref agora::rtc::IChannelEventHandler::onRtmpStreamingStateChanged "onRtmpStreamingStateChanged" callback on the local client 
      to report the state of adding a local stream to the CDN.
 
      @note
      - Ensure that the user joins the channel before calling this method.
-     - Ensure that you enable the RTMP Converter service before using this function. See [Prerequisites](https://docs.agora.io/en/Interactive%20Broadcast/cdn_streaming_windows?platform=Windows#prerequisites).
+     - Ensure that you enable the RTMP Converter service before using this function. See Prerequisites in the advanced guide *Push Streams to CDN*.
      - This method adds only one stream RTMP URL address each time it is called.
 
      @param url The CDN streaming URL in the RTMP format. The maximum length of this parameter is 1024 bytes. The RTMP URL address must not contain special characters, such as Chinese language characters.
@@ -991,8 +1030,9 @@ public:
     virtual int addPublishStreamUrl(const char *url, bool transcodingEnabled) = 0;
     /** Removes an RTMP stream from the CDN. 
 
-     This method removes the RTMP URL address (added by the \ref IChannel::addPublishStreamUrl "addPublishStreamUrl" method) from a CDN live stream. 
-     The SDK returns the result of this method call in the \ref IChannelEventHandler::onStreamUnpublished "onStreamUnpublished" callback.
+     This method removes the RTMP URL address (added by the \ref IChannel::addPublishStreamUrl "addPublishStreamUrl" method) from a CDN live stream.
+    
+     The SDK returns the result of this method call in the \ref IRtcEngineEventHandler::onStreamUnpublished "onStreamUnpublished" callback.
 
      The \ref agora::rtc::IChannel::removePublishStreamUrl "removePublishStreamUrl" method call triggers 
      the \ref agora::rtc::IChannelEventHandler::onRtmpStreamingStateChanged "onRtmpStreamingStateChanged" callback on the local client to report the state of removing an RTMP stream from the CDN.
@@ -1014,8 +1054,8 @@ public:
      call the `setLiveTranscoding` method to update the transcoding setting.
      
      @note
-     - Ensure that you enable the RTMP Converter service before using this function. See [Prerequisites](https://docs.agora.io/en/Interactive%20Broadcast/cdn_streaming_windows?platform=Windows#prerequisites).
-     - If you call the `setLiveTranscoding` method to update the transcoding setting for the first time, the SDK does not trigger the `onTranscodingUpdated` callback.
+     - Ensure that you enable the RTMP Converter service before using this function. See Prerequisites in the advanced guide *Push Streams to CDN*..
+     - If you call the `setLiveTranscoding` method to set the transcoding setting for the first time, the SDK does not trigger the `onTranscodingUpdated` callback.
   
      @param transcoding Sets the CDN live audio/video transcoding settings. See LiveTranscoding.
 
@@ -1026,8 +1066,8 @@ public:
     virtual int setLiveTranscoding(const LiveTranscoding &transcoding) = 0;
     /** Adds a voice or video stream URL address to a live broadcast.
 
-    The \ref IChannelEventHandler::onStreamPublished "onStreamPublished" callback returns the inject status. 
-    If this method call is successful, the server pulls the voice or video stream and injects it into a live channel. 
+    The \ref IRtcEngineEventHandler::onStreamPublished "onStreamPublished" callback returns the inject status. 
+    If this method call is successful, the server pulls the voice or video stream and injects it into a live channel.
     This is applicable to scenarios where all audience members in the channel can watch a live show and interact with each other.
 
      The \ref agora::rtc::IChannel::addInjectStreamUrl "addInjectStreamUrl" method call triggers the following callbacks:
@@ -1038,12 +1078,14 @@ public:
       - \ref agora::rtc::IChannelEventHandler::onUserJoined "onUserJoined" (uid: 666), if the method call is successful and the online media stream is injected into the channel.
 
      @note
-     - Ensure that you enable the RTMP Converter service before using this function. See [Prerequisites](https://docs.agora.io/en/Interactive%20Broadcast/cdn_streaming_windows?platform=Windows#prerequisites).
+     - Ensure that you enable the RTMP Converter service before using this function. See Prerequisites in the advanced guide *Push Streams to CDN*.
      - This method applies to the Native SDK v2.4.1 and later.
+     - This method applies to the Live-Broadcast profile only.
+     - You can inject only one media stream into the channel at the same time.
 
-     @param url The URL address to be added to the ongoing live broadcast. Valid protocols are RTMP, HLS, and FLV.
-     - Supported FLV audio codec type: AAC.
-     - Supported FLV video codec type: H264 (AVC).
+     @param url The URL address to be added to the ongoing live broadcast. Valid protocols are RTMP, HLS, and HTTP-FLV.
+     - Supported audio codec type: AAC.
+     - Supported video codec type: H264 (AVC).
      @param config The InjectStreamConfig object that contains the configuration of the added voice or video stream.
 
      @return
@@ -1051,7 +1093,7 @@ public:
      - < 0: Failure.
         - #ERR_INVALID_ARGUMENT (2): The injected URL does not exist. Call this method again to inject the stream and ensure that the URL is valid.
         - #ERR_NOT_READY (3): The user is not in the channel.
-        - #ERR_NOT_SUPPORTED (4): The channel profile is not live broadcast. Call the \ref agora::rtc::IChannel::setChannelProfile "setChannelProfile" method and set the channel profile to live broadcast before calling this method.
+        - #ERR_NOT_SUPPORTED (4): The channel profile is not live broadcast. Call the \ref IRtcEngine::setChannelProfile "setChannelProfile" method and set the channel profile to live broadcast before calling this method.
         - #ERR_NOT_INITIALIZED (7): The SDK is not initialized. Ensure that the IChannel object is initialized before calling this method.
      */
     virtual int addInjectStreamUrl(const char* url, const InjectStreamConfig& config) = 0;
@@ -1109,7 +1151,9 @@ public:
      * - < 0: Failure.
      */
     virtual int startChannelMediaRelay(const ChannelMediaRelayConfiguration &configuration) = 0;
-    /** Updates the channels for media stream relay. After a successful
+    /** Updates the channels for media stream relay. 
+     * 
+     * After a successful
      * \ref startChannelMediaRelay() "startChannelMediaRelay" method call, if
      * you want to relay the media stream to more channels, or leave the
      * current relay channel, you can call the
@@ -1164,7 +1208,9 @@ public:
      */
     virtual CONNECTION_STATE_TYPE getConnectionState() = 0;
 };
-/** The IRtcEngine2 class. */
+/** @since v3.0.0 
+ 
+ The IRtcEngine2 class. */
 class IRtcEngine2 : public IRtcEngine
 {
 public:
@@ -1189,7 +1235,7 @@ public:
      @return 
      - The `IChannel` object, if the method call succeeds.
      - An empty pointer NULL, if the method call fails.
-     - #ERR_REFUSED(5), if you set channelId as the empty string "".
+     - `ERR_REFUSED(5)`, if you set channelId as the empty string "".
      */
     virtual IChannel* createChannel(const char *channelId) = 0;
     
