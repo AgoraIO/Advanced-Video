@@ -603,7 +603,7 @@ void CAGDShowVideoCapture::Receive(bool video, IMediaSample *sample)
             m_lpY, bmiHeader->biWidth,
             m_lpU, bmiHeader->biWidth / 2,
             m_lpV, bmiHeader->biWidth / 2,
-            bmiHeader->biWidth, -bmiHeader->biHeight);
+            bmiHeader->biWidth, bmiHeader->biHeight);
         break;
     case MAKEFOURCC('I', '4', '2', '0'):	// I420
         memcpy_s(m_lpYUVBuffer, 0x800000, pBuffer, size);
