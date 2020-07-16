@@ -36,11 +36,13 @@ public class RawDataActivity extends BaseLiveActivity implements MediaDataVideoO
     @Override
     public void onDestroy() {
         super.onDestroy();
+        rtcEngine().leaveChannel();
         if (mediaDataObserverPlugin != null) {
             mediaDataObserverPlugin.unRegisterAVRawDataObserver(rtcEngine().getNativeHandle(), false, true);
             mediaDataObserverPlugin.removeVideoObserver(this);
+            mediaDataObserverPlugin = null;
+            MediaDataObserverPlugin.release();
         }
-        rtcEngine().leaveChannel();
     }
 
     @Override
@@ -168,7 +170,7 @@ public class RawDataActivity extends BaseLiveActivity implements MediaDataVideoO
 
     @Override
     public void onRenderVideoFrame(int uid, byte[] data, int frameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
-        Log.i(TAG, String.format("onRenderVideoFrame uid %d width %d height %d bufferLength %d", uid, width, height, bufferLength));
+        Log.i(TAG, String.format("onRenderVideoFrame uid %d width %d height %d bufferLength %d rotation %d", uid, width, height, bufferLength, rotation));
     }
 
     @Override

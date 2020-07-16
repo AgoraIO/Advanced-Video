@@ -36,6 +36,8 @@ std::mutex mutex_playback_audio_before_mix;
 std::mutex mutex_mix_audio;
 std::mutex mutex_capture_video;
 std::mutex mutex_render_video;
+int playback_audio_before_mix_operating_count = 0;
+int render_video_operating_count = 0;
 
 map<int, void *> map_decoded_buffer;
 
@@ -69,6 +71,9 @@ public:
                widthAndHeight / 4);
         memcpy((uint8_t *) _byteBufferObject + widthAndHeight * 5 / 4, videoFrame.vBuffer,
                widthAndHeight / 4);
+
+        if(!j_o_video_observer)
+            return;
 
         if (uid == 0) {
             env->CallVoidMethod(j_o_video_observer, jmethodID, videoFrame.type, width, height,
@@ -111,7 +116,10 @@ public:
     }
 
     virtual bool onRenderVideoFrame(unsigned int uid, VideoFrame &videoFrame) override {
-        unique_lock<mutex> lock(mutex_render_video);
+        {
+            unique_lock<mutex> lock(mutex_render_video);
+            render_video_operating_count++;
+        }
         if (j_mid_render_video) {
             map<int, void *>::iterator it_find;
             it_find = map_decoded_buffer.find(uid);
@@ -122,6 +130,10 @@ public:
                     writebackVideoFrame(videoFrame, it_find->second);
                 }
             }
+        }
+        {
+            unique_lock<mutex> lock(mutex_render_video);
+            render_video_operating_count--;
         }
         return true;
     }
@@ -152,6 +164,9 @@ public:
         }
         int len = audioFrame.samples * audioFrame.bytesPerSample;
         memcpy(_byteBufferObject, audioFrame.buffer, (size_t) len); // * sizeof(int16_t)
+
+        if(!j_o_audio_observer)
+            return;
 
         if (uid == 0) {
             env->CallVoidMethod(j_o_audio_observer, jmethodID, audioFrame.type, audioFrame.samples,
@@ -197,12 +212,19 @@ public:
 
     virtual bool
     onPlaybackAudioFrameBeforeMixing(unsigned int uid, AudioFrame &audioFrame) override {
-        unique_lock<mutex> lock(mutex_playback_audio_before_mix);
+        {
+            unique_lock<mutex> lock(mutex_playback_audio_before_mix);
+            playback_audio_before_mix_operating_count++;
+        }
         if (j_mid_playback_audio_before_mix) {
             getAudioFrame(audioFrame, j_mid_playback_audio_before_mix,
                           j_direct_buffer_playback_audio_before_mix,
                           uid);
             writebackAudioFrame(audioFrame, j_direct_buffer_playback_audio_before_mix);
+        }
+        {
+            unique_lock<mutex> lock(mutex_playback_audio_before_mix);
+            playback_audio_before_mix_operating_count--;
         }
         return true;
     }
@@ -274,32 +296,6 @@ Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_unRegisterAudioFrameObser
     if (mediaEngine) {
         mediaEngine->registerAudioFrameObserver(nullptr);
     }
-
-    if (j_o_audio_observer != nullptr) {
-        {
-            unique_lock<mutex> lock(mutex_record_audio);
-            j_mid_record_audio = nullptr;
-        }
-        {
-            unique_lock<mutex> lock(mutex_playback_audio);
-            j_mid_playback_audio = nullptr;
-        }
-        {
-            unique_lock<mutex> lock(mutex_playback_audio_before_mix);
-            j_mid_playback_audio_before_mix = nullptr;
-        }
-        {
-            unique_lock<mutex> lock(mutex_mix_audio);
-            j_mid_mix_audio = nullptr;
-        }
-        env->DeleteGlobalRef(j_o_audio_observer);
-        j_o_audio_observer = nullptr;
-    }
-
-    j_direct_buffer_record_audio = nullptr;
-    j_direct_buffer_playback_audio = nullptr;
-    j_direct_buffer_playback_audio_before_mix = nullptr;
-    j_direct_buffer_mix_audio = nullptr;
 }
 
 JNIEXPORT void JNICALL
@@ -348,22 +344,6 @@ Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_unRegisterVideoFrameObser
     if (mediaEngine) {
         mediaEngine->registerVideoFrameObserver(nullptr);
     }
-
-    if (j_o_video_observer != nullptr) {
-        {
-            unique_lock<mutex> lock(mutex_capture_video);
-            j_mid_capture_video = nullptr;
-        }
-        {
-            unique_lock<mutex> lock(mutex_render_video);
-            j_mid_render_video = nullptr;
-        }
-        env->DeleteGlobalRef(j_o_video_observer);
-        j_o_video_observer = nullptr;
-    }
-
-    j_direct_buffer_capture_video = nullptr;
-    map_decoded_buffer.clear();
 }
 
 JNIEXPORT void JNICALL
@@ -410,6 +390,73 @@ Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_setVideoDecodeByteBuffer
 JNIEXPORT void JNICALL Java_io_agora_advancedvideo_rawdata_MediaPreProcessing_release
         (JNIEnv *env, jclass) {
 
+    if (j_o_audio_observer != nullptr) {
+        {
+            unique_lock<mutex> lock(mutex_record_audio);
+            j_mid_record_audio = nullptr;
+        }
+        {
+            unique_lock<mutex> lock(mutex_playback_audio);
+            j_mid_playback_audio = nullptr;
+        }
+        {
+            unique_lock<mutex> lock(mutex_mix_audio);
+            j_mid_mix_audio = nullptr;
+        }
+
+        int retryCount = 5;
+        bool need_wait = false;
+        do {
+            if (need_wait) {
+                this_thread::sleep_for(chrono::milliseconds(30));
+            }
+            unique_lock<mutex> lock(mutex_playback_audio_before_mix);
+            if (playback_audio_before_mix_operating_count > 0 && retryCount > 0) {
+                need_wait = true;
+            } else {
+                j_mid_playback_audio_before_mix = nullptr;
+                break;
+            }
+            retryCount--;
+        } while (true);
+
+        env->DeleteGlobalRef(j_o_audio_observer);
+        j_o_audio_observer = nullptr;
+    }
+
+    j_direct_buffer_record_audio = nullptr;
+    j_direct_buffer_playback_audio = nullptr;
+    j_direct_buffer_playback_audio_before_mix = nullptr;
+    j_direct_buffer_mix_audio = nullptr;
+
+    if (j_o_video_observer != nullptr) {
+        {
+            unique_lock<mutex> lock(mutex_capture_video);
+            j_mid_capture_video = nullptr;
+        }
+
+        int retryCount = 5;
+        bool need_wait = false;
+        do {
+            if (need_wait) {
+                this_thread::sleep_for(chrono::milliseconds(50));
+            }
+            unique_lock<mutex> lock(mutex_render_video);
+            if (render_video_operating_count > 0 && retryCount > 0) {
+                need_wait = true;
+            } else {
+                j_mid_render_video = nullptr;
+                break;
+            }
+            retryCount--;
+        } while (true);
+
+        env->DeleteGlobalRef(j_o_video_observer);
+        j_o_video_observer = nullptr;
+    }
+
+    j_direct_buffer_capture_video = nullptr;
+    map_decoded_buffer.clear();
 }
 
 #ifdef __cplusplus
