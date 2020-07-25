@@ -12,7 +12,6 @@ import io.agora.rtc.mediaio.app.BaseActivity;
 import io.agora.rtc.mediaio.app.R;
 import io.agora.rtc.mediaio.app.rtcEngine.ConstantApp;
 
-
 public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,30 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                boolean isEmpty = s.toString().isEmpty();
+                boolean isEmpty = s.toString().trim().isEmpty();
+
+                isEmpty = (isEmpty || ((EditText) findViewById(R.id.video_path)).getText().toString().trim().isEmpty());
+
+                findViewById(R.id.button_join).setEnabled(!isEmpty);
+            }
+        });
+
+        EditText videoPath = (EditText) findViewById(R.id.video_path);
+        videoPath.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                boolean isEmpty = s.toString().trim().isEmpty();
+                isEmpty = (isEmpty || ((EditText) findViewById(R.id.room_name)).getText().toString().trim().isEmpty());
                 findViewById(R.id.button_join).setEnabled(!isEmpty);
             }
         });

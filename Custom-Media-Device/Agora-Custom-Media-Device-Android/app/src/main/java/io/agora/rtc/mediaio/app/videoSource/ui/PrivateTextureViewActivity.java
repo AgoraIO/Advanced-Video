@@ -145,7 +145,7 @@ public class PrivateTextureViewActivity extends BaseActivity implements AGEventH
     public void onUserOffline(int uid, int reason) {
         Log.d(TAG, "onUserOffline");
     }
-    //from AGEventHandler end
+    // from AGEventHandler end
 
     private void doConfigEngine(int cRole) {
         Log.d(TAG, "doConfigEngine");

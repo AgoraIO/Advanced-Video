@@ -45,8 +45,6 @@ public class AgoraLocalVideoSource extends TextureSource {
         if (mConsumer != null && mConsumer.get() != null) {
             mConsumer.get().consumeTextureFrame(oesTextureId, TEXTURE_OES.intValue(), mWidth, mHeight, rotation, timestampNs, transformMatrix);
         }
-
-
     }
 
     @Override
