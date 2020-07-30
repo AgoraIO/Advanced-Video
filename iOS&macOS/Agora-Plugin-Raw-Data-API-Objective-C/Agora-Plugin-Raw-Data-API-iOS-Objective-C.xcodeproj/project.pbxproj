@@ -203,10 +203,9 @@
 			};
 			buildConfigurationList = 1A8E8D331D396CAA002FA67C /* Build configuration list for PBXProject "Agora-Plugin-Raw-Data-API-iOS-Objective-C" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -390,10 +389,7 @@
 				);
 				INFOPLIST_FILE = "Agora-Plugin-Raw-Data-API-iOS-Objective-C/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Agora-Plugin-Raw-Data-API-iOS-Objective-C/libyuv",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.rawdataplugin;
 				PRODUCT_NAME = "Agora-Plugin-Raw-Data";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
@@ -417,10 +413,7 @@
 				);
 				INFOPLIST_FILE = "Agora-Plugin-Raw-Data-API-iOS-Objective-C/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Agora-Plugin-Raw-Data-API-iOS-Objective-C/libyuv",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.rawdataplugin;
 				PRODUCT_NAME = "Agora-Plugin-Raw-Data";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
