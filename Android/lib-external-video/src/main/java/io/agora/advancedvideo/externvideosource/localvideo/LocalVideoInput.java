@@ -7,6 +7,7 @@ import android.media.MediaFormat;
 import android.opengl.EGL14;
 import android.opengl.EGLSurface;
 import android.opengl.GLES20;
+import android.os.Build;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
@@ -199,8 +200,18 @@ public class LocalVideoInput implements IExternalVideoInput, TextureView.Surface
             }
 
             mExtractor.selectTrack(mVideoTrackIdx);
-            mVideoWidth = mVideoFormat.getInteger(MediaFormat.KEY_WIDTH);
-            mVideoHeight = mVideoFormat.getInteger(MediaFormat.KEY_HEIGHT);
+
+            int rotation = 0;
+            if (Build.VERSION.SDK_INT >= 23 && mVideoFormat.containsKey(MediaFormat.KEY_ROTATION)) {
+                rotation = mVideoFormat.getInteger(MediaFormat.KEY_ROTATION);
+            }
+            if (rotation == 0 || rotation == 180) {
+                mVideoWidth = mVideoFormat.getInteger(MediaFormat.KEY_WIDTH);
+                mVideoHeight = mVideoFormat.getInteger(MediaFormat.KEY_HEIGHT);
+            } else {
+                mVideoWidth = mVideoFormat.getInteger(MediaFormat.KEY_HEIGHT);
+                mVideoHeight = mVideoFormat.getInteger(MediaFormat.KEY_WIDTH);
+            }
 
             try {
                 mDecoder = MediaCodec.createDecoderByType(mMineType);
