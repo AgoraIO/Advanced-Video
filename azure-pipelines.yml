@@ -5,8 +5,8 @@
 
 trigger:
 #- master
-#- dev/*
-- 3.0.0
+- dev/*
+# - 3.0.0
 
 pool:
   vmImage: 'macos-latest'
@@ -87,7 +87,7 @@ jobs:
     scheme: 'Agora-String-Account-Windows'
     sdkurl: $(WindowsRTCSDK)
     solutionName: 'OpenLive.sln'
-    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.1.0_FULL'
 
 - template: Windows/cicd/templates/build-Windows.yml
   parameters:
@@ -96,7 +96,7 @@ jobs:
     scheme: 'LargeGroupVideoChat-Windowss'
     sdkurl: $(WindowsRTCSDK)
     solutionName: 'AgoraOpenLive.sln'
-    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.1.0_FULL'
 
 - template: Windows/cicd/templates/build-Windows.yml
   parameters:
@@ -105,7 +105,7 @@ jobs:
     scheme: 'Agora-Screen-Sharing-Windows'
     sdkurl: $(WindowsRTCSDK)
     solutionName: 'OpenLive.sln'
-    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
+    sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.1.0_FULL'
 
 #hook demo
 - template: Windows/cicd/templates/build-Windows-Hook.yml
