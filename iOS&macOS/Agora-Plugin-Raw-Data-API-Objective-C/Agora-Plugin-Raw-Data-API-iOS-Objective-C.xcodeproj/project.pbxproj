@@ -191,7 +191,7 @@
 				TargetAttributes = {
 					1A8E8D371D396CAA002FA67C = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = SW3CA7M752;
+						DevelopmentTeam = GM72UGLGZW;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -381,7 +381,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = SW3CA7M752;
+				DEVELOPMENT_TEAM = GM72UGLGZW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -396,7 +396,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.rawdataplugin;
 				PRODUCT_NAME = "Agora-Plugin-Raw-Data";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
+				PROVISIONING_PROFILE_SPECIFIER = App;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -408,7 +408,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = SW3CA7M752;
+				DEVELOPMENT_TEAM = GM72UGLGZW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -423,7 +423,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.rawdataplugin;
 				PRODUCT_NAME = "Agora-Plugin-Raw-Data";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
+				PROVISIONING_PROFILE_SPECIFIER = App;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
