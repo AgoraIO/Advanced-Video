@@ -362,7 +362,7 @@
 					};
 					07A67FB11F3071410051AD0D = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = SW3CA7M752;
+						DevelopmentTeam = GM72UGLGZW;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -373,7 +373,7 @@
 					};
 					07A67FBD1F3071420051AD0D = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = SW3CA7M752;
+						DevelopmentTeam = GM72UGLGZW;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
@@ -691,17 +691,17 @@
 		07A67FCF1F3071420051AD0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
+				CODE_SIGN_IDENTITY = "Apple Development: Qianze Zhang (3C9KJFP729)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Qianze Zhang (3C9KJFP729)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = SW3CA7M752;
+				DEVELOPMENT_TEAM = GM72UGLGZW;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-BroadcastUI/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.BroadcastUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
+				PROVISIONING_PROFILE_SPECIFIER = App;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -710,17 +710,17 @@
 		07A67FD01F3071420051AD0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
+				CODE_SIGN_IDENTITY = "Apple Development: Qianze Zhang (3C9KJFP729)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Qianze Zhang (3C9KJFP729)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = SW3CA7M752;
+				DEVELOPMENT_TEAM = GM72UGLGZW;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Agora-Screen-Sharing-iOS-BroadcastUI/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.BroadcastUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
+				PROVISIONING_PROFILE_SPECIFIER = App;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -730,10 +730,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
+				CODE_SIGN_IDENTITY = "Apple Development: Qianze Zhang (3C9KJFP729)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Qianze Zhang (3C9KJFP729)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = SW3CA7M752;
+				DEVELOPMENT_TEAM = GM72UGLGZW;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -748,7 +748,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.Broadcast";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
+				PROVISIONING_PROFILE_SPECIFIER = App;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Screen-Sharing-iOS-Broadcast/Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -760,10 +760,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuhua Gong (YBKA3W5TF4)";
+				CODE_SIGN_IDENTITY = "Apple Development: Qianze Zhang (3C9KJFP729)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Qianze Zhang (3C9KJFP729)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = SW3CA7M752;
+				DEVELOPMENT_TEAM = GM72UGLGZW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -778,7 +778,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Screen-Sharing-iOS.Broadcast";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
+				PROVISIONING_PROFILE_SPECIFIER = App;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Screen-Sharing-iOS-Broadcast/Agora-Screen-Sharing-iOS-Broadcast-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
