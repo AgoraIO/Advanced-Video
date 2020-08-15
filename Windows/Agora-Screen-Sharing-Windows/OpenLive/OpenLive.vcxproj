@@ -121,6 +121,9 @@
     <PostBuildEvent>
       <Command>if exist $(SolutionDir)sdk (copy $(SolutionDir)sdk\dll\*.dll $(SolutionDir)$(Configuration)\)</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -173,6 +176,9 @@
     <PostBuildEvent>
       <Command>if exist $(SolutionDir)sdk (copy $(SolutionDir)sdk\dll\*.dll $(SolutionDir)$(Configuration)\)</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
