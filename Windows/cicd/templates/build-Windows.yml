@@ -9,7 +9,8 @@ parameters:
   scheme: ''
   sdkurl: ''
   solutionName: ''
-  sdkunzipPath: ''
+  sdkpathname: 'libs'
+  sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_FULL'
   Machine: ''
 jobs:
   - job: ${{ parameters.displayName }}Build
@@ -34,8 +35,8 @@ jobs:
           
       - task: CopyFiles@2
         inputs:
-          sourceFolder: ${{ parameters.sdkunzipPath }}/sdk
-          targetFolder: ${{ parameters.workingDirectory }}/sdk
+          sourceFolder: ${{ parameters.sdkunzipPath }}/$(sdkpathname)
+          targetFolder: ${{ parameters.workingDirectory }}/$(sdkpathname)
       - script: cd ${{ parameters.workingDirectory }} && ls
               
       - task: VSBuild@1
