@@ -43,7 +43,7 @@ public class VideoPushActivity extends BaseLiveActivity
     private boolean mMVPMatrixInit = false;
 
     private Camera mCamera;
-    private int mFacing = Camera.CameraInfo.CAMERA_FACING_FRONT;
+    private int mFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
     private boolean mPreviewing = false;
     private int mSurfaceWidth;
     private int mSurfaceHeight;
@@ -232,6 +232,7 @@ public class VideoPushActivity extends BaseLiveActivity
             // supported resolution that best fits the scenario.
             Camera.Parameters parameters = mCamera.getParameters();
             parameters.setPreviewSize(DEFAULT_CAPTURE_WIDTH, DEFAULT_CAPTURE_HEIGHT);
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
             mCamera.setParameters(parameters);
             mCamera.setPreviewTexture(mPreviewSurfaceTexture);
 
