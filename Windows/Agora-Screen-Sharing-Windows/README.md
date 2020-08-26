@@ -19,7 +19,7 @@ First, create a developer account at [Agora.io](https://dashboard.agora.io/signi
 
      #define APP_ID _T("Your App ID")
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk** to the "Agora-Screen-Sharing-Windows" folder in project(the old one may be over written).
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk(before 3.0.1)** to the "Agora-Screen-Sharing-Windows" folder in project(the old one may be over written). Since 3.0.1, you need to create sdk folder, sdk/include sdk/lib sdk/dll, and copy files to corresponding folders.
 
 Finally, Open OpenLive.sln, build the solution and run.
 
@@ -31,12 +31,13 @@ Finally, Open OpenLive.sln, build the solution and run.
   2. The dll library under the sdk/dll file needs to be placed in the corresponding execution path.
   
 ## Contact us
-- For potential issues, you may take a look at our [FAQ](https://docs.agora.io/en/faq) first
+
+- For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
-- Would like to see how Agora SDK is used in more complicated real use case? Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase)
+- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated real use case
 - Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
-- You can find full API document at [Document Center](https://docs.agora.io/en/)
-- If you encounter problems during integration, you can ask question in [Developer Forum](hhttps://stackoverflow.com/questions/tagged/agora.io)
+- You can find full API documentation at [Document Center](https://docs.agora.io/en/)
+- If you encounter problems during integration, you can ask question in [Stack Overflow](https://stackoverflow.com/questions/tagged/agora.io)
 - You can file bugs about this sample at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 

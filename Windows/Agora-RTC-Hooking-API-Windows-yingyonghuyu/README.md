@@ -40,7 +40,7 @@ ChannelName=baluoteliz
 LoginUid=111
 
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the **sdk** to the "Agora-RTC-Hooking-API-Windows" folder in project(the old one may be over written).Then, you need to download Dll of the Hook Module and place the relevant folder on the HookSDK.
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads). Unzip the downloaded SDK package and copy the files under **libs\include**, to the project folder **Agora-RTC-Hooking-API-Windows-yingyonghuyu\sdk\include** （create if not exist）. Then copy the **dll** file and **lib** file under **libs\x86**, to **sdk\dll** and **sdk\lib** respectively.Then, you need to download Dll of the Hook Module and place the relevant folder on the HookSDK.
 
 Finally, Open AgoraHooking.sln, build the solution and run.
 
@@ -55,12 +55,12 @@ Finally, Open AgoraHooking.sln, build the solution and run.
 
 ## Contact us
 
-- For potential issues, you may take a look at our [FAQ](https://docs.agora.io/en/faq) first
+- For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
-- Would like to see how Agora SDK is used in more complicated real use case? Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase)
+- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated real use case
 - Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
-- You can find full API document at [Document Center](https://docs.agora.io/en/)
-- If you encounter problems during integration, you can ask question in [Developer Forum](https://stackoverflow.com/questions/tagged/agora.io)
+- You can find full API documentation at [Document Center](https://docs.agora.io/en/)
+- If you encounter problems during integration, you can ask question in [Stack Overflow](https://stackoverflow.com/questions/tagged/agora.io)
 - You can file bugs about this sample at [issue](https://github.com/AgoraIO/Advanced-Video/issues)
 
 
