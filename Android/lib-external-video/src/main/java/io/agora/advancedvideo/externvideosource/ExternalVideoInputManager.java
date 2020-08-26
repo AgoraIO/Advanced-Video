@@ -18,6 +18,8 @@ import io.agora.advancedvideo.gles.core.GlUtil;
 import io.agora.rtc.mediaio.IVideoFrameConsumer;
 import io.agora.rtc.mediaio.IVideoSource;
 import io.agora.rtc.mediaio.MediaIO;
+import io.agora.rtc.mediaio.MediaIO.ContentHint;
+import io.agora.rtc.mediaio.MediaIO.CaptureType;
 
 public class ExternalVideoInputManager implements IVideoSource {
     private static final String TAG = ExternalVideoInputManager.class.getSimpleName();
@@ -123,6 +125,16 @@ public class ExternalVideoInputManager implements IVideoSource {
     @Override
     public int getBufferType() {
         return MediaIO.BufferType.TEXTURE.intValue();
+    }
+
+    @Override
+    public int getCaptureType() {
+        return CaptureType.UNKNOWN.intValue();
+    }
+
+    @Override
+    public int getContentHint() {
+        return ContentHint.NONE.intValue();
     }
 
     private class ExternalVideoInputThread extends Thread {

@@ -353,3 +353,5 @@ ASALocalRun/
 *.out
 *.app
 English.log
+libs/
+sdk/

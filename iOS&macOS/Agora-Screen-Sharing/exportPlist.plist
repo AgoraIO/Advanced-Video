@@ -9,11 +9,11 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>io.agora.Agora-Screen-Sharing-iOS</key>
-		<string>AgoraAppsDevProfile</string>
+		<string>App</string>
 		<key>io.agora.Agora-Screen-Sharing-iOS.Broadcast</key>
-		<string>AgoraAppsDevProfile</string>
+		<string>App</string>
 		<key>io.agora.Agora-Screen-Sharing-iOS.BroadcastUI</key>
-		<string>AgoraAppsDevProfile</string>
+		<string>App</string>
 	</dict>
 </dict>
 </plist>
