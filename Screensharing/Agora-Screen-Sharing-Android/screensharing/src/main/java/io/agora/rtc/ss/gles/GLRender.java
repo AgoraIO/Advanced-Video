@@ -128,6 +128,11 @@ public class GLRender {
         mGLHandler.sendMessage(msg);
     }
 
+    public void update(int width, int height) {
+        Message msg = Message.obtain(mGLHandler, MSG_TYPE_SURFACE_CHANGED, width, height);
+        mGLHandler.sendMessage(msg);
+    }
+
     public void init(GLSurfaceView sv) {
         mState.set(STATE_IDLE);
         sv.setEGLContextClientVersion(2); // GLES 2.0

@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -17,11 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="BroadcasterActivity"
-            android:screenOrientation="sensor"
+        <activity
+            android:name="BroadcasterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            >
-        </activity>
+            android:screenOrientation="fullUser" />
+
         <activity android:name="MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="AudienceActivity"></activity>
+        <activity
+            android:name="AudienceActivity"
+            android:screenOrientation="fullUser" />
     </application>
 
 </manifest>

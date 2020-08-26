@@ -77,7 +77,10 @@ public class BroadcasterActivity extends Activity{
         mSSClient = ScreenSharingClient.getInstance();
         mSSClient.setListener(mListener);
 
-        initAgoraEngineAndJoinChannel();
+        mVEC = new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_840x480,
+                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24,
+                VideoEncoderConfiguration.STANDARD_BITRATE,
+                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE);
     }
 
     private void initAgoraEngineAndJoinChannel() {
@@ -91,9 +94,12 @@ public class BroadcasterActivity extends Activity{
     protected void onDestroy() {
         super.onDestroy();
 
-        leaveChannel();
-        RtcEngine.destroy();
-        mRtcEngine = null;
+        if (mRtcEngine != null) {
+            leaveChannel();
+            RtcEngine.destroy();
+            mRtcEngine = null;
+        }
+
         if (mSS) {
             mSSClient.stop(getApplicationContext());
         }
@@ -101,12 +107,15 @@ public class BroadcasterActivity extends Activity{
 
     public void onCameraSharingClicked(View view) {
         Button button = (Button) view;
+        boolean selected = button.isSelected();
+        button.setSelected(!selected);
+
         if (button.isSelected()) {
-            button.setSelected(false);
-            button.setText(getResources().getString(R.string.label_start_camera));
-        } else {
-            button.setSelected(true);
+            initAgoraEngineAndJoinChannel();
             button.setText(getResources().getString(R.string.label_stop_camera));
+        } else {
+            leaveChannel();
+            button.setText(getResources().getString(R.string.label_start_camera));
         }
 
         mRtcEngine.enableLocalVideo(button.isSelected());
@@ -142,10 +151,6 @@ public class BroadcasterActivity extends Activity{
     private void setupVideoProfile() {
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         mRtcEngine.enableVideo();
-        mVEC = new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x360,
-                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
-                VideoEncoderConfiguration.STANDARD_BITRATE,
-                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT);
         mRtcEngine.setVideoEncoderConfiguration(mVEC);
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
     }
@@ -167,7 +172,6 @@ public class BroadcasterActivity extends Activity{
         mFlSS.addView(ssV, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mRtcEngine.setupRemoteVideo(new VideoCanvas(ssV, VideoCanvas.RENDER_MODE_FIT, uid));
     }
-
 
     private void joinChannel() {
         mRtcEngine.joinChannel(null, getResources().getString(R.string.label_channel_name),"Extra Optional Data", Constant.CAMERA_UID); // if you do not specify the uid, we will generate the uid for you

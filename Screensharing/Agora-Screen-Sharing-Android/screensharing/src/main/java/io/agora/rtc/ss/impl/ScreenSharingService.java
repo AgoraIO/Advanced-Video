@@ -1,12 +1,16 @@
 package io.agora.rtc.ss.impl;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
+import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -14,12 +18,14 @@ import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.ss.Constant;
+import io.agora.rtc.ss.R;
 import io.agora.rtc.ss.aidl.INotification;
 import io.agora.rtc.ss.aidl.IScreenSharing;
 import io.agora.rtc.ss.gles.GLRender;
 import io.agora.rtc.ss.gles.ImgTexFrame;
 import io.agora.rtc.ss.gles.SinkConnector;
 import io.agora.rtc.video.AgoraVideoFrame;
+import io.agora.rtc.video.CameraCapturerConfiguration;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
 public class ScreenSharingService extends Service {
@@ -29,7 +35,6 @@ public class ScreenSharingService extends Service {
     private ScreenCapture mScreenCapture;
     private GLRender mScreenGLRender;
     private RtcEngine mRtcEngine;
-    private boolean mIsLandSpace = false;
     private Context mContext;
     private ScreenCaptureSource mSCS;
 
@@ -78,7 +83,7 @@ public class ScreenSharingService extends Service {
 
             @Override
             public void onFrameAvailable(ImgTexFrame frame) {
-                Log.d(LOG_TAG, "onFrameAvailable " + frame.toString());
+                Log.d(LOG_TAG, "onFrameAvailable " + frame.toString() + " " + frame.pts);
 
                 if (mRtcEngine == null) {
                     return;
@@ -107,15 +112,12 @@ public class ScreenSharingService extends Service {
             }
         });
 
-        int screenWidth = wm.getDefaultDisplay().getWidth();
-        int screenHeight = wm.getDefaultDisplay().getHeight();
-        if ((mIsLandSpace && screenWidth < screenHeight) ||
-                (!mIsLandSpace) && screenWidth > screenHeight) {
-            screenWidth = wm.getDefaultDisplay().getHeight();
-            screenHeight = wm.getDefaultDisplay().getWidth();
-        }
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        int screenWidth = outMetrics.widthPixels;
+        int screenHeight = outMetrics.heightPixels;
 
-        setOffscreenPreview(screenWidth, screenHeight);
+        initOffscreenPreview(screenWidth, screenHeight);
     }
 
     private void deInitModules() {
@@ -134,14 +136,26 @@ public class ScreenSharingService extends Service {
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        int screenWidth = outMetrics.widthPixels;
+        int screenHeight = outMetrics.heightPixels;
+
+        Log.d(LOG_TAG, "onConfigurationChanged " + newConfig.orientation + " " + screenWidth + " " + screenHeight);
+        updateOffscreenPreview(screenWidth, screenHeight);
+    }
+
     /**
-     * Set offscreen preview.
+     * Init offscreen preview.
      *
      * @param width  offscreen width
      * @param height offscreen height
      * @throws IllegalArgumentException
      */
-    public void setOffscreenPreview(int width, int height) throws IllegalArgumentException {
+    public void initOffscreenPreview(int width, int height) throws IllegalArgumentException {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Invalid offscreen resolution");
         }
@@ -149,11 +163,42 @@ public class ScreenSharingService extends Service {
         mScreenGLRender.init(width, height);
     }
 
+    /**
+     * Update offscreen preview.
+     *
+     * @param width  offscreen width
+     * @param height offscreen height
+     * @throws IllegalArgumentException
+     */
+    public void updateOffscreenPreview(int width, int height) throws IllegalArgumentException {
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Invalid offscreen resolution");
+        }
+
+        mScreenGLRender.update(width, height);
+    }
+
     private void startCapture() {
         mScreenCapture.start();
+        startForeground(55431, getForeNotification());
+    }
+
+    private Notification getForeNotification() {
+        Notification notification;
+        String eventTitle = getResources().getString(R.string.app_name);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NotificationHelper.generateChannelId(getApplication(), 55431))
+                .setContentTitle(eventTitle)
+                .setContentText(eventTitle);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            builder.setColor(getResources().getColor(android.R.color.black));
+        notification = builder.build();
+        notification.flags |= Notification.FLAG_ONGOING_EVENT;
+
+        return notification;
     }
 
     private void stopCapture() {
+        stopForeground(true);
         mScreenCapture.stop();
     }
 
