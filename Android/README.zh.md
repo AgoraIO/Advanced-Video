@@ -86,6 +86,7 @@ Demo 可以参考 [sample-push-video](https://github.com/AgoraIO/Advanced-Video/
       ```
       implementation 'io.agora.rtc:full-sdk:3.0.0'
       ```
+    - 复制 `libs/include` 目录覆盖到 `lib-raw-data/src/main/cpp/include`
   - 手动集成：
     - 在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**并解压，按以下对应关系将 **libs** 目录的内容复制到项目内。
       
@@ -95,7 +96,7 @@ Demo 可以参考 [sample-push-video](https://github.com/AgoraIO/Advanced-Video/
       **arm64-v8a** folder|**/lib-component/src/main/jniLibs** folder
       **x86** folder|**/lib-component/src/main/jniLibs** folder
       **armeabi-v7a** folder|**/lib-component/src/main/jniLibs** folder
-    - 若需要需要使用C++头文件，可以在解压SDK后将其中的 **libs**/**include** 文件夹下的 ***.h** 复制到本项目的 **lib-component**/**src**/**main**/**cpp**/**agora** 下。
+    - 若需要需要使用C++头文件，可以在解压SDK后将其中的 **libs**/**include** 文件夹下的 ***.h** 复制到本项目的 **lib-raw-data**/**src**/**main**/**cpp**/**include** 下。
 
 
 ### 启动应用程序
