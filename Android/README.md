@@ -101,6 +101,7 @@ The SDK must be integrated into the sample project before it can opened and buil
       implementation 'io.agora.rtc:full-sdk:3.0.1'
   }
   ```
+3. Copy **libs/include** to overwrite **lib-raw-data/src/main/cpp/include**
 
 #### Method 2 - Manually copy the SDK files
 
@@ -114,6 +115,7 @@ Copy from SDK|Copy to Project Folder
 **arm64-v8a** folder|**/lib-component/src/main/jniLibs** folder
 **x86** folder|**/lib-component/src/main/jniLibs** folder
 **armeabi-v7a** folder|**/lib-component/src/main/jniLibs** folder
+**include** folder|**/lib-raw-data/src/main/cpp/include** folder
 
 ### Run the Application
 

@@ -6,7 +6,7 @@
 #include "include/IAgoraRtcEngine.h"
 #include <string.h>
 #include "io_agora_advancedvideo_rawdata_MediaPreProcessing.h"
-#include "include/VMUtil.h"
+#include "VMUtil.h"
 
 #include <map>
 
