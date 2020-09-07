@@ -13,8 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -35,7 +35,7 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     public ByteBuffer byteBufferBeforeAudioMix = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
     public ByteBuffer byteBufferAudioMix = ByteBuffer.allocateDirect(AUDIO_DEFAULT_BUFFER_SIZE);
 
-    private final ArrayList<DecodeDataBuffer> decodeBufferList = new ArrayList<>();
+    private final Map<Integer, ByteBuffer> decodeBufferList = new HashMap<>();
 
     private static MediaDataObserverPlugin myAgent = null;
 
@@ -84,24 +84,17 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
 
     public void addDecodeBuffer(int uid) {
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(VIDEO_DEFAULT_BUFFER_SIZE);
-        decodeBufferList.add(new DecodeDataBuffer(uid, byteBuffer));
+        decodeBufferList.put(uid, byteBuffer);
         MediaPreProcessing.setVideoDecodeByteBuffer(uid, byteBuffer);
     }
 
     public void removeDecodeBuffer(int uid) {
-        Iterator<DecodeDataBuffer> it = decodeBufferList.iterator();
-        while (it.hasNext()) {
-            DecodeDataBuffer buffer = it.next();
-            if (buffer.getUid() == uid) {
-                it.remove();
-            }
-        }
-
+        decodeBufferList.remove(uid);
         MediaPreProcessing.setVideoDecodeByteBuffer(uid, null);
     }
 
     public void removeAllBuffer() {
-        decodeBufferList.removeAll(decodeBufferList);
+        decodeBufferList.clear();
         releaseBuffer();
     }
 
@@ -129,26 +122,23 @@ public class MediaDataObserverPlugin implements MediaPreProcessing.ProgressCallb
     @Override
     public void onRenderVideoFrame(int uid, int videoFrameType, int width, int height, int bufferLength, int yStride, int uStride, int vStride, int rotation, long renderTimeMs) {
         for (MediaDataVideoObserver observer : videoObserverList) {
-            Iterator<DecodeDataBuffer> it = decodeBufferList.iterator();
-            while (it.hasNext()) {
-                DecodeDataBuffer tmp = it.next();
-                if (tmp.getUid() == uid) {
-                    byte[] buf = new byte[bufferLength];
-                    tmp.getByteBuffer().limit(bufferLength);
-                    tmp.getByteBuffer().get(buf);
-                    tmp.getByteBuffer().flip();
+            ByteBuffer tmp = decodeBufferList.get(uid);
+            if (tmp != null) {
+                byte[] buf = new byte[bufferLength];
+                tmp.limit(bufferLength);
+                tmp.get(buf);
+                tmp.flip();
 
-                    observer.onRenderVideoFrame(uid, buf, videoFrameType, width, height, bufferLength, yStride, uStride, vStride, rotation, renderTimeMs);
+                observer.onRenderVideoFrame(uid, buf, videoFrameType, width, height, bufferLength, yStride, uStride, vStride, rotation, renderTimeMs);
 
-                    tmp.getByteBuffer().put(buf);
-                    tmp.getByteBuffer().flip();
+                tmp.put(buf);
+                tmp.flip();
 
-                    if (beRenderVideoShot) {
-                        if (uid == renderVideoShotUid) {
-                            beRenderVideoShot = false;
+                if (beRenderVideoShot) {
+                    if (uid == renderVideoShotUid) {
+                        beRenderVideoShot = false;
 
-                            getVideoSnapshot(width, height, rotation, bufferLength, buf, renderFilePath, yStride, uStride, vStride);
-                        }
+                        getVideoSnapshot(width, height, rotation, bufferLength, buf, renderFilePath, yStride, uStride, vStride);
                     }
                 }
             }
