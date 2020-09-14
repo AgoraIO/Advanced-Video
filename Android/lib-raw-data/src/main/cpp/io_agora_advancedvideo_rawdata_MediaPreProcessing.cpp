@@ -7,7 +7,7 @@
 #include <string.h>
 #include "io_agora_advancedvideo_rawdata_MediaPreProcessing.h"
 #include "VMUtil.h"
-
+#include <mutex>
 #include <map>
 
 using namespace std;
@@ -28,6 +28,7 @@ void *_javaDirectPlayBufferMixAudio = nullptr;
 map<int, void *> decodeBufferMap;
 
 static JavaVM *gJVM = nullptr;
+static mutex mtx;
 
 class AgoraVideoFrameObserver : public agora::media::IVideoFrameObserver {
 
@@ -128,14 +129,15 @@ public:
                        unsigned int uid) {
         if (_byteBufferObject == nullptr) {
             return;
-        }
-
+        }             
         AttachThreadScoped ats(gJVM);
         JNIEnv *env = ats.env();
         if (env == nullptr) {
             return;
         }
-        int len = audioFrame.samples * audioFrame.bytesPerSample;
+       
+        mtx.lock();
+        int  len = audioFrame.samples * audioFrame.bytesPerSample *audioFrame.channels;
         memcpy(_byteBufferObject, audioFrame.buffer, (size_t) len); // * sizeof(int16_t)
 
         if (uid == 0) {
@@ -149,15 +151,17 @@ public:
                                 audioFrame.channels, audioFrame.samplesPerSec,
                                 audioFrame.renderTimeMs, len);
         }
+        mtx.unlock();
     }
 
     void writebackAudioFrame(AudioFrame &audioFrame, void *byteBuffer) {
         if (byteBuffer == nullptr) {
             return;
         }
-
-        int len = audioFrame.samples * audioFrame.bytesPerSample;
+        mtx.lock();
+        int  len = audioFrame.samples * audioFrame.bytesPerSample * audioFrame.channels;
         memcpy(audioFrame.buffer, byteBuffer, (size_t) len);
+        mtx.unlock();
     }
 
 public:
