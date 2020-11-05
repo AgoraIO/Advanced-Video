@@ -166,6 +166,8 @@ public class VideoPushActivity extends BaseLiveActivity
     @Override
     public void finish() {
         rtcEngine().leaveChannel();
+        rtcEngine().stopPreview();
+        closeCamera();
         super.finish();
     }
 
