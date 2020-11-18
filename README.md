@@ -1,5 +1,9 @@
 # Advanced Video
 
+**This Project has been deprecated and archived. We will stop maintain it. Please look at https://github.com/AgoraIO/API-Examples for latest Agora Samples.**
+
+
+
 *English | [中文](README.zh.md)*
 
 Agora provides a set of sample applications demonstrating how to get advanced video features integrated into your application using the Agora Video SDK.
