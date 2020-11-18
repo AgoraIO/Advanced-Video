@@ -1,4 +1,7 @@
 # Advanced Video
+# **本项目会在接下去归档并停止维护. 最新的示例代码请参考 https://github.com/AgoraIO/API-Examples**
+
+
 
 *[English](README.md) | 中文*
 
